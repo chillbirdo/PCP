@@ -9,12 +9,16 @@ public class Node {
     private Node[] neighbour;
     private int color;
     private int partition;
-
+    private int neighbourAmount = 0;
     
-    public Node( int id, int partition){
+    public Node( int id, int partition, int neighboutAmount){
         this.id = id;
         this.color = PCP.UNCOLORED;
         this.partition = partition;
+        this.neighbour = new Node[neighboutAmount];
+        for( Node n : neighbour){
+            n = null;
+        }
     }
 
     public int getId() {
@@ -25,8 +29,9 @@ public class Node {
         return neighbour;
     }
 
-    public void setNeighbours( Node[] neighbour){
-        this.neighbour = neighbour;
+    public void addNeighbour( Node neighbour){
+        this.neighbour[neighbourAmount] = neighbour;
+        neighbourAmount++;
     }
     
     public int getColor() {

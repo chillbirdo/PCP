@@ -22,9 +22,8 @@ public class Graph {
     
     public String toString() {
         String ret = "size " + node.length + ";\n";
-        int i = 0;
         for (Node n : node) {
-            ret += "n " + (i++) + ": p=" + n.getPartition() + "; ";
+            ret += "n " + (n.getId()) + ": p=" + n.getPartition() + "; ";
             int neig = 0;
             for (Node neighbour : n.getNeighbours()) {
                 ret += "n" + (neig++) + "=" + neighbour.getId() + ", ";
