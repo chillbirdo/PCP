@@ -104,6 +104,7 @@ public class InstanceReader {
                 node2.addNeighbour(node1);
             }
         }
+        
         return new Graph( node, nodeInPartition, partitionSize);
     }    
 }
