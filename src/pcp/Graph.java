@@ -62,7 +62,8 @@ public class Graph {
                     + "neighbours=" + n.getDegree() + "; "
                     + "color=" + n.getColor() + "; "
                     + "uncolored=" + n.getUncolored() + "; "
-                    + "diffcolored=" + n.getDiffcolored()
+                    + "available=" + n.getColorsAvailable() + "; "
+                    + "shared=" + n.getColorsShared() + "; "
                     + "\n";
         }
         return ret;

@@ -4,12 +4,6 @@ import pcp.Node;
 
 public class MergeSort {
 
-//    private Node[] nodeArr;
-//    
-//    public MergeSort( Node[] intArr){
-//        this.nodeArr = intArr;
-//    }
-
     private static Node[] sort(int l, int r, Node[] nodeArr) {
         if (l < r) {
             int q = (l + r) / 2;

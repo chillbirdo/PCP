@@ -7,10 +7,19 @@ package pcp;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import pcp.instancereader.InstanceReader;
 
 public class PCP {
 
+    private static enum ColorState {
+        
+        SHARED,
+        AVAILABLE,
+        UNAVAILABLE,
+        NOT_USED
+    }    
+    
     public static final int UNCOLORED = -1;
     
     public static void main(String[] args) {
@@ -20,6 +29,7 @@ public class PCP {
         try{
            g = InstanceReader.readInstance( "pcp_instances\\test\\test2.pcp");
            g.setMaxColors( g.getHighestDegree());
+           g.getNode( 0).setColor(0);
            //g = InstanceReader.readInstance( "pcp_instances\\pcp\\n20p5t2s1.pcp");
            //g = InstanceReader.readInstance( "pcp_instances\\in\\dsjc500.5-4.in");
            
