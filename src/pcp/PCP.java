@@ -23,13 +23,14 @@ public class PCP {
     public static final int UNCOLORED = -1;
     
     public static void main(String[] args) {
-        long time = System.currentTimeMillis();
+        long time = System.currentTimeMillis();     
         
         Graph g;
         try{
-           g = InstanceReader.readInstance( "pcp_instances\\test\\test2.pcp");
-           g.setMaxColors( g.getHighestDegree());
+           g = InstanceReader.readInstance( "pcp_instances\\test\\test3.pcp");
+           g.setMaxColors( g.getHighestDegree()+1);
            g.getNode( 0).setColor(0);
+           g.getNode( 2).setColor(1);
            //g = InstanceReader.readInstance( "pcp_instances\\pcp\\n20p5t2s1.pcp");
            //g = InstanceReader.readInstance( "pcp_instances\\in\\dsjc500.5-4.in");
            

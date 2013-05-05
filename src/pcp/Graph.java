@@ -26,6 +26,8 @@ public class Graph {
     }
 
     public void setMaxColors(int maxColors) {
+        //TODO: good logging
+        System.out.println( "Maxcolors: " + maxColors);
         this.maxColors = maxColors;
         for (Node n : node) {
             n.setMaxColorsAvailable( maxColors);
@@ -61,7 +63,7 @@ public class Graph {
             ret += "n" + n.getId() + ": "
                     + "neighbours=" + n.getDegree() + "; "
                     + "color=" + n.getColor() + "; "
-                    + "uncolored=" + n.getUncolored() + "; "
+                    + "uncolored=" + n.getUncolored() + "/" + n.getNeighbours().length + "; "
                     + "available=" + n.getColorsAvailable() + "; "
                     + "shared=" + n.getColorsShared() + "; "
                     + "\n";

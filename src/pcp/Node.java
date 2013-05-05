@@ -3,6 +3,7 @@ package pcp;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
+import org.omg.PortableServer.POAManagerPackage.State;
 import pcp.tools.MergeSort;
 
 public class Node implements Comparable<Node> {
@@ -47,12 +48,14 @@ public class Node implements Comparable<Node> {
         this.setColorUnavailable(color);
         for (Node neigh : neighbour) {
             neigh.decreaseUncolored();
-            
-            if ( neigh.isColorAvailable(color) || neigh.isColorShared(color)) {
+
+            if (neigh.isColorAvailable(color) || neigh.isColorShared(color)) {
                 neigh.setColorUnavailable(color);
                 for (Node neighOfNeigh : neigh.getNeighbours()) {
-                    if( neighOfNeigh != this){
-                        neighOfNeigh.decreaseColorsShared();
+                    if (neighOfNeigh != this) {
+                        if( neighOfNeigh.isColorShared(color)){
+                            neighOfNeigh.setColorAvailable(color);    
+                        }
                     }
                 }
             }
@@ -110,54 +113,91 @@ public class Node implements Comparable<Node> {
 //            colorsAvailable++;
 //        }
 //    }
-    
-    public boolean isColorAvailable( int color){
+    public boolean isColorAvailable(int color) {
         return this.colors[color] == ColorState.AVAILABLE;
     }
-    
-    public boolean isColorShared( int color){
+
+    public boolean isColorShared(int color) {
         return this.colors[color] == ColorState.SHARED;
     }
-    
-    public boolean isColorUnavailable( int color){
+
+    public boolean isColorUnavailable(int color) {
         return this.colors[color] == ColorState.UNAVAILABLE;
     }
-    
-    public boolean isColorNotUsed( int color){
+
+    public boolean isColorNotUsed(int color) {
         return this.colors[color] == ColorState.NOT_USED;
     }
-    
-    public void setColorUnavailable( int color){
-        updCountingValues(color);
+
+    public void setColorUnavailable(int color) {
+        updCountingValues(this.colors[color], ColorState.UNAVAILABLE);
         this.colors[color] = ColorState.UNAVAILABLE;
     }
-    
-    public void setColorAvailable( int color){
-        updCountingValues(color);
+
+    public void setColorAvailable(int color) {
+        updCountingValues(this.colors[color], ColorState.AVAILABLE);
         this.colors[color] = ColorState.AVAILABLE;
     }
-    
-    public void setColorShared( int color){
+
+    public void setColorShared(int color) {
+        updCountingValues(this.colors[color], ColorState.SHARED);
         this.colors[color] = ColorState.SHARED;
     }
-    
-    public void setColorNotUsed( int color){
-        updCountingValues(color);
+
+    public void setColorNotUsed(int color) {
+        updCountingValues(this.colors[color], ColorState.NOT_USED);
         this.colors[color] = ColorState.NOT_USED;
     }
-    
-    private void updCountingValues( int color){
-        switch( this.colors[color]){
-            case SHARED:{
-                this.colorsShared--;
-            }//nobeak!
-            case AVAILABLE:{
-                this.colorsAvailable--;
-            }break;
-            default:break;
+
+    private void updCountingValues(ColorState fromState, ColorState toState) {
+        switch (fromState) {
+            case SHARED: {
+                switch (toState) {
+                    case AVAILABLE: {
+                        this.colorsShared--;
+                    }
+                    break;
+                    case UNAVAILABLE:
+                    case NOT_USED: {
+                        this.colorsShared--;
+                        this.colorsAvailable--;
+                    }
+                    break;
+                }
+            }
+            break;
+            case AVAILABLE: {
+                switch (toState) {
+                    case SHARED: {
+                        this.colorsShared++;
+                    }
+                    break;
+                    case UNAVAILABLE:
+                    case NOT_USED: {
+                        this.colorsAvailable--;
+                    }
+                    break;
+                }
+            }
+            break;
+            case UNAVAILABLE:
+            case NOT_USED: {
+                switch (toState) {
+                    case SHARED: {
+                        this.colorsShared++;
+                        this.colorsAvailable++;
+                    }
+                    break;
+                    case AVAILABLE: {
+                        this.colorsAvailable++;
+                    }
+                    break;
+                }
+            }
+            break;
         }
     }
-    
+
     public void decreaseColorsAvailable() {
         this.colorsAvailable--;
     }
@@ -178,7 +218,7 @@ public class Node implements Comparable<Node> {
         return colors[color];
     }
 
-    public ColorState[] getColorsAvailableList() {
+    public ColorState[] getColorArray() {
         return colors;
     }
 
