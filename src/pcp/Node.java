@@ -12,8 +12,7 @@ public class Node implements Comparable<Node> {
 
         SHARED,
         AVAILABLE,
-        UNAVAILABLE,
-        NOT_USED
+        UNAVAILABLE
     }
     private int id;
     private Node[] neighbour;
@@ -53,8 +52,8 @@ public class Node implements Comparable<Node> {
                 neigh.setColorUnavailable(color);
                 for (Node neighOfNeigh : neigh.getNeighbours()) {
                     if (neighOfNeigh != this) {
-                        if( neighOfNeigh.isColorShared(color)){
-                            neighOfNeigh.setColorAvailable(color);    
+                        if (neighOfNeigh.isColorShared(color)) {
+                            neighOfNeigh.setColorAvailable(color);
                         }
                     }
                 }
@@ -62,7 +61,70 @@ public class Node implements Comparable<Node> {
         }
     }
 
-    public void setMaxColorsAvailable(int maxColors) {
+    /*
+     * performs uncoloring
+     */
+    public void unColor() {
+        int oldColor = this.color;
+        this.color = PCP.UNCOLORED;
+        this.colors[oldColor] = ColorState.AVAILABLE;
+        boolean oldColorAvailableOnAllNeighs = true;
+        for (Node neigh : neighbour) {
+            neigh.increaseUncolored();
+            //check if neigh has oldcolor AVAILABLE now
+            boolean noNeighOfNeighHasOldColor = true;
+            for (Node neighOfNeigh : neigh.getNeighbours()) {
+                if (neighOfNeigh == this) {
+                    continue;
+                }
+                if( neighOfNeigh.getColor() == oldColor){
+                    noNeighOfNeighHasOldColor = false;
+                }
+            }
+            if( noNeighOfNeighHasOldColor){
+                neigh.setColorAvailable(oldColor);
+                //if the neighbour switched oldcolor to available
+                //check if its neighbours can share oldcolor now
+                for (Node neighOfNeigh : neigh.getNeighbours()) {
+                    if (neighOfNeigh == this || neighOfNeigh.isColorUnavailable(oldColor)) {
+                        continue;
+                    }
+                    boolean allNeighOfNeighOfNeighHaveOldColorAvailable = true;
+                    for( Node neighOfNeighOfNeigh : neighOfNeigh.getNeighbours()){
+                        if( !neighOfNeighOfNeigh.isColorAvailable(oldColor)){
+                            allNeighOfNeighOfNeighHaveOldColorAvailable = false;
+                        }
+                    }
+                    if( allNeighOfNeighOfNeighHaveOldColorAvailable){
+                        neighOfNeigh.setColorShared( oldColor);
+                    }
+                }
+            }else{
+                oldColorAvailableOnAllNeighs = false;
+            }
+            //check if neigh has oldcolor SHARED now    
+            boolean allNeighOfNeighHaveOldColorAvailable = true;
+            for (Node neighOfNeigh : neigh.getNeighbours()) {
+                if (neighOfNeigh == this) {
+                    continue;
+                }
+                if( neighOfNeigh.isColorUnavailable(oldColor)){
+                    allNeighOfNeighHaveOldColorAvailable = false;
+                }
+            }
+            if( allNeighOfNeighHaveOldColorAvailable){
+                neigh.setColorShared(oldColor);
+            }
+        }
+        if (oldColorAvailableOnAllNeighs) {
+            this.colors[oldColor] = ColorState.SHARED;
+        }
+    }
+
+    /*
+     * adapt the lenght of the colorarray to the number of maximal colors
+     */
+    public void initColorArray(int maxColors) {
         if (colors == null) {
             colors = new ColorState[maxColors];
             this.colorsAvailable = maxColors;
@@ -70,18 +132,9 @@ public class Node implements Comparable<Node> {
             for (int i = 0; i < colors.length; i++) {
                 colors[i] = ColorState.SHARED;
             }
-        } else {
-            if (maxColors >= colors.length) {
-                //TODO: good logging
-                System.out.println("ERROR: node " + getId() + " setMaxColor: " + maxColors + " : color >=colorAvailable.length");
-                return;
-            }
-            for (int i = maxColors - 1; i < colors.length && colors[i] != ColorState.NOT_USED; i++) {
-                setColorNotUsed(i);
-            }
         }
     }
-    
+
     private void updCountingValues(ColorState fromState, ColorState toState) {
         switch (fromState) {
             case SHARED: {
@@ -90,8 +143,7 @@ public class Node implements Comparable<Node> {
                         this.colorsShared--;
                     }
                     break;
-                    case UNAVAILABLE:
-                    case NOT_USED: {
+                    case UNAVAILABLE: {
                         this.colorsShared--;
                         this.colorsAvailable--;
                     }
@@ -105,16 +157,14 @@ public class Node implements Comparable<Node> {
                         this.colorsShared++;
                     }
                     break;
-                    case UNAVAILABLE:
-                    case NOT_USED: {
+                    case UNAVAILABLE: {
                         this.colorsAvailable--;
                     }
                     break;
                 }
             }
             break;
-            case UNAVAILABLE:
-            case NOT_USED: {
+            case UNAVAILABLE: {
                 switch (toState) {
                     case SHARED: {
                         this.colorsShared++;
@@ -129,51 +179,20 @@ public class Node implements Comparable<Node> {
             }
             break;
         }
-    }    
+    }
 
-    public Node getNeighbour( int idx){
+    public Node getNeighbour(int idx) {
         return neighbour[idx];
     }
-    
-    public void setNeighbour( int idx, Node n){
+
+    public void setNeighbour(int idx, Node n) {
         neighbour[idx] = n;
     }
-    
-    public void setNeighbours( Node[] neighbour){
+
+    public void setNeighbours(Node[] neighbour) {
         this.neighbour = neighbour;
     }
-    
-//    /*
-//     * it is assumed that when a node is uncolored, the node has been colored before
-//     */
-//    public void uncolor() {
-//        int oldColor = this.color;
-//        this.color = PCP.UNCOLORED;
-//        for (Node neigh : neighbour) {
-//            neigh.increaseUncolored();
-//            neigh.updColsAvailAfterUncoloring(oldColor);
-//        }
-//    }
-//
-//    public void updColsAvailAfterUncoloring(int oldColor) {
-//        if (colorsAvailableArray[oldColor] != ColorState.UNAVAILABLE) {
-//            System.err.println("ERROR: farbe " + oldColor + " müsste an dieser stelle unavailable sein");
-//        }
-//        //lookup if one more of the neighbours has color oldColor,
-//        //if not, oldColor can be set free
-//        boolean oneNeighbourHasOldColor = false;
-//        for (Node neigh : neighbour) {
-//            if (neigh.getColor() == oldColor) {
-//                oneNeighbourHasOldColor = true;
-//                break;
-//            }
-//        }
-//        if (!oneNeighbourHasOldColor) {
-//            colorsAvailableArray[oldColor] = ColorState.AVAILABLE;
-//            diffcolored--;
-//            colorsAvailable++;
-//        }
-//    }
+
     public boolean isColorAvailable(int color) {
         return this.colors[color] == ColorState.AVAILABLE;
     }
@@ -184,10 +203,6 @@ public class Node implements Comparable<Node> {
 
     public boolean isColorUnavailable(int color) {
         return this.colors[color] == ColorState.UNAVAILABLE;
-    }
-
-    public boolean isColorNotUsed(int color) {
-        return this.colors[color] == ColorState.NOT_USED;
     }
 
     public void setColorUnavailable(int color) {
@@ -203,11 +218,6 @@ public class Node implements Comparable<Node> {
     public void setColorShared(int color) {
         updCountingValues(this.colors[color], ColorState.SHARED);
         this.colors[color] = ColorState.SHARED;
-    }
-
-    public void setColorNotUsed(int color) {
-        updCountingValues(this.colors[color], ColorState.NOT_USED);
-        this.colors[color] = ColorState.NOT_USED;
     }
 
     public void decreaseColorsAvailable() {

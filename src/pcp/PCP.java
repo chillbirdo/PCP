@@ -33,8 +33,7 @@ public class PCP {
 //           g.setMaxColors( g.getHighestDegree()+1);
 //           g.getNode( 0).setColor(0);
 //           g.getNode( 2).setColor(1);
-//
-//           
+
            System.out.println( g.toString());
            System.out.println( "----------");
            System.out.println( g.toColorString());

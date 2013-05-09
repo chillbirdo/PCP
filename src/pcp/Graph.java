@@ -26,12 +26,12 @@ public class Graph {
     public void shrink(int maxColors) {
     }
 
-    public void setMaxColors(int maxColors) {
+    public void setMaxColorsAvailable(int maxColors) {
         //TODO: good logging
         System.out.println("Maxcolors: " + maxColors);
         this.maxColors = maxColors;
         for (Node n : node) {
-            n.setMaxColorsAvailable(maxColors);
+            n.initColorArray(maxColors);
         }
     }
 
