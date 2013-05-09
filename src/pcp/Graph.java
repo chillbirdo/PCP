@@ -1,6 +1,7 @@
 package pcp;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
@@ -27,10 +28,10 @@ public class Graph {
 
     public void setMaxColors(int maxColors) {
         //TODO: good logging
-        System.out.println( "Maxcolors: " + maxColors);
+        System.out.println("Maxcolors: " + maxColors);
         this.maxColors = maxColors;
         for (Node n : node) {
-            n.setMaxColorsAvailable( maxColors);
+            n.setMaxColorsAvailable(maxColors);
         }
     }
 
@@ -70,4 +71,5 @@ public class Graph {
         }
         return ret;
     }
+
 }

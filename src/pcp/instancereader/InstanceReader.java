@@ -104,7 +104,39 @@ public class InstanceReader {
                 node2.addNeighbour(node1);
             }
         }
-        
+        removeEdgesInPartitions(node);
         return new Graph( node, nodeInPartition, partitionSize);
     }    
+    
+    /*
+     * It is assumed that this method is called before any coloring is done
+     */
+    private static void removeEdgesInPartitions( Node[] node) {
+        for (int i = 0; i < node.length; i++) {
+            Node n = node[i];
+            int neighboursToReduce = 0;
+            for (int j = 0; j < n.getNeighbours().length; j++) {
+                Node neigh = n.getNeighbour(j);
+                if (n.getPartition() == neigh.getPartition()) {
+                    neighboursToReduce++;
+                    n.setNeighbour(j, null);
+                    n.decreaseUncolored();
+                    n.decreaseDegree();
+                }
+            }
+            if (neighboursToReduce > 0) {
+                Node[] reducedNeighbours = new Node[n.getNeighbours().length - neighboursToReduce];
+                int idx = 0;
+                for (Node neigh : n.getNeighbours()) {
+                    if( neigh != null){
+                        reducedNeighbours[idx] = neigh;
+                        idx++;
+                    }
+                }
+                n.setNeighbours( reducedNeighbours);
+                System.out.println("reduced!");
+            }
+        }
+    }
+    
 }

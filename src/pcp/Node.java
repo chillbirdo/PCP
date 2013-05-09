@@ -81,7 +81,68 @@ public class Node implements Comparable<Node> {
             }
         }
     }
+    
+    private void updCountingValues(ColorState fromState, ColorState toState) {
+        switch (fromState) {
+            case SHARED: {
+                switch (toState) {
+                    case AVAILABLE: {
+                        this.colorsShared--;
+                    }
+                    break;
+                    case UNAVAILABLE:
+                    case NOT_USED: {
+                        this.colorsShared--;
+                        this.colorsAvailable--;
+                    }
+                    break;
+                }
+            }
+            break;
+            case AVAILABLE: {
+                switch (toState) {
+                    case SHARED: {
+                        this.colorsShared++;
+                    }
+                    break;
+                    case UNAVAILABLE:
+                    case NOT_USED: {
+                        this.colorsAvailable--;
+                    }
+                    break;
+                }
+            }
+            break;
+            case UNAVAILABLE:
+            case NOT_USED: {
+                switch (toState) {
+                    case SHARED: {
+                        this.colorsShared++;
+                        this.colorsAvailable++;
+                    }
+                    break;
+                    case AVAILABLE: {
+                        this.colorsAvailable++;
+                    }
+                    break;
+                }
+            }
+            break;
+        }
+    }    
 
+    public Node getNeighbour( int idx){
+        return neighbour[idx];
+    }
+    
+    public void setNeighbour( int idx, Node n){
+        neighbour[idx] = n;
+    }
+    
+    public void setNeighbours( Node[] neighbour){
+        this.neighbour = neighbour;
+    }
+    
 //    /*
 //     * it is assumed that when a node is uncolored, the node has been colored before
 //     */
@@ -147,55 +208,6 @@ public class Node implements Comparable<Node> {
     public void setColorNotUsed(int color) {
         updCountingValues(this.colors[color], ColorState.NOT_USED);
         this.colors[color] = ColorState.NOT_USED;
-    }
-
-    private void updCountingValues(ColorState fromState, ColorState toState) {
-        switch (fromState) {
-            case SHARED: {
-                switch (toState) {
-                    case AVAILABLE: {
-                        this.colorsShared--;
-                    }
-                    break;
-                    case UNAVAILABLE:
-                    case NOT_USED: {
-                        this.colorsShared--;
-                        this.colorsAvailable--;
-                    }
-                    break;
-                }
-            }
-            break;
-            case AVAILABLE: {
-                switch (toState) {
-                    case SHARED: {
-                        this.colorsShared++;
-                    }
-                    break;
-                    case UNAVAILABLE:
-                    case NOT_USED: {
-                        this.colorsAvailable--;
-                    }
-                    break;
-                }
-            }
-            break;
-            case UNAVAILABLE:
-            case NOT_USED: {
-                switch (toState) {
-                    case SHARED: {
-                        this.colorsShared++;
-                        this.colorsAvailable++;
-                    }
-                    break;
-                    case AVAILABLE: {
-                        this.colorsAvailable++;
-                    }
-                    break;
-                }
-            }
-            break;
-        }
     }
 
     public void decreaseColorsAvailable() {
@@ -269,6 +281,10 @@ public class Node implements Comparable<Node> {
 
     public int getDegree() {
         return degree;
+    }
+
+    public void decreaseDegree() {
+        degree--;
     }
 
     public int getDiffcolored(int maxColors) {

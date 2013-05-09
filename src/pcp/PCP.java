@@ -28,14 +28,13 @@ public class PCP {
         Graph g;
         try{
            g = InstanceReader.readInstance( "pcp_instances\\test\\test3.pcp");
-           g.setMaxColors( g.getHighestDegree()+1);
-           g.getNode( 0).setColor(0);
-           g.getNode( 2).setColor(1);
-           //g = InstanceReader.readInstance( "pcp_instances\\pcp\\n20p5t2s1.pcp");
-           //g = InstanceReader.readInstance( "pcp_instances\\in\\dsjc500.5-4.in");
-           
-//           g.getNode(0).setColor(1);
-//           g.getNode(1).setColor(2);
+           //g = InstanceReader.readInstance( "pcp_instances\\pcp\\n120p5t2s5.pcp");
+           // g = InstanceReader.readInstance( "pcp_instances\\in\\dsjc500.5-2.in");
+//           g.setMaxColors( g.getHighestDegree()+1);
+//           g.getNode( 0).setColor(0);
+//           g.getNode( 2).setColor(1);
+//
+//           
            System.out.println( g.toString());
            System.out.println( "----------");
            System.out.println( g.toColorString());
