@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Graph {
-
+    private static final Logger logger = Logger.getLogger( Graph.class.getName());
+    
     private Node[] node;
     private Node[][] nodeInPartition;
     private int partitionSize[];
@@ -27,8 +30,7 @@ public class Graph {
     }
 
     public void setMaxColorsAvailable(int maxColors) {
-        //TODO: good logging
-        System.out.println("Maxcolors: " + maxColors);
+        logger.log( Level.INFO, "Maxcolors: " + maxColors);
         this.maxColors = maxColors;
         for (Node n : node) {
             n.initColorArray(maxColors);

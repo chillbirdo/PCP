@@ -11,7 +11,7 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import pcp.instancereader.InstanceReader;
 
 public class PCP {
-
+    private static final Logger logger = Logger.getLogger( PCP.class.getName());
     private static enum ColorState {
         
         SHARED,
@@ -34,38 +34,13 @@ public class PCP {
 //           g.getNode( 0).setColor(0);
 //           g.getNode( 2).setColor(1);
 
-           System.out.println( g.toString());
-           System.out.println( "----------");
-           System.out.println( g.toColorString());
+           logger.log( Level.FINE, g.toString());
+           logger.log( Level.FINE, "----------");
+           logger.log( Level.FINE, g.toColorString());
         }catch( Exception ex){
             ex.printStackTrace();
         }
 
-
-        
-//        Node nei1 = new Node( 1,0,1);
-//        nei1.setColor( 0);
-//        Node nei2 = new Node( 2,0,1);
-//        nei2.setColor( 3);
-//        Node nei3 = new Node( 3,0,1);
-//        nei3.setColor( 2);
-//        Node nei4 = new Node( 4,0,1);
-//        nei4.setColor( 1);
-//
-//        Node n = new Node( 0, 0, 4);
-//        n.addNeighbour(nei1);
-//        n.addNeighbour(nei2);
-//        n.addNeighbour(nei3);
-//        n.addNeighbour(nei4);
-//        for( Node neighbour : n.getNeighbours()){
-//            System.out.println( neighbour.getColor());
-//        }
-//        n.sortNeighboursByColor();
-//        System.out.println( "------------");
-//        for( Node neighbour : n.getNeighbours()){
-//            System.out.println( neighbour.getColor());
-//        }
-        
-        System.out.println( "Reading instance complete. It took " + (System.currentTimeMillis() - time) + " ms.");
+        logger.log( Level.FINE,  "Reading instance complete. It took " + (System.currentTimeMillis() - time) + " ms.");
     }
 }

@@ -10,6 +10,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import pcp.Graph;
 import pcp.Node;
 
@@ -19,12 +21,13 @@ import pcp.Node;
  */
 public class InstanceReader {
 
+    private static final Logger logger = Logger.getLogger( InstanceReader.class.getName());
+    
     public static Graph readInstance(String filePath) throws FileNotFoundException, IOException, Exception {
         File file = new File(filePath);
-        System.out.println( file.getAbsolutePath());
         if (!file.isFile()) {
-            //TODO LOG ERROR
-            //AND THROW EXC
+            logger.log( Level.SEVERE, "could not find file: " + file.getAbsolutePath());
+            throw new FileNotFoundException( file.getAbsolutePath());
         }
         //identify filetype
         if (file.getName().endsWith("pcp") || file.getName().endsWith("in")) {
@@ -38,7 +41,6 @@ public class InstanceReader {
     private static Graph readPCPInstance(File file) throws Exception{
         Scanner scanner = new Scanner(new FileReader(file));
         String line = scanner.nextLine();
-        //System.out.println( line);
         
         String[] lineSplit = line.trim().split(" ");
         int lineCount = 1;
@@ -134,7 +136,6 @@ public class InstanceReader {
                     }
                 }
                 n.setNeighbours( reducedNeighbours);
-                System.out.println("reduced!");
             }
         }
     }

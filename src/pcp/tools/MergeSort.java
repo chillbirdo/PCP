@@ -1,9 +1,12 @@
 package pcp.tools;
 
+import java.util.logging.Logger;
 import pcp.Node;
 
 public class MergeSort {
 
+    private static final Logger logger = Logger.getLogger( MergeSort.class.getName());
+    
     private static Node[] sort(int l, int r, Node[] nodeArr) {
         if (l < r) {
             int q = (l + r) / 2;

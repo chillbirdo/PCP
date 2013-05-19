@@ -3,11 +3,13 @@ package pcp;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.logging.Logger;
 import org.omg.PortableServer.POAManagerPackage.State;
 import pcp.tools.MergeSort;
 
 public class Node implements Comparable<Node> {
-
+    private static final Logger logger = Logger.getLogger( Node.class.getName());
+    
     private static enum ColorState {
 
         SHARED,
