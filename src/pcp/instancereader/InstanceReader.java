@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import pcp.Graph;
-import pcp.Node;
+import pcp.model.Graph;
+import pcp.model.Node;
 
 /**
  *

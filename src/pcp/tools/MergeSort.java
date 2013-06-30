@@ -1,7 +1,7 @@
 package pcp.tools;
 
 import java.util.logging.Logger;
-import pcp.Node;
+import pcp.model.Node;
 
 public class MergeSort {
 
