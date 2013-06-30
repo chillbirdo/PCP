@@ -141,7 +141,7 @@ public class NodeColorInfo {
         this.colorsShared = colorsShared;
     }
 
-    public int getDiffcolored(int maxColors) {
+    public int getDiffColored(int maxColors) {
         return maxColors - colorsAvailable;
     }
 
