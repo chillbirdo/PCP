@@ -90,6 +90,7 @@ public class InstanceReader {
         for( int i : nodesInPartitionCount){
             i=0;
         }
+        int maxDegree = 0;
         while( scanner.hasNext()){
             line = scanner.nextLine();
             lineSplit = line.trim().split(" ");
@@ -122,8 +123,8 @@ public class InstanceReader {
                 if (n.getPartition() == neigh.getPartition()) {
                     neighboursToReduce++;
                     n.setNeighbour(j, null);
-                    n.decreaseUncolored();
-                    n.decreaseDegree();
+                    //int degree = n.decreaseDegree();
+                    //if( degree < )
                 }
             }
             if (neighboursToReduce > 0) {
@@ -139,5 +140,4 @@ public class InstanceReader {
             }
         }
     }
-    
 }

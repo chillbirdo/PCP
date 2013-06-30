@@ -13,7 +13,6 @@ public class Graph {
     private Node[] node;
     private Node[][] nodeInPartition;
     private int partitionSize[];
-    //private Stack<Node> shrinkStack;
 
     public Graph(Node[] node, Node[][] nodeInPartition, int partitionSize[]) {
         this.node = node;
@@ -29,18 +28,11 @@ public class Graph {
 //        }
 //    }
 
-    public Node getNode(int idx) {
-        return node[idx];
-    }
-
-    public Node[] getNodes() {
-        return node;
-    }
-
     public String toString() {
         String ret = "size " + node.length + ";\n";
         for (Node n : node) {
             ret += "n" + n.getId() + ": p=" + n.getPartition() + "; ";
+            ret += "degree=" + n.getDegree() + "; ";
             int neig = 0;
             for (Node neighbour : n.getNeighbours()) {
                 ret += "n" + (neig++) + "=" + neighbour.getId() + ", ";
@@ -48,5 +40,23 @@ public class Graph {
             ret += "\n";
         }
         return ret;
+    }
+
+    public int getHighestDegree() {
+        int maxdegree = 0;
+        for (Node n : node) {
+            if (n.getDegree() > maxdegree) {
+                maxdegree = n.getDegree();
+            }
+        }
+        return maxdegree;
+    }
+    
+    public Node getNode(int idx) {
+        return node[idx];
+    }
+
+    public Node[] getNodes() {
+        return node;
     }
 }

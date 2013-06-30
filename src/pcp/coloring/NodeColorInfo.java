@@ -8,7 +8,7 @@ import pcp.model.Node;
 
 public class NodeColorInfo {
 
-    private int nodeId;
+    private int nodeId;//the id of the nci is the same as of the node
     private int color;//the color of node n
     private int uncolored;//number of uncolored neighbours
     private PCP.ColorState[] colors;//state of all colors

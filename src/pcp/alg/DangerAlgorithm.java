@@ -2,67 +2,48 @@ package pcp.alg;
 
 import java.util.Collection;
 import pcp.coloring.Coloring;
+import pcp.coloring.NodeColorInfo;
 import pcp.model.Graph;
 import pcp.model.Node;
 
 public class DangerAlgorithm {
     
-    private Graph g;
-    private Coloring cC;
-    private int maxColors;
-    
     //Node Danger
-    private final double C = 1.0;
-    private final double k = 1.0;
-    private final double ku = 0.025;
-    private final double ka = 0.33;
+    private static final double C = 1.0;
+    private static final double k = 1.0;
+    private static final double ku = 0.025;
+    private static final double ka = 0.33;
     //Color Danger
-    private final double k1 = 1.0;
-    private final double k2 = 1.0;
-    private final double k3 = 0.5;
-    private final double k4 = 0.025;
+    private static final double k1 = 1.0;
+    private static final double k2 = 1.0;
+    private static final double k3 = 0.5;
+    private static final double k4 = 0.025;
     
-    public DangerAlgorithm( Graph g){
-        this.g = g;
-        this.maxColors = getHighestDegree();
-        g.initMaxColorsAvailable( maxColors);
-        this.cC = new Coloring(g);
-    }
-    
-    public void colorGraph(){
-        for( int i = 0; i < cC.getUncoloredNodes().size(); i++){
-            Node n = selectNextNodeOfSet( cC.getUncoloredNodes());
-            int c = selectColorForNode(n);
-            cC.colorNode(n, c);
+    public static Coloring applyColoring( Graph g, int maxColors){
+        Coloring coloring = new Coloring(g, maxColors);
+        for( int i = 0; i < coloring.getUncoloredNodeColorInfos().size(); i++){
+            NodeColorInfo nci = selectMostDangerousNci( coloring.getUncoloredNodeColorInfos(), maxColors);
+            int c = selectColorForNci(nci, maxColors);
+            coloring.colorNodeColorInfo(nci, c);
         }
+        return coloring;
     }
     
-    private Node selectNextNodeOfSet( Collection<Node> nodeSet){
-        double minND = Double.MAX_VALUE;
-        Node chosenNode = null;
-        for( Node n : nodeSet){
-            double F = C / Math.pow(maxColors - n.getDiffcolored(maxColors), k);
-            double nD = F + ku*n.getUncolored() + ka*(n.getColorsShared()/n.getColorsAvailable());
-            if( nD < minND){
-                chosenNode = n;
+    private static NodeColorInfo selectMostDangerousNci( Collection<NodeColorInfo> nodeSet, int maxColors){
+        double maxND = Double.MAX_VALUE;
+        NodeColorInfo chosenNci = null;
+        for( NodeColorInfo nci : nodeSet){
+            double F = C / Math.pow(maxColors - nci.getDiffcolored(maxColors), k);
+            double nD = F + ku*nci.getUncolored() + ka*(nci.getColorsShared()/nci.getColorsAvailable());
+            if( nD > maxND){
+                chosenNci = nci;
             }
         }
-        return chosenNode;
+        return chosenNci;
     }
     
-    private int selectColorForNode( Node n){
-        
+    private static int selectColorForNci( NodeColorInfo nci, int maxColors){
+        //TODO
         return 0;
     }
-    
-    private int getHighestDegree() {
-        int maxdegree = 0;
-        for (Node n : g.getNodes()) {
-            if (n.getDegree() > maxdegree) {
-                maxdegree = n.getDegree();
-            }
-        }
-        return maxdegree;
-    }
-            
 }

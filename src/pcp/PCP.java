@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import pcp.alg.DangerAlgorithm;
+import pcp.coloring.Coloring;
 import pcp.instancereader.InstanceReader;
 
 public class PCP {
@@ -27,12 +28,7 @@ public class PCP {
         Graph g;
         try{
             g = InstanceReader.readInstance( "pcp_instances\\test\\test3.pcp");
-            DangerAlgorithm da = new DangerAlgorithm( g);
-           //g = InstanceReader.readInstance( "pcp_instances\\pcp\\n120p5t2s5.pcp");
-           // g = InstanceReader.readInstance( "pcp_instances\\in\\dsjc500.5-2.in");
-//           g.setMaxColors( g.getHighestDegree()+1);
-//           g.getNode( 0).setColor(0);
-//           g.getNode( 2).setColor(1);
+            Coloring c = DangerAlgorithm.applyColoring(g, g.getHighestDegree());
 
            logger.log( Level.INFO, g.toString());
            logger.log( Level.FINE, "----------");

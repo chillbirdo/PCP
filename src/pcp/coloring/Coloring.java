@@ -11,8 +11,8 @@ public class Coloring {
 
     private Graph g;
     private NodeColorInfo[] nodeColorInfo;
-    private Set<NodeColorInfo> coloredNodes;
-    private Set<NodeColorInfo> uncoloredNodes;
+    private Set<NodeColorInfo> coloredNodeColorInfos;
+    private Set<NodeColorInfo> uncoloredNodeColorInfos;
 
     public Coloring(Graph g, int maxColors) {
         this.g = g;
@@ -21,17 +21,17 @@ public class Coloring {
             Node n = g.getNode(i);
             nodeColorInfo[i] = new NodeColorInfo(n, maxColors);
         }
-        this.coloredNodes = new HashSet<NodeColorInfo>();
-        this.uncoloredNodes = new HashSet<NodeColorInfo>((Arrays.asList(nodeColorInfo)));
+        this.coloredNodeColorInfos = new HashSet<NodeColorInfo>();
+        this.uncoloredNodeColorInfos = new HashSet<NodeColorInfo>((Arrays.asList(nodeColorInfo)));
     }
 
     /*
      * it is assumed that when a color is set, the node has been uncolored before
      */
-    public void colorNode( NodeColorInfo nci, int color) {
+    public void colorNodeColorInfo( NodeColorInfo nci, int color) {
         Node n = g.getNode(nci.getNodeId());
-        this.uncoloredNodes.remove(nci);
-        this.coloredNodes.add(nci);
+        this.uncoloredNodeColorInfos.remove(nci);
+        this.coloredNodeColorInfos.add(nci);
         if (nci.getColor() == color || color == PCP.UNCOLORED) {
             return;
         }
@@ -58,42 +58,47 @@ public class Coloring {
     /*
      * performs uncoloring
      */
-    public void unColorNode(NodeColorInfo nci) {
-        this.coloredNodes.remove(nci);
-        this.uncoloredNodes.add(nci);
+    public void unColorNodeColorInfo(NodeColorInfo nci) {
+        this.coloredNodeColorInfos.remove(nci);
+        this.uncoloredNodeColorInfos.add(nci);
 
         int oldColor = nci.getColor();
         nci.setColor(PCP.UNCOLORED);
         nci.setColorAvailable(oldColor);
         boolean oldColorAvailableOnAllNeighs = true;
+        Node n = g.getNode(nci.getNodeId());
         for (Node neigh : n.getNeighbours()) {
-            neigh.increaseUncolored();
+            NodeColorInfo neighNci = this.nodeColorInfo[neigh.getId()];
+            neighNci.increaseUncolored();
             //check if neigh has oldcolor AVAILABLE now
             boolean noNeighOfNeighHasOldColor = true;
             for (Node neighOfNeigh : neigh.getNeighbours()) {
+                NodeColorInfo neighOfNeighNci = this.nodeColorInfo[neighOfNeigh.getId()];
                 if (neighOfNeigh == n) {
                     continue;
                 }
-                if (neighOfNeigh.getColor() == oldColor) {
+                if (neighOfNeighNci.getColor() == oldColor) {
                     noNeighOfNeighHasOldColor = false;
                 }
             }
             if (noNeighOfNeighHasOldColor) {
-                neigh.setColorAvailable(oldColor);
+                neighNci.setColorAvailable(oldColor);
                 //if the neighbour switched oldcolor to available
                 //check if its neighbours can share oldcolor now
                 for (Node neighOfNeigh : neigh.getNeighbours()) {
-                    if (neighOfNeigh == n || neighOfNeigh.isColorUnavailable(oldColor)) {
+                    NodeColorInfo neighOfNeighNci = this.nodeColorInfo[neighOfNeigh.getId()];
+                    if (neighOfNeigh == n || neighOfNeighNci.isColorUnavailable(oldColor)) {
                         continue;
                     }
                     boolean allNeighOfNeighOfNeighHaveOldColorAvailable = true;
                     for (Node neighOfNeighOfNeigh : neighOfNeigh.getNeighbours()) {
-                        if (!neighOfNeighOfNeigh.isColorAvailable(oldColor)) {
+                        NodeColorInfo neighOfNeighOfNeighNci = this.nodeColorInfo[neighOfNeighOfNeigh.getId()];
+                        if (!neighOfNeighOfNeighNci.isColorAvailable(oldColor)) {
                             allNeighOfNeighOfNeighHaveOldColorAvailable = false;
                         }
                     }
                     if (allNeighOfNeighOfNeighHaveOldColorAvailable) {
-                        neighOfNeigh.setColorShared(oldColor);
+                        neighOfNeighNci.setColorShared(oldColor);
                     }
                 }
             } else {
@@ -102,42 +107,42 @@ public class Coloring {
             //check if neigh has oldcolor SHARED now    
             boolean allNeighOfNeighHaveOldColorAvailable = true;
             for (Node neighOfNeigh : neigh.getNeighbours()) {
+                NodeColorInfo neighOfNeighNci = this.nodeColorInfo[neighOfNeigh.getId()];
                 if (neighOfNeigh == n) {
                     continue;
                 }
-                if (neighOfNeigh.isColorUnavailable(oldColor)) {
+                if (neighOfNeighNci.isColorUnavailable(oldColor)) {
                     allNeighOfNeighHaveOldColorAvailable = false;
                 }
             }
             if (allNeighOfNeighHaveOldColorAvailable) {
-                neigh.setColorShared(oldColor);
+                neighNci.setColorShared(oldColor);
             }
         }
         if (oldColorAvailableOnAllNeighs) {
-            n.setColorShared(oldColor);
+            nci.setColorShared(oldColor);
         }
     }
 
-//    public String toString() {
-//        String ret = "";
-//        for (Node n : node) {
-//            ret += "n" + n.getId() + ": "
-//                    + "neighbours=" + n.getDegree() + "; "
-//                    + "color=" + n.getColor() + "; "
-//                    + "uncolored=" + n.getUncolored() + "/" + n.getNeighbours().length + "; "
-//                    + "available=" + n.getColorsAvailable() + "; "
-//                    + "shared=" + n.getColorsShared() + "; "
-//                    + "\n";
-//        }
-//        return ret;
-//    }
+    //    public String toString() {
+    //        String ret = "";
+    //        for (Node n : node) {
+    //            ret += "n" + n.getId() + ": "
+    //                    + "neighbours=" + n.getDegree() + "; "
+    //                    + "color=" + n.getColor() + "; "
+    //                    + "uncolored=" + n.getUncolored() + "/" + n.getNeighbours().length + "; "
+    //                    + "available=" + n.getColorsAvailable() + "; "
+    //                    + "shared=" + n.getColorsShared() + "; "
+    //                    + "\n";
+    //        }
+    //        return ret;
+    //    }
     
-    
-    public Set<Node> getColoredNodes() {
-        return coloredNodes;
+    public Set<NodeColorInfo> getColoredNodeColorInfos() {
+        return coloredNodeColorInfos;
     }
 
-    public Set<Node> getUncoloredNodes() {
-        return uncoloredNodes;
+    public Set<NodeColorInfo> getUncoloredNodeColorInfos() {
+        return uncoloredNodeColorInfos;
     }
 }
