@@ -1,12 +1,14 @@
 package pcp.alg;
 
 import java.util.Collection;
+import java.util.logging.Logger;
 import pcp.coloring.Coloring;
 import pcp.coloring.NodeColorInfo;
 import pcp.model.Graph;
-import pcp.model.Node;
 
 public class DangerAlgorithm {
+
+    private static final Logger logger = Logger.getLogger( DangerAlgorithm.class.getName());
 
     //Node Danger
     private static final double C = 1.0;
@@ -20,10 +22,14 @@ public class DangerAlgorithm {
     private static final double k4 = 0.025;
 
     public static Coloring applyColoring(Graph g, int maxColors) {
+        logger.finer( "Applying DANGER with maxColors:" + maxColors);
         Coloring coloring = new Coloring(g, maxColors);
         for (int i = 0; i < coloring.getUncoloredNodeColorInfos().size(); i++) {
+            logger.finer("\tDANGER Iteration " + i);
             NodeColorInfo nci = selectMostDangerousNci(coloring.getUncoloredNodeColorInfos(), maxColors);
+            logger.finer("\tDANGER Node selection: Node " + nci.getNodeId());
             int c = selectColorForNci(nci, maxColors, coloring);
+            logger.finer("\tDANGER Color selection: Color " + c);
             coloring.colorNodeColorInfo(nci, c);
         }
         return coloring;
@@ -39,6 +45,7 @@ public class DangerAlgorithm {
                 chosenNci = uncoloredNci;
             }
         }
+        logger.finer("\tDANGER Node selection: maxNodeDanger = " + maxND);
         return chosenNci;
     }
 

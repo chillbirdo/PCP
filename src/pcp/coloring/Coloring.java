@@ -1,6 +1,7 @@
 package pcp.coloring;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import pcp.PCP;
@@ -13,7 +14,7 @@ public class Coloring {
     private NodeColorInfo[] nodeColorInfo;
     private Set<NodeColorInfo> coloredNodeColorInfos;
     private Set<NodeColorInfo> uncoloredNodeColorInfos;
-
+    
     public Coloring(Graph g, int maxColors) {
         this.g = g;
         this.nodeColorInfo = new NodeColorInfo[g.getNodes().length];
@@ -124,19 +125,27 @@ public class Coloring {
         }
     }
 
-    //    public String toString() {
-    //        String ret = "";
-    //        for (Node n : node) {
-    //            ret += "n" + n.getId() + ": "
-    //                    + "neighbours=" + n.getDegree() + "; "
-    //                    + "color=" + n.getColor() + "; "
-    //                    + "uncolored=" + n.getUncolored() + "/" + n.getNeighbours().length + "; "
-    //                    + "available=" + n.getColorsAvailable() + "; "
-    //                    + "shared=" + n.getColorsShared() + "; "
-    //                    + "\n";
-    //        }
-    //        return ret;
-    //    }
+    public String toStringUncolored() {
+        return toStringNciList( this.uncoloredNodeColorInfos, "Uncolored Nodes");
+    }
+    
+    public String toStringColored() {
+        return toStringNciList( this.uncoloredNodeColorInfos, "Colored Nodes");
+    }
+    
+    private String toStringNciList( Collection<NodeColorInfo> nciCollection, String name){
+        String ret = "\n" + name + ": {";
+        for (NodeColorInfo coloredNci : this.coloredNodeColorInfos) {
+            Node n = g.getNode(coloredNci.getNodeId());
+            ret += "n" + coloredNci.getNodeId() + ": "
+                    + "color=" + coloredNci.getColor() + "; "
+                    + "uncolored_neighs=" + coloredNci.getUncolored() + "/" + n.getDegree() + "; "
+                    + "colors_available=" + coloredNci.getColorsAvailable() + "; "
+                    + "colors_shared=" + coloredNci.getColorsShared() + "; "
+                    + "\n";
+        }
+        return "}" + ret;        
+    }
     
     public Set<NodeColorInfo> getColoredNodeColorInfos() {
         return coloredNodeColorInfos;

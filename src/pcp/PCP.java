@@ -1,14 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package pcp;
 
 import pcp.model.Graph;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import pcp.alg.DangerAlgorithm;
 import pcp.coloring.Coloring;
 import pcp.instancereader.InstanceReader;
@@ -27,12 +21,14 @@ public class PCP {
         
         Graph g;
         try{
-            g = InstanceReader.readInstance( "pcp_instances\\test\\test3.pcp");
-            Coloring c = DangerAlgorithm.applyColoring(g, g.getHighestDegree());
-
-           logger.log( Level.INFO, g.toString());
-           logger.log( Level.FINE, "----------");
-           //logger.log( Level.FINE, g.toColorString());
+           g = InstanceReader.readInstance( "pcp_instances/test/test4.pcp");
+           logger.info( g.toString());
+           
+           logger.info( "Applying coloring:");
+           Coloring c = DangerAlgorithm.applyColoring(g, g.getHighestDegree());
+           logger.info( c.toStringColored());
+           logger.info( c.toStringUncolored());
+           
         }catch( Exception ex){
             ex.printStackTrace();
         }
