@@ -59,4 +59,12 @@ public class Graph {
     public Node[] getNodes() {
         return node;
     }
+
+    public int[] getPartitionSize() {
+        return partitionSize;
+    }
+
+    public Node[][] getNodeInPartition() {
+        return nodeInPartition;
+    }
 }

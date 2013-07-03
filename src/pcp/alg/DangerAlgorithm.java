@@ -8,8 +8,7 @@ import pcp.model.Graph;
 
 public class DangerAlgorithm {
 
-    private static final Logger logger = Logger.getLogger( DangerAlgorithm.class.getName());
-
+    private static final Logger logger = Logger.getLogger(DangerAlgorithm.class.getName());
     //Node Danger
     private static final double C = 1.0;
     private static final double k = 1.0;
@@ -21,18 +20,15 @@ public class DangerAlgorithm {
     private static final double k3 = 0.5;
     private static final double k4 = 0.025;
 
-    public static Coloring applyColoring(Graph g, int maxColors) {
-        logger.finer( "Applying DANGER with maxColors:" + maxColors);
-        Coloring coloring = new Coloring(g, maxColors);
-        for (int i = 0; i < coloring.getUncoloredNodeColorInfos().size(); i++) {
-            logger.finer("\tDANGER Iteration " + i);
-            NodeColorInfo nci = selectMostDangerousNci(coloring.getUncoloredNodeColorInfos(), maxColors);
+    public static void applyColoring( Coloring coloring, int maxColors) {
+        logger.finer("Applying DANGER with maxColors:" + maxColors);
+        while( coloring.getSelectedUncoloredNCIs().size() > 0){
+            NodeColorInfo nci = selectMostDangerousNci(coloring.getSelectedUncoloredNCIs(), maxColors);
             logger.finer("\tDANGER Node selection: Node " + nci.getNodeId());
             int c = selectColorForNci(nci, maxColors, coloring);
             logger.finer("\tDANGER Color selection: Color " + c);
             coloring.colorNodeColorInfo(nci, c);
         }
-        return coloring;
     }
 
     private static NodeColorInfo selectMostDangerousNci(Collection<NodeColorInfo> uncoloredNciSet, int maxColors) {
@@ -42,6 +38,7 @@ public class DangerAlgorithm {
             double F = C / Math.pow(maxColors - uncoloredNci.getDiffColored(maxColors), k);
             double nD = F + ku * uncoloredNci.getUncolored() + ka * (uncoloredNci.getColorsShared() / uncoloredNci.getColorsAvailable());
             if (nD > maxND) {
+                maxND = nD;
                 chosenNci = uncoloredNci;
             }
         }
@@ -59,10 +56,13 @@ public class DangerAlgorithm {
         int chosenColor = -1;
         double minNC = Double.MAX_VALUE;
         for (int c = 0; c < maxColors; c++) {
-            int maxDiffColored = 0;
+            if (nci.isColorUnavailable(c)) {
+                continue;
+            }
+            int maxDiffColored = -1;
             NodeColorInfo maxDiffColoredNci = null;
-            for (NodeColorInfo uncoloredNci : coloring.getUncoloredNodeColorInfos()) {
-                if (uncoloredNci.isColorAvailable(c)) {
+            for (NodeColorInfo uncoloredNci : coloring.getSelectedUncoloredNCIs()) {
+                if (!uncoloredNci.isColorUnavailable(c)) {
                     if (uncoloredNci.getDiffColored(maxColors) > maxDiffColored) {
                         maxDiffColored = uncoloredNci.getDiffColored(maxColors);
                         maxDiffColoredNci = uncoloredNci;
@@ -70,15 +70,17 @@ public class DangerAlgorithm {
                 }
             }
             int timesUsed = 0;
-            for (NodeColorInfo coloredNci : coloring.getColoredNodeColorInfos()) {
+            for (NodeColorInfo coloredNci : coloring.getSelectedColoredNCIs()) {
                 if (coloredNci.getColor() == c) {
                     timesUsed++;
                 }
             }
-            double nC = k1/Math.pow(maxColors-maxDiffColored, k2) + k3*maxDiffColoredNci.getUncolored() + k4*timesUsed;
-            if( nC < minNC){
+            double nC = k1 / Math.pow(maxColors - maxDiffColored, k2) + k3 * maxDiffColoredNci.getUncolored() + k4 * timesUsed;
+            if (nC < minNC) {
+                minNC = nC;
                 chosenColor = c;
             }
+            logger.finest("\tcolor " + c + ": " + nC);
         }
         return chosenColor;
     }

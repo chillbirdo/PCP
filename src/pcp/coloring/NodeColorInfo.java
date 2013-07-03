@@ -1,5 +1,6 @@
 package pcp.coloring;
 
+import java.util.logging.Logger;
 import pcp.PCP;
 import static pcp.PCP.ColorState.AVAILABLE;
 import static pcp.PCP.ColorState.SHARED;
@@ -8,17 +9,19 @@ import pcp.model.Node;
 
 public class NodeColorInfo {
 
-    private int nodeId;//the id of the nci is the same as of the node
-    private int color;//the color of node n
-    private int uncolored;//number of uncolored neighbours
+    private static final Logger logger = Logger.getLogger(NodeColorInfo.class.getName());
+
+    private int nodeId;             //the id of the nci is the same as of the node
+    private int color;              //the color of node n
+    private int uncoloredNeighbours;//number of uncolored neighbours
     private PCP.ColorState[] colors;//state of all colors
-    private int colorsAvailable;//number of colors available
-    private int colorsShared;//number of color shared
+    private int colorsAvailable;    //number of colors available
+    private int colorsShared;       //number of color shared
 
     public NodeColorInfo(Node n, int maxColors) {
         this.nodeId = n.getId();
         this.color = PCP.UNCOLORED;
-        this.uncolored = n.getDegree();
+        this.uncoloredNeighbours = n.getDegree();
         initColorArray(maxColors);
     }
 
@@ -118,11 +121,11 @@ public class NodeColorInfo {
     }
 
     public int getUncolored() {
-        return uncolored;
+        return uncoloredNeighbours;
     }
 
     public void setUncolored(int uncolored) {
-        this.uncolored = uncolored;
+        this.uncoloredNeighbours = uncolored;
     }
 
     public int getColorsAvailable() {
@@ -146,11 +149,11 @@ public class NodeColorInfo {
     }
 
     public void increaseUncolored() {
-        uncolored++;
+        uncoloredNeighbours++;
     }
 
     public void decreaseUncolored() {
-        uncolored--;
+        uncoloredNeighbours--;
     }
 
     public void decreaseColorsAvailable() {
@@ -183,5 +186,14 @@ public class NodeColorInfo {
 
     public boolean isColorUnavailable(int color) {
         return this.colors[color] == PCP.ColorState.UNAVAILABLE;
+    }
+    public boolean isSelected() {
+        return color != PCP.UNSELECTED;
+    }
+    public void select(){
+        this.color = PCP.UNCOLORED;
+    }
+    public void unselect(){
+        this.color = PCP.UNSELECTED;
     }
 }
