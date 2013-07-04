@@ -20,28 +20,34 @@ public class Coloring {
     private Set<NodeColorInfo> selectedColoredNCIs;
     private Set<NodeColorInfo> selectedUncoloredNCIs;
     
-    public Coloring(Graph g, int maxColors) {
+    public Coloring(Graph g) {
         this.g = g;
         this.nodeColorInfo = new NodeColorInfo[g.getNodes().length];
         for( int i = 0; i < nodeColorInfo.length; i++){
             Node n = g.getNode(i);
-            nodeColorInfo[i] = new NodeColorInfo(n, maxColors);
+            nodeColorInfo[i] = new NodeColorInfo(n);
         }
         this.selectedColoredNCIs = new HashSet<NodeColorInfo>();
         this.selectedUncoloredNCIs = new HashSet<NodeColorInfo>();
         this.unselectedNCIs = new HashSet<NodeColorInfo>((Arrays.asList(nodeColorInfo)));
     }
+    
+    public void initColorArrayOfEachNci( int maxColors){
+        for( NodeColorInfo nci : nodeColorInfo){
+            nci.initColorArray(maxColors);
+        }
+    }
 
     /*
      * select a node from a partition
      */
-    public void selectNodeColorInfo( NodeColorInfo nci){
+    public void selectNci( NodeColorInfo nci){
         if( !nci.isSelected() && unselectedNCIs.contains(nci)){
             nci.select();
             for( Node neigh : nci.getNode().getNeighbours()){
                 NodeColorInfo neighNci = getNciById(neigh.getId());
-                //logger.finest( "increased uncolored of neighbour, nodeId: " + nci.getNode().getId());
                 neighNci.increaseUncolored();
+                neighNci.increaseDegreeToSelected();
             }
             unselectedNCIs.remove( nci);
             selectedUncoloredNCIs.add(nci);
@@ -53,12 +59,13 @@ public class Coloring {
     /*
      * select a node from a partition
      */
-    public void unselectNodeColorInfo( NodeColorInfo nci){
+    public void unselectNci( NodeColorInfo nci){
         if( nci.getColor() == PCP.UNCOLORED && selectedUncoloredNCIs.contains( nci)){
             nci.unselect();
             for( Node neigh : nci.getNode().getNeighbours()){
                 NodeColorInfo neighNci = getNciById(neigh.getId());
                 neighNci.decreaseUncolored();
+                neighNci.decreaseDegreeToSelected();
             }
             selectedUncoloredNCIs.remove(nci);
             unselectedNCIs.add(nci);
@@ -70,7 +77,7 @@ public class Coloring {
     /*
      * it is assumed that when a color is set, the node has been uncolored before
      */
-    public void colorNodeColorInfo( NodeColorInfo nci, int color) {
+    public void colorNci( NodeColorInfo nci, int color) {
         if( !selectedUncoloredNCIs.contains(nci)){
             logger.severe("UNEXPECTED: tried to color a node that was not in set of uncolored!");
             return;
@@ -104,7 +111,7 @@ public class Coloring {
     /*
      * performs uncoloring
      */
-    public void uncolorNodeColorInfo(NodeColorInfo nci) {
+    public void uncolorNci(NodeColorInfo nci) {
         if( !selectedUncoloredNCIs.contains(nci)){
             logger.severe("UNEXPECTED: tried to uncolor a node that was not in set of colored!");
             return;
@@ -172,6 +179,21 @@ public class Coloring {
             nci.setColorShared(oldColor);
         }
     }
+    
+    /*
+     * get the highest degree from each selected nodes to other selected nodes
+     */
+    public int getHighestDegreeSelected(){
+        int maxDegreeToSelected = 0;
+        for( NodeColorInfo nci : nodeColorInfo){
+            if( nci.isSelected() && nci.getDegreeToSelected() > maxDegreeToSelected){
+                maxDegreeToSelected = nci.getDegreeToSelected();
+            }
+        }
+        logger.finest( "getting highest-degree-selected: " + maxDegreeToSelected);
+        return maxDegreeToSelected;
+    }
+    
 
     public String toStringUncolored() {
         return toStringNciList( this.selectedUncoloredNCIs, "Uncolored Nodes");
@@ -194,7 +216,7 @@ public class Coloring {
         for (NodeColorInfo nci : nciCollection) {
             ret += "n" + nci.getNode().getId() + ": "
                     + "color=" + nci.getColor() + "; "
-                    + "uncolored_neighs=" + nci.getUncolored() + "/" + nci.getNode().getDegree() + "; "
+                    + "uncolored_neighs=" + nci.getUncoloredNeighbours() + "/" + nci.getNode().getDegree() + "; "
                     + "colors_available=" + nci.getColorsAvailable() + "; "
                     + "colors_shared=" + nci.getColorsShared() + "; "
                     + "\n";

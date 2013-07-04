@@ -18,17 +18,17 @@ public class NodeSelector {
             int r = randomGenerator.nextInt(size);
             int nodeId = g.getNodeInPartition()[i][r].getId();
             NodeColorInfo nci = coloring.getNciById(nodeId);
-            coloring.selectNodeColorInfo(nci);
+            coloring.selectNci(nci);
             logger.finest( "selected node " + nodeId);
         }
     }
 
     public static void testSelect( Coloring coloring){
-        coloring.selectNodeColorInfo(coloring.getNciById(1));
+        coloring.selectNci(coloring.getNciById(1));
         logger.finest( "selected node " + 1);
-        coloring.selectNodeColorInfo(coloring.getNciById(2));
+        coloring.selectNci(coloring.getNciById(2));
         logger.finest( "selected node " + 2);
-        coloring.selectNodeColorInfo(coloring.getNciById(4));
+        coloring.selectNci(coloring.getNciById(4));
         logger.finest( "selected node " + 4);
     }
     

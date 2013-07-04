@@ -29,18 +29,20 @@ public class PCP {
            logger.log( Level.FINE,  "Reading instance complete. It took " + (System.currentTimeMillis() - time) + " ms.");
            logger.info( g.toString());
            
-           int maxColor = g.getHighestDegree();
-           Coloring c = new Coloring( g, maxColor);
+           Coloring c = new Coloring( g);
            logger.finest( c.toString());
 
            logger.info( "Selecting nodes:");
            //NodeSelector.randomSelect(c);
            NodeSelector.testSelect(c);
+           int maxColors = c.getHighestDegreeSelected() + 1;
+           c.initColorArrayOfEachNci(maxColors);
+           
            logger.info( c.toString());
            
            logger.info( "Applying coloring:");
            //TODO: getHighest degree of selected graph = new maxColor
-           DangerAlgorithm.applyColoring( c, maxColor);
+           DangerAlgorithm.applyColoring( c, maxColors);
            
            logger.info( c.toString());
            

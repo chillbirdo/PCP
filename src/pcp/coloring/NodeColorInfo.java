@@ -1,5 +1,6 @@
 package pcp.coloring;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import pcp.PCP;
 import static pcp.PCP.ColorState.AVAILABLE;
@@ -10,19 +11,20 @@ import pcp.model.Node;
 public class NodeColorInfo {
 
     private static final Logger logger = Logger.getLogger(NodeColorInfo.class.getName());
+    private Node node;                        //the node to which this nci is refering
+    private int color;                        //the color of node n
+    private int uncoloredNeighbours;          //number of uncolored neighbours
+    private ArrayList<PCP.ColorState> colors; //state of each colors
+    private int colorsAvailable;              //number of colors available
+    private int colorsShared;                 //number of color shared
+    private int degreeToSelected;             //number of adjacent edges to selected nodes
 
-    private Node node;              //the node to which this nci is refering
-    private int color;              //the color of node n
-    private int uncoloredNeighbours;//number of uncolored neighbours
-    private PCP.ColorState[] colors;//state of all colors
-    private int colorsAvailable;    //number of colors available
-    private int colorsShared;       //number of color shared
-
-    public NodeColorInfo(Node n, int maxColors) {
+    public NodeColorInfo(Node n) {
         this.node = n;
         this.color = PCP.UNSELECTED;
         this.uncoloredNeighbours = 0;
-        initColorArray(maxColors);
+        this.degreeToSelected = 0;
+        this.colors = null;
     }
 
     /*
@@ -30,12 +32,15 @@ public class NodeColorInfo {
      */
     public void initColorArray(int maxColors) {
         if (colors == null) {
-            colors = new PCP.ColorState[maxColors];
+            colors = new ArrayList<PCP.ColorState>(maxColors);
             this.colorsAvailable = maxColors;
             this.colorsShared = maxColors;
-            for (int i = 0; i < colors.length; i++) {
-                colors[i] = PCP.ColorState.SHARED;
+            for (int i = 0; i < maxColors; i++) {
+                colors.add(i, SHARED);
             }
+            logger.warning("----- INIT nci " + node.getId() + " with maxColors " + colors.size() + " " + maxColors);
+        } else {
+            logger.warning("UNEXPECTED: tried to init colorarray wich has already been initialized.");
         }
     }
 
@@ -88,27 +93,26 @@ public class NodeColorInfo {
         }
     }
 
-    
     public void setColorUnavailable(int color) {
-        updCountingValues(this.colors[color], PCP.ColorState.UNAVAILABLE);
-        this.colors[color] = PCP.ColorState.UNAVAILABLE;
+        updCountingValues(this.colors.get(color), UNAVAILABLE);
+        this.colors.set(color, UNAVAILABLE);
     }
 
     public void setColorAvailable(int color) {
-        updCountingValues(this.colors[color], PCP.ColorState.AVAILABLE);
-        this.colors[color] = PCP.ColorState.AVAILABLE;
+        updCountingValues(this.colors.get(color), AVAILABLE);
+        this.colors.set(color, AVAILABLE);
     }
 
     public void setColorShared(int color) {
-        updCountingValues(this.colors[color], PCP.ColorState.SHARED);
-        this.colors[color] = PCP.ColorState.SHARED;
-    }    
-    
+        updCountingValues(this.colors.get(color), SHARED);
+        this.colors.set(color, SHARED);
+    }
+
     public Node getNode() {
         return node;
     }
 
-    public void setNode( Node node) {
+    public void setNode(Node node) {
         this.node = node;
     }
 
@@ -120,11 +124,11 @@ public class NodeColorInfo {
         this.color = color;
     }
 
-    public int getUncolored() {
+    public int getUncoloredNeighbours() {
         return uncoloredNeighbours;
     }
 
-    public void setUncolored(int uncolored) {
+    public void setUncoloredNeighbours(int uncolored) {
         this.uncoloredNeighbours = uncolored;
     }
 
@@ -173,35 +177,42 @@ public class NodeColorInfo {
     }
 
     public PCP.ColorState getColorState(int color) {
-        return colors[color];
+        return colors.get(color);
     }
 
     public boolean isColorAvailable(int color) {
-        return this.colors[color] == PCP.ColorState.AVAILABLE;
+        return colors.get(color) == AVAILABLE;
     }
 
     public boolean isColorShared(int color) {
-        return this.colors[color] == PCP.ColorState.SHARED;
+        return colors.get(color) == SHARED;
     }
 
     public boolean isColorUnavailable(int color) {
-        return this.colors[color] == PCP.ColorState.UNAVAILABLE;
+        return colors.get(color) == UNAVAILABLE;
     }
+
     public boolean isSelected() {
         return color != PCP.UNSELECTED;
     }
-    
-    /*
-     * access level: package privacy
-     */
-    void select(){
+
+    void select() {
         this.color = PCP.UNCOLORED;
     }
-    
-    /*
-     * access level: package privacy
-     */
-    void unselect(){
+
+    void unselect() {
         this.color = PCP.UNSELECTED;
+    }
+
+    public int getDegreeToSelected() {
+        return degreeToSelected;
+    }
+
+    public void increaseDegreeToSelected() {
+        this.degreeToSelected++;
+    }
+
+    public void decreaseDegreeToSelected() {
+        this.degreeToSelected--;
     }
 }
