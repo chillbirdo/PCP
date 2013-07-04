@@ -4,45 +4,45 @@
         simple example build file
         jdk: /usr/lib/jvm/java-6-openjdk-amd64/
     </description>
-  <!-- set global properties for this build -->
+    <!-- set global properties for this build -->
     <property name="src" location="src"/>
     <property name="build" location="build"/>
     <property name="dist"  location="dist"/>
 
     <target name="init">
-    <!-- Create the time stamp -->
+        <!-- Create the time stamp -->
         <tstamp/>
-    <!-- Create the build directory structure used by compile -->
+        <!-- Create the build directory structure used by compile -->
         <mkdir dir="${build}"/>
     </target>
 
     <target name="compile" depends="init"
-        description="compile the source " >
-    <!-- Compile the java code from ${src} into ${build} -->
+            description="compile the source " >
+        <!-- Compile the java code from ${src} into ${build} -->
         <javac srcdir="${src}" destdir="${build}"/>
     </target>
 
     <target name="dist" depends="compile"
-        description="generate the distribution" >
-    <!-- Create the distribution directory -->
+            description="generate the distribution" >
+        <!-- Create the distribution directory -->
         <mkdir dir="${dist}/lib"/>
 
-        <manifest file="build/MANIFEST.MF">
-            <attribute name="Main-Class"
-             value="pcp.PCP" />
-        </manifest>
-    <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-        <jar jarfile="${dist}/lib/PCP.jar" basedir="${build}"/>
+        <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+        <jar jarfile="${dist}/lib/PCP.jar" basedir="${build}">
+            <manifest>
+                <attribute name="Main-Class" value="pcp.PCP"/>
+            </manifest>
+        </jar>
     </target>
 
     <target name="clean"
-        description="clean up" >
-    <!-- Delete the ${build} and ${dist} directory trees -->
+            description="clean up" >
+        <!-- Delete the ${build} and ${dist} directory trees -->
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
     </target>
     
-    <target name="run" depends="compile">
+    <target name="run" depends="dist">
         <java jar="${dist}/lib/PCP.jar" fork="true">
             <jvmarg value="-Djava.util.logging.config.file=./etc/logging.properties"/>
         </java>
