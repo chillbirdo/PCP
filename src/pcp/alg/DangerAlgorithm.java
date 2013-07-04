@@ -24,10 +24,11 @@ public class DangerAlgorithm {
         logger.finer("Applying DANGER with maxColors:" + maxColors);
         while( coloring.getSelectedUncoloredNCIs().size() > 0){
             NodeColorInfo nci = selectMostDangerousNci(coloring.getSelectedUncoloredNCIs(), maxColors);
-            logger.finer("\tDANGER Node selection: Node " + nci.getNodeId());
+            logger.finer("\tDANGER Node selection: Node " + nci.getNode().getId());
             int c = selectColorForNci(nci, maxColors, coloring);
             logger.finer("\tDANGER Color selection: Color " + c);
             coloring.colorNodeColorInfo(nci, c);
+            logger.finest(coloring.toString());
         }
     }
 

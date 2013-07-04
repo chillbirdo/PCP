@@ -38,10 +38,15 @@ public class Coloring {
     public void selectNodeColorInfo( NodeColorInfo nci){
         if( !nci.isSelected() && unselectedNCIs.contains(nci)){
             nci.select();
+            for( Node neigh : nci.getNode().getNeighbours()){
+                NodeColorInfo neighNci = getNciById(neigh.getId());
+                //logger.finest( "increased uncolored of neighbour, nodeId: " + nci.getNode().getId());
+                neighNci.increaseUncolored();
+            }
             unselectedNCIs.remove( nci);
             selectedUncoloredNCIs.add(nci);
         }else{
-            logger.warning("UNEXPECTED: tried to select an already selected node. (node=" + nci.getNodeId() + ", color=" + nci.getColor() + ")");
+            logger.warning("UNEXPECTED: tried to select an already selected node. (node=" + nci.getNode().getId() + ", color=" + nci.getColor() + ")");
         }
     }
     
@@ -51,10 +56,14 @@ public class Coloring {
     public void unselectNodeColorInfo( NodeColorInfo nci){
         if( nci.getColor() == PCP.UNCOLORED && selectedUncoloredNCIs.contains( nci)){
             nci.unselect();
+            for( Node neigh : nci.getNode().getNeighbours()){
+                NodeColorInfo neighNci = getNciById(neigh.getId());
+                neighNci.decreaseUncolored();
+            }
             selectedUncoloredNCIs.remove(nci);
             unselectedNCIs.add(nci);
         }else{
-            logger.severe("UNEXPECTED: tried to unselect either a colored or an already unselected node!  (node=" + nci.getNodeId() + ", color=" + nci.getColor() + ")");
+            logger.severe("UNEXPECTED: tried to unselect either a colored or an already unselected node!  (node=" + nci.getNode().getId() + ", color=" + nci.getColor() + ")");
         }
     }
     
@@ -69,13 +78,12 @@ public class Coloring {
         this.selectedUncoloredNCIs.remove(nci);
         this.selectedColoredNCIs.add(nci);
 
-        Node n = g.getNode(nci.getNodeId());
         if (nci.getColor() == color || color == PCP.UNCOLORED) {
             return;
         }
         nci.setColor(color);
         nci.setColorUnavailable(color);
-        for (Node neigh : n.getNeighbours()) {
+        for (Node neigh : nci.getNode().getNeighbours()) {
             NodeColorInfo neighNci = nodeColorInfo[neigh.getId()];
             neighNci.decreaseUncolored();
 
@@ -83,7 +91,7 @@ public class Coloring {
                 neighNci.setColorUnavailable(color);
                 for (Node neighOfNeigh : neigh.getNeighbours()) {
                     NodeColorInfo neighOfNeighNci = nodeColorInfo[neighOfNeigh.getId()];
-                    if (neighOfNeigh != n) {
+                    if (neighOfNeigh != nci.getNode()) {
                         if (neighOfNeighNci.isColorShared(color)) {
                             neighOfNeighNci.setColorAvailable(color);
                         }
@@ -96,7 +104,7 @@ public class Coloring {
     /*
      * performs uncoloring
      */
-    public void unColorNodeColorInfo(NodeColorInfo nci) {
+    public void uncolorNodeColorInfo(NodeColorInfo nci) {
         if( !selectedUncoloredNCIs.contains(nci)){
             logger.severe("UNEXPECTED: tried to uncolor a node that was not in set of colored!");
             return;
@@ -108,15 +116,14 @@ public class Coloring {
         nci.setColor(PCP.UNCOLORED);
         nci.setColorAvailable(oldColor);
         boolean oldColorAvailableOnAllNeighs = true;
-        Node n = g.getNode(nci.getNodeId());
-        for (Node neigh : n.getNeighbours()) {
+        for (Node neigh : nci.getNode().getNeighbours()) {
             NodeColorInfo neighNci = this.nodeColorInfo[neigh.getId()];
             neighNci.increaseUncolored();
             //check if neigh has oldcolor AVAILABLE now
             boolean noNeighOfNeighHasOldColor = true;
             for (Node neighOfNeigh : neigh.getNeighbours()) {
                 NodeColorInfo neighOfNeighNci = this.nodeColorInfo[neighOfNeigh.getId()];
-                if (neighOfNeigh == n) {
+                if (neighOfNeigh == nci.getNode()) {
                     continue;
                 }
                 if (neighOfNeighNci.getColor() == oldColor) {
@@ -129,7 +136,7 @@ public class Coloring {
                 //check if its neighbours can share oldcolor now
                 for (Node neighOfNeigh : neigh.getNeighbours()) {
                     NodeColorInfo neighOfNeighNci = this.nodeColorInfo[neighOfNeigh.getId()];
-                    if (neighOfNeigh == n || neighOfNeighNci.isColorUnavailable(oldColor)) {
+                    if (neighOfNeigh == nci.getNode() || neighOfNeighNci.isColorUnavailable(oldColor)) {
                         continue;
                     }
                     boolean allNeighOfNeighOfNeighHaveOldColorAvailable = true;
@@ -150,7 +157,7 @@ public class Coloring {
             boolean allNeighOfNeighHaveOldColorAvailable = true;
             for (Node neighOfNeigh : neigh.getNeighbours()) {
                 NodeColorInfo neighOfNeighNci = this.nodeColorInfo[neighOfNeigh.getId()];
-                if (neighOfNeigh == n) {
+                if (neighOfNeigh == nci.getNode()) {
                     continue;
                 }
                 if (neighOfNeighNci.isColorUnavailable(oldColor)) {
@@ -171,25 +178,28 @@ public class Coloring {
     }
 
     public String toStringUnselected() {
-        return toStringNciList( this.unselectedNCIs, "Uncolored Nodes");
+        return toStringNciList( this.unselectedNCIs, "Unselected Nodes");
     }
     
     public String toStringColored() {
         return toStringNciList( this.selectedColoredNCIs, "Colored Nodes");
     }
     
+    public String toString(){
+        return toStringColored() + "\n" + toStringUncolored() + "\n" + toStringUnselected();
+    }
+    
     private String toStringNciList( Collection<NodeColorInfo> nciCollection, String name){
         String ret = "\n" + name + ": {\n";
         for (NodeColorInfo nci : nciCollection) {
-            Node n = g.getNode(nci.getNodeId());
-            ret += "n" + nci.getNodeId() + ": "
+            ret += "n" + nci.getNode().getId() + ": "
                     + "color=" + nci.getColor() + "; "
-                    + "uncolored_neighs=" + nci.getUncolored() + "/" + n.getDegree() + "; "
+                    + "uncolored_neighs=" + nci.getUncolored() + "/" + nci.getNode().getDegree() + "; "
                     + "colors_available=" + nci.getColorsAvailable() + "; "
                     + "colors_shared=" + nci.getColorsShared() + "; "
                     + "\n";
         }
-        return "}" + ret;        
+        return ret + "}";        
     }
     
     public Set<NodeColorInfo> getSelectedColoredNCIs() {

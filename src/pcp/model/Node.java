@@ -65,6 +65,10 @@ public class Node{
         return degree;
     }
 
+    public void setDegree( int degree) {
+        this.degree = degree;
+    }
+
     public void decreaseDegree() {
         degree--;
     }

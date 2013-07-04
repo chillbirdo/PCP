@@ -123,11 +123,10 @@ public class InstanceReader {
                 if (n.getPartition() == neigh.getPartition()) {
                     neighboursToReduce++;
                     n.setNeighbour(j, null);
-                    //int degree = n.decreaseDegree();
-                    //if( degree < )
                 }
             }
             if (neighboursToReduce > 0) {
+                n.setDegree( n.getDegree()-neighboursToReduce);
                 Node[] reducedNeighbours = new Node[n.getNeighbours().length - neighboursToReduce];
                 int idx = 0;
                 for (Node neigh : n.getNeighbours()) {

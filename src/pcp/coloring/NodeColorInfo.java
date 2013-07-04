@@ -11,7 +11,7 @@ public class NodeColorInfo {
 
     private static final Logger logger = Logger.getLogger(NodeColorInfo.class.getName());
 
-    private int nodeId;             //the id of the nci is the same as of the node
+    private Node node;              //the node to which this nci is refering
     private int color;              //the color of node n
     private int uncoloredNeighbours;//number of uncolored neighbours
     private PCP.ColorState[] colors;//state of all colors
@@ -19,9 +19,9 @@ public class NodeColorInfo {
     private int colorsShared;       //number of color shared
 
     public NodeColorInfo(Node n, int maxColors) {
-        this.nodeId = n.getId();
-        this.color = PCP.UNCOLORED;
-        this.uncoloredNeighbours = n.getDegree();
+        this.node = n;
+        this.color = PCP.UNSELECTED;
+        this.uncoloredNeighbours = 0;
         initColorArray(maxColors);
     }
 
@@ -104,12 +104,12 @@ public class NodeColorInfo {
         this.colors[color] = PCP.ColorState.SHARED;
     }    
     
-    public int getNodeId() {
-        return nodeId;
+    public Node getNode() {
+        return node;
     }
 
-    public void setNodeId(int nodeId) {
-        this.nodeId = nodeId;
+    public void setNode( Node node) {
+        this.node = node;
     }
 
     public int getColor() {
@@ -190,10 +190,18 @@ public class NodeColorInfo {
     public boolean isSelected() {
         return color != PCP.UNSELECTED;
     }
-    public void select(){
+    
+    /*
+     * access level: package privacy
+     */
+    void select(){
         this.color = PCP.UNCOLORED;
     }
-    public void unselect(){
+    
+    /*
+     * access level: package privacy
+     */
+    void unselect(){
         this.color = PCP.UNSELECTED;
     }
 }

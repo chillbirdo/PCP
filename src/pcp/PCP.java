@@ -4,7 +4,7 @@ import pcp.model.Graph;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import pcp.alg.DangerAlgorithm;
-import pcp.alg.InitialNodeSelection;
+import pcp.alg.NodeSelector;
 import pcp.coloring.Coloring;
 import pcp.instancereader.InstanceReader;
 
@@ -29,17 +29,20 @@ public class PCP {
            logger.log( Level.FINE,  "Reading instance complete. It took " + (System.currentTimeMillis() - time) + " ms.");
            logger.info( g.toString());
            
-           logger.info( "Selecting nodes:");
            int maxColor = g.getHighestDegree();
            Coloring c = new Coloring( g, maxColor);
-           InitialNodeSelection.randomSelect(c);
+           logger.finest( c.toString());
+
+           logger.info( "Selecting nodes:");
+           //NodeSelector.randomSelect(c);
+           NodeSelector.testSelect(c);
+           logger.info( c.toString());
            
            logger.info( "Applying coloring:");
+           //TODO: getHighest degree of selected graph = new maxColor
            DangerAlgorithm.applyColoring( c, maxColor);
            
-           logger.info( c.toStringColored());
-           logger.info( c.toStringUncolored());
-           logger.info( c.toStringUnselected());
+           logger.info( c.toString());
            
         }catch( Exception ex){
             ex.printStackTrace();
