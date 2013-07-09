@@ -37,7 +37,7 @@ public class DangerAlgorithm {
         NodeColorInfo chosenNci = null;
         for (NodeColorInfo uncoloredNci : uncoloredNciSet) {
             //double F = C / Math.pow(maxColors - uncoloredNci.getDiffColoredNeighbours(maxColors), k);
-            double F = C / (maxColors - uncoloredNci.getDiffColoredNeighbours(maxColors));
+            double F = C / (maxColors - uncoloredNci.getDiffColoredNeighbours());
             double nD = F + ku * uncoloredNci.getUncoloredNeighbours();// + ka * (uncoloredNci.getColorsShared() / uncoloredNci.getColorsAvailable());
             if (nD > maxND) {
                 maxND = nD;
@@ -65,8 +65,8 @@ public class DangerAlgorithm {
             NodeColorInfo maxDiffColoredNci = null;
             for (NodeColorInfo uncoloredNci : coloring.getSelectedUncoloredNCIs()) {
                 if (!uncoloredNci.isColorUnavailable(c)) {
-                    if (uncoloredNci.getDiffColoredNeighbours(maxColors) > maxDiffColored) {
-                        maxDiffColored = uncoloredNci.getDiffColoredNeighbours(maxColors);
+                    if (uncoloredNci.getDiffColoredNeighbours() > maxDiffColored) {
+                        maxDiffColored = uncoloredNci.getDiffColoredNeighbours();
                         maxDiffColoredNci = uncoloredNci;
                     }
                 }

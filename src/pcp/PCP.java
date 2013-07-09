@@ -7,6 +7,7 @@ import pcp.alg.DangerAlgorithm;
 import pcp.alg.NodeSelector;
 import pcp.coloring.Coloring;
 import pcp.instancereader.InstanceReader;
+import test.pcp.coloring.ColoringTest;
 
 public class PCP {
     private static final Logger logger = Logger.getLogger( PCP.class.getName());
@@ -18,19 +19,20 @@ public class PCP {
         //logger.getHandlers()[0].setFormatter( new BriefLogFormatter());
         long time = System.currentTimeMillis();     
         
-        Graph g;
+        Graph g = null;
+        Coloring c = null;
         try{
-           //g = InstanceReader.readInstance( "pcp_instances/test/test4.pcp");
-           g = InstanceReader.readInstance( "pcp_instances/pcp/n20p5t2s1.pcp");
+           g = InstanceReader.readInstance( "pcp_instances/test/test4.pcp");
+           //g = InstanceReader.readInstance( "pcp_instances/pcp/n20p5t2s1.pcp");
            logger.log( Level.FINE,  "Reading instance complete. It took " + (System.currentTimeMillis() - time) + " ms.");
            logger.info( g.toString());
            
-           Coloring c = new Coloring( g);
+           c = new Coloring( g);
            logger.finest( c.toString());
 
            logger.info( "Selecting nodes:");
-           NodeSelector.randomSelect(c);
-           //NodeSelector.testSelect(c);
+           //NodeSelector.randomSelect(c);
+           NodeSelector.testSelect(c);
            int maxColors = c.getHighestDegreeSelected() + 1;
            c.initColorArrayOfEachNci(maxColors);
            
@@ -46,5 +48,8 @@ public class PCP {
             ex.printStackTrace();
         }
 
+        //tests
+        ColoringTest test = new ColoringTest( c, g);
+        test.performAll();
     }
 }

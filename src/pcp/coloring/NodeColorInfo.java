@@ -12,7 +12,7 @@ public class NodeColorInfo {
     private int color;                              //the color of node n
     private int uncoloredNeighbours;                //number of uncolored neighbours
     private ArrayList<Integer> conflicts;           //number of conflicts a coloring would produce
-    private ArrayList<Integer> neighboursShared;    //number of selected neighbours that share the available color
+//    private ArrayList<Integer> neiSghboursShared;    //number of selected neighbours that share the available color
     private int colorsAvailable;                    //number of colors available
 //    private int colorsShared;                     //number of color shared
     private int degreeToSelected;                   //number of adjacent edges to selected nodes
@@ -23,21 +23,21 @@ public class NodeColorInfo {
         this.uncoloredNeighbours = 0;
         this.degreeToSelected = 0;
         this.conflicts = null;
-        this.neighboursShared = null;
+//        this.neighboursShared = null;
     }
 
     /*
      * adapt the length of the conflicts-ArrayList to the number of maximal colors
      */
     public void initConflictsArray(int maxColors) {
-        if (conflicts == null && neighboursShared == null) {
+        if (conflicts == null ){//&& neighboursShared == null) {
             conflicts = new ArrayList<Integer>(maxColors);
-            neighboursShared = new ArrayList<Integer>(maxColors);
+//            neighboursShared = new ArrayList<Integer>(maxColors);
             this.colorsAvailable = maxColors;
 //            this.colorsShared = maxColors;
             for (int i = 0; i < maxColors; i++) {
                 conflicts.add(i, 0);
-                neighboursShared.add(i, 0);//number changes when nodes are selected
+//                neighboursShared.add(i, 0);//number changes when nodes are selected
             }
             logger.warning("----- INIT nci " + node.getId() + " with maxColors " + conflicts.size() + " " + maxColors);
         } else {
@@ -85,8 +85,8 @@ public class NodeColorInfo {
 //        this.colorsShared = colorsShared;
 //    }
 
-    public int getDiffColoredNeighbours(int maxColors) {
-        return maxColors - colorsAvailable;
+    public int getDiffColoredNeighbours() {
+        return getColorsUsed() - colorsAvailable;
     }
 
     public void increaseUncolored() {
@@ -133,10 +133,6 @@ public class NodeColorInfo {
 //        this.colorsShared++;
 //    }
 
-    public int getNumberNeighboursSharingColor(int color) {
-        return neighboursShared.get(color);
-    }
-
     public boolean isSelected() {
         return color != PCP.NODE_UNSELECTED;
     }
@@ -159,5 +155,9 @@ public class NodeColorInfo {
 
     public void decreaseDegreeToSelected() {
         this.degreeToSelected--;
+    }
+    
+    public int getColorsUsed(){
+        return this.conflicts.size();
     }
 }

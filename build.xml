@@ -2,7 +2,7 @@
 <project name="PCP" default="run" basedir=".">
     <description>
         simple example build file
-        jdk: /usr/lib/jvm/java-6-openjdk-amd64/
+        jdk: /usr/local/jdk1.7.0_25/
     </description>
     <!-- set global properties for this build -->
     <property name="src" location="src"/>
