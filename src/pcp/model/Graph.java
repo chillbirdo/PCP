@@ -1,10 +1,5 @@
 package pcp.model;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Graph {
@@ -19,14 +14,6 @@ public class Graph {
         this.nodeInPartition = nodeInPartition;
         this.partitionSize = partitionSize;
     }
-
-//    public void initMaxColorsAvailable(int maxColors) {
-//        logger.log( Level.INFO, "Maxcolors: " + maxColors);
-//        this.maxColors = maxColors;
-//        for (Node n : node) {
-//            n.initColorArray(maxColors);
-//        }
-//    }
 
     public String toString() {
         String ret = "size " + node.length + ";\n";

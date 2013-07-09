@@ -1,14 +1,6 @@
 package pcp.model;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
 import java.util.logging.Logger;
-import org.omg.PortableServer.POAManagerPackage.State;
-import pcp.PCP;
-import static pcp.PCP.UNCOLORED;
-import pcp.coloring.Coloring;
-import pcp.PCP.ColorState;
 import pcp.tools.MergeSort;
 
 public class Node{
