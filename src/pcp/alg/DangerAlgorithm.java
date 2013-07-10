@@ -20,22 +20,30 @@ public class DangerAlgorithm {
     private static final double k3 = 0.5;
     private static final double k4 = 0.025;
 
-    public static void applyColoring( Coloring coloring, int maxColors) {
+    public static int applyColoring( Coloring coloring, int maxColors) {
         logger.finer("Applying DANGER with maxColors:" + maxColors);
         while( coloring.getSelectedUncoloredNCIs().size() > 0){
             NodeColorInfo nci = selectMostDangerousNci(coloring.getSelectedUncoloredNCIs(), maxColors);
+            if( nci == null){
+                return 1;
+            }
             logger.finer("\tDANGER Node selection: Node " + nci.getNode().getId());
             int c = selectColorForNci(nci, maxColors, coloring);
             logger.finer("\tDANGER Color selection: Color " + c);
             coloring.colorNci(nci, c);
             logger.finest(coloring.toString());
         }
+        return 0;
     }
 
     private static NodeColorInfo selectMostDangerousNci(Collection<NodeColorInfo> uncoloredNciSet, int maxColors) {
         double maxND = 0;
         NodeColorInfo chosenNci = null;
         for (NodeColorInfo uncoloredNci : uncoloredNciSet) {
+            if( uncoloredNci.getColorsAvailable() == 0){
+                logger.severe( "Unable to color the selection within " + maxColors + " colors.");
+                return null;
+            }
             //double F = C / Math.pow(maxColors - uncoloredNci.getDiffColoredNeighbours(maxColors), k);
             double F = C / (maxColors - uncoloredNci.getDiffColoredNeighbours());
             double nD = F + ku * uncoloredNci.getUncoloredNeighbours();// + ka * (uncoloredNci.getColorsShared() / uncoloredNci.getColorsAvailable());
@@ -56,6 +64,7 @@ public class DangerAlgorithm {
      */
     private static int selectColorForNci(NodeColorInfo nci, int maxColors, Coloring coloring) {
         int chosenColor = -1;
+        int highestColor = 0;
         double minNC = Double.MAX_VALUE;
         for (int c = 0; c < maxColors; c++) {
             if (nci.isColorUnavailable(c)) {

@@ -15,6 +15,7 @@ public class Coloring {
     private static final Logger logger = Logger.getLogger(Coloring.class.getName());
     private Graph g;
     private NodeColorInfo[] nodeColorInfo;
+    private int chromatic;
     private Set<NodeColorInfo> unselectedNCIs;
     private Set<NodeColorInfo> selectedColoredNCIs;
     private Set<NodeColorInfo> selectedUncoloredNCIs;
@@ -32,6 +33,7 @@ public class Coloring {
     }
 
     public void initColorArrayOfEachNci(int maxColors) {
+        chromatic = maxColors;
         for (NodeColorInfo nci : nodeColorInfo) {
             nci.initConflictsArray(maxColors);
         }
@@ -127,7 +129,7 @@ public class Coloring {
         int oldColor = nci.getColor();
         nci.setColor(PCP.NODE_UNCOLORED);
 
-        ArrayList<Node> neightsGoneAvailable = new ArrayList<Node>(nci.getNode().getNeighbours().length); 
+        ArrayList<Node> neightsGoneAvailable = new ArrayList<Node>(nci.getNode().getNeighbours().length);
         for (Node neigh : nci.getNode().getNeighbours()) {
             NodeColorInfo neighNci = getNciById(neigh.getId());
             neighNci.increaseUncolored();
@@ -157,7 +159,7 @@ public class Coloring {
 //                    neighNci.increaseColorsShared();
 //                }
 //            }
-        }
+    }
 
 
     /*
@@ -197,10 +199,27 @@ public class Coloring {
                     + "color=" + nci.getColor() + "; "
                     + "uncolored_neighs=" + nci.getUncoloredNeighbours() + "/" + nci.getNode().getDegree() + "; "
                     + "colors_available=" + nci.getColorsAvailable() + "; "
-//                    + "colors_shared=" + nci.getColorsShared() + "; "
+                    //                    + "colors_shared=" + nci.getColorsShared() + "; "
                     + "\n";
         }
         return ret + "}";
+    }
+
+    public void logColorStats() {
+        int[] colorStats = new int[getChromatic()];
+        for (int i = 0; i < colorStats.length; i++) {
+            colorStats[i] = 0;
+        }
+        for (NodeColorInfo nci : nodeColorInfo) {
+            if (nci.getColor() >= 0) {
+                colorStats[nci.getColor()]++;
+
+            }
+        }
+        logger.info("COLORSTATS:");
+        for (int i = 0; i < colorStats.length; i++) {
+            logger.info("color " + i + " = " + colorStats[i]);
+        }
     }
 
     public Set<NodeColorInfo> getSelectedColoredNCIs() {
@@ -221,5 +240,9 @@ public class Coloring {
 
     public NodeColorInfo getNciById(int id) {
         return this.nodeColorInfo[id];
+    }
+
+    public int getChromatic() {
+        return chromatic;
     }
 }

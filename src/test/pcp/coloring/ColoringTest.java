@@ -81,7 +81,7 @@ public class ColoringTest {
             //init conflictarray and collect
             NodeColorInfo nci = c.getNciById(n.getId());
 
-            int[] conflicts = new int[nci.getColorsUsed()];
+            int[] conflicts = new int[c.getChromatic()];
             for (int i = 0; i < conflicts.length; i++) {
                 conflicts[i] = 0;
             }
@@ -112,7 +112,7 @@ public class ColoringTest {
             NodeColorInfo nci = c.getNciById(n.getId());
             int colorsAvailable = 0;
             int colorsUnavailable = 0;
-            for (int i = 0; i < nci.getColorsUsed(); i++) {
+            for (int i = 0; i < c.getChromatic(); i++) {
                 if (nci.isColorAvailable(i)) {
                     colorsAvailable++;
                 } else if (nci.getConflicts(i) > 0) {

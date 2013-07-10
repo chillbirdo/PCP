@@ -86,7 +86,7 @@ public class NodeColorInfo {
 //    }
 
     public int getDiffColoredNeighbours() {
-        return getColorsUsed() - colorsAvailable;
+        return conflicts.size() - colorsAvailable;
     }
 
     public void increaseUncolored() {
@@ -155,9 +155,5 @@ public class NodeColorInfo {
 
     public void decreaseDegreeToSelected() {
         this.degreeToSelected--;
-    }
-    
-    public int getColorsUsed(){
-        return this.conflicts.size();
     }
 }

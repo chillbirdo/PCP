@@ -48,11 +48,7 @@ public class Node{
     public int getPartition() {
         return partition;
     }
-
-    public void sortNeighboursByColor() {
-        MergeSort.sortNodes(neighbour);
-    }
-
+    
     public int getDegree() {
         return degree;
     }
