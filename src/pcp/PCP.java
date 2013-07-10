@@ -23,7 +23,9 @@ public class PCP {
         Coloring c = null;
         try {
             //g = InstanceReader.readInstance( "pcp_instances/test/test4.pcp");
-            g = InstanceReader.readInstance("pcp_instances/pcp/n20p5t2s1.pcp");
+            // g = InstanceReader.readInstance("pcp_instances/pcp/n20p5t2s1.pcp");
+            //g = InstanceReader.readInstance("pcp_instances/pcp/n40p5t2s5.pcp");
+            g = InstanceReader.readInstance("pcp_instances/pcp/n120p5t2s5.pcp");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -31,31 +33,39 @@ public class PCP {
         logger.log(Level.FINE, "Reading instance complete. It took " + (System.currentTimeMillis() - time) + " ms.");
         logger.info(g.toString());
 
-        int succeeded = 1;
+        boolean succeeded = false;
+        int chromatic = Math.round(g.getHighestDegree() / 2f);
+        Coloring stablecoloring = null;
         do {
+            logger.fine("-----------------------------");
+            logger.fine("--- CHROMATIC: " + chromatic);
+            logger.fine("----------------------------");
+
             c = new Coloring(g);
             logger.finest(c.toString());
 
             logger.info("Selecting nodes:");
-            NodeSelector.greedyMinDegree(c, g, Math.round(g.getHighestDegree() / 2f));
-            int maxColors = c.getHighestDegreeSelected() + 1;
-            c.initColorArrayOfEachNci(maxColors);
+            NodeSelector.greedyMinDegree(c, g, chromatic);
+            if (!succeeded) {
+                chromatic = c.getHighestDegreeSelected() + 1;
+            }
+            c.initColorArrayOfEachNci(chromatic);
 
             logger.info(c.toString());
-
             logger.info("Applying coloring:");
-            //TODO: getHighest degree of selected graph = new maxColor
-            succeeded = DangerAlgorithm.applyColoring(c, maxColors);
+
+            succeeded = DangerAlgorithm.applyColoring(c, chromatic);
+            if (succeeded) {
+                stablecoloring = c;
+            }
 
             logger.info(c.toString());
-            c.logColorStats();
+            chromatic--;
+        } while (succeeded);
 
-
-            //tests
-            ColoringTest test = new ColoringTest(c, g);
-            test.performAll();
-
-        }while( succeeded == 0);
-    
+        //tests
+        stablecoloring.logColorStats();
+        ColoringTest test = new ColoringTest(stablecoloring, g);
+        test.performAll();
     }
 }

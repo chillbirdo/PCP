@@ -217,6 +217,7 @@ public class Coloring {
             }
         }
         logger.info("COLORSTATS:");
+        logger.info("chromatic = " + getChromatic());
         for (int i = 0; i < colorStats.length; i++) {
             logger.info("color " + i + " = " + colorStats[i]);
         }

@@ -20,12 +20,12 @@ public class DangerAlgorithm {
     private static final double k3 = 0.5;
     private static final double k4 = 0.025;
 
-    public static int applyColoring( Coloring coloring, int maxColors) {
+    public static boolean applyColoring( Coloring coloring, int maxColors) {
         logger.finer("Applying DANGER with maxColors:" + maxColors);
         while( coloring.getSelectedUncoloredNCIs().size() > 0){
             NodeColorInfo nci = selectMostDangerousNci(coloring.getSelectedUncoloredNCIs(), maxColors);
             if( nci == null){
-                return 1;
+                return false;
             }
             logger.finer("\tDANGER Node selection: Node " + nci.getNode().getId());
             int c = selectColorForNci(nci, maxColors, coloring);
@@ -33,7 +33,7 @@ public class DangerAlgorithm {
             coloring.colorNci(nci, c);
             logger.finest(coloring.toString());
         }
-        return 0;
+        return true;
     }
 
     private static NodeColorInfo selectMostDangerousNci(Collection<NodeColorInfo> uncoloredNciSet, int maxColors) {
