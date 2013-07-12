@@ -23,7 +23,7 @@ public class PCP {
         Coloring c = null;
         try {
             //g = InstanceReader.readInstance( "pcp_instances/test/test4.pcp");
-            // g = InstanceReader.readInstance("pcp_instances/pcp/n20p5t2s1.pcp");
+            //g = InstanceReader.readInstance("pcp_instances/pcp/n20p5t2s1.pcp");
             //g = InstanceReader.readInstance("pcp_instances/pcp/n40p5t2s5.pcp");
             g = InstanceReader.readInstance("pcp_instances/pcp/n120p5t2s5.pcp");
         } catch (Exception ex) {
