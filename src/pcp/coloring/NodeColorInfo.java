@@ -39,7 +39,7 @@ public class NodeColorInfo {
                 conflicts.add(i, 0);
 //                neighboursShared.add(i, 0);//number changes when nodes are selected
             }
-            logger.warning("----- INIT nci " + node.getId() + " with maxColors " + conflicts.size() + " " + maxColors);
+            logger.finest("----- INIT nci " + node.getId() + " with maxColors " + conflicts.size() + " " + maxColors);
         } else {
             logger.warning("UNEXPECTED: tried to init colorarray wich has already been initialized.");
         }

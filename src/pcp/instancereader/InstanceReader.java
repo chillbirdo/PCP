@@ -21,86 +21,89 @@ import pcp.model.Node;
  */
 public class InstanceReader {
 
-    private static final Logger logger = Logger.getLogger( InstanceReader.class.getName());
-    
+    private static final Logger logger = Logger.getLogger(InstanceReader.class.getName());
+
     public static Graph readInstance(String filePath) throws FileNotFoundException, IOException, Exception {
+        long time = System.currentTimeMillis();
+
         File file = new File(filePath);
         if (!file.isFile()) {
-            logger.log( Level.SEVERE, "could not find file: " + file.getAbsolutePath());
-            throw new FileNotFoundException( file.getAbsolutePath());
+            logger.log(Level.SEVERE, "could not find file: " + file.getAbsolutePath());
+            throw new FileNotFoundException(file.getAbsolutePath());
         }
         //identify filetype
         if (file.getName().endsWith("pcp") || file.getName().endsWith("in")) {
-            return readPCPInstance( file);
-        } 
-        else{
+            Graph g = readPCPInstance(file);
+            logger.log(Level.INFO, "Reading instance complete. It took " + (System.currentTimeMillis() - time) + " ms.");
+            return g;
+        } else {
             throw new Exception("Unknown file type.");
         }
     }
-    
-    private static Graph readPCPInstance(File file) throws Exception{
+
+    private static Graph readPCPInstance(File file) throws Exception {
         Scanner scanner = new Scanner(new FileReader(file));
         String line = scanner.nextLine();
-        
+
         String[] lineSplit = line.trim().split(" ");
         int lineCount = 1;
-        if( lineSplit.length < 3){
-            throw new Exception( "Invalid Instance Header.");
+        if (lineSplit.length < 3) {
+            throw new Exception("Invalid Instance Header.");
         }
-        
+
         //phase1: count, to allow exact memory allocation
         int nodeAmount = new Integer(lineSplit[0]);
         int partitionAmount = new Integer(lineSplit[2]);
         int partitionSize[] = new int[partitionAmount];
         int[] neighbourAmount = new int[nodeAmount];
-        for( int i : neighbourAmount){
-            i=0;
+        for (int i : neighbourAmount) {
+            i = 0;
         }
-        while( scanner.hasNext()){
+        while (scanner.hasNext()) {
             line = scanner.nextLine();
             lineSplit = line.trim().split(" ");
-            if( lineSplit.length == 1){
+            if (lineSplit.length == 1) {
                 int partition = new Integer(lineSplit[0]);
                 partitionSize[partition]++;
-            }else if( lineSplit.length == 2){
+            } else if (lineSplit.length == 2) {
                 int node1 = new Integer(lineSplit[0]);
                 int node2 = new Integer(lineSplit[1]);
                 neighbourAmount[node1]++;
                 neighbourAmount[node2]++;
-            }else{
+            } else {
                 throw new Exception("Invalid InstanceData at line " + lineCount);
             }
             lineCount++;
         }
         int maxPartitionSize = 0;
-        for( int i : partitionSize){
-            if( i > maxPartitionSize){
+        for (int i : partitionSize) {
+            if (i > maxPartitionSize) {
                 maxPartitionSize = i;
             }
         }
-        
+
         //phase2 create node data
         scanner = new Scanner(new FileReader(file));
         scanner.nextLine();
         Node[] node = new Node[nodeAmount];
         Node[][] nodeInPartition = new Node[partitionAmount][maxPartitionSize];
-        
+
         int nodeCount = 0;
         int[] nodesInPartitionCount = new int[partitionAmount];
-        for( int i : nodesInPartitionCount){
-            i=0;
+        for (int i : nodesInPartitionCount) {
+            i = 0;
         }
         int maxDegree = 0;
-        while( scanner.hasNext()){
+        while (scanner.hasNext()) {
             line = scanner.nextLine();
             lineSplit = line.trim().split(" ");
-            if( lineSplit.length == 1){
+            if (lineSplit.length == 1) {
                 int partition = new Integer(lineSplit[0]);
-                node[nodeCount] = new Node( nodeCount, partition, neighbourAmount[nodeCount]);
+                node[nodeCount] = new Node(nodeCount, partition, neighbourAmount[nodeCount]);
                 nodeInPartition[partition][nodesInPartitionCount[partition]] = node[nodeCount];
                 nodesInPartitionCount[partition]++;
                 nodeCount++;
-            }else if( lineSplit.length == 2){
+            } else if (lineSplit.length == 2) {
                 Node node1 = node[new Integer(lineSplit[0])];
                 Node node2 = node[new Integer(lineSplit[1])];
                 node1.addNeighbour(node2);
@@ -108,13 +111,13 @@ public class InstanceReader {
             }
         }
         removeEdgesInPartitions(node);
-        return new Graph( node, nodeInPartition, partitionSize);
-    }    
-    
+        return new Graph(node, nodeInPartition, partitionSize);
+    }
+
     /*
      * It is assumed that this method is called before any coloring is done
      */
-    private static void removeEdgesInPartitions( Node[] node) {
+    private static void removeEdgesInPartitions(Node[] node) {
         for (int i = 0; i < node.length; i++) {
             Node n = node[i];
             int neighboursToReduce = 0;
@@ -126,16 +129,16 @@ public class InstanceReader {
                 }
             }
             if (neighboursToReduce > 0) {
-                n.setDegree( n.getDegree()-neighboursToReduce);
+                n.setDegree(n.getDegree() - neighboursToReduce);
                 Node[] reducedNeighbours = new Node[n.getNeighbours().length - neighboursToReduce];
                 int idx = 0;
                 for (Node neigh : n.getNeighbours()) {
-                    if( neigh != null){
+                    if (neigh != null) {
                         reducedNeighbours[idx] = neigh;
                         idx++;
                     }
                 }
-                n.setNeighbours( reducedNeighbours);
+                n.setNeighbours(reducedNeighbours);
             }
         }
     }

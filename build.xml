@@ -47,5 +47,11 @@
             <jvmarg value="-Djava.util.logging.config.file=./etc/logging.properties"/>
         </java>
     </target>    
+
+    <target name="run_finest" depends="dist">
+        <java jar="${dist}/lib/PCP.jar" fork="true">
+            <jvmarg value="-Djava.util.logging.config.file=./etc/logging_finest.properties"/>
+        </java>
+    </target>    
     
 </project>

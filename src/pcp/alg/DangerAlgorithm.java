@@ -41,7 +41,7 @@ public class DangerAlgorithm {
         NodeColorInfo chosenNci = null;
         for (NodeColorInfo uncoloredNci : uncoloredNciSet) {
             if( uncoloredNci.getColorsAvailable() == 0){
-                logger.severe( "Unable to color the selection within " + maxColors + " colors.");
+                logger.fine( "Unable to color the selection within " + maxColors + " colors.");
                 return null;
             }
             //double F = C / Math.pow(maxColors - uncoloredNci.getDiffColoredNeighbours(maxColors), k);

@@ -23,7 +23,7 @@ public class NodeSelector {
         ArrayList<Node> nodesToConsider = new ArrayList<Node>(g.getNodes().length);
         nodesToConsider.addAll(Arrays.asList(g.getNodes()));
 
-        logger.info("Selecting nodes by greedyMinDegree");
+        logger.finest("Selecting nodes by greedyMinDegree");
         while (!nodesToConsider.isEmpty()) {
             logger.finest("\n");
             Node selectNode = null;
