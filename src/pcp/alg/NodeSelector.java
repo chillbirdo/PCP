@@ -16,27 +16,24 @@ public class NodeSelector {
 
     private static final Logger logger = Logger.getLogger(NodeSelector.class.getName());
     private static double ks = 1.0;
-    private static double ku = 0.05;
+    private static double ku = 0.3;
 
-    public static void greedyMinDegree(Coloring c, Graph g, int maxColors) {
-        ArrayList<Node> selectedNodes = new ArrayList<Node>(g.getPartitionSize().length);
-        ArrayList<Node> nodesToConsider = new ArrayList<Node>(g.getNodes().length);
-        nodesToConsider.addAll(Arrays.asList(g.getNodes()));
+    public static void greedyMinDegree(Coloring c, int partitionAmount, int maxColors) {
 
         logger.finest("Selecting nodes by greedyMinDegree");
-        while (!nodesToConsider.isEmpty()) {
+        while (!c.getConsideredForSelectionNCIs().isEmpty()) {
             logger.finest("\n");
             Node selectNode = null;
             double minEval = Double.MAX_VALUE;
-            for (int i = 0; i < nodesToConsider.size(); i++) {
-                Node n = nodesToConsider.get(i);
+            for (int i = 0; i < c.getConsideredForSelectionNCIs().size(); i++) {
+                Node n = c.getConsideredForSelectionNCIs().get(i).getNode();
                 //calc sum adjacent selected and considerable nodes
                 double sumOfAdjacentSelected = 0.0;
                 double sumOfAdjacentConsiderable = 0.0;
                 for (Node neigh : n.getNeighbours()) {
-                    if (selectedNodes.contains(neigh)) {
+                    if (c.getSelectedUncoloredNCIs().contains(c.getNciById(neigh.getId()))) {
                         sumOfAdjacentSelected += 1.0;
-                    } else if (nodesToConsider.contains(neigh)) {
+                    } else if (c.getConsideredForSelectionNCIs().contains(neigh)) {
                         sumOfAdjacentConsiderable += 1.0;
                     }
                 }
@@ -48,15 +45,7 @@ public class NodeSelector {
                 }
             }
             logger.finest("chose node " + selectNode.getId());
-            selectedNodes.add(selectNode);
             c.selectNci(c.getNciById(selectNode.getId()));
-            //remove all nodes of the same partition as selectednode
-            for (Iterator<Node> it = nodesToConsider.iterator(); it.hasNext();) {
-                Node nodeToConsider = it.next();
-                if (nodeToConsider.getPartition() == selectNode.getPartition()) {
-                    it.remove();
-                }
-            }
         }
     }
 

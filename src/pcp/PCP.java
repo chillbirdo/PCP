@@ -1,6 +1,7 @@
 package pcp;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import pcp.model.Graph;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,17 +37,21 @@ public class PCP {
 
         c = calculateInitialColoring(g);
         ArrayList<Integer> colorList = EasyToEliminateColorFinder.randomFind(c);
-        
+
 //        for( int color : colorList){
-            int color = colorList.get(0);
-            logger.info( "EasyToEliminateColor: " + color);
-            for( NodeColorInfo nci : c.getSelectedColoredNCIs()){
-                if( nci.getColor() == color){
-                    c.uncolorNci(nci);
-                }
+        int color = colorList.get(0);
+        logger.info("EasyToEliminateColor: " + color);
+        for (Iterator<NodeColorInfo> it = c.getSelectedColoredNCIs().iterator(); it.hasNext();) {
+            NodeColorInfo nci = it.next();
+            if (nci.getColor() == color) {
+                c.uncolorNci(nci);
+                it.remove();
+                c.unselectNci(nci);
+                //SPEEDUP: write method to unselect a colored node
             }
+        }
 //        }
-        
+
 
         //tests
         c.logColorStats();
@@ -65,7 +70,7 @@ public class PCP {
             logger.finest(c.toString());
 
             logger.fine("Selecting nodes:");
-            NodeSelector.greedyMinDegree(c, g, chromatic);
+            NodeSelector.greedyMinDegree(c, g.getPartitionSize().length, chromatic);
             if (!succeeded) {
                 chromatic = c.getHighestDegreeSelected() + 1;
             }

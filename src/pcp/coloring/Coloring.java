@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
 import pcp.PCP;
@@ -17,8 +18,10 @@ public class Coloring {
     private NodeColorInfo[] nodeColorInfo;
     private int chromatic;
     private Set<NodeColorInfo> unselectedNCIs;
+    private Set<NodeColorInfo> consideredForSelectionNCIs;
     private Set<NodeColorInfo> selectedColoredNCIs;
     private Set<NodeColorInfo> selectedUncoloredNCIs;
+
 
     public Coloring(Graph g) {
         this.g = g;
@@ -30,6 +33,7 @@ public class Coloring {
         this.selectedColoredNCIs = new HashSet<NodeColorInfo>();
         this.selectedUncoloredNCIs = new HashSet<NodeColorInfo>();
         this.unselectedNCIs = new HashSet<NodeColorInfo>((Arrays.asList(nodeColorInfo)));
+        this.consideredForSelectionNCIs = unselectedNCIs;
     }
 
     public void initColorArrayOfEachNci(int maxColors) {
@@ -52,6 +56,12 @@ public class Coloring {
             }
             unselectedNCIs.remove(nci);
             selectedUncoloredNCIs.add(nci);
+            for (Iterator<NodeColorInfo> it = ncisToConsider.iterator(); it.hasNext();) {
+                Node nodeToConsider = it.next().getNode();
+                if (nodeToConsider.getPartition() == selectNode.getPartition()) {
+                    it.remove();
+                }
+            }
         } else {
             logger.warning("UNEXPECTED: tried to select an already selected node. (node=" + nci.getNode().getId() + ", color=" + nci.getColor() + ")");
         }
@@ -117,13 +127,14 @@ public class Coloring {
 
     /*
      * performs uncoloring
+     * note: removing from the colored-nci-list has to be done manually.
      */
     public void uncolorNci(NodeColorInfo nci) {
         if (!selectedColoredNCIs.contains(nci)) {
             logger.severe("UNEXPECTED: tried to uncolor a node that was not in set of colored!");
             return;
         }
-        this.selectedColoredNCIs.remove(nci);
+//        this.selectedColoredNCIs.remove(nci);
         this.selectedUncoloredNCIs.add(nci);
 
         int oldColor = nci.getColor();
@@ -245,5 +256,13 @@ public class Coloring {
 
     public int getChromatic() {
         return chromatic;
+    }
+
+    public Set<NodeColorInfo> getConsideredForSelectionNCIs() {
+        return consideredForSelectionNCIs;
+    }
+
+    public void setConsideredForSelectionNCIs(Set<NodeColorInfo> consideredForSelectionNCIs) {
+        this.consideredForSelectionNCIs = consideredForSelectionNCIs;
     }
 }
