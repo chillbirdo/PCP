@@ -1,5 +1,6 @@
 package pcp;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import pcp.model.Graph;
@@ -20,14 +21,18 @@ public class PCP {
     public static final int NODE_UNSELECTED = -2;
 
     public static void main(String[] args) {
-        //logger.getHandlers()[0].setFormatter( new BriefLogFormatter());
+        testParameters();
+    }
+
+    private static void optimized(){
+         //logger.getHandlers()[0].setFormatter( new BriefLogFormatter());
 
         Graph g = null;
         Coloring c = null;
         try {
             //g = InstanceReader.readInstance( "pcp_instances/test/test4.pcp");
-            g = InstanceReader.readInstance("pcp_instances/pcp/n20p5t2s1.pcp");
-            //g = InstanceReader.readInstance("pcp_instances/pcp/n40p5t2s5.pcp");
+            //g = InstanceReader.readInstance("pcp_instances/pcp/n20p5t2s1.pcp");
+            g = InstanceReader.readInstance("pcp_instances/pcp/n40p5t2s5.pcp");
             //g = InstanceReader.readInstance("pcp_instances/pcp/n120p5t2s5.pcp");
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -35,31 +40,63 @@ public class PCP {
 
         logger.fine(g.toString());
 
-        c = calculateInitialColoring(g);
+        c = calculateInitialColoring(g, null, null);
         ArrayList<Integer> colorList = EasyToEliminateColorFinder.randomFind(c);
 
 //        for( int color : colorList){
-        int color = colorList.get(0);
-        logger.info("EasyToEliminateColor: " + color);
-        for (Iterator<NodeColorInfo> it = c.getSelectedColoredNCIs().iterator(); it.hasNext();) {
-            NodeColorInfo nci = it.next();
-            if (nci.getColor() == color) {
-                c.uncolorNci(nci);
-                it.remove();
-                c.unselectNci(nci);
-                //SPEEDUP: write method to unselect a colored node
-            }
-        }
+//        int color = colorList.get(0);
+//        logger.info("EasyToEliminateColor: " + color);
+//        for (Iterator<NodeColorInfo> it = c.getSelectedColoredNCIs().iterator(); it.hasNext();) {
+//            NodeColorInfo nci = it.next();
+//            if (nci.getColor() == color) {
+//                c.uncolorNci(nci);
+//                it.remove();
+//                c.unselectNci(nci);
+//                //SPEEDUP: write method to unselect a colored node
+//            }
+//        }
 //        }
 
 
         //tests
         c.logColorStats();
         ColoringTest test = new ColoringTest(c, g);
-        test.performAll();
+        test.performAll();       
+    }
+    
+    private static void testParameters() {
+        Graph g = null;
+        Coloring c = null;
+
+        int bestresult = Integer.MAX_VALUE;
+        String bestresultStr = "";
+        for (double ks = 0.1; ks <= 2.0; ks += 0.1) {
+            for (double ku = 0.1; ku <= 2.0; ku += 0.1) {
+                int sumChromatic = 0;
+                try {
+                    File folder = new File("pcp_instances/pcp/");
+                    for (final File fileEntry : folder.listFiles()) {
+                        if (fileEntry.isFile()) {
+                            g = InstanceReader.readInstance( fileEntry.getAbsolutePath());
+                            c = calculateInitialColoring(g, ks, ku);
+                            sumChromatic += c.getChromatic();
+                        }
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                String out = "--- result: " + sumChromatic + " ks=" + ks + "; ku=" + ku + ";";
+                if( sumChromatic < bestresult){
+                    bestresult = sumChromatic;
+                    bestresultStr = out;
+                }
+                logger.severe( out);
+            }
+        }
+        logger.severe("\n\n best result: " + bestresultStr);
     }
 
-    private static Coloring calculateInitialColoring(Graph g) {
+    private static Coloring calculateInitialColoring(Graph g, Double ks, Double ku) {
         logger.info("Calculating initial solution..");
         Coloring c = null;
         boolean succeeded = false;
@@ -70,7 +107,7 @@ public class PCP {
             logger.finest(c.toString());
 
             logger.fine("Selecting nodes:");
-            NodeSelector.greedyMinDegree(c, g.getPartitionSize().length, chromatic);
+            NodeSelector.greedyMinDegree(c, g.getPartitionSize().length, chromatic, ks, ku);
             if (!succeeded) {
                 chromatic = c.getHighestDegreeSelected() + 1;
             }

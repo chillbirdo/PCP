@@ -15,37 +15,45 @@ import pcp.model.Node;
 public class NodeSelector {
 
     private static final Logger logger = Logger.getLogger(NodeSelector.class.getName());
-    private static double ks = 1.0;
-    private static double ku = 0.3;
+    private static final double ks = 1.0;
+    private static final double ku = 0.5;
 
-    public static void greedyMinDegree(Coloring c, int partitionAmount, int maxColors) {
-
+    public static void greedyMinDegree(Coloring c, int partitionAmount, int maxColors, Double pks, Double pku) {
+        double ks = NodeSelector.ks;
+        double ku = NodeSelector.ku;
+        if( pks != null){
+            ks = pks;
+        }
+        if( pku != null){
+            ku = pku;
+        }
         logger.finest("Selecting nodes by greedyMinDegree");
-        while (!c.getConsideredForSelectionNCIs().isEmpty()) {
+        while (!c.getUnselectedNCIs().isEmpty()) {
             logger.finest("\n");
-            Node selectNode = null;
+            NodeColorInfo selectNci = null;
             double minEval = Double.MAX_VALUE;
-            for (int i = 0; i < c.getConsideredForSelectionNCIs().size(); i++) {
-                Node n = c.getConsideredForSelectionNCIs().get(i).getNode();
+            for (NodeColorInfo nci : c.getUnselectedNCIs()) {
                 //calc sum adjacent selected and considerable nodes
+                //(i.e.: unselected nodes from unselected Cluster) 
                 double sumOfAdjacentSelected = 0.0;
                 double sumOfAdjacentConsiderable = 0.0;
-                for (Node neigh : n.getNeighbours()) {
-                    if (c.getSelectedUncoloredNCIs().contains(c.getNciById(neigh.getId()))) {
+                for (Node neigh : nci.getNode().getNeighbours()) {
+                    NodeColorInfo neighNci = c.getNciById( neigh.getId());
+                    if (neighNci.isSelected()) {
                         sumOfAdjacentSelected += 1.0;
-                    } else if (c.getConsideredForSelectionNCIs().contains(neigh)) {
+                    } else if (c.getUnselectedNCIs().contains(neighNci)) {
                         sumOfAdjacentConsiderable += 1.0;
                     }
                 }
                 double eval = ks * sumOfAdjacentSelected / (double)maxColors + ku * sumOfAdjacentConsiderable / (double)maxColors;
-                logger.finest("Node " + n.getId() + " : " + eval);
+                logger.finest("Node " + nci.getNode().getId() + " : " + eval);
                 if (eval < minEval) {
-                    selectNode = n;
+                    selectNci = nci;
                     minEval = eval;
                 }
             }
-            logger.finest("chose node " + selectNode.getId());
-            c.selectNci(c.getNciById(selectNode.getId()));
+            logger.finest("chose node " + selectNci.getNode().getId());
+            c.selectNci( selectNci);
         }
     }
 

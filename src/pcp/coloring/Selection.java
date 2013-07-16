@@ -20,7 +20,7 @@ public class Selection {
     
     public void applySelectionToColoring( Coloring c){
         for( int i = 0; i < selectedIds.length; i++){
-            c.getNciById( selectedIds[i]).select();
+            c.getNciById( selectedIds[i]).setColorUncolored();
         }
     }
 }

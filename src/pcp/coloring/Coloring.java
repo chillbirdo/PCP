@@ -17,11 +17,9 @@ public class Coloring {
     private Graph g;
     private NodeColorInfo[] nodeColorInfo;
     private int chromatic;
-    private Set<NodeColorInfo> unselectedNCIs;
-    private Set<NodeColorInfo> consideredForSelectionNCIs;
+    private Set<NodeColorInfo> unselectedNCIs;//set of unselected ncis **of unselected clusters**
     private Set<NodeColorInfo> selectedColoredNCIs;
     private Set<NodeColorInfo> selectedUncoloredNCIs;
-
 
     public Coloring(Graph g) {
         this.g = g;
@@ -33,7 +31,6 @@ public class Coloring {
         this.selectedColoredNCIs = new HashSet<NodeColorInfo>();
         this.selectedUncoloredNCIs = new HashSet<NodeColorInfo>();
         this.unselectedNCIs = new HashSet<NodeColorInfo>((Arrays.asList(nodeColorInfo)));
-        this.consideredForSelectionNCIs = unselectedNCIs;
     }
 
     public void initColorArrayOfEachNci(int maxColors) {
@@ -48,20 +45,20 @@ public class Coloring {
      */
     public void selectNci(NodeColorInfo nci) {
         if (!nci.isSelected() && unselectedNCIs.contains(nci)) {
-            nci.select();
+            nci.setColorUncolored();
+            //update neighbours
             for (Node neigh : nci.getNode().getNeighbours()) {
                 NodeColorInfo neighNci = getNciById(neigh.getId());
                 neighNci.increaseUncolored();
                 neighNci.increaseDegreeToSelected();
             }
-            unselectedNCIs.remove(nci);
-            selectedUncoloredNCIs.add(nci);
-            for (Iterator<NodeColorInfo> it = ncisToConsider.iterator(); it.hasNext();) {
-                Node nodeToConsider = it.next().getNode();
-                if (nodeToConsider.getPartition() == selectNode.getPartition()) {
-                    it.remove();
-                }
+            //remove all ncis of particular partition from unselectedNCIs
+            int nciPartition = nci.getNode().getPartition();
+            for( Node nodeOfPartition : g.getNodeInPartition()[nciPartition]){
+                unselectedNCIs.remove( getNciById(nodeOfPartition.getId()));
             }
+            //add nci to selected
+            selectedUncoloredNCIs.add(nci);
         } else {
             logger.warning("UNEXPECTED: tried to select an already selected node. (node=" + nci.getNode().getId() + ", color=" + nci.getColor() + ")");
         }
@@ -72,14 +69,20 @@ public class Coloring {
      */
     public void unselectNci(NodeColorInfo nci) {
         if (nci.getColor() == PCP.NODE_UNCOLORED && selectedUncoloredNCIs.contains(nci)) {
-            nci.unselect();
+            nci.setColorUnselected();
+            //update neighbours
             for (Node neigh : nci.getNode().getNeighbours()) {
                 NodeColorInfo neighNci = getNciById(neigh.getId());
                 neighNci.decreaseUncolored();
                 neighNci.decreaseDegreeToSelected();
             }
+            //add all ncis of particular partition to unselectedNCIs
+            int nciPartition = nci.getNode().getPartition();
+            for( Node nodeOfPartition : g.getNodeInPartition()[nciPartition]){
+                unselectedNCIs.add( getNciById(nodeOfPartition.getId()));
+            }
+            //remove nci from selected
             selectedUncoloredNCIs.remove(nci);
-            unselectedNCIs.add(nci);
         } else {
             logger.severe("UNEXPECTED: tried to unselect either a colored or an already unselected node!  (node=" + nci.getNode().getId() + ", color=" + nci.getColor() + ")");
         }
@@ -256,13 +259,5 @@ public class Coloring {
 
     public int getChromatic() {
         return chromatic;
-    }
-
-    public Set<NodeColorInfo> getConsideredForSelectionNCIs() {
-        return consideredForSelectionNCIs;
-    }
-
-    public void setConsideredForSelectionNCIs(Set<NodeColorInfo> consideredForSelectionNCIs) {
-        this.consideredForSelectionNCIs = consideredForSelectionNCIs;
     }
 }

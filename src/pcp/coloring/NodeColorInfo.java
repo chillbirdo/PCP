@@ -137,11 +137,11 @@ public class NodeColorInfo {
         return color != PCP.NODE_UNSELECTED;
     }
 
-    void select() {
+    void setColorUncolored() {
         this.color = PCP.NODE_UNCOLORED;
     }
 
-    void unselect() {
+    void setColorUnselected() {
         this.color = PCP.NODE_UNSELECTED;
     }
 
