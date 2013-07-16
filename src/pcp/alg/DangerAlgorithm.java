@@ -2,8 +2,8 @@ package pcp.alg;
 
 import java.util.Collection;
 import java.util.logging.Logger;
-import pcp.coloring.Coloring;
-import pcp.coloring.NodeColorInfo;
+import pcp.model.Coloring;
+import pcp.model.NodeColorInfo;
 import pcp.model.Graph;
 
 public class DangerAlgorithm {

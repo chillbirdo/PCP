@@ -2,8 +2,8 @@ package pcp.alg;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import pcp.coloring.Coloring;
-import pcp.coloring.NodeColorInfo;
+import pcp.model.Coloring;
+import pcp.model.NodeColorInfo;
 
 public class EasyToEliminateColorFinder {
 

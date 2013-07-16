@@ -1,4 +1,4 @@
-package pcp.coloring;
+package pcp.model;
 
 public class Selection {
 

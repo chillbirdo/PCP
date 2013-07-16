@@ -1,4 +1,4 @@
-package pcp.coloring;
+package pcp.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +20,7 @@ public class Coloring {
     private Set<NodeColorInfo> unselectedNCIs;//set of unselected ncis **of unselected clusters**
     private Set<NodeColorInfo> selectedColoredNCIs;
     private Set<NodeColorInfo> selectedUncoloredNCIs;
+    private Set<NodeColorInfo> conflictingNCIs;
 
     public Coloring(Graph g) {
         this.g = g;
@@ -31,6 +32,7 @@ public class Coloring {
         this.selectedColoredNCIs = new HashSet<NodeColorInfo>();
         this.selectedUncoloredNCIs = new HashSet<NodeColorInfo>();
         this.unselectedNCIs = new HashSet<NodeColorInfo>(Arrays.asList(nodeColorInfo));
+        this.conflictingNCIs = new HashSet<NodeColorInfo>();//ncis that should be recolored
     }
 
     /*
@@ -57,6 +59,11 @@ public class Coloring {
         for( NodeColorInfo nciOrig : c.getUnselectedNCIs()){
             NodeColorInfo nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
             unselectedNCIs.add(nciCopy);
+        }
+        this.conflictingNCIs = new HashSet<NodeColorInfo>(c.getConflictingNCIs().size());
+        for( NodeColorInfo nciOrig : c.getConflictingNCIs()){
+            NodeColorInfo nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
+            conflictingNCIs.add(nciCopy);
         }
     }
     
@@ -287,4 +294,9 @@ public class Coloring {
     public int getChromatic() {
         return chromatic;
     }
+
+    public Set<NodeColorInfo> getConflictingNCIs() {
+        return conflictingNCIs;
+    }
+    
 }

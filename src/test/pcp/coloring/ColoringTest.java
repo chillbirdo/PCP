@@ -3,8 +3,8 @@ package test.pcp.coloring;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import pcp.PCP;
-import pcp.coloring.Coloring;
-import pcp.coloring.NodeColorInfo;
+import pcp.model.Coloring;
+import pcp.model.NodeColorInfo;
 import pcp.model.Graph;
 import pcp.model.Node;
 

@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 import pcp.alg.DangerAlgorithm;
 import pcp.alg.EasyToEliminateColorFinder;
 import pcp.alg.NodeSelector;
-import pcp.coloring.Coloring;
-import pcp.coloring.NodeColorInfo;
+import pcp.model.Coloring;
+import pcp.model.NodeColorInfo;
 import pcp.instancereader.InstanceReader;
 import test.pcp.coloring.ColoringTest;
 
@@ -44,30 +44,9 @@ public class PCP {
         int color = colorList.get(0);
         logger.info("EasyToEliminateColor: " + color);
 
-        Coloring c2 = new Coloring(c);
-        
-
-        for (Iterator<NodeColorInfo> it = c2.getSelectedColoredNCIs().iterator(); it.hasNext();) {
-            NodeColorInfo nci = it.next();
-            if (nci.getColor() == color) {
-                c2.uncolorNci(nci);
-                it.remove();
-                c2.unselectNci(nci);
-                //SPEEDUP: write method to unselect a colored node
-            }
-        }
-//
-//        NodeSelector.greedyMinDegree(c2, c2.getChromatic() - 1, null, null);
-//        boolean succeeded = DangerAlgorithm.applyColoring(c2, c2.getChromatic() - 1);
-//        if (succeeded) {
-//            logger.info("\tFound solution with " + (c.getChromatic() - 1) + " colors.");
-//        } else {
-//            logger.info("\tFound NO solution with " + (c.getChromatic() - 1) + " colors.");
-//        }
-
         //tests
-        c2.logColorStats();
-        ColoringTest test = new ColoringTest(c2, g);
+        c.logColorStats();
+        ColoringTest test = new ColoringTest(c, g);
         test.performAll();
     }
 

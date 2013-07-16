@@ -7,8 +7,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.logging.Logger;
-import pcp.coloring.Coloring;
-import pcp.coloring.NodeColorInfo;
+import pcp.model.Coloring;
+import pcp.model.NodeColorInfo;
 import pcp.model.Graph;
 import pcp.model.Node;
 

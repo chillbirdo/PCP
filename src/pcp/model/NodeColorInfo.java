@@ -1,4 +1,4 @@
-package pcp.coloring;
+package pcp.model;
 
 import java.util.ArrayList;
 import java.util.logging.Logger;
