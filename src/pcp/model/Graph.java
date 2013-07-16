@@ -5,9 +5,9 @@ import java.util.logging.Logger;
 public class Graph {
     private static final Logger logger = Logger.getLogger( Graph.class.getName());
     
-    private Node[] node;
-    private Node[][] nodeInPartition;
-    private int partitionSize[];
+    private final Node[] node;
+    private final Node[][] nodeInPartition;
+    private final int partitionSize[];
 
     public Graph(Node[] node, Node[][] nodeInPartition, int partitionSize[]) {
         this.node = node;

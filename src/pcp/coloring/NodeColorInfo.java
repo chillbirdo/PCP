@@ -25,6 +25,21 @@ public class NodeColorInfo {
         this.conflicts = null;
 //        this.neighboursShared = null;
     }
+    
+    /*
+     * copy constructor
+     */
+    public NodeColorInfo( NodeColorInfo nci){
+        this.node = nci.getNode();
+        this.color = nci.getColor();
+        this.uncoloredNeighbours = nci.getUncoloredNeighbours();
+        this.degreeToSelected = nci.getDegreeToSelected();
+        this.colorsAvailable = nci.getColorsAvailable();
+        this.conflicts = new ArrayList<Integer>(nci.getConflictArray().size());
+        for( Integer i : nci.getConflictArray()){
+            this.conflicts.add( i);
+        }
+    }
 
     /*
      * adapt the length of the conflicts-ArrayList to the number of maximal colors
@@ -156,4 +171,9 @@ public class NodeColorInfo {
     public void decreaseDegreeToSelected() {
         this.degreeToSelected--;
     }
+
+    public ArrayList<Integer> getConflictArray() {
+        return conflicts;
+    }
+
 }

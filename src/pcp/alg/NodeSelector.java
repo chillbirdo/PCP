@@ -15,10 +15,10 @@ import pcp.model.Node;
 public class NodeSelector {
 
     private static final Logger logger = Logger.getLogger(NodeSelector.class.getName());
-    private static final double ks = 1.0;
-    private static final double ku = 0.5;
+    private static final double ks = 1.4;
+    private static final double ku = 0.8;
 
-    public static void greedyMinDegree(Coloring c, int partitionAmount, int maxColors, Double pks, Double pku) {
+    public static void greedyMinDegree(Coloring c, int maxColors, Double pks, Double pku) {
         double ks = NodeSelector.ks;
         double ku = NodeSelector.ku;
         if( pks != null){

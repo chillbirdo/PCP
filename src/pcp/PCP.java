@@ -21,11 +21,11 @@ public class PCP {
     public static final int NODE_UNSELECTED = -2;
 
     public static void main(String[] args) {
-        testParameters();
+        optimized();
     }
 
-    private static void optimized(){
-         //logger.getHandlers()[0].setFormatter( new BriefLogFormatter());
+    private static void optimized() {
+        //logger.getHandlers()[0].setFormatter( new BriefLogFormatter());
 
         Graph g = null;
         Coloring c = null;
@@ -38,62 +38,37 @@ public class PCP {
             ex.printStackTrace();
         }
 
-        logger.fine(g.toString());
-
         c = calculateInitialColoring(g, null, null);
+
         ArrayList<Integer> colorList = EasyToEliminateColorFinder.randomFind(c);
+        int color = colorList.get(0);
+        logger.info("EasyToEliminateColor: " + color);
 
-//        for( int color : colorList){
-//        int color = colorList.get(0);
-//        logger.info("EasyToEliminateColor: " + color);
-//        for (Iterator<NodeColorInfo> it = c.getSelectedColoredNCIs().iterator(); it.hasNext();) {
-//            NodeColorInfo nci = it.next();
-//            if (nci.getColor() == color) {
-//                c.uncolorNci(nci);
-//                it.remove();
-//                c.unselectNci(nci);
-//                //SPEEDUP: write method to unselect a colored node
-//            }
-//        }
-//        }
+        Coloring c2 = new Coloring(c);
+        
 
-
-        //tests
-        c.logColorStats();
-        ColoringTest test = new ColoringTest(c, g);
-        test.performAll();       
-    }
-    
-    private static void testParameters() {
-        Graph g = null;
-        Coloring c = null;
-
-        int bestresult = Integer.MAX_VALUE;
-        String bestresultStr = "";
-        for (double ks = 0.1; ks <= 2.0; ks += 0.1) {
-            for (double ku = 0.1; ku <= 2.0; ku += 0.1) {
-                int sumChromatic = 0;
-                try {
-                    File folder = new File("pcp_instances/pcp/");
-                    for (final File fileEntry : folder.listFiles()) {
-                        if (fileEntry.isFile()) {
-                            g = InstanceReader.readInstance( fileEntry.getAbsolutePath());
-                            c = calculateInitialColoring(g, ks, ku);
-                            sumChromatic += c.getChromatic();
-                        }
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-                String out = "--- result: " + sumChromatic + " ks=" + ks + "; ku=" + ku + ";";
-                if( sumChromatic < bestresult){
-                    bestresult = sumChromatic;
-                    bestresultStr = out;
-                }
-                logger.severe( out);
+        for (Iterator<NodeColorInfo> it = c2.getSelectedColoredNCIs().iterator(); it.hasNext();) {
+            NodeColorInfo nci = it.next();
+            if (nci.getColor() == color) {
+                c2.uncolorNci(nci);
+                it.remove();
+                c2.unselectNci(nci);
+                //SPEEDUP: write method to unselect a colored node
             }
         }
-        logger.severe("\n\n best result: " + bestresultStr);
+//
+//        NodeSelector.greedyMinDegree(c2, c2.getChromatic() - 1, null, null);
+//        boolean succeeded = DangerAlgorithm.applyColoring(c2, c2.getChromatic() - 1);
+//        if (succeeded) {
+//            logger.info("\tFound solution with " + (c.getChromatic() - 1) + " colors.");
+//        } else {
+//            logger.info("\tFound NO solution with " + (c.getChromatic() - 1) + " colors.");
+//        }
+
+        //tests
+        c2.logColorStats();
+        ColoringTest test = new ColoringTest(c2, g);
+        test.performAll();
     }
 
     private static Coloring calculateInitialColoring(Graph g, Double ks, Double ku) {
@@ -107,7 +82,7 @@ public class PCP {
             logger.finest(c.toString());
 
             logger.fine("Selecting nodes:");
-            NodeSelector.greedyMinDegree(c, g.getPartitionSize().length, chromatic, ks, ku);
+            NodeSelector.greedyMinDegree(c, chromatic, ks, ku);
             if (!succeeded) {
                 chromatic = c.getHighestDegreeSelected() + 1;
             }
@@ -126,5 +101,37 @@ public class PCP {
             chromatic--;
         } while (succeeded);
         return stablecoloring;
+    }
+
+    private static void testParameters() {
+        Graph g = null;
+        Coloring c = null;
+
+        int bestresult = Integer.MAX_VALUE;
+        String bestresultStr = "";
+        for (double ks = 0.1; ks <= 2.0; ks += 0.1) {
+            for (double ku = 0.1; ku <= 2.0; ku += 0.1) {
+                int sumChromatic = 0;
+                try {
+                    File folder = new File("pcp_instances/pcp/");
+                    for (final File fileEntry : folder.listFiles()) {
+                        if (fileEntry.isFile()) {
+                            g = InstanceReader.readInstance(fileEntry.getAbsolutePath());
+                            c = calculateInitialColoring(g, ks, ku);
+                            sumChromatic += c.getChromatic();
+                        }
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                String out = "--- result: " + sumChromatic + " ks=" + ks + "; ku=" + ku + ";";
+                if (sumChromatic < bestresult) {
+                    bestresult = sumChromatic;
+                    bestresultStr = out;
+                }
+                logger.severe(out);
+            }
+        }
+        logger.severe("\n\n best result: " + bestresultStr);
     }
 }

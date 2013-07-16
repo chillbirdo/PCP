@@ -30,9 +30,36 @@ public class Coloring {
         }
         this.selectedColoredNCIs = new HashSet<NodeColorInfo>();
         this.selectedUncoloredNCIs = new HashSet<NodeColorInfo>();
-        this.unselectedNCIs = new HashSet<NodeColorInfo>((Arrays.asList(nodeColorInfo)));
+        this.unselectedNCIs = new HashSet<NodeColorInfo>(Arrays.asList(nodeColorInfo));
     }
 
+    /*
+     * copy constructor
+     */
+    public Coloring( Coloring c){
+        this.g = c.getGraph();
+        this.chromatic = c.getChromatic();
+        this.nodeColorInfo = new NodeColorInfo[g.getNodes().length];
+        for (int i = 0; i < g.getNodes().length; i++) {
+            this.nodeColorInfo[i] = new NodeColorInfo( c.getNciById(i));
+        }
+        this.selectedColoredNCIs = new HashSet<NodeColorInfo>(c.getSelectedColoredNCIs().size());
+        for( NodeColorInfo nciOrig : c.getSelectedColoredNCIs()){
+            NodeColorInfo nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
+            selectedColoredNCIs.add(nciCopy);
+        }
+        this.selectedUncoloredNCIs = new HashSet<NodeColorInfo>(c.getSelectedUncoloredNCIs().size());
+        for( NodeColorInfo nciOrig : c.getSelectedUncoloredNCIs()){
+            NodeColorInfo nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
+            selectedUncoloredNCIs.add(nciCopy);
+        }
+        this.unselectedNCIs = new HashSet<NodeColorInfo>(c.getUnselectedNCIs().size());
+        for( NodeColorInfo nciOrig : c.getUnselectedNCIs()){
+            NodeColorInfo nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
+            unselectedNCIs.add(nciCopy);
+        }
+    }
+    
     public void initColorArrayOfEachNci(int maxColors) {
         chromatic = maxColors;
         for (NodeColorInfo nci : nodeColorInfo) {
