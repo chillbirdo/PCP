@@ -18,13 +18,13 @@ public class NodeSelector {
     private static final double ks = 1.4;
     private static final double ku = 0.8;
 
-    public static void greedyMinDegree(Coloring c, int maxColors, Double pks, Double pku) {
+    public static void greedyMinDegree(Coloring c, Double pks, Double pku) {
         double ks = NodeSelector.ks;
         double ku = NodeSelector.ku;
-        if( pks != null){
+        if (pks != null) {
             ks = pks;
         }
-        if( pku != null){
+        if (pku != null) {
             ku = pku;
         }
         logger.finest("Selecting nodes by greedyMinDegree");
@@ -38,14 +38,14 @@ public class NodeSelector {
                 double sumOfAdjacentSelected = 0.0;
                 double sumOfAdjacentConsiderable = 0.0;
                 for (Node neigh : nci.getNode().getNeighbours()) {
-                    NodeColorInfo neighNci = c.getNciById( neigh.getId());
+                    NodeColorInfo neighNci = c.getNciById(neigh.getId());
                     if (neighNci.isSelected()) {
                         sumOfAdjacentSelected += 1.0;
                     } else if (c.getUnselectedNCIs().contains(neighNci)) {
                         sumOfAdjacentConsiderable += 1.0;
                     }
                 }
-                double eval = ks * sumOfAdjacentSelected / (double)maxColors + ku * sumOfAdjacentConsiderable / (double)maxColors;
+                double eval = ks * sumOfAdjacentSelected + ku * sumOfAdjacentConsiderable;
                 logger.finest("Node " + nci.getNode().getId() + " : " + eval);
                 if (eval < minEval) {
                     selectNci = nci;
@@ -53,7 +53,19 @@ public class NodeSelector {
                 }
             }
             logger.finest("chose node " + selectNci.getNode().getId());
-            c.selectNci( selectNci);
+            c.selectNci(selectNci);
+        }
+    }
+
+    private static void unselectAllNcisOfColor( Coloring c, int color) {
+        for (Iterator<NodeColorInfo> it = c.getSelectedColoredNCIs().iterator(); it.hasNext();) {
+            NodeColorInfo nci = it.next();
+            if (nci.getColor() == color) {
+                c.uncolorNci(nci);
+                it.remove();
+                c.unselectNci(nci);
+                //SPEEDUP: write method to unselect a colored node
+            }
         }
     }
 

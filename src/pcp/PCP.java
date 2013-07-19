@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import pcp.alg.DangerAlgorithm;
 import pcp.alg.EasyToEliminateColorFinder;
 import pcp.alg.NodeSelector;
+import pcp.alg.OneStepCD;
 import pcp.model.Coloring;
 import pcp.model.NodeColorInfo;
 import pcp.instancereader.InstanceReader;
@@ -22,6 +23,7 @@ public class PCP {
 
     public static void main(String[] args) {
         optimized();
+//        testDangerVsOneStepCD();
     }
 
     private static void optimized() {
@@ -38,11 +40,13 @@ public class PCP {
             ex.printStackTrace();
         }
 
-        c = calculateInitialColoring(g, null, null);
+        c = calcInitialColoringOneStepCD(g);
+        
 
-        ArrayList<Integer> colorList = EasyToEliminateColorFinder.randomFind(c);
-        int color = colorList.get(0);
-        logger.info("EasyToEliminateColor: " + color);
+//        ArrayList<Integer> colorList = EasyToEliminateColorFinder.randomFind(c);
+//        int color = colorList.get(0);
+//        logger.info("EasyToEliminateColor: " + color);
+
 
         //tests
         c.logColorStats();
@@ -50,37 +54,63 @@ public class PCP {
         test.performAll();
     }
 
-    private static Coloring calculateInitialColoring(Graph g, Double ks, Double ku) {
+    private static Coloring calcInitialColoringDanger(Graph g, Double ks, Double ku) {
         logger.info("Calculating initial solution..");
         Coloring c = null;
         boolean succeeded = false;
-        int chromatic = Math.round(g.getHighestDegree() / 2f);
+        c = new Coloring(g);
+        NodeSelector.greedyMinDegree(c, ks, ku);
+
+        int upperbound = c.getHighestDegreeSelected() + 1;
+        int lowerbound = 0;
         Coloring stablecoloring = null;
-        do {
+        while (upperbound - lowerbound > 1) {
+            int actual = lowerbound + Math.round((upperbound - lowerbound) / 2);
+            logger.info("upper: " + upperbound + " lower: " + lowerbound + " actual: " + actual);
+
             c = new Coloring(g);
-            logger.finest(c.toString());
-
-            logger.fine("Selecting nodes:");
-            NodeSelector.greedyMinDegree(c, chromatic, ks, ku);
-            if (!succeeded) {
-                chromatic = c.getHighestDegreeSelected() + 1;
-            }
-            c.initColorArrayOfEachNci(chromatic);
-
-            logger.fine(c.toString());
-            logger.fine("Applying coloring:");
-
-            succeeded = DangerAlgorithm.applyColoring(c, chromatic);
+            NodeSelector.greedyMinDegree(c, ks, ku);
+            c.initColorArrayOfEachNci(actual);
+            succeeded = DangerAlgorithm.applyColoring(c, actual);
             if (succeeded) {
+                upperbound = actual;
                 stablecoloring = c;
-                logger.info("\tFound solution with " + chromatic + " colors.");
+                logger.info("\tFound solution with " + upperbound + " colors.");
+            } else {
+                lowerbound = actual;
             }
-
-            logger.fine(c.toString());
-            chromatic--;
-        } while (succeeded);
+        }
         return stablecoloring;
     }
+
+    private static Coloring calcInitialColoringOneStepCD(Graph g) {
+        logger.info("Calculating initial solution..");
+        Coloring c = null;
+        int succeeded = 0;
+        c = new Coloring(g);
+        NodeSelector.greedyMinDegree(c, null, null);
+
+        int upperbound = c.getHighestDegreeSelected() + 1;
+        int lowerbound = 0;
+        Coloring stablecoloring = null;
+        while (upperbound - lowerbound > 1) {
+            int actual = lowerbound + Math.round((upperbound - lowerbound) / 2);
+            logger.info("upper: " + upperbound + " lower: " + lowerbound + " actual: " + actual);
+
+            c = new Coloring(g);
+            c.initColorArrayOfEachNci(actual);
+            succeeded = OneStepCD.performOnUnselected(c);
+            if (succeeded == 0) {
+                upperbound = actual;
+                stablecoloring = c;
+                logger.info("\tFound solution with " + upperbound + " colors.");
+            } else {
+                lowerbound = actual;
+            }
+        }
+        return stablecoloring;
+    }
+
 
     private static void testParameters() {
         Graph g = null;
@@ -96,7 +126,7 @@ public class PCP {
                     for (final File fileEntry : folder.listFiles()) {
                         if (fileEntry.isFile()) {
                             g = InstanceReader.readInstance(fileEntry.getAbsolutePath());
-                            c = calculateInitialColoring(g, ks, ku);
+                            c = calcInitialColoringDanger(g, ks, ku);
                             sumChromatic += c.getChromatic();
                         }
                     }
@@ -112,5 +142,30 @@ public class PCP {
             }
         }
         logger.severe("\n\n best result: " + bestresultStr);
+    }
+
+    private static void testDangerVsOneStepCD() {
+
+        int bestresult = Integer.MAX_VALUE;
+        String bestresultStr = "";
+        int sumDanger = 0;
+        int sumOneStepCD = 0;
+        try {
+            File folder = new File("pcp_instances/in/");
+            for (final File fileEntry : folder.listFiles()) {
+                if (fileEntry.isFile()) {
+                    Graph g = InstanceReader.readInstance(fileEntry.getAbsolutePath());
+                    Coloring cDanger = calcInitialColoringDanger(g, null, null);
+                    Coloring cOneStepCD = calcInitialColoringOneStepCD(g);
+                    sumDanger += cDanger.getChromatic();
+                    sumOneStepCD += cOneStepCD.getChromatic();
+
+                    logger.severe("--- DANGER: " + cDanger.getChromatic() + "; OneStepCD: " + cOneStepCD.getChromatic() + ";");
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        logger.severe("\n\n RESULT: DANGER: " + sumDanger + "; OneStepCD: " + sumOneStepCD + ";");
     }
 }

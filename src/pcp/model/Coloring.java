@@ -17,6 +17,7 @@ public class Coloring {
     private Graph g;
     private NodeColorInfo[] nodeColorInfo;
     private int chromatic;
+    private boolean[] isPartitonSelected;
     private Set<NodeColorInfo> unselectedNCIs;//set of unselected ncis **of unselected clusters**
     private Set<NodeColorInfo> selectedColoredNCIs;
     private Set<NodeColorInfo> selectedUncoloredNCIs;
@@ -28,6 +29,10 @@ public class Coloring {
         for (int i = 0; i < nodeColorInfo.length; i++) {
             Node n = g.getNode(i);
             nodeColorInfo[i] = new NodeColorInfo(n);
+        }
+        this.isPartitonSelected = new boolean[g.getNodeInPartition().length];
+        for( int i = 0; i < isPartitonSelected.length; i++){
+            isPartitonSelected[i] = false;
         }
         this.selectedColoredNCIs = new HashSet<NodeColorInfo>();
         this.selectedUncoloredNCIs = new HashSet<NodeColorInfo>();
@@ -93,6 +98,8 @@ public class Coloring {
             }
             //add nci to selected
             selectedUncoloredNCIs.add(nci);
+            //state that its partition has a seleted nci now
+            this.isPartitonSelected[nci.getNode().getPartition()] = true;
         } else {
             logger.warning("UNEXPECTED: tried to select an already selected node. (node=" + nci.getNode().getId() + ", color=" + nci.getColor() + ")");
         }
@@ -117,6 +124,8 @@ public class Coloring {
             }
             //remove nci from selected
             selectedUncoloredNCIs.remove(nci);
+            //state that is partition has no selected node now
+            this.isPartitonSelected[nci.getNode().getPartition()] = false;
         } else {
             logger.severe("UNEXPECTED: tried to unselect either a colored or an already unselected node!  (node=" + nci.getNode().getId() + ", color=" + nci.getColor() + ")");
         }
@@ -299,4 +308,7 @@ public class Coloring {
         return conflictingNCIs;
     }
     
+    public boolean isPartitionSelected( int partition){
+        return this.isPartitonSelected[partition];
+    }
 }
