@@ -57,7 +57,7 @@ public class NodeSelector {
         }
     }
 
-    private static void unselectAllNcisOfColor( Coloring c, int color) {
+    public static void unselectAllNcisOfColor( Coloring c, int color) {
         for (Iterator<NodeColorInfo> it = c.getSelectedColoredNCIs().iterator(); it.hasNext();) {
             NodeColorInfo nci = it.next();
             if (nci.getColor() == color) {

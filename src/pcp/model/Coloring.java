@@ -50,6 +50,10 @@ public class Coloring {
         for (int i = 0; i < g.getNodes().length; i++) {
             this.nodeColorInfo[i] = new NodeColorInfo( c.getNciById(i));
         }
+        this.isPartitonSelected = new boolean[g.getNodeInPartition().length];
+        for( int i = 0; i < isPartitonSelected.length; i++){
+            isPartitonSelected[i] = c.isPartitionSelected(i);
+        }
         this.selectedColoredNCIs = new HashSet<NodeColorInfo>(c.getSelectedColoredNCIs().size());
         for( NodeColorInfo nciOrig : c.getSelectedColoredNCIs()){
             NodeColorInfo nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
@@ -218,7 +222,24 @@ public class Coloring {
 //            }
     }
 
-
+    /*
+     * prerequisite: all ncis with color col must be UNCOLORED!
+     * all nci with color > col decrease their color by 1
+     */
+    public void reduceColor( int col){
+        for( NodeColorInfo nci : nodeColorInfo){
+            if( nci.getColor() == col){
+                logger.severe( "Unexpected: tried to reduce color " + col + ", but nci " + nci.getNode().getId() + " is still colored with that color!");
+                return;
+            }else if( nci.getColor() > col){
+                nci.setColor( nci.getColor()-1);
+            }
+            nci.decreaseColorsAvailable();
+            nci.getConflictArray().remove(col);
+        }
+        chromatic--;
+    }
+    
     /*
      * get the highest degree from each selected nodes to other selected nodes
      */

@@ -9,6 +9,7 @@ public class OneStepCD {
 
     /*
      * this method selects and colors all unselected NCIs of Coloring c
+     * returns number of conflicts
      */
     public static int performOnUnselected(Coloring c) {
         int conflicts = 0;
@@ -49,6 +50,9 @@ public class OneStepCD {
             }
             c.colorNci(maxMinDegreeNci, chosenColor);
             conflicts += maxMinDegreeNci.getConflicts(chosenColor);
+            if(maxMinDegreeNci.getConflicts(chosenColor) != 0){
+                c.getConflictingNCIs().add(maxMinDegreeNci);
+            }
         }
         return conflicts;
     }

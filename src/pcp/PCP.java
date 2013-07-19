@@ -10,6 +10,7 @@ import pcp.alg.DangerAlgorithm;
 import pcp.alg.EasyToEliminateColorFinder;
 import pcp.alg.NodeSelector;
 import pcp.alg.OneStepCD;
+import pcp.alg.Recolorer;
 import pcp.model.Coloring;
 import pcp.model.NodeColorInfo;
 import pcp.instancereader.InstanceReader;
@@ -34,15 +35,18 @@ public class PCP {
         try {
             //g = InstanceReader.readInstance( "pcp_instances/test/test4.pcp");
             //g = InstanceReader.readInstance("pcp_instances/pcp/n20p5t2s1.pcp");
-            g = InstanceReader.readInstance("pcp_instances/pcp/n40p5t2s5.pcp");
+//            g = InstanceReader.readInstance("pcp_instances/pcp/n40p5t2s5.pcp");
+            g = InstanceReader.readInstance("pcp_instances/in/dsjc500.5-1.in");
             //g = InstanceReader.readInstance("pcp_instances/pcp/n120p5t2s5.pcp");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
         c = calcInitialColoringOneStepCD(g);
-        
+        Coloring cc = Recolorer.recolorAllColorsOneStepCD(c);
 
+        logger.severe("conflicting ncis: " + cc.getConflictingNCIs().size());
+        
 //        ArrayList<Integer> colorList = EasyToEliminateColorFinder.randomFind(c);
 //        int color = colorList.get(0);
 //        logger.info("EasyToEliminateColor: " + color);
@@ -52,6 +56,10 @@ public class PCP {
         c.logColorStats();
         ColoringTest test = new ColoringTest(c, g);
         test.performAll();
+
+        cc.logColorStats();
+        ColoringTest testcc = new ColoringTest(cc, g);
+        testcc.performAll();
     }
 
     private static Coloring calcInitialColoringDanger(Graph g, Double ks, Double ku) {
