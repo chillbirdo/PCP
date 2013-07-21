@@ -86,7 +86,8 @@ public class DangerAlgorithm {
                     timesUsed++;
                 }
             }
-            double nC = k1 / Math.pow(maxColors - maxDiffColored, k2) + k3 * maxDiffColoredNci.getUncoloredNeighbours() + k4 * timesUsed;
+            ///*orig*/double nC = k1 / Math.pow(maxColors - maxDiffColored, k2) + k3 * maxDiffColoredNci.getUncoloredNeighbours() + k4 * timesUsed;
+            double nC = k1 / (maxColors - maxDiffColored) + k3 * maxDiffColoredNci.getUncoloredNeighbours() + k4 * timesUsed;
             if (nC < minNC) {
                 minNC = nC;
                 chosenColor = c;

@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import pcp.alg.DangerAlgorithm;
 import pcp.alg.EasyToEliminateColorFinder;
+import pcp.alg.LocalSearch;
 import pcp.alg.NodeSelector;
 import pcp.alg.OneStepCD;
 import pcp.alg.Recolorer;
@@ -34,7 +35,7 @@ public class PCP {
         Coloring c = null;
         try {
             //g = InstanceReader.readInstance( "pcp_instances/test/test4.pcp");
-            //g = InstanceReader.readInstance("pcp_instances/pcp/n20p5t2s1.pcp");
+//            g = InstanceReader.readInstance("pcp_instances/pcp/n20p5t2s1.pcp");
 //            g = InstanceReader.readInstance("pcp_instances/pcp/n40p5t2s5.pcp");
             g = InstanceReader.readInstance("pcp_instances/in/dsjc500.5-1.in");
             //g = InstanceReader.readInstance("pcp_instances/pcp/n120p5t2s5.pcp");
@@ -43,23 +44,19 @@ public class PCP {
         }
 
         c = calcInitialColoringOneStepCD(g);
-        Coloring cc = Recolorer.recolorAllColorsOneStepCD(c);
+        //c = calcInitialColoringDanger(g, null, null);
+//        ColoringTest.testCorrectSetContents(c);
+        while (true) {
+            Coloring cc = Recolorer.recolorAllColorsOneStepCD(c);
+            LocalSearch.start(cc);
+            if( !ColoringTest.performAll(cc)){
+                logger.severe( "TERMINATING: NOT ALL TESTS SUCCEDED!");
+            }
+            c = cc;
+        }
 
-        logger.severe("conflicting ncis: " + cc.getConflictingNCIs().size());
-        
-//        ArrayList<Integer> colorList = EasyToEliminateColorFinder.randomFind(c);
-//        int color = colorList.get(0);
-//        logger.info("EasyToEliminateColor: " + color);
-
-
-        //tests
-        c.logColorStats();
-        ColoringTest test = new ColoringTest(c, g);
-        test.performAll();
-
-        cc.logColorStats();
-        ColoringTest testcc = new ColoringTest(cc, g);
-        testcc.performAll();
+//        cc.logColorStats();
+//        ColoringTest.performAll(cc);
     }
 
     private static Coloring calcInitialColoringDanger(Graph g, Double ks, Double ku) {
@@ -103,7 +100,7 @@ public class PCP {
         Coloring stablecoloring = null;
         while (upperbound - lowerbound > 1) {
             int actual = lowerbound + Math.round((upperbound - lowerbound) / 2);
-            logger.info("upper: " + upperbound + " lower: " + lowerbound + " actual: " + actual);
+            logger.fine("upper: " + upperbound + " lower: " + lowerbound + " actual: " + actual);
 
             c = new Coloring(g);
             c.initColorArrayOfEachNci(actual);
@@ -111,14 +108,14 @@ public class PCP {
             if (succeeded == 0) {
                 upperbound = actual;
                 stablecoloring = c;
-                logger.info("\tFound solution with " + upperbound + " colors.");
+                logger.fine("\tFound solution with " + upperbound + " colors.");
             } else {
                 lowerbound = actual;
             }
         }
+        logger.info("Initial Solution OneStepCD: " + stablecoloring.getChromatic() + " colors.");
         return stablecoloring;
     }
-
 
     private static void testParameters() {
         Graph g = null;

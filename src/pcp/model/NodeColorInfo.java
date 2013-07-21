@@ -60,6 +60,10 @@ public class NodeColorInfo {
         }
     }
 
+    public String toString(){
+        return getNode().getId() + ":" + getColor();
+    }
+    
     public Node getNode() {
         return node;
     }

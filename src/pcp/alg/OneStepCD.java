@@ -1,12 +1,17 @@
 package pcp.alg;
 
+import java.util.Set;
+import java.util.logging.Logger;
 import pcp.model.Coloring;
 import pcp.model.Graph;
 import pcp.model.Node;
 import pcp.model.NodeColorInfo;
+import test.pcp.coloring.ColoringTest;
 
 public class OneStepCD {
 
+    private static final Logger logger = Logger.getLogger(OneStepCD.class.getName());
+    
     /*
      * this method selects and colors all unselected NCIs of Coloring c
      * returns number of conflicts
@@ -49,9 +54,10 @@ public class OneStepCD {
                 }
             }
             c.colorNci(maxMinDegreeNci, chosenColor);
-            conflicts += maxMinDegreeNci.getConflicts(chosenColor);
-            if(maxMinDegreeNci.getConflicts(chosenColor) != 0){
-                c.getConflictingNCIs().add(maxMinDegreeNci);
+            if (maxMinDegreeNci.getConflicts(chosenColor) > 0) {
+                conflicts += maxMinDegreeNci.getConflicts(chosenColor);
+                Set<NodeColorInfo> conflictingNcis = c.getConflictingNeighboursOfNci(maxMinDegreeNci, maxMinDegreeNci.getConflicts(chosenColor));
+                c.getConflictingNCIs().addAll(conflictingNcis);
             }
         }
         return conflicts;
