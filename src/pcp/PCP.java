@@ -24,21 +24,30 @@ public class PCP {
     public static final int NODE_UNSELECTED = -2;
 
     public static void main(String[] args) {
-        optimized();
+        allFiles();
 //        testDangerVsOneStepCD();
     }
 
-    private static void optimized() {
+    public static void allFiles() {
+        try {
+            File folder = new File("pcp_instances/pcp/");
+            for (final File fileEntry : folder.listFiles()) {
+                if (fileEntry.isFile()) {
+                    optimized(fileEntry);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private static void optimized(File instanceFile) {
         //logger.getHandlers()[0].setFormatter( new BriefLogFormatter());
 
         Graph g = null;
         Coloring c = null;
         try {
-            //g = InstanceReader.readInstance( "pcp_instances/test/test4.pcp");
-//            g = InstanceReader.readInstance("pcp_instances/pcp/n20p5t2s1.pcp");
-//            g = InstanceReader.readInstance("pcp_instances/pcp/n40p5t2s5.pcp");
-            g = InstanceReader.readInstance("pcp_instances/in/dsjc500.5-1.in");
-            //g = InstanceReader.readInstance("pcp_instances/pcp/n120p5t2s5.pcp");
+            g = InstanceReader.readInstance(instanceFile.getAbsolutePath());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -46,14 +55,24 @@ public class PCP {
         c = calcInitialColoringOneStepCD(g);
         //c = calcInitialColoringDanger(g, null, null);
 //        ColoringTest.testCorrectSetContents(c);
-        while (true) {
-            Coloring cc = Recolorer.recolorAllColorsOneStepCD(c);
-            LocalSearch.start(cc);
-            if( !ColoringTest.performAll(cc)){
-                logger.severe( "TERMINATING: NOT ALL TESTS SUCCEDED!");
+        boolean couldReduceColors;
+        do {
+            couldReduceColors = false;
+            ArrayList<Coloring> cL = Recolorer.recolorAllColorsOneStepCD(c);
+            for (Coloring cc : cL) {
+                if (LocalSearch.start(cc)) {
+                    if (!ColoringTest.performAll(cc)) {
+                        logger.severe("TERMINATING: NOT ALL TESTS SUCCEDED!");
+                        return;
+                    }
+                    c = cc;
+                    couldReduceColors = true;
+                    break;
+                }
             }
-            c = cc;
-        }
+        } while (couldReduceColors);
+
+        logger.severe("ALORITHM TERMINATED for file " + instanceFile.getName() + ": best solution: " + c.getChromatic());
 
 //        cc.logColorStats();
 //        ColoringTest.performAll(cc);

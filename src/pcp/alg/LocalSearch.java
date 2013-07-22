@@ -12,12 +12,14 @@ import pcp.model.NodeColorInfo;
 public class LocalSearch {
 
     private static final Logger logger = Logger.getLogger(LocalSearch.class.getName());
+    private static final int MAX_ITERATIONS = 100000;
 
-    public static void start(Coloring c) {
+    public static boolean start(Coloring c) {
         LinkedList<NodeColorInfo> tabuNciList = new LinkedList<NodeColorInfo>();
         LinkedList<Integer> tabuColorList = new LinkedList<Integer>();
-        int tabuSize = c.getChromatic() * 10;
-        while (c.getConflictingNCIs().size() > 0) {
+        int tabuSize = c.getChromatic() * 20;
+        int iterations = 0;
+        while (c.getConflictingNCIs().size() > 0 && iterations <= MAX_ITERATIONS) {
             //find node-color-pair with least resulting conflicts
             NodeColorInfo chosenNci = null;
             NodeColorInfo chosenConflictingNci = null;
@@ -82,10 +84,17 @@ public class LocalSearch {
                 Set resultingConflictNcis = c.getConflictingNeighboursOfNci(chosenNci, chosenNci.getConflicts(chosenColor));
                 c.getConflictingNCIs().addAll(resultingConflictNcis);
             }
+            iterations++;
             //logger.info("LOCALSEARCH: size of tabulist: " + tabuNciList.size() + " / " + tabuSize);
-            logger.info("LOCALSEARCH: New size of conflicting Nodes: " + c.getConflictingNCIs().size() + " " + c.getConflictingNCIs());
-            logger.info("LOCALSEARCH: " + c.getChromatic());
+//            logger.info("LOCALSEARCH: New size of conflicting Nodes: " + c.getConflictingNCIs().size() + " " + c.getConflictingNCIs());
+//            logger.info("LOCALSEARCH: " + c.getChromatic());
         }
-        logger.info("Found solution with chromatic: " + c.getChromatic());
+
+        if (iterations < MAX_ITERATIONS) {
+            logger.info("LOCALSEARCH: Found solution with chromatic: " + c.getChromatic());
+            return true;
+        }
+        logger.info("LOCALSEARCH: Aborted because of too many iterations!");
+        return false;
     }
 }

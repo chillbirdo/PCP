@@ -11,7 +11,7 @@ import pcp.PCP;
 import pcp.model.Graph;
 import pcp.model.Node;
 
-public class Coloring {
+public class Coloring implements Comparable<Coloring>{
     
     private static final Logger logger = Logger.getLogger(Coloring.class.getName());
     private Graph g;
@@ -346,5 +346,10 @@ public class Coloring {
     
     public boolean isPartitionSelected(int partition) {
         return this.isPartitonSelected[partition];
+    }
+
+    @Override
+    public int compareTo(Coloring c) {
+        return this.getConflictingNCIs().size() - c.getConflictingNCIs().size();
     }
 }
