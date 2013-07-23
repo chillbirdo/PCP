@@ -11,8 +11,8 @@ import pcp.PCP;
 import pcp.model.Graph;
 import pcp.model.Node;
 
-public class Coloring implements Comparable<Coloring>{
-    
+public class Coloring implements Comparable<Coloring> {
+
     private static final Logger logger = Logger.getLogger(Coloring.class.getName());
     private Graph g;
     private NodeColorInfo[] nodeColorInfo;
@@ -22,7 +22,7 @@ public class Coloring implements Comparable<Coloring>{
     private Set<NodeColorInfo> selectedColoredNCIs;
     private Set<NodeColorInfo> selectedUncoloredNCIs;
     private Set<NodeColorInfo> conflictingNCIs;
-    
+
     public Coloring(Graph g) {
         this.g = g;
         this.nodeColorInfo = new NodeColorInfo[g.getNodes().length];
@@ -75,7 +75,7 @@ public class Coloring implements Comparable<Coloring>{
             conflictingNCIs.add(nciCopy);
         }
     }
-    
+
     public void initColorArrayOfEachNci(int maxColors) {
         chromatic = maxColors;
         for (NodeColorInfo nci : nodeColorInfo) {
@@ -147,7 +147,7 @@ public class Coloring implements Comparable<Coloring>{
             logger.severe("UNEXPECTED: tried to color a node of color " + nci.getColor() + " to color " + color + "!");
             return;
         }
-        
+
         this.selectedUncoloredNCIs.remove(nci);
         this.selectedColoredNCIs.add(nci);
         nci.setColor(color);
@@ -186,10 +186,10 @@ public class Coloring implements Comparable<Coloring>{
         }
 //        this.selectedColoredNCIs.remove(nci);
         this.selectedUncoloredNCIs.add(nci);
-        
+
         int oldColor = nci.getColor();
         nci.setColor(PCP.NODE_UNCOLORED);
-        
+
 //        ArrayList<Node> neightsGoneAvailable = new ArrayList<Node>(nci.getNode().getNeighbours().length);
         for (Node neigh : nci.getNode().getNeighbours()) {
             NodeColorInfo neighNci = getNciById(neigh.getId());
@@ -268,23 +268,23 @@ public class Coloring implements Comparable<Coloring>{
         logger.finest("getting highest-degree-selected: " + maxDegreeToSelected);
         return maxDegreeToSelected;
     }
-    
+
     public String toStringUncolored() {
         return toStringNciList(this.selectedUncoloredNCIs, "Uncolored Nodes");
     }
-    
+
     public String toStringUnselected() {
         return toStringNciList(this.unselectedNCIs, "Unselected Nodes");
     }
-    
+
     public String toStringColored() {
         return toStringNciList(this.selectedColoredNCIs, "Colored Nodes");
     }
-    
+
     public String toString() {
-        return toStringColored() + "\n" + toStringUncolored() + "\n" + toStringUnselected();
+        return "conflicting nodes: " + getConflictingNCIs().size();
     }
-    
+
     private String toStringNciList(Collection<NodeColorInfo> nciCollection, String name) {
         String ret = "\n" + name + ": {\n";
         for (NodeColorInfo nci : nciCollection) {
@@ -297,7 +297,7 @@ public class Coloring implements Comparable<Coloring>{
         }
         return ret + "}";
     }
-    
+
     public void logColorStats() {
         int[] colorStats = new int[getChromatic()];
         for (int i = 0; i < colorStats.length; i++) {
@@ -306,7 +306,7 @@ public class Coloring implements Comparable<Coloring>{
         for (NodeColorInfo nci : nodeColorInfo) {
             if (nci.getColor() >= 0) {
                 colorStats[nci.getColor()]++;
-                
+
             }
         }
         logger.info("COLORSTATS:");
@@ -319,31 +319,31 @@ public class Coloring implements Comparable<Coloring>{
     public Set<NodeColorInfo> getSelectedColoredNCIs() {
         return selectedColoredNCIs;
     }
-    
+
     public Set<NodeColorInfo> getSelectedUncoloredNCIs() {
         return selectedUncoloredNCIs;
     }
-    
+
     public Set<NodeColorInfo> getUnselectedNCIs() {
         return unselectedNCIs;
     }
-    
+
     public Graph getGraph() {
         return g;
     }
-    
+
     public NodeColorInfo getNciById(int id) {
         return this.nodeColorInfo[id];
     }
-    
+
     public int getChromatic() {
         return chromatic;
     }
-    
+
     public Set<NodeColorInfo> getConflictingNCIs() {
         return conflictingNCIs;
     }
-    
+
     public boolean isPartitionSelected(int partition) {
         return this.isPartitonSelected[partition];
     }

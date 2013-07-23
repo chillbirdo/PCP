@@ -11,7 +11,7 @@ import test.pcp.coloring.ColoringTest;
 public class OneStepCD {
 
     private static final Logger logger = Logger.getLogger(OneStepCD.class.getName());
-    
+
     /*
      * this method selects and colors all unselected NCIs of Coloring c
      * returns number of conflicts
@@ -61,5 +61,46 @@ public class OneStepCD {
             }
         }
         return conflicts;
+    }
+
+    public static Coloring calcInitialColoringOneStepCD(Graph g) {
+        logger.info("Calculating initial solution with OneStepCD..");
+        Coloring c = new Coloring(g);
+        NodeSelector.greedyMinDegree(c, null, null);
+        c.initColorArrayOfEachNci(c.getHighestDegreeSelected() + 1);
+        OneStepCD.performOnUnselected(c);
+        logger.info(c.toStringColored());
+        logger.info("Initial Solution OneStepCD: " + c.getChromatic() + " colors, " + c.getConflictingNCIs().size() + " conflicting.");
+
+
+        Coloring c2 = new Coloring(g);
+        c2.initColorArrayOfEachNci(getColorsUsed(c) + 1);
+        OneStepCD.performOnUnselected(c2);
+
+        logger.info("Initial Solution OneStepCD: " + c2.getChromatic() + " colors, " + c2.getConflictingNCIs().size() + " conflicting.");
+        return c2;
+    }
+
+    /*
+     * returns how many different colors are used by coloring c
+     */
+    private static int getColorsUsed(Coloring c) {
+        boolean[] colorUsed = new boolean[c.getChromatic()];
+
+        for (int i = 0; i < colorUsed.length; i++) {
+            colorUsed[i] = false;
+        }
+        for (NodeColorInfo nci : c.getSelectedColoredNCIs()) {
+            colorUsed[nci.getColor()] = true;
+            logger.severe("---> " + nci.getColor());
+        }
+        int count = 0;
+        for (int i = 0; i < colorUsed.length; i++) {
+            logger.severe("---> " + i + " " + colorUsed[i]);
+            if (colorUsed[i]) {
+                count++;
+            }
+        }
+        return count;
     }
 }

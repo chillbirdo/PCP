@@ -24,15 +24,28 @@ public class PCP {
     public static final int NODE_UNSELECTED = -2;
 
     public static void main(String[] args) {
-        allFiles();
-//        testDangerVsOneStepCD();
+//        allFiles();
+        initialSolution();
+        //optimized(new File("pcp_instances/pcp/n20p5t2s3.pcp"));
+    }
+
+    public static void initialSolution() {
+        Graph g = null;
+        try {
+            g = InstanceReader.readInstance("pcp_instances/pcp/n20p5t2s3.pcp");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        OneStepCD.calcInitialColoringOneStepCD(g);
     }
 
     public static void allFiles() {
         try {
             File folder = new File("pcp_instances/pcp/");
             for (final File fileEntry : folder.listFiles()) {
+                logger.severe(fileEntry.getName());
                 if (fileEntry.isFile()) {
+                    logger.severe(fileEntry.getName());
                     optimized(fileEntry);
                 }
             }
