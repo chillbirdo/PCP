@@ -11,11 +11,11 @@ import pcp.PCP;
 import pcp.model.Graph;
 import pcp.model.Node;
 
-public class Coloring implements ColoringIF, Comparable<ColoringIF> {
+public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
 
-    private static final Logger logger = Logger.getLogger(Coloring.class.getName());
+    private static final Logger logger = Logger.getLogger(ColoringDanger.class.getName());
     private Graph g;
-    private NodeColorInfo[] nodeColorInfo;
+    private NodeColorInfoDanger[] nodeColorInfo;
     private int chromatic;
     private boolean[] isPartitonSelected;
     private Set<NodeColorInfoIF> unselectedNCIs;//set of unselected ncis **of unselected clusters**
@@ -23,12 +23,12 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
     private Set<NodeColorInfoIF> selectedUncoloredNCIs;
     private Set<NodeColorInfoIF> conflictingNCIs;
 
-    public Coloring(Graph g) {
+    public ColoringDanger(Graph g) {
         this.g = g;
-        this.nodeColorInfo = new NodeColorInfo[g.getNodes().length];
+        this.nodeColorInfo = new NodeColorInfoDanger[g.getNodes().length];
         for (int i = 0; i < nodeColorInfo.length; i++) {
             Node n = g.getNode(i);
-            nodeColorInfo[i] = new NodeColorInfo(n);
+            nodeColorInfo[i] = new NodeColorInfoDanger(n);
         }
         this.isPartitonSelected = new boolean[g.getNodeInPartition().length];
         for (int i = 0; i < isPartitonSelected.length; i++) {
@@ -43,12 +43,12 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
     /*
      * copy constructor
      */
-    public Coloring(ColoringIF c) {
+    public ColoringDanger(ColoringDanger c) {
         this.g = c.getGraph();
         this.chromatic = c.getChromatic();
-        this.nodeColorInfo = new NodeColorInfo[g.getNodes().length];
+        this.nodeColorInfo = new NodeColorInfoDanger[g.getNodes().length];
         for (int i = 0; i < g.getNodes().length; i++) {
-            this.nodeColorInfo[i] = new NodeColorInfo(c.getNciById(i));
+            this.nodeColorInfo[i] = new NodeColorInfoDanger(c.getNciById(i));
         }
         this.isPartitonSelected = new boolean[g.getNodeInPartition().length];
         for (int i = 0; i < isPartitonSelected.length; i++) {
@@ -56,30 +56,29 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
         }
         this.selectedColoredNCIs = new HashSet<NodeColorInfoIF>(c.getSelectedColoredNCIs().size());
         for (NodeColorInfoIF nciOrig : c.getSelectedColoredNCIs()) {
-            NodeColorInfo nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
+            NodeColorInfoDanger nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
             selectedColoredNCIs.add(nciCopy);
         }
         this.selectedUncoloredNCIs = new HashSet<NodeColorInfoIF>(c.getSelectedUncoloredNCIs().size());
         for (NodeColorInfoIF nciOrig : c.getSelectedUncoloredNCIs()) {
-            NodeColorInfo nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
+            NodeColorInfoDanger nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
             selectedUncoloredNCIs.add(nciCopy);
         }
         this.unselectedNCIs = new HashSet<NodeColorInfoIF>(c.getUnselectedNCIs().size());
         for (NodeColorInfoIF nciOrig : c.getUnselectedNCIs()) {
-            NodeColorInfo nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
+            NodeColorInfoDanger nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
             unselectedNCIs.add(nciCopy);
         }
         this.conflictingNCIs = new HashSet<NodeColorInfoIF>(c.getConflictingNCIs().size());
         for (NodeColorInfoIF nciOrig : c.getConflictingNCIs()) {
-            NodeColorInfo nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
+            NodeColorInfoDanger nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
             conflictingNCIs.add(nciCopy);
         }
     }
 
-    
     public void initColorArrayOfEachNci(int maxColors) {
         chromatic = maxColors;
-        for (NodeColorInfo nci : nodeColorInfo) {
+        for (NodeColorInfoDanger nci : nodeColorInfo) {
             nci.initConflictsArray(maxColors);
         }
     }
@@ -90,6 +89,12 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
     public void selectNci(NodeColorInfoIF nci) {
         if (!nci.isSelected() && unselectedNCIs.contains(nci)) {
             nci.setColorUncolored();
+            //update neighbours
+            for (Node neigh : nci.getNode().getNeighbours()) {
+                NodeColorInfoDanger neighNci = getNciById(neigh.getId());
+                neighNci.increaseUncolored();
+                neighNci.increaseDegreeToSelected();
+            }
             //remove all ncis of particular partition from unselectedNCIs
             int nciPartition = nci.getNode().getPartition();
             for (Node nodeOfPartition : g.getNodeInPartition()[nciPartition]) {
@@ -110,6 +115,12 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
     public void unselectNci(NodeColorInfoIF nci) {
         if (nci.getColor() == PCP.NODE_UNCOLORED && selectedUncoloredNCIs.contains(nci)) {
             nci.setColorUnselected();
+            //update neighbours
+            for (Node neigh : nci.getNode().getNeighbours()) {
+                NodeColorInfoDanger neighNci = getNciById(neigh.getId());
+                neighNci.decreaseUncolored();
+                neighNci.decreaseDegreeToSelected();
+            }
             //add all ncis of particular partition to unselectedNCIs
             int nciPartition = nci.getNode().getPartition();
             for (Node nodeOfPartition : g.getNodeInPartition()[nciPartition]) {
@@ -141,10 +152,25 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
         this.selectedColoredNCIs.add(nci);
         nci.setColor(color);
         for (Node neigh : nci.getNode().getNeighbours()) {
-            NodeColorInfo neighNci = getNciById(neigh.getId());
+            NodeColorInfoDanger neighNci = getNciById(neigh.getId());
+            neighNci.decreaseUncolored();
             neighNci.increaseConflicts(color);
             if (neighNci.getConflicts(color) == 1) {
                 neighNci.decreaseColorsAvailable();
+//                if (neighNci.isColorShared(color)) {
+//                    neighNci.setColorShared(color, false);
+//                    neighNci.decreaseColorsShared();
+//                }
+//                //update shared state of second-level neighbours
+//                for (Node neighOfNeigh : neigh.getNeighbours()) {
+//                    NodeColorInfoDanger neighOfNeighNci = getNciById(neighOfNeigh.getId());
+//                    if (neighOfNeigh != nci.getNode()) {
+//                        if (neighOfNeighNci.isColorShared(color)) {
+//                            neighOfNeighNci.setColorShared(color, false);
+//                            neighOfNeighNci.decreaseColorsShared();
+//                        }
+//                    }
+//                }
             }
         }
     }
@@ -158,18 +184,42 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
             logger.severe("UNEXPECTED: tried to uncolor a node that was not in set of colored!");
             return;
         }
+//        this.selectedColoredNCIs.remove(nci);
         this.selectedUncoloredNCIs.add(nci);
 
         int oldColor = nci.getColor();
         nci.setColor(PCP.NODE_UNCOLORED);
 
+//        ArrayList<Node> neightsGoneAvailable = new ArrayList<Node>(nci.getNode().getNeighbours().length);
         for (Node neigh : nci.getNode().getNeighbours()) {
-            NodeColorInfo neighNci = getNciById(neigh.getId());
+            NodeColorInfoDanger neighNci = getNciById(neigh.getId());
+            neighNci.increaseUncolored();
             neighNci.decreaseConflicts(oldColor);
             if (neighNci.isColorAvailable(oldColor)) {
                 neighNci.increaseColorsAvailable();
+//                neightsGoneAvailable.add(neigh);
             }
         }
+//        //shared
+//        for (Node neigh : neightsGoneAvailable) {
+//            NodeColorInfoDanger neighNci = getNciById(neigh.getId());
+//            if (neighNci.isColorAvailable(oldColor)) {
+//                boolean allSelectedNeighOfNeighHaveColorAvailable = true;
+//                for (Node neighOfNeigh : neigh.getNeighbours()) {
+//                    if (neighOfNeigh == nci.getNode()) {
+//                        continue;
+//                    }
+//                    NodeColorInfoDanger neighOfNeighNci = getNciById(neighOfNeigh.getId());
+//                    if (neighOfNeighNci.isSelected() && neighOfNeighNci.isColorUnavailable(oldColor)) {
+//                        allSelectedNeighOfNeighHaveColorAvailable = false;
+//                        break;
+//                    }
+//                }
+//                if (allSelectedNeighOfNeighHaveColorAvailable) {
+//                    neighNci.setColorShared(oldColor, true);
+//                    neighNci.increaseColorsShared();
+//                }
+//            }
     }
 
     /*
@@ -177,7 +227,7 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
      * all nci with color > col decrease their color by 1
      */
     public void reduceColor(int col) {
-        for (NodeColorInfo nci : nodeColorInfo) {
+        for (NodeColorInfoDanger nci : nodeColorInfo) {
             if (nci.getColor() == col) {
                 logger.severe("Unexpected: tried to reduce color " + col + ", but nci " + nci.getNode().getId() + " is still colored with that color!");
                 return;
@@ -197,12 +247,26 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
     public Set<NodeColorInfoIF> getConflictingNeighboursOfNci(NodeColorInfoIF nci, int conflictAmount) {
         Set<NodeColorInfoIF> al = new HashSet<NodeColorInfoIF>(conflictAmount);
         for (Node neigh : nci.getNode().getNeighbours()) {
-            NodeColorInfo neighNci = getNciById(neigh.getId());
+            NodeColorInfoDanger neighNci = getNciById(neigh.getId());
             if (neighNci.getColor() == nci.getColor()) {
                 al.add(neighNci);
             }
         }
         return al;
+    }
+
+    /*
+     * get the highest degree from each selected nodes to other selected nodes
+     */
+    public int getHighestDegreeSelected() {
+        int maxDegreeToSelected = 0;
+        for (NodeColorInfoDanger nci : nodeColorInfo) {
+            if (nci.isSelected() && nci.getDegreeToSelected() > maxDegreeToSelected) {
+                maxDegreeToSelected = nci.getDegreeToSelected();
+            }
+        }
+        logger.finest("getting highest-degree-selected: " + maxDegreeToSelected);
+        return maxDegreeToSelected;
     }
 
     public String toStringUncolored() {
@@ -226,7 +290,9 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
         for (NodeColorInfoIF nci : nciCollection) {
             ret += "n" + nci.getNode().getId() + ": "
                     + "color=" + nci.getColor() + "; "
+                    + "uncolored_neighs=" + ((NodeColorInfoDanger)nci).getUncoloredNeighbours() + "/" + nci.getNode().getDegree() + "; "
                     + "colors_available=" + nci.getColorsAvailable() + "; "
+                    //                    + "colors_shared=" + nci.getColorsShared() + "; "
                     + "\n";
         }
         return ret + "}";
@@ -237,7 +303,7 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
         for (int i = 0; i < colorStats.length; i++) {
             colorStats[i] = 0;
         }
-        for (NodeColorInfo nci : nodeColorInfo) {
+        for (NodeColorInfoDanger nci : nodeColorInfo) {
             if (nci.getColor() >= 0) {
                 colorStats[nci.getColor()]++;
 
@@ -266,7 +332,7 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
         return g;
     }
 
-    public NodeColorInfo getNciById(int id) {
+    public NodeColorInfoDanger getNciById(int id) {
         return this.nodeColorInfo[id];
     }
 
@@ -285,9 +351,4 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
     public int compareTo(ColoringIF c) {
         return this.getConflictingNCIs().size() - c.getConflictingNCIs().size();
     }
-
-    public Set<NodeColorInfoIF> getConflictingNeighboursOfNci(NodeColorInfo nci, int conflictAmount) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

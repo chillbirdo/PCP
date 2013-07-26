@@ -8,9 +8,13 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.logging.Logger;
 import pcp.model.Coloring;
+import pcp.model.ColoringDanger;
+import pcp.model.ColoringIF;
 import pcp.model.NodeColorInfo;
 import pcp.model.Graph;
 import pcp.model.Node;
+import pcp.model.NodeColorInfoDanger;
+import pcp.model.NodeColorInfoIF;
 
 public class NodeSelector {
 
@@ -18,7 +22,7 @@ public class NodeSelector {
     private static final double ks = 1.4;
     private static final double ku = 0.8;
 
-    public static void greedyMinDegree(Coloring c, Double pks, Double pku) {
+    public static void greedyMinDegree(ColoringDanger c, Double pks, Double pku) {
         double ks = NodeSelector.ks;
         double ku = NodeSelector.ku;
         if (pks != null) {
@@ -30,15 +34,15 @@ public class NodeSelector {
         logger.finest("Selecting nodes by greedyMinDegree");
         while (!c.getUnselectedNCIs().isEmpty()) {
             logger.finest("\n");
-            NodeColorInfo selectNci = null;
+            NodeColorInfoIF selectNci = null;
             double minEval = Double.MAX_VALUE;
-            for (NodeColorInfo nci : c.getUnselectedNCIs()) {
+            for (NodeColorInfoIF nci : c.getUnselectedNCIs()) {
                 //calc sum adjacent selected and considerable nodes
                 //(i.e.: unselected nodes from unselected Cluster) 
                 double sumOfAdjacentSelected = 0.0;
                 double sumOfAdjacentConsiderable = 0.0;
                 for (Node neigh : nci.getNode().getNeighbours()) {
-                    NodeColorInfo neighNci = c.getNciById(neigh.getId());
+                    NodeColorInfoDanger neighNci = c.getNciById(neigh.getId());
                     if (neighNci.isSelected()) {
                         sumOfAdjacentSelected += 1.0;
                     } else if (c.getUnselectedNCIs().contains(neighNci)) {
@@ -57,9 +61,9 @@ public class NodeSelector {
         }
     }
 
-    public static void unselectAllNcisOfColor( Coloring c, int color) {
-        for (Iterator<NodeColorInfo> it = c.getSelectedColoredNCIs().iterator(); it.hasNext();) {
-            NodeColorInfo nci = it.next();
+    public static void unselectAllNcisOfColor( ColoringIF c, int color) {
+        for (Iterator<NodeColorInfoIF> it = c.getSelectedColoredNCIs().iterator(); it.hasNext();) {
+            NodeColorInfoIF nci = it.next();
             if (nci.getColor() == color) {
                 c.uncolorNci(nci);
                 it.remove();
@@ -69,20 +73,20 @@ public class NodeSelector {
         }
     }
 
-    public static void randomSelect(Coloring coloring) {
+    public static void randomSelect(ColoringIF coloring) {
         Graph g = coloring.getGraph();
         for (int i = 0; i < g.getPartitionSize().length; i++) {
             int size = g.getPartitionSize()[i];
             Random randomGenerator = new Random();
             int r = randomGenerator.nextInt(size);
             int nodeId = g.getNodeInPartition()[i][r].getId();
-            NodeColorInfo nci = coloring.getNciById(nodeId);
+            NodeColorInfoIF nci = coloring.getNciById(nodeId);
             coloring.selectNci(nci);
             logger.finest("selected node " + nodeId);
         }
     }
 
-    public static void testSelect(Coloring coloring) {
+    public static void testSelect(ColoringIF coloring) {
         coloring.selectNci(coloring.getNciById(1));
         logger.finest("selected node " + 1);
         coloring.selectNci(coloring.getNciById(2));

@@ -16,17 +16,17 @@ public class EasyToEliminateColorFinder {
         return easiestToEleminate;
     }
 
-    public static ArrayList<Integer> find(Coloring c) {
-        ArrayList<Integer> easiestToEleminate = new ArrayList<Integer>(c.getChromatic());
-        for (int i = 0; i < c.getChromatic(); i++) {
-            easiestToEleminate.add(0);
-            for (NodeColorInfo nci : c.getSelectedColoredNCIs()) {
-                if (nci.getColor() == i) {
-                    //TODO
-                }
-            }
-        }
-
-        return easiestToEleminate;
-    }
+//    public static ArrayList<Integer> find(Coloring c) {
+//        ArrayList<Integer> easiestToEleminate = new ArrayList<Integer>(c.getChromatic());
+//        for (int i = 0; i < c.getChromatic(); i++) {
+//            easiestToEleminate.add(0);
+//            for (NodeColorInfo nci : c.getSelectedColoredNCIs()) {
+//                if (nci.getColor() == i) {
+//                    //TODO
+//                }
+//            }
+//        }
+//
+//        return easiestToEleminate;
+//    }
 }

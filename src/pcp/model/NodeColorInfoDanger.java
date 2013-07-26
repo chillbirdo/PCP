@@ -5,26 +5,35 @@ import java.util.logging.Logger;
 import pcp.PCP;
 import pcp.model.Node;
 
-public class NodeColorInfo implements NodeColorInfoIF{
+public class NodeColorInfoDanger implements NodeColorInfoIF {
 
-    private static final Logger logger = Logger.getLogger(NodeColorInfo.class.getName());
+    private static final Logger logger = Logger.getLogger(NodeColorInfoDanger.class.getName());
     private Node node;                              //the node to which this nci is refering
     private int color;                              //the color of node n
+    private int uncoloredNeighbours;                //number of uncolored neighbours
     private ArrayList<Integer> conflicts;           //number of conflicts a coloring would produce
+//    private ArrayList<Integer> neiSghboursShared;    //number of selected neighbours that share the available color
     private int colorsAvailable;                    //number of colors available
+//    private int colorsShared;                     //number of color shared
+    private int degreeToSelected;                   //number of adjacent edges to selected nodes
 
-    public NodeColorInfo(Node n) {
+    public NodeColorInfoDanger(Node n) {
         this.node = n;
         this.color = PCP.NODE_UNSELECTED;
+        this.uncoloredNeighbours = 0;
+        this.degreeToSelected = 0;
         this.conflicts = null;
+//        this.neighboursShared = null;
     }
     
     /*
      * copy constructor
      */
-    public NodeColorInfo( NodeColorInfoIF nci){
+    public NodeColorInfoDanger( NodeColorInfoDanger nci){
         this.node = nci.getNode();
         this.color = nci.getColor();
+        this.uncoloredNeighbours = nci.getUncoloredNeighbours();
+        this.degreeToSelected = nci.getDegreeToSelected();
         this.colorsAvailable = nci.getColorsAvailable();
         this.conflicts = new ArrayList<Integer>(nci.getConflictArray().size());
         for( Integer i : nci.getConflictArray()){
@@ -38,9 +47,12 @@ public class NodeColorInfo implements NodeColorInfoIF{
     public void initConflictsArray(int maxColors) {
         if (conflicts == null ){//&& neighboursShared == null) {
             conflicts = new ArrayList<Integer>(maxColors);
+//            neighboursShared = new ArrayList<Integer>(maxColors);
             this.colorsAvailable = maxColors;
+//            this.colorsShared = maxColors;
             for (int i = 0; i < maxColors; i++) {
                 conflicts.add(i, 0);
+//                neighboursShared.add(i, 0);//number changes when nodes are selected
             }
             logger.finest("----- INIT nci " + node.getId() + " with maxColors " + conflicts.size() + " " + maxColors);
         } else {
@@ -68,6 +80,14 @@ public class NodeColorInfo implements NodeColorInfoIF{
         this.color = color;
     }
 
+    public int getUncoloredNeighbours() {
+        return uncoloredNeighbours;
+    }
+
+    public void setUncoloredNeighbours(int uncolored) {
+        this.uncoloredNeighbours = uncolored;
+    }
+
     public int getColorsAvailable() {
         return colorsAvailable;
     }
@@ -76,8 +96,24 @@ public class NodeColorInfo implements NodeColorInfoIF{
         this.colorsAvailable = colorsAvailable;
     }
 
+//    public int getColorsShared() {
+//        return colorsShared;
+//    }
+
+//    public void setColorsShared(int colorsShared) {
+//        this.colorsShared = colorsShared;
+//    }
+
     public int getDiffColoredNeighbours() {
         return conflicts.size() - colorsAvailable;
+    }
+
+    public void increaseUncolored() {
+        uncoloredNeighbours++;
+    }
+
+    public void decreaseUncolored() {
+        uncoloredNeighbours--;
     }
 
     public void decreaseColorsAvailable() {
@@ -108,6 +144,14 @@ public class NodeColorInfo implements NodeColorInfoIF{
         conflicts.set(color, conflicts.get(color) - 1);
     }
 
+//    public void decreaseColorsShared() {
+//        this.colorsShared--;
+//    }
+
+//    public void increaseColorsShared() {
+//        this.colorsShared++;
+//    }
+
     public boolean isSelected() {
         return color != PCP.NODE_UNSELECTED;
     }
@@ -120,8 +164,19 @@ public class NodeColorInfo implements NodeColorInfoIF{
         this.color = PCP.NODE_UNSELECTED;
     }
 
+    public int getDegreeToSelected() {
+        return degreeToSelected;
+    }
+
+    public void increaseDegreeToSelected() {
+        this.degreeToSelected++;
+    }
+
+    public void decreaseDegreeToSelected() {
+        this.degreeToSelected--;
+    }
+
     public ArrayList<Integer> getConflictArray() {
         return conflicts;
     }
-
 }

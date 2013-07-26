@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import pcp.model.Coloring;
 import pcp.model.Node;
 import pcp.model.NodeColorInfo;
+import pcp.model.NodeColorInfoIF;
 
 public class LocalSearch {
 
@@ -16,17 +17,17 @@ public class LocalSearch {
 
     public static boolean start(Coloring c) {
         logger.info("LOCALSEARCH: trying to eliminate " + c.getConflictingNCIs().size() + " conflicting nodes.");
-        LinkedList<NodeColorInfo> tabuNciList = new LinkedList<NodeColorInfo>();
+        LinkedList<NodeColorInfoIF> tabuNciList = new LinkedList<NodeColorInfoIF>();
         LinkedList<Integer> tabuColorList = new LinkedList<Integer>();
         int tabuSize = c.getChromatic() * 20;
         int iterations = 0;
         while (c.getConflictingNCIs().size() > 0 && iterations <= MAX_ITERATIONS) {
             //find node-color-pair with least resulting conflicts
-            NodeColorInfo chosenNci = null;
-            NodeColorInfo chosenConflictingNci = null;
+            NodeColorInfoIF chosenNci = null;
+            NodeColorInfoIF chosenConflictingNci = null;
             int chosenColor = 0;
             int minConflicts = Integer.MAX_VALUE;
-            for (NodeColorInfo conflictingNci : c.getConflictingNCIs()) {
+            for (NodeColorInfoIF conflictingNci : c.getConflictingNCIs()) {
                 for (Node nodeOfCluster : c.getGraph().getNodeInPartition()[conflictingNci.getNode().getPartition()]) {
                     NodeColorInfo nciOfCluster = c.getNciById(nodeOfCluster.getId());
                     for (int color = 0; color < c.getChromatic() && minConflicts > 0; color++) {
@@ -36,7 +37,7 @@ public class LocalSearch {
                         //lookup tabulist
                         int idx = 0;
                         boolean tabu = false;
-                        for (Iterator<NodeColorInfo> it = tabuNciList.iterator(); it.hasNext();) {
+                        for (Iterator<NodeColorInfoIF> it = tabuNciList.iterator(); it.hasNext();) {
                             if (it.next() == nciOfCluster) {
                                 if (tabuColorList.get(idx) == color) {
                                     tabu = true;
@@ -65,7 +66,7 @@ public class LocalSearch {
                 }
             }
             if (chosenConflictingNci == null) {
-                tabuNciList = new LinkedList<NodeColorInfo>();
+                tabuNciList = new LinkedList<NodeColorInfoIF>();
                 tabuColorList = new LinkedList<Integer>();
                 tabuSize = tabuSize/2;
                 logger.warning("LOCALSEARCH: all possibilities are on the tabu list. New tabusize: " + tabuSize);

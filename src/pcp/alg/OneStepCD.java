@@ -3,9 +3,11 @@ package pcp.alg;
 import java.util.Set;
 import java.util.logging.Logger;
 import pcp.model.Coloring;
+import pcp.model.ColoringIF;
 import pcp.model.Graph;
 import pcp.model.Node;
 import pcp.model.NodeColorInfo;
+import pcp.model.NodeColorInfoIF;
 import test.pcp.coloring.ColoringTest;
 
 public class OneStepCD {
@@ -16,19 +18,19 @@ public class OneStepCD {
      * this method selects and colors all unselected NCIs of Coloring c
      * returns number of conflicts
      */
-    public static int performOnUnselected(Coloring c) {
+    public static int performOnUnselected(ColoringIF c) {
         int conflicts = 0;
         while (c.getUnselectedNCIs().size() > 0) {
             Integer maxMinDegree = Integer.MIN_VALUE;
-            NodeColorInfo maxMinDegreeNci = null;
+            NodeColorInfoIF maxMinDegreeNci = null;
             for (int p = 0; p < c.getGraph().getNodeInPartition().length; p++) {
                 if (c.isPartitionSelected(p)) {
                     continue;
                 }
                 Integer minDegree = Integer.MAX_VALUE;
-                NodeColorInfo minDegreeNci = null;
+                NodeColorInfoIF minDegreeNci = null;
                 for (Node n : c.getGraph().getNodeInPartition()[p]) {
-                    NodeColorInfo nci = c.getNciById(n.getId());
+                    NodeColorInfoIF nci = c.getNciById(n.getId());
                     if (nci.getDiffColoredNeighbours() < minDegree) {
                         minDegree = nci.getDiffColoredNeighbours();
                         minDegreeNci = nci;
@@ -56,25 +58,21 @@ public class OneStepCD {
             c.colorNci(maxMinDegreeNci, chosenColor);
             if (maxMinDegreeNci.getConflicts(chosenColor) > 0) {
                 conflicts += maxMinDegreeNci.getConflicts(chosenColor);
-                Set<NodeColorInfo> conflictingNcis = c.getConflictingNeighboursOfNci(maxMinDegreeNci, maxMinDegreeNci.getConflicts(chosenColor));
+                Set<NodeColorInfoIF> conflictingNcis = c.getConflictingNeighboursOfNci(maxMinDegreeNci, maxMinDegreeNci.getConflicts(chosenColor));
                 c.getConflictingNCIs().addAll(conflictingNcis);
             }
         }
         return conflicts;
     }
 
-    public static Coloring calcInitialColoringOneStepCD(Graph g) {
+    public static Coloring calcInitialColoring(Graph g) {
         logger.info("Calculating initial solution with OneStepCD..");
         Coloring c = new Coloring(g);
-        NodeSelector.greedyMinDegree(c, null, null);
-        c.initColorArrayOfEachNci(c.getHighestDegreeSelected() + 1);
+        c.initColorArrayOfEachNci(g.getHighestDegree()+1);
         OneStepCD.performOnUnselected(c);
-        logger.info(c.toStringColored());
-        logger.info("Initial Solution OneStepCD: " + c.getChromatic() + " colors, " + c.getConflictingNCIs().size() + " conflicting.");
-
 
         Coloring c2 = new Coloring(g);
-        c2.initColorArrayOfEachNci(getColorsUsed(c) + 1);
+        c2.initColorArrayOfEachNci(getColorsUsed(c));
         OneStepCD.performOnUnselected(c2);
 
         logger.info("Initial Solution OneStepCD: " + c2.getChromatic() + " colors, " + c2.getConflictingNCIs().size() + " conflicting.");
@@ -90,13 +88,11 @@ public class OneStepCD {
         for (int i = 0; i < colorUsed.length; i++) {
             colorUsed[i] = false;
         }
-        for (NodeColorInfo nci : c.getSelectedColoredNCIs()) {
+        for (NodeColorInfoIF nci : c.getSelectedColoredNCIs()) {
             colorUsed[nci.getColor()] = true;
-            logger.severe("---> " + nci.getColor());
         }
         int count = 0;
         for (int i = 0; i < colorUsed.length; i++) {
-            logger.severe("---> " + i + " " + colorUsed[i]);
             if (colorUsed[i]) {
                 count++;
             }
