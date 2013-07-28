@@ -12,9 +12,9 @@ public class NodeColorInfoDanger implements NodeColorInfoIF {
     private int color;                              //the color of node n
     private int uncoloredNeighbours;                //number of uncolored neighbours
     private ArrayList<Integer> conflicts;           //number of conflicts a coloring would produce
-//    private ArrayList<Integer> neiSghboursShared;    //number of selected neighbours that share the available color
+    private ArrayList<Boolean> shared;              //states for every color if it is shared or not
     private int colorsAvailable;                    //number of colors available
-//    private int colorsShared;                     //number of color shared
+    private int colorsShared;                       //number of color shared
     private int degreeToSelected;                   //number of adjacent edges to selected nodes
 
     public NodeColorInfoDanger(Node n) {
@@ -23,7 +23,7 @@ public class NodeColorInfoDanger implements NodeColorInfoIF {
         this.uncoloredNeighbours = 0;
         this.degreeToSelected = 0;
         this.conflicts = null;
-//        this.neighboursShared = null;
+        this.shared = null;
     }
     
     /*
@@ -47,12 +47,12 @@ public class NodeColorInfoDanger implements NodeColorInfoIF {
     public void initConflictsArray(int maxColors) {
         if (conflicts == null ){//&& neighboursShared == null) {
             conflicts = new ArrayList<Integer>(maxColors);
-//            neighboursShared = new ArrayList<Integer>(maxColors);
+            shared = new ArrayList<Boolean>(maxColors);
             this.colorsAvailable = maxColors;
-//            this.colorsShared = maxColors;
+            this.colorsShared = maxColors;
             for (int i = 0; i < maxColors; i++) {
                 conflicts.add(i, 0);
-//                neighboursShared.add(i, 0);//number changes when nodes are selected
+                shared.add(i, true);
             }
             logger.finest("----- INIT nci " + node.getId() + " with maxColors " + conflicts.size() + " " + maxColors);
         } else {
@@ -96,13 +96,13 @@ public class NodeColorInfoDanger implements NodeColorInfoIF {
         this.colorsAvailable = colorsAvailable;
     }
 
-//    public int getColorsShared() {
-//        return colorsShared;
-//    }
+    public int getColorsShared() {
+        return colorsShared;
+    }
 
-//    public void setColorsShared(int colorsShared) {
-//        this.colorsShared = colorsShared;
-//    }
+    public void setColorsShared(int colorsShared) {
+        this.colorsShared = colorsShared;
+    }
 
     public int getDiffColoredNeighbours() {
         return conflicts.size() - colorsAvailable;
@@ -144,13 +144,13 @@ public class NodeColorInfoDanger implements NodeColorInfoIF {
         conflicts.set(color, conflicts.get(color) - 1);
     }
 
-//    public void decreaseColorsShared() {
-//        this.colorsShared--;
-//    }
+    public void decreaseColorsShared() {
+        this.colorsShared--;
+    }
 
-//    public void increaseColorsShared() {
-//        this.colorsShared++;
-//    }
+    public void increaseColorsShared() {
+        this.colorsShared++;
+    }
 
     public boolean isSelected() {
         return color != PCP.NODE_UNSELECTED;
@@ -178,5 +178,17 @@ public class NodeColorInfoDanger implements NodeColorInfoIF {
 
     public ArrayList<Integer> getConflictArray() {
         return conflicts;
+    }
+    
+    public boolean isColorShared( int color){
+        return shared.get(color);
+    }
+
+    public boolean setColorShared(int color) {
+        return shared.set(color, true);
+    }
+
+    public boolean setColorUnShared(int color) {
+        return shared.set(color, false);
     }
 }

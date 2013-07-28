@@ -157,20 +157,20 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
             neighNci.increaseConflicts(color);
             if (neighNci.getConflicts(color) == 1) {
                 neighNci.decreaseColorsAvailable();
-//                if (neighNci.isColorShared(color)) {
-//                    neighNci.setColorShared(color, false);
-//                    neighNci.decreaseColorsShared();
-//                }
-//                //update shared state of second-level neighbours
-//                for (Node neighOfNeigh : neigh.getNeighbours()) {
-//                    NodeColorInfoDanger neighOfNeighNci = getNciById(neighOfNeigh.getId());
-//                    if (neighOfNeigh != nci.getNode()) {
-//                        if (neighOfNeighNci.isColorShared(color)) {
-//                            neighOfNeighNci.setColorShared(color, false);
-//                            neighOfNeighNci.decreaseColorsShared();
-//                        }
-//                    }
-//                }
+                if (neighNci.isColorShared(color)) {
+                    neighNci.decreaseColorsShared();
+                    neighNci.setColorUnShared(color);
+                }
+                //update shared state of second-level neighbours
+                for (Node neighOfNeigh : neigh.getNeighbours()) {
+                    NodeColorInfoDanger neighOfNeighNci = getNciById(neighOfNeigh.getId());
+                    if (neighOfNeigh != nci.getNode()) {
+                        if (neighOfNeighNci.isColorShared(color)) {
+                            neighOfNeighNci.setColorUnShared(color);
+                            neighOfNeighNci.decreaseColorsShared();
+                        }
+                    }
+                }
             }
         }
     }
@@ -190,14 +190,14 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
         int oldColor = nci.getColor();
         nci.setColor(PCP.NODE_UNCOLORED);
 
-//        ArrayList<Node> neightsGoneAvailable = new ArrayList<Node>(nci.getNode().getNeighbours().length);
+        ArrayList<Node> neightsGoneAvailable = new ArrayList<Node>(nci.getNode().getNeighbours().length);
         for (Node neigh : nci.getNode().getNeighbours()) {
             NodeColorInfoDanger neighNci = getNciById(neigh.getId());
             neighNci.increaseUncolored();
             neighNci.decreaseConflicts(oldColor);
             if (neighNci.isColorAvailable(oldColor)) {
                 neighNci.increaseColorsAvailable();
-//                neightsGoneAvailable.add(neigh);
+                neightsGoneAvailable.add(neigh);
             }
         }
 //        //shared
@@ -290,7 +290,7 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
         for (NodeColorInfoIF nci : nciCollection) {
             ret += "n" + nci.getNode().getId() + ": "
                     + "color=" + nci.getColor() + "; "
-                    + "uncolored_neighs=" + ((NodeColorInfoDanger)nci).getUncoloredNeighbours() + "/" + nci.getNode().getDegree() + "; "
+                    + "uncolored_neighs=" + ((NodeColorInfoDanger) nci).getUncoloredNeighbours() + "/" + nci.getNode().getDegree() + "; "
                     + "colors_available=" + nci.getColorsAvailable() + "; "
                     //                    + "colors_shared=" + nci.getColorsShared() + "; "
                     + "\n";
@@ -315,7 +315,7 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
             logger.info("color " + i + " = " + colorStats[i]);
         }
     }
-    
+
     public Set<NodeColorInfoIF> getSelectedColoredNCIs() {
         return selectedColoredNCIs;
     }

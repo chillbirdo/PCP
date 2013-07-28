@@ -25,8 +25,20 @@ public class PCP {
     public static final int NODE_UNSELECTED = -2;
 
     public static void main(String[] args) {
-        allFiles();
+//        allFiles();
+//        testDangerVsOneStepCD();
+        initTest();
         //optimized(new File("pcp_instances/pcp/n20p5t2s3.pcp"));
+    }
+    
+    public static void initTest(){
+        try {
+            File folder = new File("pcp_instances/test/test1.pcp");
+            Graph g = InstanceReader.readInstance(folder.getAbsolutePath());
+            DangerAlgorithm.calcInitialColoring(g);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void allFiles() {
@@ -45,8 +57,6 @@ public class PCP {
     }
 
     private static void optimized(File instanceFile) {
-        //logger.getHandlers()[0].setFormatter( new BriefLogFormatter());
-
         Graph g = null;
         Coloring c = null;
         try {
@@ -56,8 +66,6 @@ public class PCP {
         }
 
         c = OneStepCD.calcInitialColoring(g);
-        //c = calcInitialColoringDanger(g, null, null);
-//        ColoringTest.testCorrectSetContents(c);
         boolean couldReduceColors;
         do {
             couldReduceColors = false;
@@ -120,7 +128,7 @@ public class PCP {
         int sumDanger = 0;
         int sumOneStepCD = 0;
         try {
-            File folder = new File("pcp_instances/in/");
+            File folder = new File("pcp_instances/pcp/");
             for (final File fileEntry : folder.listFiles()) {
                 if (fileEntry.isFile()) {
                     Graph g = InstanceReader.readInstance(fileEntry.getAbsolutePath());

@@ -6,6 +6,7 @@ import pcp.model.ColoringDanger;
 import pcp.model.NodeColorInfoDanger;
 import pcp.model.Graph;
 import pcp.model.NodeColorInfoIF;
+import test.pcp.coloring.ColoringTest;
 
 public class DangerAlgorithm {
 
@@ -120,9 +121,10 @@ public class DangerAlgorithm {
             c.initColorArrayOfEachNci(actual);
             succeeded = DangerAlgorithm.applyColoringDanger(c, actual);
             if (succeeded) {
+                ColoringTest.performAllDanger(c);
                 upperbound = actual;
                 stablecoloring = c;
-                logger.info("\tFound solution with " + upperbound + " colors.");
+                logger.info("\tFound solution with " + actual + " colors.");
             } else {
                 lowerbound = actual;
             }

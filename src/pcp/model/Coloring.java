@@ -117,7 +117,7 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
             }
             //remove nci from selected
             selectedUncoloredNCIs.remove(nci);
-            //state that is partition has no selected node now
+            //state that partition has no selected node now
             this.isPartitonSelected[nci.getNode().getPartition()] = false;
         } else {
             logger.severe("UNEXPECTED: tried to unselect either a colored or an already unselected node!  (node=" + nci.getNode().getId() + ", color=" + nci.getColor() + ")");

@@ -1,6 +1,5 @@
 package test.pcp.coloring;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -8,8 +7,6 @@ import pcp.PCP;
 import pcp.model.Coloring;
 import pcp.model.ColoringDanger;
 import pcp.model.ColoringIF;
-import pcp.model.NodeColorInfo;
-import pcp.model.Graph;
 import pcp.model.Node;
 import pcp.model.NodeColorInfoDanger;
 import pcp.model.NodeColorInfoIF;
@@ -40,10 +37,12 @@ public class ColoringTest {
      */
 
     public static boolean performAllDanger(ColoringDanger c) {
+        logger.severe("FUUUUUUUUCK");
         if (testSolutionValidityNoConflicts((ColoringIF) c)
                 && testSolutionValiditySelection((ColoringIF) c)
                 && testCorrectConflictsValues((ColoringIF) c)
                 && testCorrectCountingColorValues(c)
+                && testCorrectSharedValues(c)
                 && testCorrectSetContents((ColoringIF) c)) {
             return true;
         } else {
@@ -122,6 +121,38 @@ public class ColoringTest {
             }
         }
         logger.info("TEST SUCCEEDED: conflictinfos are correct");
+        return true;
+    }
+
+    public static boolean testCorrectSharedValues(ColoringDanger c) {
+        for (Node node : c.getGraph().getNodes()) {
+            NodeColorInfoDanger nci = c.getNciById(node.getId());
+            int colorsShared = 0;
+            for (int i = 0; i < c.getChromatic(); i++) {
+                if (nci.isColorAvailable(i)) {
+                    boolean allNeighsHaveColorAvailable = true;
+                    for (Node neigh : node.getNeighbours()) {
+                        NodeColorInfoDanger neighNci = c.getNciById(neigh.getId());
+                        if( neighNci.isColorUnavailable(i)){
+                            allNeighsHaveColorAvailable = false;
+                            break;
+                        }
+                    }
+                    if( allNeighsHaveColorAvailable){
+                        colorsShared++;
+                        if( !nci.isColorShared(i)){
+                            logger.severe( "TEST FAILED: sharedinfo is not correct!");
+                            //return false;
+                        }
+                    }
+                }
+            }
+            if( nci.getColorsShared() != colorsShared){
+                logger.severe("TEST FAILED: coloresshared is not equal to testresults. " + nci.getColorsShared() + " " + colorsShared);
+                //return false;
+            }
+        }
+        logger.info("TEST SUCCEEDED: sharedinfos are correct.");
         return true;
     }
 
