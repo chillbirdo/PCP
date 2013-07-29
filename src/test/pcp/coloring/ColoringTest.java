@@ -37,7 +37,6 @@ public class ColoringTest {
      */
 
     public static boolean performAllDanger(ColoringDanger c) {
-        logger.severe("FUUUUUUUUCK");
         if (testSolutionValidityNoConflicts((ColoringIF) c)
                 && testSolutionValiditySelection((ColoringIF) c)
                 && testCorrectConflictsValues((ColoringIF) c)
@@ -74,7 +73,7 @@ public class ColoringTest {
      * Tests if there is exactly one node per partition selected
      */
     public static boolean testSolutionValiditySelection(ColoringIF c) {
-        if (c.getGraph().getPartitionSize().length != c.getSelectedColoredNCIs().size()) {
+        if (c.getGraph().getPartitionAmount() != c.getSelectedColoredNCIs().size()) {
             logger.info("TEST FAILED: Solution has an invalid selection or not all nodes are colored.");
             return false;
         }
@@ -148,7 +147,7 @@ public class ColoringTest {
                 }
             }
             if( nci.getColorsShared() != colorsShared){
-                logger.severe("TEST FAILED: coloresshared is not equal to testresults. " + nci.getColorsShared() + " " + colorsShared);
+                logger.severe("TEST FAILED: coloresshared is not equal to testresults. node " + nci.getNode().getId() + "; " + nci.getColorsShared() + " " + colorsShared);
                 //return false;
             }
         }

@@ -3,12 +3,10 @@ package pcp.alg;
 import java.util.Set;
 import java.util.logging.Logger;
 import pcp.model.Coloring;
-import pcp.model.ColoringIF;
 import pcp.model.Graph;
 import pcp.model.Node;
 import pcp.model.NodeColorInfo;
 import pcp.model.NodeColorInfoIF;
-import test.pcp.coloring.ColoringTest;
 
 public class OneStepCD {
 
@@ -18,19 +16,21 @@ public class OneStepCD {
      * this method selects and colors all unselected NCIs of Coloring c
      * returns number of conflicts
      */
-    public static int performOnUnselected(ColoringIF c) {
+    public static int performOnUnselected(Coloring c) {
         int conflicts = 0;
         while (c.getUnselectedNCIs().size() > 0) {
             Integer maxMinDegree = Integer.MIN_VALUE;
-            NodeColorInfoIF maxMinDegreeNci = null;
-            for (int p = 0; p < c.getGraph().getNodeInPartition().length; p++) {
+            NodeColorInfo maxMinDegreeNci = null;
+            for (int p = 0; p < c.getGraph().getPartitionAmount(); p++) {
                 if (c.isPartitionSelected(p)) {
                     continue;
                 }
                 Integer minDegree = Integer.MAX_VALUE;
-                NodeColorInfoIF minDegreeNci = null;
-                for (Node n : c.getGraph().getNodeInPartition()[p]) {
-                    NodeColorInfoIF nci = c.getNciById(n.getId());
+                NodeColorInfo minDegreeNci = null;
+                for( int i = 0; i < c.getGraph().getPartitionSize(p); i++){
+                    Node n = c.getGraph().getNodeOfPartition(p, i);
+                    NodeColorInfo nci = c.getNciById(n.getId());
+                    nci.getDiffColoredNeighbours();
                     if (nci.getDiffColoredNeighbours() < minDegree) {
                         minDegree = nci.getDiffColoredNeighbours();
                         minDegreeNci = nci;
@@ -68,7 +68,7 @@ public class OneStepCD {
     public static Coloring calcInitialColoring(Graph g) {
         logger.info("Calculating initial solution with OneStepCD..");
         Coloring c = new Coloring(g);
-        c.initColorArrayOfEachNci(g.getHighestDegree()+1);
+        c.initColorArrayOfEachNci(g.getHighestDegree() + 1);
         OneStepCD.performOnUnselected(c);
 
         Coloring c2 = new Coloring(g);

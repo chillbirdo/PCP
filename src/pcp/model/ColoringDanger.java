@@ -30,7 +30,7 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
             Node n = g.getNode(i);
             nodeColorInfo[i] = new NodeColorInfoDanger(n);
         }
-        this.isPartitonSelected = new boolean[g.getNodeInPartition().length];
+        this.isPartitonSelected = new boolean[g.getPartitionAmount()];
         for (int i = 0; i < isPartitonSelected.length; i++) {
             isPartitonSelected[i] = false;
         }
@@ -50,7 +50,7 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
         for (int i = 0; i < g.getNodes().length; i++) {
             this.nodeColorInfo[i] = new NodeColorInfoDanger(c.getNciById(i));
         }
-        this.isPartitonSelected = new boolean[g.getNodeInPartition().length];
+        this.isPartitonSelected = new boolean[g.getPartitionAmount()];
         for (int i = 0; i < isPartitonSelected.length; i++) {
             isPartitonSelected[i] = c.isPartitionSelected(i);
         }
@@ -97,7 +97,8 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
             }
             //remove all ncis of particular partition from unselectedNCIs
             int nciPartition = nci.getNode().getPartition();
-            for (Node nodeOfPartition : g.getNodeInPartition()[nciPartition]) {
+            for (int i = 0; i < g.getPartitionSize(nciPartition); i++) {
+                Node nodeOfPartition = g.getNodeOfPartition(nciPartition, i);
                 unselectedNCIs.remove(getNciById(nodeOfPartition.getId()));
             }
             //add nci to selected
@@ -123,7 +124,8 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
             }
             //add all ncis of particular partition to unselectedNCIs
             int nciPartition = nci.getNode().getPartition();
-            for (Node nodeOfPartition : g.getNodeInPartition()[nciPartition]) {
+            for (int i = 0; i < g.getPartitionSize(nciPartition); i++) {
+                Node nodeOfPartition = g.getNodeOfPartition(nciPartition, i);
                 unselectedNCIs.add(getNciById(nodeOfPartition.getId()));
             }
             //remove nci from selected
@@ -151,6 +153,10 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
         this.selectedUncoloredNCIs.remove(nci);
         this.selectedColoredNCIs.add(nci);
         nci.setColor(color);
+        nci.increaseConflicts(color);
+        nci.decreaseColorsAvailable();
+        ((NodeColorInfoDanger)nci).setColorUnShared(color);
+        ((NodeColorInfoDanger)nci).decreaseColorsShared();
         for (Node neigh : nci.getNode().getNeighbours()) {
             NodeColorInfoDanger neighNci = getNciById(neigh.getId());
             neighNci.decreaseUncolored();
@@ -160,6 +166,7 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
                 if (neighNci.isColorShared(color)) {
                     neighNci.decreaseColorsShared();
                     neighNci.setColorUnShared(color);
+                    logger.info("UNSHARE N1 color " + color + " at node " + neighNci.getNode().getId() + " colorsshared: " + neighNci.getColorsShared());
                 }
                 //update shared state of second-level neighbours
                 for (Node neighOfNeigh : neigh.getNeighbours()) {
@@ -168,6 +175,7 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
                         if (neighOfNeighNci.isColorShared(color)) {
                             neighOfNeighNci.setColorUnShared(color);
                             neighOfNeighNci.decreaseColorsShared();
+                            logger.info("UNSHARE N2 color " + color + " at node " + neighOfNeighNci.getNode().getId() + " colorsshared: " + neighOfNeighNci.getColorsShared());
                         }
                     }
                 }

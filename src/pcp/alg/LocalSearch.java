@@ -28,7 +28,7 @@ public class LocalSearch {
             int chosenColor = 0;
             int minConflicts = Integer.MAX_VALUE;
             for (NodeColorInfoIF conflictingNci : c.getConflictingNCIs()) {
-                for (Node nodeOfCluster : c.getGraph().getNodeInPartition()[conflictingNci.getNode().getPartition()]) {
+                for (Node nodeOfCluster : c.getGraph().getNodesOfPartition(conflictingNci.getNode().getPartition())) {
                     NodeColorInfo nciOfCluster = c.getNciById(nodeOfCluster.getId());
                     for (int color = 0; color < c.getChromatic() && minConflicts > 0; color++) {
                         if (nciOfCluster == conflictingNci && color == conflictingNci.getColor()) {

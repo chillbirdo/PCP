@@ -8,11 +8,13 @@ public class Graph {
     private final Node[] node;
     private final Node[][] nodeInPartition;
     private final int partitionSize[];
+    private final int partitions;
 
     public Graph(Node[] node, Node[][] nodeInPartition, int partitionSize[]) {
         this.node = node;
         this.nodeInPartition = nodeInPartition;
         this.partitionSize = partitionSize;
+        this.partitions = partitionSize.length;
     }
 
     public String toString() {
@@ -28,7 +30,7 @@ public class Graph {
         }
         return ret;
     }
-
+    
     public int getHighestDegree() {
         int maxdegree = 0;
         for (Node n : node) {
@@ -47,11 +49,20 @@ public class Graph {
         return node;
     }
 
-    public int[] getPartitionSize() {
-        return partitionSize;
+    public int getPartitionSize( int partition) {
+        return partitionSize[partition];
     }
 
-    public Node[][] getNodeInPartition() {
-        return nodeInPartition;
+    public Node getNodeOfPartition( int partition, int node) {
+        return nodeInPartition[partition][node];
     }
+
+    public Node[] getNodesOfPartition( int partition) {
+        return nodeInPartition[partition];
+    }
+
+    public int getPartitionAmount() {
+        return partitions;
+    }
+    
 }

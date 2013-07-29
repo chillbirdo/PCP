@@ -6,7 +6,7 @@ import java.util.Iterator;
 import pcp.model.Graph;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import pcp.alg.DangerAlgorithm;
+import pcp.alg.Danger;
 import pcp.alg.EasyToEliminateColorFinder;
 import pcp.alg.LocalSearch;
 import pcp.alg.NodeSelector;
@@ -35,7 +35,8 @@ public class PCP {
         try {
             File folder = new File("pcp_instances/test/test1.pcp");
             Graph g = InstanceReader.readInstance(folder.getAbsolutePath());
-            DangerAlgorithm.calcInitialColoring(g);
+            //OneStepCD.calcInitialColoring(g);
+            Danger.calcInitialColoring(g);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -103,7 +104,7 @@ public class PCP {
                     for (final File fileEntry : folder.listFiles()) {
                         if (fileEntry.isFile()) {
                             g = InstanceReader.readInstance(fileEntry.getAbsolutePath());
-                            c = DangerAlgorithm.calcInitialColoring(g);
+                            c = Danger.calcInitialColoring(g);
                             sumChromatic += c.getChromatic();
                         }
                     }
@@ -132,7 +133,7 @@ public class PCP {
             for (final File fileEntry : folder.listFiles()) {
                 if (fileEntry.isFile()) {
                     Graph g = InstanceReader.readInstance(fileEntry.getAbsolutePath());
-                    ColoringDanger cDanger = DangerAlgorithm.calcInitialColoring(g);
+                    ColoringDanger cDanger = Danger.calcInitialColoring(g);
                     Coloring cOneStepCD = OneStepCD.calcInitialColoring(g);
                     sumDanger += cDanger.getChromatic();
                     sumOneStepCD += cOneStepCD.getChromatic();

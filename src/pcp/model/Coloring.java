@@ -30,7 +30,7 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
             Node n = g.getNode(i);
             nodeColorInfo[i] = new NodeColorInfo(n);
         }
-        this.isPartitonSelected = new boolean[g.getNodeInPartition().length];
+        this.isPartitonSelected = new boolean[g.getPartitionAmount()];
         for (int i = 0; i < isPartitonSelected.length; i++) {
             isPartitonSelected[i] = false;
         }
@@ -50,7 +50,7 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
         for (int i = 0; i < g.getNodes().length; i++) {
             this.nodeColorInfo[i] = new NodeColorInfo(c.getNciById(i));
         }
-        this.isPartitonSelected = new boolean[g.getNodeInPartition().length];
+        this.isPartitonSelected = new boolean[g.getPartitionAmount()];
         for (int i = 0; i < isPartitonSelected.length; i++) {
             isPartitonSelected[i] = c.isPartitionSelected(i);
         }
@@ -92,7 +92,8 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
             nci.setColorUncolored();
             //remove all ncis of particular partition from unselectedNCIs
             int nciPartition = nci.getNode().getPartition();
-            for (Node nodeOfPartition : g.getNodeInPartition()[nciPartition]) {
+            for( int i = 0; i < g.getPartitionSize(nciPartition); i++){
+                Node nodeOfPartition = g.getNodeOfPartition(nciPartition, i);
                 unselectedNCIs.remove(getNciById(nodeOfPartition.getId()));
             }
             //add nci to selected
@@ -112,7 +113,8 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
             nci.setColorUnselected();
             //add all ncis of particular partition to unselectedNCIs
             int nciPartition = nci.getNode().getPartition();
-            for (Node nodeOfPartition : g.getNodeInPartition()[nciPartition]) {
+            for( int i = 0; i < g.getPartitionSize(nciPartition); i++){
+                Node nodeOfPartition = g.getNodeOfPartition(nciPartition, i);
                 unselectedNCIs.add(getNciById(nodeOfPartition.getId()));
             }
             //remove nci from selected

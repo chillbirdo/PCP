@@ -8,9 +8,9 @@ import pcp.model.Graph;
 import pcp.model.NodeColorInfoIF;
 import test.pcp.coloring.ColoringTest;
 
-public class DangerAlgorithm {
+public class Danger {
 
-    private static final Logger logger = Logger.getLogger(DangerAlgorithm.class.getName());
+    private static final Logger logger = Logger.getLogger(Danger.class.getName());
     //Node Danger
     private static final double C = 1.0;
     private static final double k = 1.0;
@@ -119,7 +119,7 @@ public class DangerAlgorithm {
             c = new ColoringDanger(g);
             NodeSelector.greedyMinDegree(c, null, null);
             c.initColorArrayOfEachNci(actual);
-            succeeded = DangerAlgorithm.applyColoringDanger(c, actual);
+            succeeded = Danger.applyColoringDanger(c, actual);
             if (succeeded) {
                 ColoringTest.performAllDanger(c);
                 upperbound = actual;

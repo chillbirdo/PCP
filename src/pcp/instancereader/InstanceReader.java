@@ -75,6 +75,7 @@ public class InstanceReader {
             }
             lineCount++;
         }
+
         int maxPartitionSize = 0;
         for (int i : partitionSize) {
             if (i > maxPartitionSize) {

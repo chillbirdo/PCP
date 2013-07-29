@@ -39,6 +39,10 @@ public class NodeColorInfoDanger implements NodeColorInfoIF {
         for( Integer i : nci.getConflictArray()){
             this.conflicts.add( i);
         }
+        this.shared = new ArrayList<Boolean>(nci.getConflictArray().size());
+        for( int i = 0; i < this.shared.size(); i++){
+            this.shared.add( nci.isColorShared(i));
+        }
     }
 
     /*

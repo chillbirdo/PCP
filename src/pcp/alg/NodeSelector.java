@@ -1,16 +1,10 @@
 package pcp.alg;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.logging.Logger;
-import pcp.model.Coloring;
 import pcp.model.ColoringDanger;
 import pcp.model.ColoringIF;
-import pcp.model.NodeColorInfo;
 import pcp.model.Graph;
 import pcp.model.Node;
 import pcp.model.NodeColorInfoDanger;
@@ -75,11 +69,11 @@ public class NodeSelector {
 
     public static void randomSelect(ColoringIF coloring) {
         Graph g = coloring.getGraph();
-        for (int i = 0; i < g.getPartitionSize().length; i++) {
-            int size = g.getPartitionSize()[i];
+        for (int i = 0; i < g.getPartitionAmount(); i++) {
+            int size = g.getPartitionSize(i);
             Random randomGenerator = new Random();
             int r = randomGenerator.nextInt(size);
-            int nodeId = g.getNodeInPartition()[i][r].getId();
+            int nodeId = g.getNodeOfPartition(i,r).getId();
             NodeColorInfoIF nci = coloring.getNciById(nodeId);
             coloring.selectNci(nci);
             logger.finest("selected node " + nodeId);
