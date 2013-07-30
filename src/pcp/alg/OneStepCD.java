@@ -20,7 +20,7 @@ public class OneStepCD {
         int conflicts = 0;
         while (c.getUnselectedNCIs().size() > 0) {
             Integer maxMinDegree = Integer.MIN_VALUE;
-            NodeColorInfo maxMinDegreeNci = null;
+            NodeColorInfoIF maxMinDegreeNci = null;
             for (int p = 0; p < c.getGraph().getPartitionAmount(); p++) {
                 if (c.isPartitionSelected(p)) {
                     continue;

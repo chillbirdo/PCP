@@ -13,14 +13,18 @@ import pcp.model.NodeColorInfoIF;
 public class LocalSearch {
 
     private static final Logger logger = Logger.getLogger(LocalSearch.class.getName());
-    private static final int MAX_ITERATIONS = 100000;
+    private static final int MAX_ITERATIONS = 300000;
 
-    public static boolean start(Coloring c) {
+    public static boolean start(Coloring c, int tabuSize, int iterations) {
         logger.info("LOCALSEARCH: trying to eliminate " + c.getConflictingNCIs().size() + " conflicting nodes.");
-        LinkedList<NodeColorInfoIF> tabuNciList = new LinkedList<NodeColorInfoIF>();
-        LinkedList<Integer> tabuColorList = new LinkedList<Integer>();
-        int tabuSize = c.getChromatic() * 20;
-        int iterations = 0;
+
+        int[][] tabuData = new int[c.getGraph().getNodes().length][c.getChromatic()];
+        for (int i = 0; i < tabuData.length; i++) {
+            for (int j = 0; j < tabuData[0].length; j++) {
+                tabuData[i][j] = 0;
+            }
+        }
+
         while (c.getConflictingNCIs().size() > 0 && iterations <= MAX_ITERATIONS) {
             //find node-color-pair with least resulting conflicts
             NodeColorInfoIF chosenNci = null;
@@ -35,17 +39,7 @@ public class LocalSearch {
                             continue;
                         }
                         //lookup tabulist
-                        int idx = 0;
-                        boolean tabu = false;
-                        for (Iterator<NodeColorInfoIF> it = tabuNciList.iterator(); it.hasNext();) {
-                            if (it.next() == nciOfCluster) {
-                                if (tabuColorList.get(idx) == color) {
-                                    tabu = true;
-                                    break;
-                                }
-                            }
-                            idx++;
-                        }
+                        boolean tabu = tabuData[nodeOfCluster.getId()][color] > iterations;
                         if (tabu) {
                             continue;
                         }
@@ -66,10 +60,14 @@ public class LocalSearch {
                 }
             }
             if (chosenConflictingNci == null) {
-                tabuNciList = new LinkedList<NodeColorInfoIF>();
-                tabuColorList = new LinkedList<Integer>();
-                tabuSize = tabuSize/2;
-                logger.warning("LOCALSEARCH: all possibilities are on the tabu list. New tabusize: " + tabuSize);
+                for (int i = 0; i < tabuData.length; i++) {
+                    for (int j = 0; j < tabuData[0].length; j++) {
+                        tabuData[i][j] = 0;
+                    }
+                }
+                iterations = 0;
+                tabuSize = tabuSize / 2;
+                logger.info("LOCALSEARCH: all possibilities are on the tabu list. New tabusize: " + tabuSize);
                 if (tabuSize < c.getChromatic()) {
                     return false;
                 }
@@ -77,12 +75,8 @@ public class LocalSearch {
             }
 
             //add chosen node and color to tabulist
-            tabuNciList.addFirst(chosenNci);
-            tabuColorList.addFirst(chosenColor);
-            if (tabuNciList.size() > tabuSize) {
-                tabuNciList.removeLast();
-                tabuColorList.removeLast();
-            }
+            tabuData[chosenNci.getNode().getId()][chosenColor] = iterations + tabuSize;
+
             //set chosen color to chosen node
             c.uncolorNci(chosenConflictingNci);
             c.getSelectedColoredNCIs().remove(chosenConflictingNci);
@@ -98,13 +92,10 @@ public class LocalSearch {
                 c.getConflictingNCIs().addAll(resultingConflictNcis);
             }
             iterations++;
-            //logger.info("LOCALSEARCH: size of tabulist: " + tabuNciList.size() + " / " + tabuSize);
-//            logger.info("LOCALSEARCH: New size of conflicting Nodes: " + c.getConflictingNCIs().size() + " " + c.getConflictingNCIs());
-//            logger.info("LOCALSEARCH: " + c.getChromatic());
         }
 
         if (iterations < MAX_ITERATIONS) {
-            logger.severe("LOCALSEARCH: Found solution with chromatic: " + c.getChromatic());
+            logger.info("LOCALSEARCH: Found solution with chromatic: " + c.getChromatic());
             return true;
         }
         logger.info("LOCALSEARCH: Aborted because of too many iterations! " + iterations);

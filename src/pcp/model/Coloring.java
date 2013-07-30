@@ -1,15 +1,11 @@
 package pcp.model;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
 import pcp.PCP;
-import pcp.model.Graph;
-import pcp.model.Node;
 
 public class Coloring implements ColoringIF, Comparable<ColoringIF> {
 
@@ -287,9 +283,4 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
     public int compareTo(ColoringIF c) {
         return this.getConflictingNCIs().size() - c.getConflictingNCIs().size();
     }
-
-    public Set<NodeColorInfoIF> getConflictingNeighboursOfNci(NodeColorInfo nci, int conflictAmount) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

@@ -115,6 +115,7 @@ public class ColoringTest {
             for (int i = 0; i < conflicts.length; i++) {
                 if (conflicts[i] != nci.getConflicts(i)) {
                     logger.info("TEST FAILED: Node " + n.getId() + " has wrong conflictinfo for color " + i);
+                    logger.info("test: " + conflicts[i] + " nci: " + nci.getConflicts(i));
                     return false;
                 }
             }
@@ -124,13 +125,13 @@ public class ColoringTest {
     }
 
     public static boolean testCorrectSharedValues(ColoringDanger c) {
-        for (Node node : c.getGraph().getNodes()) {
-            NodeColorInfoDanger nci = c.getNciById(node.getId());
+        for (NodeColorInfoIF nciIF: c.getSelectedUncoloredNCIs()) {
+            NodeColorInfoDanger nci = (NodeColorInfoDanger)nciIF;
             int colorsShared = 0;
             for (int i = 0; i < c.getChromatic(); i++) {
                 if (nci.isColorAvailable(i)) {
                     boolean allNeighsHaveColorAvailable = true;
-                    for (Node neigh : node.getNeighbours()) {
+                    for (Node neigh : nci.getNode().getNeighbours()) {
                         NodeColorInfoDanger neighNci = c.getNciById(neigh.getId());
                         if( neighNci.isColorUnavailable(i)){
                             allNeighsHaveColorAvailable = false;
@@ -144,7 +145,7 @@ public class ColoringTest {
                             //return false;
                         }
                     }
-                }
+                }   
             }
             if( nci.getColorsShared() != colorsShared){
                 logger.severe("TEST FAILED: coloresshared is not equal to testresults. node " + nci.getNode().getId() + "; " + nci.getColorsShared() + " " + colorsShared);

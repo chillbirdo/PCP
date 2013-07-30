@@ -2,18 +2,13 @@ package pcp;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import pcp.model.Graph;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import pcp.alg.Danger;
-import pcp.alg.EasyToEliminateColorFinder;
 import pcp.alg.LocalSearch;
-import pcp.alg.NodeSelector;
 import pcp.alg.OneStepCD;
 import pcp.alg.Recolorer;
 import pcp.model.Coloring;
-import pcp.model.NodeColorInfo;
 import pcp.instancereader.InstanceReader;
 import pcp.model.ColoringDanger;
 import test.pcp.coloring.ColoringTest;
@@ -25,18 +20,20 @@ public class PCP {
     public static final int NODE_UNSELECTED = -2;
 
     public static void main(String[] args) {
-//        allFiles();
+        allFiles();
 //        testDangerVsOneStepCD();
-        initTest();
-        //optimized(new File("pcp_instances/pcp/n20p5t2s3.pcp"));
+//        initTest();
+//        optimized(new File("pcp_instances/pcp/n20p5t2s3.pcp"));
     }
-    
-    public static void initTest(){
+
+    public static void initTest() {
         try {
-            File folder = new File("pcp_instances/test/test1.pcp");
+//            File folder = new File("pcp_instances/test/test1.pcp");
+            File folder = new File("pcp_instances/pcp/n100p5t2s1.pcp");
             Graph g = InstanceReader.readInstance(folder.getAbsolutePath());
             //OneStepCD.calcInitialColoring(g);
-            Danger.calcInitialColoring(g);
+            ColoringDanger d = Danger.calcInitialColoring(g);
+            ColoringTest.performAllDanger(d);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -44,12 +41,18 @@ public class PCP {
 
     public static void allFiles() {
         try {
+
             File folder = new File("pcp_instances/pcp/");
-            for (final File fileEntry : folder.listFiles()) {
-                logger.severe(fileEntry.getName());
-                if (fileEntry.isFile()) {
-                    logger.severe(fileEntry.getName());
-                    optimized(fileEntry);
+            for (int tabuSizeFactor = 1; tabuSizeFactor <= 21; tabuSizeFactor += 5) {
+                for (int iterations = 10000; iterations <= 10000000; iterations *= 10) {
+                    int chromaticSum = 0;
+                    for (final File fileEntry : folder.listFiles()) {
+                        if (fileEntry.isFile()) {
+                            int chromatic = optimized(fileEntry, tabuSizeFactor, iterations);
+                            chromaticSum += chromatic;
+                        }
+                    }
+                    logger.severe("tabuSiteFactor: " + tabuSizeFactor + " iterations: " + iterations + " sum: " + chromaticSum);
                 }
             }
         } catch (Exception ex) {
@@ -57,7 +60,7 @@ public class PCP {
         }
     }
 
-    private static void optimized(File instanceFile) {
+    private static int optimized(File instanceFile, int tabuSizeFactor, int iterations) {
         Graph g = null;
         Coloring c = null;
         try {
@@ -72,10 +75,11 @@ public class PCP {
             couldReduceColors = false;
             ArrayList<Coloring> cL = Recolorer.recolorAllColorsOneStepCD(c);
             for (Coloring cc : cL) {
-                if (LocalSearch.start(cc)) {
+                int tabuSize = cc.getChromatic() * tabuSizeFactor;
+                if (LocalSearch.start(cc, tabuSize, iterations)) {
                     if (!ColoringTest.performAll(cc)) {
                         logger.severe("TERMINATING: NOT ALL TESTS SUCCEDED!");
-                        return;
+                        return -1;
                     }
                     c = cc;
                     couldReduceColors = true;
@@ -84,13 +88,14 @@ public class PCP {
             }
         } while (couldReduceColors);
 
-        logger.severe("ALORITHM TERMINATED for file " + instanceFile.getName() + ": best solution: " + c.getChromatic());
+        logger.info("ALORITHM TERMINATED for file " + instanceFile.getName() + ": best solution: " + c.getChromatic());
 
+        return c.getChromatic();
 //        cc.logColorStats();
 //        ColoringTest.performAll(cc);
     }
 
-    private static void testParameters() {
+    private static void testSelectorParameters() {
         Graph g = null;
         ColoringDanger c = null;
 
@@ -129,7 +134,7 @@ public class PCP {
         int sumDanger = 0;
         int sumOneStepCD = 0;
         try {
-            File folder = new File("pcp_instances/pcp/");
+            File folder = new File("pcp_instances/in/");
             for (final File fileEntry : folder.listFiles()) {
                 if (fileEntry.isFile()) {
                     Graph g = InstanceReader.readInstance(fileEntry.getAbsolutePath());

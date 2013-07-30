@@ -48,7 +48,7 @@ public class Danger {
             }
             //double F = C / Math.pow(maxColors - uncoloredNci.getDiffColoredNeighbours(maxColors), k);
             double F = C / (maxColors - uncoloredNci.getDiffColoredNeighbours());
-            double nD = F + ku * uncoloredNci.getUncoloredNeighbours();// + ka * (uncoloredNci.getColorsShared() / uncoloredNci.getColorsAvailable());
+            double nD = F + ku * uncoloredNci.getUncoloredNeighbours() + ka * (uncoloredNci.getColorsShared() / uncoloredNci.getColorsAvailable());
             if (nD > maxND) {
                 maxND = nD;
                 chosenNci = uncoloredNci;

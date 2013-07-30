@@ -153,10 +153,6 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
         this.selectedUncoloredNCIs.remove(nci);
         this.selectedColoredNCIs.add(nci);
         nci.setColor(color);
-        nci.increaseConflicts(color);
-        nci.decreaseColorsAvailable();
-        ((NodeColorInfoDanger)nci).setColorUnShared(color);
-        ((NodeColorInfoDanger)nci).decreaseColorsShared();
         for (Node neigh : nci.getNode().getNeighbours()) {
             NodeColorInfoDanger neighNci = getNciById(neigh.getId());
             neighNci.decreaseUncolored();
@@ -166,7 +162,6 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
                 if (neighNci.isColorShared(color)) {
                     neighNci.decreaseColorsShared();
                     neighNci.setColorUnShared(color);
-                    logger.info("UNSHARE N1 color " + color + " at node " + neighNci.getNode().getId() + " colorsshared: " + neighNci.getColorsShared());
                 }
                 //update shared state of second-level neighbours
                 for (Node neighOfNeigh : neigh.getNeighbours()) {
@@ -175,7 +170,6 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
                         if (neighOfNeighNci.isColorShared(color)) {
                             neighOfNeighNci.setColorUnShared(color);
                             neighOfNeighNci.decreaseColorsShared();
-                            logger.info("UNSHARE N2 color " + color + " at node " + neighOfNeighNci.getNode().getId() + " colorsshared: " + neighOfNeighNci.getColorsShared());
                         }
                     }
                 }
@@ -184,10 +178,17 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
     }
 
     /*
+     * since danger is used to generate a start solution only, no uncoloring needs to be done!
+     */
+    public void uncolorNci( NodeColorInfoIF nci){
+        
+    }
+    
+    /*
      * performs uncoloring
      * note: removing from the colored-nci-list has to be done manually.
      */
-    public void uncolorNci(NodeColorInfoIF nci) {
+/*    public void uncolorNci(NodeColorInfoIF nci) {
         if (!selectedColoredNCIs.contains(nci)) {
             logger.severe("UNEXPECTED: tried to uncolor a node that was not in set of colored!");
             return;
@@ -229,7 +230,8 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
 //                }
 //            }
     }
-
+*/
+    
     /*
      * prerequisite: all ncis with color col must be UNCOLORED!
      * all nci with color > col decrease their color by 1
