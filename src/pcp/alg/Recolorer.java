@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Logger;
 import pcp.model.Coloring;
+import pcp.model.ColoringIF;
 import test.pcp.coloring.ColoringTest;
 
 public class Recolorer {
@@ -18,11 +19,11 @@ public class Recolorer {
     public static ArrayList<Coloring> recolorAllColorsOneStepCD(final Coloring c) {
         ArrayList<Coloring> cL = new ArrayList<Coloring>(c.getChromatic());
         for (int color = 0; color < c.getChromatic(); color++) {
-            Coloring cc = new Coloring(c);
+            ColoringIF cc = new Coloring(c);
             NodeSelector.unselectAllNcisOfColor(cc, color);
             cc.reduceColor(color);
-            int res = OneStepCD.performOnUnselected(cc);
-            cL.add(cc);
+            int res = OneStepCD.performOnUnselected((Coloring)cc);
+            cL.add((Coloring)cc);
             logger.finer("RECOLORER_TEST: color " + color + ", conflicts: " + res + " conflictingNcis: " + cc.getConflictingNCIs().size());
         }
         Collections.sort(cL);

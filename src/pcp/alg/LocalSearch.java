@@ -13,9 +13,8 @@ import pcp.model.NodeColorInfoIF;
 public class LocalSearch {
 
     private static final Logger logger = Logger.getLogger(LocalSearch.class.getName());
-    private static final int MAX_ITERATIONS = 300000;
 
-    public static boolean start(Coloring c, int tabuSize, int iterations) {
+    public static boolean start(Coloring c, final double tabuSizeFactor, final double maxIterationsFactor) {
         logger.info("LOCALSEARCH: trying to eliminate " + c.getConflictingNCIs().size() + " conflicting nodes.");
 
         int[][] tabuData = new int[c.getGraph().getNodes().length][c.getChromatic()];
@@ -24,8 +23,10 @@ public class LocalSearch {
                 tabuData[i][j] = 0;
             }
         }
-
-        while (c.getConflictingNCIs().size() > 0 && iterations <= MAX_ITERATIONS) {
+        int maxIterations = (int)Math.round((double)c.getGraph().getNodes().length * (double)c.getChromatic() * maxIterationsFactor);
+        int tabuSize = (int)Math.round((double)c.getGraph().getNodes().length * (double)c.getChromatic() * tabuSizeFactor);
+        int iterations = 0;
+        while (c.getConflictingNCIs().size() > 0 && iterations <= maxIterations) {
             //find node-color-pair with least resulting conflicts
             NodeColorInfoIF chosenNci = null;
             NodeColorInfoIF chosenConflictingNci = null;
@@ -40,11 +41,8 @@ public class LocalSearch {
                         }
                         //lookup tabulist
                         boolean tabu = tabuData[nodeOfCluster.getId()][color] > iterations;
-                        if (tabu) {
-                            continue;
-                        }
                         //save pair with least resulting conflicts
-                        if (nciOfCluster.getConflicts(color) < minConflicts) {
+                        if (nciOfCluster.getConflicts(color) == 0 || (!tabu && nciOfCluster.getConflicts(color) < minConflicts)) {
                             minConflicts = nciOfCluster.getConflicts(color);
                             chosenNci = nciOfCluster;
                             chosenConflictingNci = conflictingNci;
@@ -94,7 +92,7 @@ public class LocalSearch {
             iterations++;
         }
 
-        if (iterations < MAX_ITERATIONS) {
+        if (iterations < maxIterations) {
             logger.info("LOCALSEARCH: Found solution with chromatic: " + c.getChromatic());
             return true;
         }

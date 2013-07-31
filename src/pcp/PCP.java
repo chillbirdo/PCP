@@ -26,6 +26,39 @@ public class PCP {
 //        optimized(new File("pcp_instances/pcp/n20p5t2s3.pcp"));
     }
 
+    public static void allFiles() {
+        try {
+            int minChromaticSum = Integer.MAX_VALUE;
+            String minChromaticStr = "";
+            File folder = new File("pcp_instances/pcp/");
+            for (double tabuSizeFactor = 0.01; tabuSizeFactor <= 0.2; tabuSizeFactor += 0.01) {
+                for (double iterationsFactor = 0.1; iterationsFactor <= 2.1; iterationsFactor *= 0.5) {
+                    int chromaticSum = 0;
+                    long timeMillisPerFolder = System.currentTimeMillis();
+                    for (final File fileEntry : folder.listFiles()) {
+                        long timeMillisPerFile = System.currentTimeMillis();
+                        if (fileEntry.isFile()) {
+                            int chromatic = optimized(fileEntry, tabuSizeFactor, iterationsFactor);
+                            double timePassedPerFile = (double)(System.currentTimeMillis() - timeMillisPerFile)/1000d;
+                            logger.severe(fileEntry.getName() + "\t\t" + timePassedPerFile + "\t\t" + tabuSizeFactor + "\t\t" + iterationsFactor + "\t\t" + chromatic);
+                            chromaticSum += chromatic;
+                        }
+                    }
+                    double timePassedPerFolder = (double)(System.currentTimeMillis() - timeMillisPerFolder)/1000d;
+                    String outputStr = "--> SUM:\t\t" + timePassedPerFolder + "\t\t" + tabuSizeFactor + "\t\t" + iterationsFactor + "\t\t" + chromaticSum;
+                    logger.severe(outputStr);
+                    if (chromaticSum < minChromaticSum) {
+                        minChromaticStr = "\n BEST: " + outputStr;
+                    }
+                }
+            }
+            logger.severe("\n FINISHED!");
+            logger.severe(minChromaticStr);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public static void initTest() {
         try {
 //            File folder = new File("pcp_instances/test/test1.pcp");
@@ -39,28 +72,7 @@ public class PCP {
         }
     }
 
-    public static void allFiles() {
-        try {
-
-            File folder = new File("pcp_instances/pcp/");
-            for (int tabuSizeFactor = 1; tabuSizeFactor <= 11; tabuSizeFactor += 1) {
-                for (int iterations = 10000; iterations <= 100000; iterations *= 10) {
-                    int chromaticSum = 0;
-                    for (final File fileEntry : folder.listFiles()) {
-                        if (fileEntry.isFile()) {
-                            int chromatic = optimized(fileEntry, tabuSizeFactor, iterations);
-                            chromaticSum += chromatic;
-                        }
-                    }
-                    logger.severe("tabuSiteFactor: " + tabuSizeFactor + " iterations: " + iterations + " sum: " + chromaticSum);
-                }
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    private static int optimized(File instanceFile, int tabuSizeFactor, int iterations) {
+    private static int optimized(File instanceFile, double tabuSizeFactor, double iterationsFactor) {
         Graph g = null;
         Coloring c = null;
         try {
@@ -75,8 +87,7 @@ public class PCP {
             couldReduceColors = false;
             ArrayList<Coloring> cL = Recolorer.recolorAllColorsOneStepCD(c);
             for (Coloring cc : cL) {
-                int tabuSize = cc.getChromatic() * tabuSizeFactor;
-                if (LocalSearch.start(cc, tabuSize, iterations)) {
+                if (LocalSearch.start(cc, tabuSizeFactor, iterationsFactor)) {
                     if (!ColoringTest.performAll(cc)) {
                         logger.severe("TERMINATING: NOT ALL TESTS SUCCEDED!");
                         return -1;
