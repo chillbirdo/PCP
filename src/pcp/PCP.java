@@ -43,8 +43,8 @@ public class PCP {
         try {
 
             File folder = new File("pcp_instances/pcp/");
-            for (int tabuSizeFactor = 1; tabuSizeFactor <= 21; tabuSizeFactor += 5) {
-                for (int iterations = 10000; iterations <= 10000000; iterations *= 10) {
+            for (int tabuSizeFactor = 1; tabuSizeFactor <= 11; tabuSizeFactor += 1) {
+                for (int iterations = 10000; iterations <= 100000; iterations *= 10) {
                     int chromaticSum = 0;
                     for (final File fileEntry : folder.listFiles()) {
                         if (fileEntry.isFile()) {
