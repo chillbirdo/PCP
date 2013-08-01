@@ -6,6 +6,8 @@ of the Technical University of Vienna ( https://www.ads.tuwien.ac.at ). It provi
 approach to solve the NP-hard Partition Coloring Problem (A formal definition of the problem can be found
 here i.a.: http://www2.ic.uff.br/~celso/artigos/bcpcp2.pdf ) .
 
+![pcp](username.github.com/repository/img/image.jpg)
+
 I used VNS and solved subproblems with ILP.
 
 To get the theoretical part of my work, please contact me.
