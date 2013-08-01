@@ -1,4 +1,4 @@
-PCP
+Heuristical Algorithm for PCP
 ===
 
 This is the practical part of my masterthesis at the Algorithm and Datastructure institute
