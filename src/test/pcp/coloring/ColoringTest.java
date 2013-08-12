@@ -60,7 +60,7 @@ public class ColoringTest {
                 NodeColorInfoIF neighNci = c.getNciById(neigh.getId());
                 int neighColor = neighNci.getColor();
                 if (color == neighColor) {
-                    logger.info("TEST FAILED: Solution has unresolved conflicts!");
+                    logger.severe("TEST FAILED: Solution has unresolved conflicts!");
                     return false;
                 }
             }
@@ -74,7 +74,7 @@ public class ColoringTest {
      */
     public static boolean testSolutionValiditySelection(ColoringIF c) {
         if (c.getGraph().getPartitionAmount() != c.getSelectedColoredNCIs().size()) {
-            logger.info("TEST FAILED: Solution has an invalid selection or not all nodes are colored.");
+            logger.severe("TEST FAILED: Solution has an invalid selection or not all nodes are colored.");
             return false;
         }
         boolean checkSelected[] = new boolean[c.getSelectedColoredNCIs().size()];
@@ -84,7 +84,7 @@ public class ColoringTest {
         for (NodeColorInfoIF nci : c.getSelectedColoredNCIs()) {
             Node n = nci.getNode();
             if (checkSelected[n.getPartition()]) {
-                logger.info("TEST FAILED: There are more than one Nodes selected in the same partition.");
+                logger.severe("TEST FAILED: There are more than one Nodes selected in the same partition.");
                 return false;
             }
             checkSelected[n.getPartition()] = true;
@@ -114,7 +114,7 @@ public class ColoringTest {
             //compare to colorarray held by the nci
             for (int i = 0; i < conflicts.length; i++) {
                 if (conflicts[i] != nci.getConflicts(i)) {
-                    logger.info("TEST FAILED: Node " + n.getId() + " has wrong conflictinfo for color " + i);
+                    logger.severe("TEST FAILED: Node " + n.getId() + " has wrong conflictinfo for color " + i);
                     logger.info("test: " + conflicts[i] + " nci: " + nci.getConflicts(i));
                     return false;
                 }
@@ -192,7 +192,7 @@ public class ColoringTest {
 
             if (colorsAvailable != nci.getColorsAvailable() || colorsUnavailable != nci.getDiffColoredNeighbours()
                     || uncoloredNeighbours != nci.getUncoloredNeighbours() || degreeToSelected != nci.getDegreeToSelected()) {
-                logger.info("TEST FAILED: some colorvalues are not correct!");
+                logger.severe("TEST FAILED: some colorvalues are not correct!");
                 return false;
             }
         }
@@ -216,37 +216,37 @@ public class ColoringTest {
         }
 
         if (selectedColoredNCIs.size() != c.getSelectedColoredNCIs().size()) {
-            logger.info("TEST FAILED: selectedColorNCIs holds more/less nci than necessary!"
+            logger.severe("TEST FAILED: selectedColorNCIs holds more/less nci than necessary!"
                     + " test: " + selectedColoredNCIs.size() + "; orig: " + c.getSelectedColoredNCIs().size());
             return false;
         }
         for (NodeColorInfoIF selectedColoredNci : selectedColoredNCIs) {
             if (!c.getSelectedColoredNCIs().contains(selectedColoredNci)) {
-                logger.info("TEST FAILED: selectedColoredNcis has insufficient content.");
+                logger.severe("TEST FAILED: selectedColoredNcis has insufficient content.");
                 return false;
             }
         }
 
         if (selectedUncoloredNCIs.size() != c.getSelectedUncoloredNCIs().size()) {
-            logger.info("TEST FAILED: selectedUncoloredNCIs holds more/less nci than necessary!"
+            logger.severe("TEST FAILED: selectedUncoloredNCIs holds more/less nci than necessary!"
                     + " test: " + selectedUncoloredNCIs.size() + "; orig: " + c.getSelectedUncoloredNCIs().size());
             return false;
         }
         for (NodeColorInfoIF selectedUncoloredNci : selectedUncoloredNCIs) {
             if (!c.getSelectedUncoloredNCIs().contains(selectedUncoloredNci)) {
-                logger.info("TEST FAILED: selectedUncoloredNCIs has insufficient content.");
+                logger.severe("TEST FAILED: selectedUncoloredNCIs has insufficient content.");
                 return false;
             }
         }
 
         if (unselectedNCIs.size() != c.getUnselectedNCIs().size()) {
-            logger.info("TEST FAILED: unselectedNCIs holds more/less nci than necessary!"
+            logger.severe("TEST FAILED: unselectedNCIs holds more/less nci than necessary!"
                     + " test: " + unselectedNCIs.size() + "; orig: " + c.getUnselectedNCIs().size());
             return false;
         }
         for (NodeColorInfoIF unselectedNci : unselectedNCIs) {
             if (!c.getUnselectedNCIs().contains(unselectedNci)) {
-                logger.info("TEST FAILED: selectedColorInfoNcis has insufficient content.");
+                logger.severe("TEST FAILED: selectedColorInfoNcis has insufficient content.");
                 return false;
             }
         }
@@ -254,7 +254,7 @@ public class ColoringTest {
         for (NodeColorInfoIF conflictingNci : c.getConflictingNCIs()) {
             logger.info("TEST conflicting: " + conflictingNci.getNode().getId());
             if (!c.getSelectedColoredNCIs().contains(conflictingNci)) {
-                logger.info("TEST FAILED: a conflicting node is not in set of selectedColoredNcis");
+                logger.severe("TEST FAILED: a conflicting node is not in set of selectedColoredNcis");
                 return false;
             }
         }

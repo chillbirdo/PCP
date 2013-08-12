@@ -53,6 +53,7 @@ public class InstanceReader {
 
         //phase1: count, to allow exact memory allocation
         int nodeAmount = new Integer(lineSplit[0]);
+        int edges = new Integer(lineSplit[1]);
         int partitionAmount = new Integer(lineSplit[2]);
         int partitionSize[] = new int[partitionAmount];
         int[] neighbourAmount = new int[nodeAmount];
@@ -112,7 +113,7 @@ public class InstanceReader {
             }
         }
         removeEdgesInPartitions(node);
-        return new Graph(node, nodeInPartition, partitionSize);
+        return new Graph(node, nodeInPartition, partitionSize, edges);
     }
 
     /*

@@ -14,7 +14,7 @@ public class LocalSearch {
 
     private static final Logger logger = Logger.getLogger(LocalSearch.class.getName());
 
-    public static boolean start(Coloring c, final double tabuSizeFactor, final double maxIterationsFactor) {
+    public static boolean start(Coloring c, int tabuSize, int maxIterations) {
         logger.info("LOCALSEARCH: trying to eliminate " + c.getConflictingNCIs().size() + " conflicting nodes.");
 
         int[][] tabuData = new int[c.getGraph().getNodes().length][c.getChromatic()];
@@ -23,9 +23,8 @@ public class LocalSearch {
                 tabuData[i][j] = 0;
             }
         }
-        int maxIterations = (int)Math.round((double)c.getGraph().getNodes().length * (double)c.getChromatic() * maxIterationsFactor);
-        int tabuSize = (int)Math.round((double)c.getGraph().getNodes().length * (double)c.getChromatic() * tabuSizeFactor);
         int iterations = 0;
+        int tabuSizeTooLong = 0;
         while (c.getConflictingNCIs().size() > 0 && iterations <= maxIterations) {
             //find node-color-pair with least resulting conflicts
             NodeColorInfoIF chosenNci = null;
@@ -65,10 +64,11 @@ public class LocalSearch {
                 }
                 iterations = 0;
                 tabuSize = tabuSize / 2;
-                logger.info("LOCALSEARCH: all possibilities are on the tabu list. New tabusize: " + tabuSize);
+//                logger.severe("LOCALSEARCH: all possibilities are on the tabu list. New tabusize: " + tabuSize);
                 if (tabuSize < c.getChromatic()) {
                     return false;
                 }
+                tabuSizeTooLong++;
                 continue;
             }
 
@@ -96,7 +96,9 @@ public class LocalSearch {
             logger.info("LOCALSEARCH: Found solution with chromatic: " + c.getChromatic());
             return true;
         }
-        logger.info("LOCALSEARCH: Aborted because of too many iterations! " + iterations);
+        if (tabuSizeTooLong > 0) {
+            logger.info("LOCALSEARCH: Aborted because of too many iterations! tabuSizeTooLong: " + tabuSizeTooLong);
+        }
         return false;
     }
 }

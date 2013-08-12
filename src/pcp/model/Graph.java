@@ -9,12 +9,14 @@ public class Graph {
     private final Node[][] nodeInPartition;
     private final int partitionSize[];
     private final int partitions;
+    private final int edges;
 
-    public Graph(Node[] node, Node[][] nodeInPartition, int partitionSize[]) {
+    public Graph(Node[] node, Node[][] nodeInPartition, int partitionSize[], int edges) {
         this.node = node;
         this.nodeInPartition = nodeInPartition;
         this.partitionSize = partitionSize;
         this.partitions = partitionSize.length;
+        this.edges = edges;
     }
 
     public String toString() {
@@ -63,6 +65,10 @@ public class Graph {
 
     public int getPartitionAmount() {
         return partitions;
+    }
+
+    public int getEdges() {
+        return edges;
     }
     
 }
