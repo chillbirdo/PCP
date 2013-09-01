@@ -2,12 +2,23 @@
 <project name="PCP" default="run" basedir=".">
     <description>
         simple example build file
-        jdk: /usr/local/jdk1.7.0_25/
+        export JAVA_HOME=/usr/local/jdk1.7.0_25/
     </description>
     <!-- set global properties for this build -->
     <property name="src" location="src"/>
+    <property name="lib" location="lib"/>
+    <!--<property name="lib" location="/home/gilbert/Software/cplex-12.5/lib"/>-->
     <property name="build" location="build"/>
     <property name="dist"  location="dist"/>
+    <property name="cplex"  location="/opt/cplex-12.5/opl/bin/x86-64_sles10_4.1/"/>
+
+    <!-- set classpath for jarfile -->
+    <path id="compile-classpath">
+        <fileset dir="${lib}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
 
     <target name="init">
         <!-- Create the time stamp -->
@@ -19,7 +30,7 @@
     <target name="compile" depends="init"
             description="compile the source " >
         <!-- Compile the java code from ${src} into ${build} -->
-        <javac srcdir="${src}" destdir="${build}" debug="on" debuglevel="lines,source"/>
+        <javac srcdir="${src}" destdir="${build}" debug="on" debuglevel="lines,source" classpathref="compile-classpath"/>
     </target>
 
     <target name="dist" depends="compile"
@@ -27,10 +38,28 @@
         <!-- Create the distribution directory -->
         <mkdir dir="${dist}/lib"/>
 
+        <!-- copy all libs to dist/lib -->
+        <copy todir="${dist}/lib">
+            <fileset dir="${lib}">
+                <include name="**" />
+            </fileset>
+        </copy>
+
+        <!-- set classpath for jarfile -->
+        <path id="build-classpath">
+            <fileset dir="${dist}/lib">
+                <include name="*.jar"/>
+            </fileset>
+        </path>
+        <!-- define manifest for jar libs -->
+        <manifestclasspath property="lib.list" jarfile="${dist}/lib/PCP.jar">
+            <classpath refid="build-classpath"/>
+        </manifestclasspath>
         <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
         <jar jarfile="${dist}/lib/PCP.jar" basedir="${build}">
             <manifest>
                 <attribute name="Main-Class" value="pcp.PCP"/>
+                <attribute name="Class-Path" value="${lib.list}"/>
             </manifest>
         </jar>
     </target>
@@ -45,18 +74,23 @@
     <target name="run" depends="dist">
         <java jar="${dist}/lib/PCP.jar" fork="true">
             <jvmarg value="-Djava.util.logging.config.file=./etc/logging.properties"/>
+            <jvmarg value="-Djava.library.path=${cplex}"/>
         </java>
     </target>    
 
     <target name="run_finest" depends="dist">
         <java jar="${dist}/lib/PCP.jar" fork="true">
             <jvmarg value="-Djava.util.logging.config.file=./etc/logging_finest.properties"/>
+            <jvmarg value="-Djava.library.path=${cplex}"/>
+
         </java>
     </target>    
 
     <target name="run_severe" depends="dist">
         <java jar="${dist}/lib/PCP.jar" fork="true">
             <jvmarg value="-Djava.util.logging.config.file=./etc/logging_severe.properties"/>
+            <jvmarg value="-Djava.library.path=${cplex}"/>
+
         </java>
     </target>    
     

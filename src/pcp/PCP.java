@@ -8,7 +8,10 @@ import java.util.List;
 import pcp.model.Graph;
 import java.util.logging.Logger;
 import pcp.alg.Danger;
+import pcp.alg.EasyToEliminateColorFinder;
+import pcp.alg.ILPSolver;
 import pcp.alg.LocalSearch;
+import pcp.alg.NodeSelector;
 import pcp.alg.OneStepCD;
 import pcp.alg.Recolorer;
 import pcp.model.Coloring;
@@ -23,11 +26,20 @@ public class PCP {
     public static final int NODE_UNSELECTED = -2;
 
     public static void main(String[] args) {
-        allFiles();
+//        ILPSolver.solve();
+//        allFiles();
 //        tabuSizeTest();
 //        testDangerVsOneStepCD();
 //        initTest();
-//        optimized(new File("pcp_instances/pcp/n20p5t2s3.pcp"));
+
+        try {
+            double iterationsFactor = 10;
+            double tabuSizeFactor = 0.04;
+            File file = new File("pcp_instances/pcp/n100p5t2s1.pcp");
+            int chromatic = optimizedILP(file, tabuSizeFactor, iterationsFactor);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void allFiles() {
@@ -43,7 +55,7 @@ public class PCP {
             for (final File fileEntry : al) {
                 long timeMillisPerFile = System.currentTimeMillis();
                 if (fileEntry.isFile()) {
-                    int chromatic = optimized(fileEntry, tabuSizeFactor, iterationsFactor);
+                    int chromatic = optimizedOneStepCD(fileEntry, tabuSizeFactor, iterationsFactor);
                     double timePassedPerFile = (double) (System.currentTimeMillis() - timeMillisPerFile) / 1000d;
                     logger.severe(fileEntry.getName() + "\t\t" + timePassedPerFile + "\t\t" + tabuSizeFactor + "\t\t" + iterationsFactor + "\t\t" + chromatic);
                     chromaticSum += chromatic;
@@ -53,6 +65,97 @@ public class PCP {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    private static int optimizedILP(File instanceFile, double tabuSizeFactor, double iterationsFactor) {
+        Graph g = null;
+        Coloring c = null;
+        try {
+            g = InstanceReader.readInstance(instanceFile.getAbsolutePath());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        c = OneStepCD.calcInitialColoring(g);
+        boolean couldReduceColors;
+        int maxIterations = (int) Math.round((double) c.getGraph().getNodes().length * (double) c.getChromatic() * iterationsFactor);
+        int tabuSize = (int) Math.round((double) c.getGraph().getNodes().length * (double) c.getChromatic() * tabuSizeFactor);
+//        int maxIterations = (int) Math.round((double) c.getGraph().getEdges() * (double) c.getChromatic() * iterationsFactor);
+//        int tabuSize = (int) Math.round((double) c.getGraph().getEdges() * (double) c.getChromatic() * tabuSizeFactor);
+//        int tabuSize = c.getChromatic() * 50;
+        logger.severe("tabuSize: " + tabuSize + "; maxIterations: " + maxIterations);
+        do {
+            couldReduceColors = false;
+
+            Coloring cc = new Coloring(c);
+            int color = EasyToEliminateColorFinder.randomFind(cc).get(0);
+            NodeSelector.unselectAllNcisOfColor(cc, color);
+            cc.reduceColor(color);
+
+            ILPSolver.performOnUnselected(cc);
+            
+            if (LocalSearch.start(cc, tabuSize, maxIterations)) {
+//                if (!ColoringTest.performAll(cc)) {
+//                    logger.severe("TERMINATING: NOT ALL TESTS SUCCEDED!");
+//                    return -1;
+//                }
+                if (!ColoringTest.testSolutionValidityNoConflicts(cc)) {
+                    logger.severe("TERMINATING: SOLUTION IS NOT VALID!");
+                    return -1;
+                }
+                c = cc;
+                couldReduceColors = true;
+                break;
+            }
+        } while (couldReduceColors);
+
+        logger.info("ALORITHM TERMINATED for file " + instanceFile.getName() + ": best solution: " + c.getChromatic());
+
+        return c.getChromatic();
+    }
+
+    private static int optimizedOneStepCD(File instanceFile, double tabuSizeFactor, double iterationsFactor) {
+        Graph g = null;
+        Coloring c = null;
+        try {
+            g = InstanceReader.readInstance(instanceFile.getAbsolutePath());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        c = OneStepCD.calcInitialColoring(g);
+        boolean couldReduceColors;
+        int maxIterations = (int) Math.round((double) c.getGraph().getNodes().length * (double) c.getChromatic() * iterationsFactor);
+        int tabuSize = (int) Math.round((double) c.getGraph().getNodes().length * (double) c.getChromatic() * tabuSizeFactor);
+//        int maxIterations = (int) Math.round((double) c.getGraph().getEdges() * (double) c.getChromatic() * iterationsFactor);
+//        int tabuSize = (int) Math.round((double) c.getGraph().getEdges() * (double) c.getChromatic() * tabuSizeFactor);
+//        int tabuSize = c.getChromatic() * 50;
+        logger.severe("tabuSize: " + tabuSize + "; maxIterations: " + maxIterations);
+        do {
+            couldReduceColors = false;
+            ArrayList<Coloring> cL = Recolorer.recolorAllColorsOneStepCD(c);
+            for (Coloring cc : cL) {
+                if (LocalSearch.start(cc, tabuSize, maxIterations)) {
+//                    if (!ColoringTest.performAll(cc)) {
+//                        logger.severe("TERMINATING: NOT ALL TESTS SUCCEDED!");
+//                        return -1;
+//                    }
+                    if (!ColoringTest.testSolutionValidityNoConflicts(cc)) {
+                        logger.severe("TERMINATING: SOLUTION IS NOT VALID!");
+                        return -1;
+                    }
+                    c = cc;
+                    couldReduceColors = true;
+                    break;
+                }
+            }
+        } while (couldReduceColors);
+
+        logger.info("ALORITHM TERMINATED for file " + instanceFile.getName() + ": best solution: " + c.getChromatic());
+
+        return c.getChromatic();
+//        cc.logColorStats();
+//        ColoringTest.performAll(cc);
     }
 
     /*
@@ -78,7 +181,7 @@ public class PCP {
                 for (final File fileEntry : folder.listFiles()) {
                     long timeMillisPerFile = System.currentTimeMillis();
                     if (fileEntry.isFile()) {
-                        int chromatic = optimized(fileEntry, tabuSizeFactor, iterationsFactor);
+                        int chromatic = optimizedOneStepCD(fileEntry, tabuSizeFactor, iterationsFactor);
                         double timePassedPerFile = (double) (System.currentTimeMillis() - timeMillisPerFile) / 1000d;
 //                        logger.severe(fileEntry.getName() + "\t\t" + timePassedPerFile + "\t\t" + tabuSizeFactor + "\t\t" + iterationsFactor + "\t\t" + chromatic);
                         chromaticSum += chromatic;
@@ -105,8 +208,8 @@ public class PCP {
     public static void initTest() {
         try {
 //            File folder = new File("pcp_instances/test/test1.pcp");
-            File folder = new File("pcp_instances/pcp/n100p5t2s1.pcp");
-            Graph g = InstanceReader.readInstance(folder.getAbsolutePath());
+            File file = new File("pcp_instances/pcp/n100p5t2s1.pcp");
+            Graph g = InstanceReader.readInstance(file.getAbsolutePath());
             //OneStepCD.calcInitialColoring(g);
             ColoringDanger d = Danger.calcInitialColoring(g);
             ColoringTest.performAllDanger(d);
@@ -115,45 +218,6 @@ public class PCP {
         }
     }
 
-    private static int optimized(File instanceFile, double tabuSizeFactor, double iterationsFactor) {
-        Graph g = null;
-        Coloring c = null;
-        try {
-            g = InstanceReader.readInstance(instanceFile.getAbsolutePath());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        c = OneStepCD.calcInitialColoring(g);
-        boolean couldReduceColors;
-        int maxIterations = (int) Math.round((double) c.getGraph().getNodes().length * (double) c.getChromatic() * iterationsFactor);
-        int tabuSize = (int) Math.round((double) c.getGraph().getNodes().length * (double) c.getChromatic() * tabuSizeFactor);
-//        int maxIterations = (int) Math.round((double) c.getGraph().getEdges() * (double) c.getChromatic() * iterationsFactor);
-//        int tabuSize = (int) Math.round((double) c.getGraph().getEdges() * (double) c.getChromatic() * tabuSizeFactor);
-//        int tabuSize = c.getChromatic() * 50;
-        logger.severe("tabuSize: " + tabuSize + "; maxIterations: " + maxIterations);
-        do {
-            couldReduceColors = false;
-            ArrayList<Coloring> cL = Recolorer.recolorAllColorsOneStepCD(c);
-            for (Coloring cc : cL) {
-                if (LocalSearch.start(cc, tabuSize, maxIterations)) {
-                    if (!ColoringTest.testSolutionValidityNoConflicts(cc)) {
-                        logger.severe("TERMINATING: NOT ALL TESTS SUCCEDED!");
-                        return -1;
-                    }
-                    c = cc;
-                    couldReduceColors = true;
-                    break;
-                }
-            }
-        } while (couldReduceColors);
-
-        logger.info("ALORITHM TERMINATED for file " + instanceFile.getName() + ": best solution: " + c.getChromatic());
-
-        return c.getChromatic();
-//        cc.logColorStats();
-//        ColoringTest.performAll(cc);
-    }
 
     private static void testSelectorParameters() {
         Graph g = null;

@@ -1,5 +1,7 @@
 package pcp.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class Graph {
@@ -9,9 +11,9 @@ public class Graph {
     private final Node[][] nodeInPartition;
     private final int partitionSize[];
     private final int partitions;
-    private final int edges;
+    private final ArrayList<Integer[]> edges;
 
-    public Graph(Node[] node, Node[][] nodeInPartition, int partitionSize[], int edges) {
+    public Graph(Node[] node, Node[][] nodeInPartition, int partitionSize[], ArrayList<Integer[]> edges) {
         this.node = node;
         this.nodeInPartition = nodeInPartition;
         this.partitionSize = partitionSize;
@@ -67,7 +69,7 @@ public class Graph {
         return partitions;
     }
 
-    public int getEdges() {
+    public ArrayList<Integer[]> getEdges() {
         return edges;
     }
     

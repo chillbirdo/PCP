@@ -10,7 +10,7 @@ public class NodeColorInfo implements NodeColorInfoIF{
     private static final Logger logger = Logger.getLogger(NodeColorInfo.class.getName());
     private Node node;                              //the node to which this nci is refering
     private int color;                              //the color of node n
-    private ArrayList<Integer> conflicts;           //number of conflicts a coloring would produce
+    private ArrayList<Integer> conflicts;           //number of conflicts a color would produce
     private int colorsAvailable;                    //number of colors available
 
     public NodeColorInfo(Node n) {

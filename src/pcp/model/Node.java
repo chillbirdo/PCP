@@ -3,16 +3,18 @@ package pcp.model;
 import java.util.logging.Logger;
 import pcp.tools.MergeSort;
 
-public class Node{
-    private static final Logger logger = Logger.getLogger( Node.class.getName());
-    
+public class Node {
+
+    private static final Logger logger = Logger.getLogger(Node.class.getName());
     private int id;
+    private int idxInPartition;
     private Node[] neighbour;
     private int partition;
     private int degree = 0;//counted up in addNeighbour()
 
-    public Node(int id, int partition, int neighbourAmount) {
+    public Node(int id, int idxInPartition, int partition, int neighbourAmount) {
         this.id = id;
+        this.idxInPartition = idxInPartition;
         this.partition = partition;
         this.neighbour = new Node[neighbourAmount];
         for (Node n : neighbour) {
@@ -48,16 +50,20 @@ public class Node{
     public int getPartition() {
         return partition;
     }
-    
+
     public int getDegree() {
         return degree;
     }
 
-    public void setDegree( int degree) {
+    public void setDegree(int degree) {
         this.degree = degree;
     }
 
     public void decreaseDegree() {
         degree--;
+    }
+
+    public int getIdxInPartition() {
+        return idxInPartition;
     }
 }

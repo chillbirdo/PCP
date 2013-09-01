@@ -16,6 +16,9 @@ public class NodeSelector {
     private static final double ks = 1.4;
     private static final double ku = 0.8;
 
+    /*
+     * implementation of own algorithm to select one node for each cluster
+     */
     public static void greedyMinDegree(ColoringDanger c, Double pks, Double pku) {
         double ks = NodeSelector.ks;
         double ku = NodeSelector.ku;

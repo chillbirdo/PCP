@@ -139,6 +139,7 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
         this.selectedColoredNCIs.add(nci);
         nci.setColor(color);
         for (Node neigh : nci.getNode().getNeighbours()) {
+//            logger.severe("SCHAU: " + neigh.getId());
             NodeColorInfo neighNci = getNciById(neigh.getId());
             neighNci.increaseConflicts(color);
             if (neighNci.getConflicts(color) == 1) {

@@ -27,7 +27,7 @@ public class OneStepCD {
                 }
                 Integer minDegree = Integer.MAX_VALUE;
                 NodeColorInfo minDegreeNci = null;
-                for( int i = 0; i < c.getGraph().getPartitionSize(p); i++){
+                for (int i = 0; i < c.getGraph().getPartitionSize(p); i++) {
                     Node n = c.getGraph().getNodeOfPartition(p, i);
                     NodeColorInfo nci = c.getNciById(n.getId());
                     nci.getDiffColoredNeighbours();
@@ -65,10 +65,14 @@ public class OneStepCD {
         return conflicts;
     }
 
+    /*
+     * calculates initial coloring and an upperbound for the chromatic number
+     */
     public static Coloring calcInitialColoring(Graph g) {
         logger.info("Calculating initial solution with OneStepCD..");
         Coloring c = new Coloring(g);
         c.initColorArrayOfEachNci(g.getHighestDegree() + 1);
+
         OneStepCD.performOnUnselected(c);
 
         Coloring c2 = new Coloring(g);

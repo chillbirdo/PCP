@@ -94,7 +94,7 @@ public class ColoringTest {
     }
 
     /*
-     * Test if all colorvalues are correct
+     * Test if all colorvalues/conflictvalues are correct
      */
     public static boolean testCorrectConflictsValues(ColoringIF c) {
         for (Node n : c.getGraph().getNodes()) {

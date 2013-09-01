@@ -53,9 +53,12 @@ public class InstanceReader {
 
         //phase1: count, to allow exact memory allocation
         int nodeAmount = new Integer(lineSplit[0]);
-        int edges = new Integer(lineSplit[1]);
+        int[] nodeToPartition = new int[nodeAmount];
+        int nodeToPartitionIdx = 0;
+        int edgeAmount = new Integer(lineSplit[1]);
         int partitionAmount = new Integer(lineSplit[2]);
         int partitionSize[] = new int[partitionAmount];
+        ArrayList<Integer[]> edges = new ArrayList<Integer[]>(edgeAmount);
         int[] neighbourAmount = new int[nodeAmount];
         for (int i : neighbourAmount) {
             i = 0;
@@ -66,11 +69,15 @@ public class InstanceReader {
             if (lineSplit.length == 1) {
                 int partition = new Integer(lineSplit[0]);
                 partitionSize[partition]++;
+                nodeToPartition[nodeToPartitionIdx] = partition;
+                nodeToPartitionIdx++;
             } else if (lineSplit.length == 2) {
-                int node1 = new Integer(lineSplit[0]);
-                int node2 = new Integer(lineSplit[1]);
-                neighbourAmount[node1]++;
-                neighbourAmount[node2]++;
+                int node1idx = new Integer(lineSplit[0]);
+                int node2idx = new Integer(lineSplit[1]);
+                if (nodeToPartition[node1idx] != nodeToPartition[node2idx]) {
+                    neighbourAmount[node1idx]++;
+                    neighbourAmount[node2idx]++;
+                }
             } else {
                 throw new Exception("Invalid InstanceData at line " + lineCount);
             }
@@ -87,61 +94,34 @@ public class InstanceReader {
         //phase2 create node data
         scanner = new Scanner(new FileReader(file));
         scanner.nextLine();
-        Node[] node = new Node[nodeAmount];
-        Node[][] nodeInPartition = new Node[partitionAmount][maxPartitionSize];
+        Node[] nodes = new Node[nodeAmount];
+        Node[][] nodesInPartition = new Node[partitionAmount][maxPartitionSize];
 
         int nodeCount = 0;
         int[] nodesInPartitionCount = new int[partitionAmount];
         for (int i : nodesInPartitionCount) {
             i = 0;
         }
-        int maxDegree = 0;
         while (scanner.hasNext()) {
             line = scanner.nextLine();
             lineSplit = line.trim().split(" ");
             if (lineSplit.length == 1) {
                 int partition = new Integer(lineSplit[0]);
-                node[nodeCount] = new Node(nodeCount, partition, neighbourAmount[nodeCount]);
-                nodeInPartition[partition][nodesInPartitionCount[partition]] = node[nodeCount];
+                nodes[nodeCount] = new Node(nodeCount, nodesInPartitionCount[partition], partition, neighbourAmount[nodeCount]);
+                nodesInPartition[partition][nodesInPartitionCount[partition]] = nodes[nodeCount];
                 nodesInPartitionCount[partition]++;
                 nodeCount++;
             } else if (lineSplit.length == 2) {
-                Node node1 = node[new Integer(lineSplit[0])];
-                Node node2 = node[new Integer(lineSplit[1])];
-                node1.addNeighbour(node2);
-                node2.addNeighbour(node1);
-            }
-        }
-        removeEdgesInPartitions(node);
-        return new Graph(node, nodeInPartition, partitionSize, edges);
-    }
-
-    /*
-     * It is assumed that this method is called before any coloring is done
-     */
-    private static void removeEdgesInPartitions(Node[] node) {
-        for (int i = 0; i < node.length; i++) {
-            Node n = node[i];
-            int neighboursToReduce = 0;
-            for (int j = 0; j < n.getNeighbours().length; j++) {
-                Node neigh = n.getNeighbour(j);
-                if (n.getPartition() == neigh.getPartition()) {
-                    neighboursToReduce++;
-                    n.setNeighbour(j, null);
+                Integer[] edge = {new Integer(lineSplit[0]), new Integer(lineSplit[1])};
+                Node node1 = nodes[edge[0]];
+                Node node2 = nodes[edge[1]];
+                if (node1.getPartition() != node2.getPartition()) {
+                    node1.addNeighbour(node2);
+                    node2.addNeighbour(node1);
+                    edges.add(edge);
                 }
             }
-            if (neighboursToReduce > 0) {
-                n.setDegree(n.getDegree() - neighboursToReduce);
-                Node[] reducedNeighbours = new Node[n.getNeighbours().length - neighboursToReduce];
-                int idx = 0;
-                for (Node neigh : n.getNeighbours()) {
-                    if (neigh != null) {
-                        reducedNeighbours[idx] = neigh;
-                        idx++;
-                    }
-                }
-                n.setNeighbours(reducedNeighbours);
-            }
         }
+        return new Graph(nodes, nodesInPartition, partitionSize, edges);
     }
 }
