@@ -42,7 +42,6 @@ public class NodeColorInfo implements NodeColorInfoIF{
             for (int i = 0; i < maxColors; i++) {
                 conflicts.add(i, 0);
             }
-            logger.finest("----- INIT nci " + node.getId() + " with maxColors " + conflicts.size() + " " + maxColors);
         } else {
             logger.warning("UNEXPECTED: tried to init colorarray wich has already been initialized.");
         }

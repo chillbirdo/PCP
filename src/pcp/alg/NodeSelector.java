@@ -59,12 +59,14 @@ public class NodeSelector {
     }
 
     public static void unselectAllNcisOfColor( ColoringIF c, int color) {
+        logger.finest("unselecting all nodes of color " + color);
         for (Iterator<NodeColorInfoIF> it = c.getSelectedColoredNCIs().iterator(); it.hasNext();) {
             NodeColorInfoIF nci = it.next();
             if (nci.getColor() == color) {
                 c.uncolorNci(nci);
                 it.remove();
                 c.unselectNci(nci);
+                logger.finest("unselected node " + nci.getNode().getId());
                 //SPEEDUP: write method to unselect a colored node
             }
         }

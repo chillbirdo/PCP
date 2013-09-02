@@ -56,11 +56,11 @@ public class OneStepCD {
                 }
             }
             c.colorNci(maxMinDegreeNci, chosenColor);
-            if (maxMinDegreeNci.getConflicts(chosenColor) > 0) {
-                conflicts += maxMinDegreeNci.getConflicts(chosenColor);
-                Set<NodeColorInfoIF> conflictingNcis = c.getConflictingNeighboursOfNci(maxMinDegreeNci, maxMinDegreeNci.getConflicts(chosenColor));
-                c.getConflictingNCIs().addAll(conflictingNcis);
-            }
+//            if (maxMinDegreeNci.getConflicts(chosenColor) > 0) {
+//                conflicts += maxMinDegreeNci.getConflicts(chosenColor);
+//                Set<NodeColorInfoIF> conflictingNcis = c.getConflictingNeighboursOfNci(maxMinDegreeNci, maxMinDegreeNci.getConflicts(chosenColor));
+//                c.getConflictingNCIs().addAll(conflictingNcis);
+//            }
         }
         return conflicts;
     }

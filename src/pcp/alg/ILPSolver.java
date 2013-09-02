@@ -14,8 +14,9 @@ public class ILPSolver {
 
     private static final Logger logger = Logger.getLogger(ILPSolver.class.getName());
 
-    public static void performOnUnselected(Coloring cc) {
+    public static int performOnUnselected(Coloring cc) {
 
+        int result = 0;
         //find all unselected partitions and create a mapping partition_index -> index_in_m
         //find the size of m
         int[] selectedPartitionMapping = new int[cc.getGraph().getPartitionAmount()];
@@ -33,16 +34,7 @@ public class ILPSolver {
         //create and fill m
         List[] mL = new List[selectedPartitionCount];
         for (int p = 0; p < mL.length; p++) {
-            int partition = -1;
-            for (int i = 0; i < selectedPartitionMapping.length; i++) {
-                if (selectedPartitionMapping[i] == p) {
-                    partition = i;
-                    break;
-                }
-            }
-            if (partition == -1) {
-                logger.severe("UNEXPECED: could not map partition");
-            }
+            int partition = xPartitionToRealPartition(p, selectedPartitionMapping);
             Node[] nodesInPartition = cc.getGraph().getNodesOfPartition(partition);
             mL[p] = new ArrayList<ArrayList<Integer>>(nodesInPartition.length);
             for (int v = 0; v < nodesInPartition.length; v++) {
@@ -55,7 +47,8 @@ public class ILPSolver {
         //solve ILP with m
         try {
             IloCplex cplex = new IloCplex();
-
+            cplex.setOut(null);
+            
             //initialize variables and objective expression
             List[] xL = new List[mL.length];
             IloLinearIntExpr objectiveExpr = cplex.linearIntExpr();
@@ -118,27 +111,53 @@ public class ILPSolver {
                 logger.finer("\nCONTSTRAINT 2 for edge (" + edge[0] + ", " + edge[1] + "): " + objectiveExpr);
             }
 
-            //solve and output
+            //solve, output and integrate solution into coloring
             if (cplex.solve()) {
-                cplex.output().println("Solution status = " + cplex.getStatus());
-                cplex.output().println("Solution value  = " + cplex.getObjValue());
+                logger.finest("Solution status = " + cplex.getStatus());
+                logger.fine("ILP Solution value  = " + cplex.getObjValue() + " conflicts.");
+                result = (int) Math.round(cplex.getObjValue());
                 for (int p = 0; p < xL.length; p++) {
                     List<IloIntVar[]> vList = xL[p];
-                    cplex.output().println("Partition " + p + ":");
+                    logger.fine("Partition " + p + ":");
                     for (int v = 0; v < vList.size(); v++) {
                         IloIntVar[] iiva = vList.get(v);
                         double[] val = cplex.getValues(iiva);
                         String valStr = "\tNode " + v + ": ";
                         for (int j = 0; j < val.length; ++j) {
                             valStr += val[j] + " ";
+                            //integrate
+                            if (Math.round(val[j]) == 1) {
+                                int partition = xPartitionToRealPartition(p, selectedPartitionMapping);
+                                Node n = cc.getGraph().getNodeOfPartition(partition, v);
+                                NodeColorInfo nci = cc.getNciById(n.getId());
+                                logger.finest("coloring node " + nci.getNode().getId());
+                                cc.selectNci(nci);
+                                cc.colorNci(nci, j);
+                            }
                         }
                         logger.finer(valStr);
                     }
                 }
             }
             cplex.end();
+//            logger.fine("ILP solved: " + cc.getConflictingNCIs().size() + " CONFLICTS!");
         } catch (IloException e) {
             System.err.println("Concert exception '" + e + "' caught");
         }
+        return result;
+    }
+
+    private static int xPartitionToRealPartition(int xPartition, int[] selectedPartitionMapping) {
+        int partition = -1;
+        for (int i = 0; i < selectedPartitionMapping.length; i++) {
+            if (selectedPartitionMapping[i] == xPartition) {
+                partition = i;
+                break;
+            }
+        }
+        if (partition == -1) {
+            logger.severe("UNEXPECED: could not map partition");
+        }
+        return partition;
     }
 }

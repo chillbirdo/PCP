@@ -25,37 +25,46 @@ public class PCP {
     public static final int NODE_UNCOLORED = -1;
     public static final int NODE_UNSELECTED = -2;
 
+    public static final int RECOLOR_WITH_ONESTEPCD = 0;
+    public static final int RECOLOR_WITH_ILP = 1;
+    
     public static void main(String[] args) {
 //        ILPSolver.solve();
-//        allFiles();
+        allFiles( RECOLOR_WITH_ILP);
 //        tabuSizeTest();
 //        testDangerVsOneStepCD();
 //        initTest();
 
-        try {
-            double iterationsFactor = 10;
-            double tabuSizeFactor = 0.04;
-            File file = new File("pcp_instances/pcp/n100p5t2s1.pcp");
-            int chromatic = optimizedILP(file, tabuSizeFactor, iterationsFactor);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+//        try {
+//            double iterationsFactor = 10;
+//            double tabuSizeFactor = 0.04;
+//            File file = new File("pcp_instances/pcp/n100p5t2s1.pcp");
+////            int chromatic = optimizedILP(file, tabuSizeFactor, iterationsFactor);
+//            int chromatic = optimizedOneStepCD(file, tabuSizeFactor, iterationsFactor);
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
     }
 
-    public static void allFiles() {
+    public static void allFiles( int recolorAlg) {
         try {
             int minChromaticSum = Integer.MAX_VALUE;
-            double iterationsFactor = 10;
-            double tabuSizeFactor = 0.04;
+            //pcp
+//            double iterationsFactor = 10;
+//            double tabuSizeFactor = 0.04;
+            //in
+            double iterationsFactor = 0.3;
+            double tabuSizeFactor = 0.002;
+
             int chromaticSum = 0;
-            File folder = new File("pcp_instances/pcp/");
+            File folder = new File("pcp_instances/in/");
             File[] allfiles = folder.listFiles();
             List<File> al = Arrays.asList(allfiles);
             Collections.sort(al);
             for (final File fileEntry : al) {
                 long timeMillisPerFile = System.currentTimeMillis();
                 if (fileEntry.isFile()) {
-                    int chromatic = optimizedOneStepCD(fileEntry, tabuSizeFactor, iterationsFactor);
+                    int chromatic = optimized(fileEntry, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ILP);
                     double timePassedPerFile = (double) (System.currentTimeMillis() - timeMillisPerFile) / 1000d;
                     logger.severe(fileEntry.getName() + "\t\t" + timePassedPerFile + "\t\t" + tabuSizeFactor + "\t\t" + iterationsFactor + "\t\t" + chromatic);
                     chromaticSum += chromatic;
@@ -67,7 +76,7 @@ public class PCP {
         }
     }
 
-    private static int optimizedILP(File instanceFile, double tabuSizeFactor, double iterationsFactor) {
+    private static int optimized(File instanceFile, double tabuSizeFactor, double iterationsFactor, int recolorAlg) {
         Graph g = null;
         Coloring c = null;
         try {
@@ -86,54 +95,7 @@ public class PCP {
         logger.severe("tabuSize: " + tabuSize + "; maxIterations: " + maxIterations);
         do {
             couldReduceColors = false;
-
-            Coloring cc = new Coloring(c);
-            int color = EasyToEliminateColorFinder.randomFind(cc).get(0);
-            NodeSelector.unselectAllNcisOfColor(cc, color);
-            cc.reduceColor(color);
-
-            ILPSolver.performOnUnselected(cc);
-            
-            if (LocalSearch.start(cc, tabuSize, maxIterations)) {
-//                if (!ColoringTest.performAll(cc)) {
-//                    logger.severe("TERMINATING: NOT ALL TESTS SUCCEDED!");
-//                    return -1;
-//                }
-                if (!ColoringTest.testSolutionValidityNoConflicts(cc)) {
-                    logger.severe("TERMINATING: SOLUTION IS NOT VALID!");
-                    return -1;
-                }
-                c = cc;
-                couldReduceColors = true;
-                break;
-            }
-        } while (couldReduceColors);
-
-        logger.info("ALORITHM TERMINATED for file " + instanceFile.getName() + ": best solution: " + c.getChromatic());
-
-        return c.getChromatic();
-    }
-
-    private static int optimizedOneStepCD(File instanceFile, double tabuSizeFactor, double iterationsFactor) {
-        Graph g = null;
-        Coloring c = null;
-        try {
-            g = InstanceReader.readInstance(instanceFile.getAbsolutePath());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        c = OneStepCD.calcInitialColoring(g);
-        boolean couldReduceColors;
-        int maxIterations = (int) Math.round((double) c.getGraph().getNodes().length * (double) c.getChromatic() * iterationsFactor);
-        int tabuSize = (int) Math.round((double) c.getGraph().getNodes().length * (double) c.getChromatic() * tabuSizeFactor);
-//        int maxIterations = (int) Math.round((double) c.getGraph().getEdges() * (double) c.getChromatic() * iterationsFactor);
-//        int tabuSize = (int) Math.round((double) c.getGraph().getEdges() * (double) c.getChromatic() * tabuSizeFactor);
-//        int tabuSize = c.getChromatic() * 50;
-        logger.severe("tabuSize: " + tabuSize + "; maxIterations: " + maxIterations);
-        do {
-            couldReduceColors = false;
-            ArrayList<Coloring> cL = Recolorer.recolorAllColorsOneStepCD(c);
+            ArrayList<Coloring> cL = Recolorer.recolorAllColorsOneStepCD(c, recolorAlg);
             for (Coloring cc : cL) {
                 if (LocalSearch.start(cc, tabuSize, maxIterations)) {
 //                    if (!ColoringTest.performAll(cc)) {
@@ -181,7 +143,7 @@ public class PCP {
                 for (final File fileEntry : folder.listFiles()) {
                     long timeMillisPerFile = System.currentTimeMillis();
                     if (fileEntry.isFile()) {
-                        int chromatic = optimizedOneStepCD(fileEntry, tabuSizeFactor, iterationsFactor);
+                        int chromatic = optimized(fileEntry, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ONESTEPCD);
                         double timePassedPerFile = (double) (System.currentTimeMillis() - timeMillisPerFile) / 1000d;
 //                        logger.severe(fileEntry.getName() + "\t\t" + timePassedPerFile + "\t\t" + tabuSizeFactor + "\t\t" + iterationsFactor + "\t\t" + chromatic);
                         chromaticSum += chromatic;
@@ -205,7 +167,7 @@ public class PCP {
         }
     }
 
-    public static void initTest() {
+    public static void initialColoringTest() {
         try {
 //            File folder = new File("pcp_instances/test/test1.pcp");
             File file = new File("pcp_instances/pcp/n100p5t2s1.pcp");

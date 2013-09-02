@@ -72,7 +72,6 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
         }
     }
 
-    
     public void initColorArrayOfEachNci(int maxColors) {
         chromatic = maxColors;
         for (NodeColorInfo nci : nodeColorInfo) {
@@ -88,7 +87,7 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
             nci.setColorUncolored();
             //remove all ncis of particular partition from unselectedNCIs
             int nciPartition = nci.getNode().getPartition();
-            for( int i = 0; i < g.getPartitionSize(nciPartition); i++){
+            for (int i = 0; i < g.getPartitionSize(nciPartition); i++) {
                 Node nodeOfPartition = g.getNodeOfPartition(nciPartition, i);
                 unselectedNCIs.remove(getNciById(nodeOfPartition.getId()));
             }
@@ -109,7 +108,7 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
             nci.setColorUnselected();
             //add all ncis of particular partition to unselectedNCIs
             int nciPartition = nci.getNode().getPartition();
-            for( int i = 0; i < g.getPartitionSize(nciPartition); i++){
+            for (int i = 0; i < g.getPartitionSize(nciPartition); i++) {
                 Node nodeOfPartition = g.getNodeOfPartition(nciPartition, i);
                 unselectedNCIs.add(getNciById(nodeOfPartition.getId()));
             }
@@ -145,6 +144,12 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
             if (neighNci.getConflicts(color) == 1) {
                 neighNci.decreaseColorsAvailable();
             }
+        }
+
+        //did the coloring of that node produce conflicts?
+        if (nci.getConflicts(color) > 0) {
+            Set<NodeColorInfoIF> conflictingNcis = getConflictingNeighboursOfNci(nci, nci.getConflicts(color));
+            getConflictingNCIs().addAll(conflictingNcis);
         }
     }
 
@@ -248,7 +253,7 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
             logger.info("color " + i + " = " + colorStats[i]);
         }
     }
-    
+
     public Set<NodeColorInfoIF> getSelectedColoredNCIs() {
         return selectedColoredNCIs;
     }
