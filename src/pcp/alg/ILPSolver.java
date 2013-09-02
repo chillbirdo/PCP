@@ -18,22 +18,33 @@ public class ILPSolver {
 
         //find all unselected partitions and create a mapping partition_index -> index_in_m
         //find the size of m
-        ArrayList<Integer> partitionMapping = new ArrayList<Integer>();
-        int mSize = 0;
+        int[] selectedPartitionMapping = new int[cc.getGraph().getPartitionAmount()];
+        int selectedPartitionCount = 0;
+        for (int i = 0; i < selectedPartitionMapping.length; i++) {
+            selectedPartitionMapping[i] = -1;
+        }
         for (int i = 0; i < cc.getGraph().getPartitionAmount(); i++) {
             if (!cc.isPartitionSelected(i)) {
-                partitionMapping.add(i);
-                int partitionSize = cc.getGraph().getPartitionSize(i);
-//                mSize += partitionSize * cc.getChromatic();
+                selectedPartitionMapping[i] = selectedPartitionCount;
+                selectedPartitionCount++;
             }
         }
 
         //create and fill m
-        List[] mL = new List[partitionMapping.size()];
+        List[] mL = new List[selectedPartitionCount];
         for (int p = 0; p < mL.length; p++) {
-            mL[p] = new ArrayList<ArrayList<Integer>>();
-            int partition = partitionMapping.get(p);
+            int partition = -1;
+            for (int i = 0; i < selectedPartitionMapping.length; i++) {
+                if (selectedPartitionMapping[i] == p) {
+                    partition = i;
+                    break;
+                }
+            }
+            if (partition == -1) {
+                logger.severe("UNEXPECED: could not map partition");
+            }
             Node[] nodesInPartition = cc.getGraph().getNodesOfPartition(partition);
+            mL[p] = new ArrayList<ArrayList<Integer>>(nodesInPartition.length);
             for (int v = 0; v < nodesInPartition.length; v++) {
                 Node n = nodesInPartition[v];
                 NodeColorInfo nci = cc.getNciById(n.getId());
@@ -51,20 +62,17 @@ public class ILPSolver {
             for (int p = 0; p < xL.length; p++) {
                 xL[p] = new ArrayList<IloIntVar[]>(mL[p].size());
                 for (int v = 0; v < mL[p].size(); v++) {
-                    
-                    logger.severe("SCHAU : " + mL[p].get(v).getClass().getName());
-                    
                     List conflictList = (List) mL[p].get(v);
-                    
                     IloIntVar[] iiva = new IloIntVar[conflictList.size()];
                     for (int c = 0; c < iiva.length; c++) {
                         iiva[c] = cplex.boolVar();
                         objectiveExpr.addTerm((Integer) conflictList.get(c), iiva[c]);
                     }
-                    mL[p].add(iiva);
+                    xL[p].add(iiva);
                 }
             }
             cplex.addMinimize(objectiveExpr);
+            logger.finer("\nOBJECTIVE: " + objectiveExpr);
 
             //build contraints 1: only one node-color-pair selected
             for (int p = 0; p < xL.length; p++) {
@@ -77,16 +85,28 @@ public class ILPSolver {
                     }
                 }
                 cplex.addEq(expr, 1);
+                logger.finer("\nCONTSTRAINT 1 for " + p + ": " + objectiveExpr);
             }
 
             //build constraints 2: no two adjacent nodes may have the same color
+            //select only edges that are between nodes represented by x:
+            ArrayList<Integer[]> xEdges = new ArrayList<Integer[]>();
             for (Integer[] edge : cc.getGraph().getEdges()) {
+                Node n1 = cc.getGraph().getNode(edge[0]);
+                Node n2 = cc.getGraph().getNode(edge[1]);
+                if (selectedPartitionMapping[n1.getPartition()] != -1 && selectedPartitionMapping[n2.getPartition()] != -1) {
+                    xEdges.add(edge);
+                }
+            }
+            //set constraint:
+            for (Integer[] edge : xEdges) {
                 IloLinearIntExpr expr = cplex.linearIntExpr();
                 Node n1 = cc.getGraph().getNode(edge[0]);
                 Node n2 = cc.getGraph().getNode(edge[1]);
-                int p1 = n1.getPartition();
+
+                int p1 = selectedPartitionMapping[n1.getPartition()];
+                int p2 = selectedPartitionMapping[n2.getPartition()];
                 int v1 = n1.getIdxInPartition();
-                int p2 = n2.getPartition();
                 int v2 = n2.getIdxInPartition();
                 IloIntVar[] c1 = (IloIntVar[]) xL[p1].get(v1);
                 IloIntVar[] c2 = (IloIntVar[]) xL[p2].get(v2);
@@ -95,6 +115,7 @@ public class ILPSolver {
                     expr.addTerm(1, c2[color]);
                 }
                 cplex.addLe(expr, 1);
+                logger.finer("\nCONTSTRAINT 2 for edge (" + edge[0] + ", " + edge[1] + "): " + objectiveExpr);
             }
 
             //solve and output
@@ -107,12 +128,11 @@ public class ILPSolver {
                     for (int v = 0; v < vList.size(); v++) {
                         IloIntVar[] iiva = vList.get(v);
                         double[] val = cplex.getValues(iiva);
-                        int ncols = cplex.getNcols();
                         String valStr = "\tNode " + v + ": ";
-                        for (int j = 0; j < ncols; ++j) {
+                        for (int j = 0; j < val.length; ++j) {
                             valStr += val[j] + " ";
                         }
-                        cplex.output().println(valStr);
+                        logger.finer(valStr);
                     }
                 }
             }
