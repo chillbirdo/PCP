@@ -254,6 +254,14 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
         }
     }
 
+    public void logSolution() {
+        logger.info("--- SOLUTION ---");
+        for (NodeColorInfoIF nci : selectedColoredNCIs) {
+            logger.info("node " + nci.getNode().getId() + ": color " + nci.getColor());
+        }
+        logger.info("--> CHROMATIC NUMBER: " + this.getChromatic());
+    }
+
     public Set<NodeColorInfoIF> getSelectedColoredNCIs() {
         return selectedColoredNCIs;
     }

@@ -17,6 +17,7 @@ public class ILPSolver {
     public static int performOnUnselected(Coloring cc) {
 
         int result = 0;
+        
         //find all unselected partitions and create a mapping partition_index -> index_in_m
         //find the size of m
         int[] selectedPartitionMapping = new int[cc.getGraph().getPartitionAmount()];
@@ -144,6 +145,7 @@ public class ILPSolver {
         } catch (IloException e) {
             System.err.println("Concert exception '" + e + "' caught");
         }
+        
         return result;
     }
 
