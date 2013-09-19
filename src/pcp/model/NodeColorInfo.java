@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 import pcp.PCP;
 import pcp.model.Node;
 
-public class NodeColorInfo implements NodeColorInfoIF{
+public class NodeColorInfo implements NodeColorInfoIF, Comparable<NodeColorInfo>{
 
     private static final Logger logger = Logger.getLogger(NodeColorInfo.class.getName());
     private Node node;                              //the node to which this nci is refering
@@ -121,6 +121,11 @@ public class NodeColorInfo implements NodeColorInfoIF{
 
     public ArrayList<Integer> getConflictArray() {
         return conflicts;
+    }
+
+    @Override
+    public int compareTo(NodeColorInfo nci) {
+        return this.getNode().getId() - nci.getNode().getId();
     }
 
 }

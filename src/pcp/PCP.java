@@ -7,13 +7,13 @@ import java.util.Collections;
 import java.util.List;
 import pcp.model.Graph;
 import java.util.logging.Logger;
-import pcp.alg.Danger;
+//import pcp.alg.Danger;
 import pcp.alg.LocalSearch;
 import pcp.alg.OneStepCD;
 import pcp.alg.Recolorer;
 import pcp.model.Coloring;
 import pcp.instancereader.InstanceReader;
-import pcp.model.ColoringDanger;
+//import pcp.model.ColoringDanger;
 import test.pcp.coloring.ColoringTest;
 
 public class PCP {
@@ -27,17 +27,21 @@ public class PCP {
     public static void main(String[] args) {
 //        allFiles( RECOLOR_WITH_ILP);
         File file = new File("pcp_instances/pcp/n100p5t2s1.pcp");
-        //best factors:
-        //for .pcp:
+//        File file = new File("pcp_instances/pcp/n20p5t2s2.pcp");
+//        best factors:
+//        for .pcp:
         double iterationsFactor = 10;
         double tabuSizeFactor = 0.04;
         //for .in:
         //double iterationsFactor = 0.3;
         //double tabuSizeFactor = 0.002;
         
-//        int chromatic = optimized(file, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ILP);
-        Coloring c = optimized(file, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ONESTEPCD);
-        c.logSolution();
+        Coloring cOSCD = optimized(file, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ONESTEPCD);
+        cOSCD.logSolution();
+        
+        logger.severe("\n\n\n-------------------------- ILP ----------------------");
+        Coloring cILP = optimized(file, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ILP);
+        cILP.logSolution();
     }
 
     public static void allFiles(int recolorAlg) {
@@ -168,73 +172,73 @@ public class PCP {
         }
     }
 
-    public static void initialColoringTest() {
-        try {
-//            File folder = new File("pcp_instances/test/test1.pcp");
-            File file = new File("pcp_instances/pcp/n100p5t2s1.pcp");
-            Graph g = InstanceReader.readInstance(file.getAbsolutePath());
-            //OneStepCD.calcInitialColoring(g);
-            ColoringDanger d = Danger.calcInitialColoring(g);
-            ColoringTest.performAllDanger(d);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+//    public static void initialColoringTest() {
+//        try {
+////            File folder = new File("pcp_instances/test/test1.pcp");
+//            File file = new File("pcp_instances/pcp/n100p5t2s1.pcp");
+//            Graph g = InstanceReader.readInstance(file.getAbsolutePath());
+//            //OneStepCD.calcInitialColoring(g);
+//            ColoringDanger d = Danger.calcInitialColoring(g);
+//            ColoringTest.performAllDanger(d);
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//    }
 
-    private static void testSelectorParameters() {
-        Graph g = null;
-        ColoringDanger c = null;
+//    private static void testSelectorParameters() {
+//        Graph g = null;
+//        ColoringDanger c = null;
+//
+//        int bestresult = Integer.MAX_VALUE;
+//        String bestresultStr = "";
+//        for (double ks = 0.1; ks <= 2.0; ks += 0.1) {
+//            for (double ku = 0.1; ku <= 2.0; ku += 0.1) {
+//                int sumChromatic = 0;
+//                try {
+//                    File folder = new File("pcp_instances/pcp/");
+//                    for (final File fileEntry : folder.listFiles()) {
+//                        if (fileEntry.isFile()) {
+//                            g = InstanceReader.readInstance(fileEntry.getAbsolutePath());
+//                            c = Danger.calcInitialColoring(g);
+//                            sumChromatic += c.getChromatic();
+//                        }
+//                    }
+//                } catch (Exception ex) {
+//                    ex.printStackTrace();
+//                }
+//                String out = "--- result: " + sumChromatic + " ks=" + ks + "; ku=" + ku + ";";
+//                if (sumChromatic < bestresult) {
+//                    bestresult = sumChromatic;
+//                    bestresultStr = out;
+//                }
+//                logger.severe(out);
+//            }
+//        }
+//        logger.severe("\n\n best result: " + bestresultStr);
+//    }
 
-        int bestresult = Integer.MAX_VALUE;
-        String bestresultStr = "";
-        for (double ks = 0.1; ks <= 2.0; ks += 0.1) {
-            for (double ku = 0.1; ku <= 2.0; ku += 0.1) {
-                int sumChromatic = 0;
-                try {
-                    File folder = new File("pcp_instances/pcp/");
-                    for (final File fileEntry : folder.listFiles()) {
-                        if (fileEntry.isFile()) {
-                            g = InstanceReader.readInstance(fileEntry.getAbsolutePath());
-                            c = Danger.calcInitialColoring(g);
-                            sumChromatic += c.getChromatic();
-                        }
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-                String out = "--- result: " + sumChromatic + " ks=" + ks + "; ku=" + ku + ";";
-                if (sumChromatic < bestresult) {
-                    bestresult = sumChromatic;
-                    bestresultStr = out;
-                }
-                logger.severe(out);
-            }
-        }
-        logger.severe("\n\n best result: " + bestresultStr);
-    }
-
-    private static void testDangerVsOneStepCD() {
-
-        int bestresult = Integer.MAX_VALUE;
-        String bestresultStr = "";
-        int sumDanger = 0;
-        int sumOneStepCD = 0;
-        try {
-            File folder = new File("pcp_instances/in/");
-            for (final File fileEntry : folder.listFiles()) {
-                if (fileEntry.isFile()) {
-                    Graph g = InstanceReader.readInstance(fileEntry.getAbsolutePath());
-                    ColoringDanger cDanger = Danger.calcInitialColoring(g);
-                    Coloring cOneStepCD = OneStepCD.calcInitialColoring(g);
-                    sumDanger += cDanger.getChromatic();
-                    sumOneStepCD += cOneStepCD.getChromatic();
-
-                    logger.severe("--- DANGER: " + cDanger.getChromatic() + "; OneStepCD: " + cOneStepCD.getChromatic() + ";");
-                }
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        logger.severe("\n\n RESULT: DANGER: " + sumDanger + "; OneStepCD: " + sumOneStepCD + ";");
-    }
+//    private static void testDangerVsOneStepCD() {
+//
+//        int bestresult = Integer.MAX_VALUE;
+//        String bestresultStr = "";
+//        int sumDanger = 0;
+//        int sumOneStepCD = 0;
+//        try {
+//            File folder = new File("pcp_instances/in/");
+//            for (final File fileEntry : folder.listFiles()) {
+//                if (fileEntry.isFile()) {
+//                    Graph g = InstanceReader.readInstance(fileEntry.getAbsolutePath());
+//                    ColoringDanger cDanger = Danger.calcInitialColoring(g);
+//                    Coloring cOneStepCD = OneStepCD.calcInitialColoring(g);
+//                    sumDanger += cDanger.getChromatic();
+//                    sumOneStepCD += cOneStepCD.getChromatic();
+//
+//                    logger.severe("--- DANGER: " + cDanger.getChromatic() + "; OneStepCD: " + cOneStepCD.getChromatic() + ";");
+//                }
+//            }
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        logger.severe("\n\n RESULT: DANGER: " + sumDanger + "; OneStepCD: " + sumOneStepCD + ";");
+//    }
 }

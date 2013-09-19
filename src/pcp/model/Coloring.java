@@ -1,8 +1,10 @@
 package pcp.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.TreeSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 import pcp.PCP;
@@ -30,10 +32,10 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
         for (int i = 0; i < isPartitonSelected.length; i++) {
             isPartitonSelected[i] = false;
         }
-        this.selectedColoredNCIs = new HashSet<NodeColorInfoIF>();
-        this.selectedUncoloredNCIs = new HashSet<NodeColorInfoIF>();
-        this.unselectedNCIs = new HashSet<NodeColorInfoIF>(Arrays.asList(nodeColorInfo));
-        this.conflictingNCIs = new HashSet<NodeColorInfoIF>();//ncis that should be recolored
+        this.selectedColoredNCIs = new TreeSet<NodeColorInfoIF>();
+        this.selectedUncoloredNCIs = new TreeSet<NodeColorInfoIF>();
+        this.unselectedNCIs = new TreeSet<NodeColorInfoIF>(Arrays.asList(nodeColorInfo));
+        this.conflictingNCIs = new TreeSet<NodeColorInfoIF>();//ncis that should be recolored
     }
 
     /*
@@ -50,22 +52,22 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
         for (int i = 0; i < isPartitonSelected.length; i++) {
             isPartitonSelected[i] = c.isPartitionSelected(i);
         }
-        this.selectedColoredNCIs = new HashSet<NodeColorInfoIF>(c.getSelectedColoredNCIs().size());
+        this.selectedColoredNCIs = new TreeSet<NodeColorInfoIF>();
         for (NodeColorInfoIF nciOrig : c.getSelectedColoredNCIs()) {
             NodeColorInfo nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
             selectedColoredNCIs.add(nciCopy);
         }
-        this.selectedUncoloredNCIs = new HashSet<NodeColorInfoIF>(c.getSelectedUncoloredNCIs().size());
+        this.selectedUncoloredNCIs = new TreeSet<NodeColorInfoIF>();
         for (NodeColorInfoIF nciOrig : c.getSelectedUncoloredNCIs()) {
             NodeColorInfo nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
             selectedUncoloredNCIs.add(nciCopy);
         }
-        this.unselectedNCIs = new HashSet<NodeColorInfoIF>(c.getUnselectedNCIs().size());
+        this.unselectedNCIs = new TreeSet<NodeColorInfoIF>();
         for (NodeColorInfoIF nciOrig : c.getUnselectedNCIs()) {
             NodeColorInfo nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
             unselectedNCIs.add(nciCopy);
         }
-        this.conflictingNCIs = new HashSet<NodeColorInfoIF>(c.getConflictingNCIs().size());
+        this.conflictingNCIs = new TreeSet<NodeColorInfoIF>();
         for (NodeColorInfoIF nciOrig : c.getConflictingNCIs()) {
             NodeColorInfo nciCopy = nodeColorInfo[nciOrig.getNode().getId()];
             conflictingNCIs.add(nciCopy);
@@ -155,7 +157,7 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
 
     /*
      * performs uncoloring
-     * note: removing from the colored-nci-list has to be done manually.
+     * note: removing from the colored-nci-list has to be done manually after calling this method.
      */
     public void uncolorNci(NodeColorInfoIF nci) {
         if (!selectedColoredNCIs.contains(nci)) {
@@ -199,7 +201,7 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
      * returns a set of ncis that are in conflict with nci
      */
     public Set<NodeColorInfoIF> getConflictingNeighboursOfNci(NodeColorInfoIF nci, int conflictAmount) {
-        Set<NodeColorInfoIF> al = new HashSet<NodeColorInfoIF>(conflictAmount);
+        Set<NodeColorInfoIF> al = new TreeSet<NodeColorInfoIF>();
         for (Node neigh : nci.getNode().getNeighbours()) {
             NodeColorInfo neighNci = getNciById(neigh.getId());
             if (neighNci.getColor() == nci.getColor()) {

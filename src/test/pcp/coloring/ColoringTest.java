@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 import pcp.PCP;
 import pcp.model.Coloring;
-import pcp.model.ColoringDanger;
+//import pcp.model.ColoringDanger;
 import pcp.model.ColoringIF;
 import pcp.model.Node;
 import pcp.model.NodeColorInfoDanger;
@@ -36,18 +36,18 @@ public class ColoringTest {
      * performs all tests
      */
 
-    public static boolean performAllDanger(ColoringDanger c) {
-        if (testSolutionValidityNoConflicts((ColoringIF) c)
-                && testSolutionValiditySelection((ColoringIF) c)
-                && testCorrectConflictsValues((ColoringIF) c)
-                && testCorrectCountingColorValues(c)
-                && testCorrectSharedValues(c)
-                && testCorrectSetContents((ColoringIF) c)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+//    public static boolean performAllDanger(ColoringDanger c) {
+//        if (testSolutionValidityNoConflicts((ColoringIF) c)
+//                && testSolutionValiditySelection((ColoringIF) c)
+//                && testCorrectConflictsValues((ColoringIF) c)
+//                && testCorrectCountingColorValues(c)
+//                && testCorrectSharedValues(c)
+//                && testCorrectSetContents((ColoringIF) c)) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
     /*
      * Test if there are no two adjacent nodes colored with the same color
@@ -124,81 +124,81 @@ public class ColoringTest {
         return true;
     }
 
-    public static boolean testCorrectSharedValues(ColoringDanger c) {
-        for (NodeColorInfoIF nciIF: c.getSelectedUncoloredNCIs()) {
-            NodeColorInfoDanger nci = (NodeColorInfoDanger)nciIF;
-            int colorsShared = 0;
-            for (int i = 0; i < c.getChromatic(); i++) {
-                if (nci.isColorAvailable(i)) {
-                    boolean allNeighsHaveColorAvailable = true;
-                    for (Node neigh : nci.getNode().getNeighbours()) {
-                        NodeColorInfoDanger neighNci = c.getNciById(neigh.getId());
-                        if( neighNci.isColorUnavailable(i)){
-                            allNeighsHaveColorAvailable = false;
-                            break;
-                        }
-                    }
-                    if( allNeighsHaveColorAvailable){
-                        colorsShared++;
-                        if( !nci.isColorShared(i)){
-                            logger.severe( "TEST FAILED: sharedinfo is not correct!");
-                            //return false;
-                        }
-                    }
-                }   
-            }
-            if( nci.getColorsShared() != colorsShared){
-                logger.severe("TEST FAILED: coloresshared is not equal to testresults. node " + nci.getNode().getId() + "; " + nci.getColorsShared() + " " + colorsShared);
-                //return false;
-            }
-        }
-        logger.info("TEST SUCCEEDED: sharedinfos are correct.");
-        return true;
-    }
+//    public static boolean testCorrectSharedValues(ColoringDanger c) {
+//        for (NodeColorInfoIF nciIF: c.getSelectedUncoloredNCIs()) {
+//            NodeColorInfoDanger nci = (NodeColorInfoDanger)nciIF;
+//            int colorsShared = 0;
+//            for (int i = 0; i < c.getChromatic(); i++) {
+//                if (nci.isColorAvailable(i)) {
+//                    boolean allNeighsHaveColorAvailable = true;
+//                    for (Node neigh : nci.getNode().getNeighbours()) {
+//                        NodeColorInfoDanger neighNci = c.getNciById(neigh.getId());
+//                        if( neighNci.isColorUnavailable(i)){
+//                            allNeighsHaveColorAvailable = false;
+//                            break;
+//                        }
+//                    }
+//                    if( allNeighsHaveColorAvailable){
+//                        colorsShared++;
+//                        if( !nci.isColorShared(i)){
+//                            logger.severe( "TEST FAILED: sharedinfo is not correct!");
+//                            //return false;
+//                        }
+//                    }
+//                }   
+//            }
+//            if( nci.getColorsShared() != colorsShared){
+//                logger.severe("TEST FAILED: coloresshared is not equal to testresults. node " + nci.getNode().getId() + "; " + nci.getColorsShared() + " " + colorsShared);
+//                //return false;
+//            }
+//        }
+//        logger.info("TEST SUCCEEDED: sharedinfos are correct.");
+//        return true;
+//    }
 
     /*
      * Test if all counting colorvalues are correct
      */
-    public static boolean testCorrectCountingColorValues(ColoringDanger c) {
-//      logger.fine("\nTesting correct counting values");
-        for (Node n : c.getGraph().getNodes()) {
-//            logger.fine("Node " + n.getId());
-            NodeColorInfoDanger nci = c.getNciById(n.getId());
-            int colorsAvailable = 0;
-            int colorsUnavailable = 0;
-            for (int i = 0; i < c.getChromatic(); i++) {
-                if (nci.isColorAvailable(i)) {
-                    colorsAvailable++;
-                } else if (nci.getConflicts(i) > 0) {
-                    colorsUnavailable++;
-                }
-            }
-            int uncoloredNeighbours = 0;
-            int degreeToSelected = 0;
-            for (Node neigh : n.getNeighbours()) {
-                NodeColorInfoDanger neighNci = c.getNciById(neigh.getId());
-                if (neighNci.getColor() == PCP.NODE_UNCOLORED) {
-                    uncoloredNeighbours++;
-                }
-                if (neighNci.getColor() != PCP.NODE_UNSELECTED) {
-                    degreeToSelected++;
-                }
-            }
-            //compare to values holded by nci
-//            logger.fine("colorsAvailable:\t" + colorsAvailable + " vs " + nci.getColorsAvailable());
-//            logger.fine("diffcolors:\t" + colorsUnavailable + " vs " + nci.getDiffColoredNeighbours());
-//            logger.fine("uncoloredNeighs:\t" + uncoloredNeighbours + " vs " + nci.getUncoloredNeighbours());
-//            logger.fine("degreeToSelected\t" + degreeToSelected + " vs " + nci.getDegreeToSelected());
-
-            if (colorsAvailable != nci.getColorsAvailable() || colorsUnavailable != nci.getDiffColoredNeighbours()
-                    || uncoloredNeighbours != nci.getUncoloredNeighbours() || degreeToSelected != nci.getDegreeToSelected()) {
-                logger.severe("TEST FAILED: some colorvalues are not correct!");
-                return false;
-            }
-        }
-        logger.info("TEST SUCCEEDED: all counting color values are correct.");
-        return true;
-    }
+//    public static boolean testCorrectCountingColorValues(ColoringDanger c) {
+////      logger.fine("\nTesting correct counting values");
+//        for (Node n : c.getGraph().getNodes()) {
+////            logger.fine("Node " + n.getId());
+//            NodeColorInfoDanger nci = c.getNciById(n.getId());
+//            int colorsAvailable = 0;
+//            int colorsUnavailable = 0;
+//            for (int i = 0; i < c.getChromatic(); i++) {
+//                if (nci.isColorAvailable(i)) {
+//                    colorsAvailable++;
+//                } else if (nci.getConflicts(i) > 0) {
+//                    colorsUnavailable++;
+//                }
+//            }
+//            int uncoloredNeighbours = 0;
+//            int degreeToSelected = 0;
+//            for (Node neigh : n.getNeighbours()) {
+//                NodeColorInfoDanger neighNci = c.getNciById(neigh.getId());
+//                if (neighNci.getColor() == PCP.NODE_UNCOLORED) {
+//                    uncoloredNeighbours++;
+//                }
+//                if (neighNci.getColor() != PCP.NODE_UNSELECTED) {
+//                    degreeToSelected++;
+//                }
+//            }
+//            //compare to values holded by nci
+////            logger.fine("colorsAvailable:\t" + colorsAvailable + " vs " + nci.getColorsAvailable());
+////            logger.fine("diffcolors:\t" + colorsUnavailable + " vs " + nci.getDiffColoredNeighbours());
+////            logger.fine("uncoloredNeighs:\t" + uncoloredNeighbours + " vs " + nci.getUncoloredNeighbours());
+////            logger.fine("degreeToSelected\t" + degreeToSelected + " vs " + nci.getDegreeToSelected());
+//
+//            if (colorsAvailable != nci.getColorsAvailable() || colorsUnavailable != nci.getDiffColoredNeighbours()
+//                    || uncoloredNeighbours != nci.getUncoloredNeighbours() || degreeToSelected != nci.getDegreeToSelected()) {
+//                logger.severe("TEST FAILED: some colorvalues are not correct!");
+//                return false;
+//            }
+//        }
+//        logger.info("TEST SUCCEEDED: all counting color values are correct.");
+//        return true;
+//    }
 
     public static boolean testCorrectSetContents(ColoringIF c) {
         Set<NodeColorInfoIF> selectedColoredNCIs = new HashSet<NodeColorInfoIF>(c.getGraph().getNodes().length);

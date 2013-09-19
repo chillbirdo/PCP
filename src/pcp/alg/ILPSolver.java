@@ -66,7 +66,7 @@ public class ILPSolver {
                 }
             }
             cplex.addMinimize(objectiveExpr);
-            logger.finer("\nOBJECTIVE: " + objectiveExpr);
+//            logger.finer("\nOBJECTIVE: " + objectiveExpr);
 
             //build contraints 1: only one node-color-pair selected
             for (int p = 0; p < xL.length; p++) {
@@ -79,7 +79,7 @@ public class ILPSolver {
                     }
                 }
                 cplex.addEq(expr, 1);
-                logger.finer("\nCONTSTRAINT 1 for " + p + ": " + objectiveExpr);
+//                logger.finer("\nCONTSTRAINT 1 for " + p + ": " + objectiveExpr);
             }
 
             //build constraints 2: no two adjacent nodes may have the same color
@@ -109,17 +109,17 @@ public class ILPSolver {
                     expr.addTerm(1, c2[color]);
                 }
                 cplex.addLe(expr, 1);
-                logger.finer("\nCONTSTRAINT 2 for edge (" + edge[0] + ", " + edge[1] + "): " + objectiveExpr);
+//                logger.finer("\nCONTSTRAINT 2 for edge (" + edge[0] + ", " + edge[1] + "): " + objectiveExpr);
             }
 
             //solve, output and integrate solution into coloring
             if (cplex.solve()) {
-                logger.finest("Solution status = " + cplex.getStatus());
-                logger.fine("ILP Solution value  = " + cplex.getObjValue() + " conflicts.");
+//                logger.finest("Solution status = " + cplex.getStatus());
+//                logger.fine("ILP Solution value  = " + cplex.getObjValue() + " conflicts.");
                 result = (int) Math.round(cplex.getObjValue());
                 for (int p = 0; p < xL.length; p++) {
                     List<IloIntVar[]> vList = xL[p];
-                    logger.fine("Partition " + p + ":");
+//                    logger.fine("Partition " + p + ":");
                     for (int v = 0; v < vList.size(); v++) {
                         IloIntVar[] iiva = vList.get(v);
                         double[] val = cplex.getValues(iiva);
@@ -131,12 +131,12 @@ public class ILPSolver {
                                 int partition = xPartitionToRealPartition(p, selectedPartitionMapping);
                                 Node n = cc.getGraph().getNodeOfPartition(partition, v);
                                 NodeColorInfo nci = cc.getNciById(n.getId());
-                                logger.finest("coloring node " + nci.getNode().getId());
+//                                logger.finest("coloring node " + nci.getNode().getId());
                                 cc.selectNci(nci);
                                 cc.colorNci(nci, j);
                             }
                         }
-                        logger.finer(valStr);
+//                        logger.finer(valStr);
                     }
                 }
             }

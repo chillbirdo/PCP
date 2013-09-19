@@ -1,8 +1,5 @@
 package pcp.alg;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 import pcp.model.Coloring;
