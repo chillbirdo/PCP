@@ -35,10 +35,10 @@ public class PCP {
         //for .in:
         //double iterationsFactor = 0.3;
         //double tabuSizeFactor = 0.002;
-        
+
         Coloring cOSCD = optimized(file, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ONESTEPCD);
         cOSCD.logSolution();
-        
+
         logger.severe("\n\n\n-------------------------- ILP ----------------------");
         Coloring cILP = optimized(file, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ILP);
         cILP.logSolution();
@@ -85,6 +85,7 @@ public class PCP {
         }
 
         c = OneStepCD.calcInitialColoring(g);
+
         boolean couldReduceColors;
         int maxIterations = (int) Math.round((double) c.getGraph().getNodes().length * (double) c.getChromatic() * iterationsFactor);
         int tabuSize = (int) Math.round((double) c.getGraph().getNodes().length * (double) c.getChromatic() * tabuSizeFactor);
@@ -93,23 +94,24 @@ public class PCP {
 //        int tabuSize = c.getChromatic() * 50;
 //        logger.severe("tabuSize: " + tabuSize + "; maxIterations: " + maxIterations);
         do {
+            if (!ColoringTest.performAll(c)) {
+                logger.severe("TERMINATING: NOT ALL TESTS SUCCEDED!");
+                return null;
+            }
+//            if (!ColoringTest.testSolutionValidityNoConflicts(cc)) {
+//                logger.severe("TERMINATING: SOLUTION IS NOT VALID!");
+//                return null;
+//            }
+            
             couldReduceColors = false;
             ArrayList<Coloring> cL = Recolorer.recolorAllColors(c, recolorAlg);
             for (Coloring cc : cL) {
-                if( cc.getConflictingNCIs().isEmpty()){
+                if (cc.getConflictingNCIs().isEmpty()) {
                     c = cc;
                     couldReduceColors = true;
                     break;
                 }
                 if (LocalSearch.start(cc, tabuSize, maxIterations)) {
-//                    if (!ColoringTest.performAll(cc)) {
-//                        logger.severe("TERMINATING: NOT ALL TESTS SUCCEDED!");
-//                        return -1;
-//                    }
-                    if (!ColoringTest.testSolutionValidityNoConflicts(cc)) {
-                        logger.severe("TERMINATING: SOLUTION IS NOT VALID!");
-                        return null;
-                    }
                     c = cc;
                     couldReduceColors = true;
                     break;
@@ -171,7 +173,6 @@ public class PCP {
             ex.printStackTrace();
         }
     }
-
 //    public static void initialColoringTest() {
 //        try {
 ////            File folder = new File("pcp_instances/test/test1.pcp");
@@ -184,7 +185,6 @@ public class PCP {
 //            ex.printStackTrace();
 //        }
 //    }
-
 //    private static void testSelectorParameters() {
 //        Graph g = null;
 //        ColoringDanger c = null;
@@ -216,7 +216,6 @@ public class PCP {
 //        }
 //        logger.severe("\n\n best result: " + bestresultStr);
 //    }
-
 //    private static void testDangerVsOneStepCD() {
 //
 //        int bestresult = Integer.MAX_VALUE;

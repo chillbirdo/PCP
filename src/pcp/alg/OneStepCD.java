@@ -55,6 +55,7 @@ public class OneStepCD {
                     chosenColor = color;
                 }
             }
+            logger.finest("ONESTEPCD: coloring node " + maxMinDegreeNci.getNode().getId() + " with color " + chosenColor);
             c.colorNci(maxMinDegreeNci, chosenColor);
 //            if (maxMinDegreeNci.getConflicts(chosenColor) > 0) {
 //                conflicts += maxMinDegreeNci.getConflicts(chosenColor);

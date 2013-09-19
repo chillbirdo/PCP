@@ -14,8 +14,8 @@ public class Recolorer {
 
     /*
      * for every color c: deselect each nci with color c, recolor
-     * with recolorAlg and take the recoloring with fewest conflicts
-     * returns a new coloring, potentially with conflicts
+     * with recolorAlg and add the resulting coloring to the list. sort the list ascendingly by
+     * amount of conflicts
      */
     public static ArrayList<Coloring> recolorAllColors(final Coloring c, int recolorAlg) {
         ArrayList<Coloring> cL = new ArrayList<Coloring>(c.getChromatic());
@@ -24,6 +24,9 @@ public class Recolorer {
             ColoringIF cc = new Coloring(c);
             NodeSelector.unselectAllNcisOfColor(cc, color);
             cc.reduceColor(color);
+            
+            ColoringTest.performAll((Coloring)cc);
+            
 
             int res = 0;
             if (recolorAlg == PCP.RECOLOR_WITH_ILP) {

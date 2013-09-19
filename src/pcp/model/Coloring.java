@@ -139,6 +139,7 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
         this.selectedUncoloredNCIs.remove(nci);
         this.selectedColoredNCIs.add(nci);
         nci.setColor(color);
+        //update the conflicts array and the colorsAvailable variable of each neighbour
         for (Node neigh : nci.getNode().getNeighbours()) {
 //            logger.severe("SCHAU: " + neigh.getId());
             NodeColorInfo neighNci = getNciById(neigh.getId());
@@ -148,7 +149,7 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
             }
         }
 
-        //did the coloring of that node produce conflicts?
+        //did the coloring of that node produce conflicts
         if (nci.getConflicts(color) > 0) {
             Set<NodeColorInfoIF> conflictingNcis = getConflictingNeighboursOfNci(nci, nci.getConflicts(color));
             getConflictingNCIs().addAll(conflictingNcis);

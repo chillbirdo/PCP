@@ -24,9 +24,9 @@ public class ColoringTest {
      */
     public static boolean performAll(Coloring c) {
         if (testSolutionValidityNoConflicts(c)
-                && testSolutionValiditySelection(c)
                 && testCorrectConflictsValues(c)
-                && testCorrectSetContents(c)) {
+                && testCorrectSetContents(c)
+                && testSolutionValiditySelection(c)) {
             return true;
         } else {
             return false;
@@ -199,7 +199,6 @@ public class ColoringTest {
 //        logger.info("TEST SUCCEEDED: all counting color values are correct.");
 //        return true;
 //    }
-
     public static boolean testCorrectSetContents(ColoringIF c) {
         Set<NodeColorInfoIF> selectedColoredNCIs = new HashSet<NodeColorInfoIF>(c.getGraph().getNodes().length);
         Set<NodeColorInfoIF> selectedUncoloredNCIs = new HashSet<NodeColorInfoIF>(c.getGraph().getNodes().length);

@@ -20,22 +20,22 @@ public class ILPSolver {
         
         //find all unselected partitions and create a mapping partition_index -> index_in_m
         //find the size of m
-        int[] selectedPartitionMapping = new int[cc.getGraph().getPartitionAmount()];
-        int selectedPartitionCount = 0;
-        for (int i = 0; i < selectedPartitionMapping.length; i++) {
-            selectedPartitionMapping[i] = -1;
+        int[] unSelectedPartitionMapping = new int[cc.getGraph().getPartitionAmount()];
+        int unSelectedPartitionCount = 0;
+        for (int i = 0; i < unSelectedPartitionMapping.length; i++) {
+            unSelectedPartitionMapping[i] = -1;
         }
         for (int i = 0; i < cc.getGraph().getPartitionAmount(); i++) {
             if (!cc.isPartitionSelected(i)) {
-                selectedPartitionMapping[i] = selectedPartitionCount;
-                selectedPartitionCount++;
+                unSelectedPartitionMapping[i] = unSelectedPartitionCount;
+                unSelectedPartitionCount++;
             }
         }
 
         //create and fill m
-        List[] mL = new List[selectedPartitionCount];
+        List[] mL = new List[unSelectedPartitionCount];
         for (int p = 0; p < mL.length; p++) {
-            int partition = xPartitionToRealPartition(p, selectedPartitionMapping);
+            int partition = xPartitionToRealPartition(p, unSelectedPartitionMapping);
             Node[] nodesInPartition = cc.getGraph().getNodesOfPartition(partition);
             mL[p] = new ArrayList<ArrayList<Integer>>(nodesInPartition.length);
             for (int v = 0; v < nodesInPartition.length; v++) {
@@ -45,6 +45,15 @@ public class ILPSolver {
             }
         }
 
+        //log m
+        for( int partition = 0; partition < mL.length; partition++){
+            List nodeList = mL[partition];
+            for( Object colorListObj : nodeList){
+                List colorList = (ArrayList)colorListObj;
+                
+            }
+        }
+        
         //solve ILP with m
         try {
             IloCplex cplex = new IloCplex();
@@ -88,7 +97,7 @@ public class ILPSolver {
             for (Integer[] edge : cc.getGraph().getEdges()) {
                 Node n1 = cc.getGraph().getNode(edge[0]);
                 Node n2 = cc.getGraph().getNode(edge[1]);
-                if (selectedPartitionMapping[n1.getPartition()] != -1 && selectedPartitionMapping[n2.getPartition()] != -1) {
+                if (unSelectedPartitionMapping[n1.getPartition()] != -1 && unSelectedPartitionMapping[n2.getPartition()] != -1) {
                     xEdges.add(edge);
                 }
             }
@@ -98,8 +107,8 @@ public class ILPSolver {
                 Node n1 = cc.getGraph().getNode(edge[0]);
                 Node n2 = cc.getGraph().getNode(edge[1]);
 
-                int p1 = selectedPartitionMapping[n1.getPartition()];
-                int p2 = selectedPartitionMapping[n2.getPartition()];
+                int p1 = unSelectedPartitionMapping[n1.getPartition()];
+                int p2 = unSelectedPartitionMapping[n2.getPartition()];
                 int v1 = n1.getIdxInPartition();
                 int v2 = n2.getIdxInPartition();
                 IloIntVar[] c1 = (IloIntVar[]) xL[p1].get(v1);
@@ -128,7 +137,7 @@ public class ILPSolver {
                             valStr += val[j] + " ";
                             //integrate
                             if (Math.round(val[j]) == 1) {
-                                int partition = xPartitionToRealPartition(p, selectedPartitionMapping);
+                                int partition = xPartitionToRealPartition(p, unSelectedPartitionMapping);
                                 Node n = cc.getGraph().getNodeOfPartition(partition, v);
                                 NodeColorInfo nci = cc.getNciById(n.getId());
 //                                logger.finest("coloring node " + nci.getNode().getId());

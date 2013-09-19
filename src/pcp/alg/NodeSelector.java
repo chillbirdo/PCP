@@ -66,7 +66,7 @@ public class NodeSelector {
                 c.uncolorNci(nci);
                 it.remove();
                 c.unselectNci(nci);
-                logger.finest("unselected node " + nci.getNode().getId());
+                logger.finest("NODESELECTOR: unselected node " + nci.getNode().getId());
                 //SPEEDUP: write method to unselect a colored node
             }
         }
