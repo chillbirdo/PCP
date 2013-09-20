@@ -25,9 +25,8 @@ public class Recolorer {
             NodeSelector.unselectAllNcisOfColor(cc, color);
             cc.reduceColor(color);
             
-            ColoringTest.performAll((Coloring)cc);
+//            ColoringTest.performAll((Coloring)cc);
             
-
             int res = 0;
             if (recolorAlg == PCP.RECOLOR_WITH_ILP) {
                 res = ILPSolver.performOnUnselected((Coloring) cc);
