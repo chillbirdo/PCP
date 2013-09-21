@@ -22,21 +22,40 @@ public class Recolorer {
         for (int color = 0; color < c.getChromatic(); color++) {
 //            logger.info("RECOLORER: recoloring color " + color + " with " + ((recolorAlg == 0) ? "OnStepCD" : "ILP"));
             ColoringIF cc = new Coloring(c);
+//            ColoringIF test = new Coloring(cc);
+
             NodeSelector.unselectAllNcisOfColor(cc, color);
+//            NodeSelector.unselectAllNcisOfColor(test, color);
+
             cc.reduceColor(color);
-            
+//            test.reduceColor(color);
+
 //            ColoringTest.performAll((Coloring)cc);
-            
+
             int res = 0;
             if (recolorAlg == PCP.RECOLOR_WITH_ILP) {
                 res = ILPSolver.performOnUnselected((Coloring) cc);
+            }else if ( recolorAlg == PCP.RECOLOR_WITH_ILP2){
+                res = ILPSolver2.performOnUnselected((Coloring) cc);
             } else if (recolorAlg == PCP.RECOLOR_WITH_ONESTEPCD) {
                 res = OneStepCD.performOnUnselected((Coloring) cc);
             }
+
+//            OneStepCD.performOnUnselected((Coloring) test);
+
+
             cL.add((Coloring) cc);
             int conflictingNcis = cc.getConflictingNCIs().size();
             logger.info("RECOLORER: recolored color " + color + "  with " + ((recolorAlg == 0) ? "OnStepCD" : "ILP") + ", conflictingNcis: " + conflictingNcis);
-            if( conflictingNcis == 0){
+
+//            int conflictingNcisONESTEPCD = test.getConflictingNCIs().size();
+//            logger.severe("RECOLORER: recolored color " + color + "  with " + "OnStepCD" + ", conflictingNcis: " + conflictingNcisONESTEPCD);
+
+//            if( conflictingNcis > conflictingNcisONESTEPCD){
+//                logger.severe("ACHTUNG GEFAHR: " + conflictingNcis + " zu " + conflictingNcisONESTEPCD);
+//            }
+            
+            if (conflictingNcis == 0) {
                 logger.info("RECOLORER: found new soloution with chromatic " + cc.getChromatic());
                 break;
             }

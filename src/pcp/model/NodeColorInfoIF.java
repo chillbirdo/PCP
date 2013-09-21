@@ -2,7 +2,7 @@ package pcp.model;
 
 import java.util.List;
 
-public interface NodeColorInfoIF {
+public interface NodeColorInfoIF{
 
     public void initConflictsArray(int maxColors);
 

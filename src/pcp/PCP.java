@@ -23,24 +23,26 @@ public class PCP {
     public static final int NODE_UNSELECTED = -2;
     public static final int RECOLOR_WITH_ONESTEPCD = 0;
     public static final int RECOLOR_WITH_ILP = 1;
+    public static final int RECOLOR_WITH_ILP2 = 2;
 
     public static void main(String[] args) {
-        allFiles( RECOLOR_WITH_ILP);
-//        File file = new File("pcp_instances/pcp/n100p5t2s1.pcp");
+        allFiles( RECOLOR_WITH_ILP2);
+////        File file = new File("pcp_instances/pcp/n100p5t2s1.pcp");
+//        File file = new File("pcp_instances/in/dsjc500.5-1.in");
 ////        File file = new File("pcp_instances/pcp/n20p5t2s2.pcp");
 ////        best factors:
 ////        for .pcp:
-//        double iterationsFactor = 10;
-//        double tabuSizeFactor = 0.04;
+////        double iterationsFactor = 10;
+////        double tabuSizeFactor = 0.04;
 //        //for .in:
-//        //double iterationsFactor = 0.3;
-//        //double tabuSizeFactor = 0.002;
+//        double iterationsFactor = 0.3;
+//        double tabuSizeFactor = 0.002;
 //
-//        Coloring cOSCD = optimized(file, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ONESTEPCD);
-//        cOSCD.logSolution();
+////        Coloring cOSCD = optimized(file, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ONESTEPCD);
+////        cOSCD.logSolution();
 //
 //        logger.severe("\n\n\n-------------------------- ILP ----------------------");
-//        Coloring cILP = optimized(file, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ILP);
+//        Coloring cILP = optimized(file, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ILP2);
 //        cILP.logSolution();
     }
 
@@ -62,7 +64,7 @@ public class PCP {
             for (final File fileEntry : al) {
                 long timeMillisPerFile = System.currentTimeMillis();
                 if (fileEntry.isFile()) {
-                    Coloring c = optimized(fileEntry, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ILP);
+                    Coloring c = optimized(fileEntry, tabuSizeFactor, iterationsFactor, recolorAlg);
                     int chromatic = c.getChromatic();
                     double timePassedPerFile = (double) (System.currentTimeMillis() - timeMillisPerFile) / 1000d;
                     logger.severe(fileEntry.getName() + "\t\t" + timePassedPerFile + "\t\t" + tabuSizeFactor + "\t\t" + iterationsFactor + "\t\t" + chromatic);
@@ -102,7 +104,7 @@ public class PCP {
 //                logger.severe("TERMINATING: SOLUTION IS NOT VALID!");
 //                return null;
 //            }
-            
+
             couldReduceColors = false;
             ArrayList<Coloring> cL = Recolorer.recolorAllColors(c, recolorAlg);
             for (Coloring cc : cL) {

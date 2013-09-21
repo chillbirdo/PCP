@@ -5,14 +5,18 @@ import ilog.cplex.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 import pcp.model.Coloring;
 import pcp.model.Node;
 import pcp.model.NodeColorInfo;
+import pcp.model.NodeColorInfoIF;
 
-public class ILPSolver {
+public class ILPSolver2 {
 
-    private static final Logger logger = Logger.getLogger(ILPSolver.class.getName());
+    private static final Logger logger = Logger.getLogger(ILPSolver2.class.getName());
 
     public static int performOnUnselected(Coloring cc) {
 
@@ -32,36 +36,18 @@ public class ILPSolver {
             }
         }
 
-        logger.finest("- ILP: Log some input data: -");
-
-
-        //create and fill m
-        List[] mL = new List[unSelectedPartitionCount];
-        for (int p = 0; p < mL.length; p++) {
-            logger.finest("\tpartition: " + p);
-            int partition = xPartitionToRealPartition(p, unSelectedPartitionMapping);
-            Node[] nodesInPartition = cc.getGraph().getNodesOfPartition(partition);
-            mL[p] = new ArrayList<ArrayList<Integer>>(nodesInPartition.length);
-            for (int v = 0; v < nodesInPartition.length; v++) {
-                Node n = nodesInPartition[v];
-                logger.finest("\tnode: " + n.getId());
-                NodeColorInfo nci = cc.getNciById(n.getId());
-                mL[p].add(nci.getConflictArray());
-            }
-        }
-
-        //log m
-        for (int partition = 0; partition < mL.length; partition++) {
-            logger.finest("\tpartition " + partition);
-            List nodeList = mL[partition];
-            for (Object colorListObj : nodeList) {
-                String str = "";
-                List colorList = (ArrayList) colorListObj;
-                for (Object colorObj : colorList) {
-                    Integer color = (Integer) colorObj;
-                    str += color + " ";
+        //build datastructure that maps colored ncis to lists of unselected ncis (in unselected partitions)
+        Map<NodeColorInfoIF, List<Node>> connectionMap = new TreeMap<NodeColorInfoIF, List<Node>>();
+        for (NodeColorInfoIF insideNci : cc.getUnselectedNCIs()) {
+            for (Node neigh : insideNci.getNode().getNeighbours()) {
+                NodeColorInfoIF outsideNci = cc.getNciById(neigh.getId());
+                if (cc.getSelectedColoredNCIs().contains(outsideNci)) {
+                    if (!connectionMap.containsKey(outsideNci)) {
+                        List<Node> l = new ArrayList<Node>(cc.getGraph().getHighestDegree());
+                        connectionMap.put(outsideNci, l);
+                    }
+                    connectionMap.get(outsideNci).add(insideNci.getNode());
                 }
-                logger.finest("\t" + str);
             }
         }
 
@@ -70,25 +56,43 @@ public class ILPSolver {
             IloCplex cplex = new IloCplex();
             cplex.setOut(null);
 
-            //initialize variables and objective expression
-            List[] xL = new List[mL.length];
-            IloLinearIntExpr objectiveExpr = cplex.linearIntExpr();
+            //init z variables and objective
+            IloIntVar[] za = new IloIntVar[connectionMap.size()];
+            for (int i = 0; i < za.length; i++) {
+                za[i] = cplex.boolVar();
+            }
+            cplex.addMinimize(cplex.sum(za));
+
+            //initialize x variable datastructure
+            List[] xL = new List[unSelectedPartitionCount];
             for (int p = 0; p < xL.length; p++) {
-                xL[p] = new ArrayList<IloIntVar[]>(mL[p].size());
-                for (int v = 0; v < mL[p].size(); v++) {
-                    List conflictList = (List) mL[p].get(v);
-                    IloIntVar[] iiva = new IloIntVar[conflictList.size()];
+                int realPartition = xPartitionToRealPartition(p, unSelectedPartitionMapping);
+                int partitionSize = cc.getGraph().getPartitionSize(realPartition);
+                xL[p] = new ArrayList<IloIntVar[]>(partitionSize);
+                for (int v = 0; v < partitionSize; v++) {
+                    IloIntVar[] iiva = new IloIntVar[cc.getChromatic()];
                     for (int c = 0; c < iiva.length; c++) {
                         iiva[c] = cplex.boolVar();
-                        objectiveExpr.addTerm((Integer) conflictList.get(c), iiva[c]);
                     }
                     xL[p].add(iiva);
                 }
             }
-            cplex.addMinimize(objectiveExpr);
-//            logger.finer("\nOBJECTIVE: " + objectiveExpr);
 
-            //build contraints 1: only one node-color-pair selected
+            //add x->z dependencies
+            int zIdx = 0;
+            for (Entry e : connectionMap.entrySet()) {
+                NodeColorInfoIF outsideNci = (NodeColorInfoIF) e.getKey();
+                List<Node> insideNodes = (List<Node>) e.getValue();
+                IloIntVar[] xVars = new IloIntVar[insideNodes.size()];
+                for (int i = 0; i < xVars.length; i++) {
+                    Node insideNode = insideNodes.get(i);
+                    xVars[i] = ((IloIntVar[]) xL[unSelectedPartitionMapping[insideNode.getPartition()]].get(insideNode.getIdxInPartition()))[outsideNci.getColor()];
+                }
+                cplex.add(cplex.ifThen(cplex.ge(cplex.sum(xVars), 1), cplex.eq(za[zIdx], 1)));
+                zIdx++;
+            }
+
+            //add contraints 1: only one node-color-pair selected
             for (int p = 0; p < xL.length; p++) {
                 IloLinearIntExpr expr = cplex.linearIntExpr();
                 for (int v = 0; v < xL[p].size(); v++) {
@@ -101,7 +105,7 @@ public class ILPSolver {
                 cplex.addEq(expr, 1);
             }
 
-            //build constraints 2: no two adjacent nodes may have the same color
+            //add constraints 2: no two adjacent nodes may have the same color
             //select only edges that are between nodes represented by x:
             ArrayList<Integer[]> xEdges = new ArrayList<Integer[]>();
             for (Integer[] edge : cc.getGraph().getEdges()) {
