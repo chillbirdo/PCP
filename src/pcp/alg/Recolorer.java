@@ -20,7 +20,6 @@ public class Recolorer {
     public static ArrayList<Coloring> recolorAllColors(final Coloring c, int recolorAlg) {
         ArrayList<Coloring> cL = new ArrayList<Coloring>(c.getChromatic());
         for (int color = 0; color < c.getChromatic(); color++) {
-//            logger.info("RECOLORER: recoloring color " + color + " with " + ((recolorAlg == 0) ? "OnStepCD" : "ILP"));
             ColoringIF cc = new Coloring(c);
 //            ColoringIF test = new Coloring(cc);
 
@@ -49,7 +48,7 @@ public class Recolorer {
             logger.info("RECOLORER: recolored color " + color + "  with " + ((recolorAlg == 0) ? "OnStepCD" : "ILP") + ", conflictingNcis: " + conflictingNcis);
 
 //            int conflictingNcisONESTEPCD = test.getConflictingNCIs().size();
-//            logger.severe("RECOLORER: recolored color " + color + "  with " + "OnStepCD" + ", conflictingNcis: " + conflictingNcisONESTEPCD);
+//            logger.info("RECOLORER: recolored color " + color + "  with " + "OnStepCD" + ", conflictingNcis: " + conflictingNcisONESTEPCD);
 
 //            if( conflictingNcis > conflictingNcisONESTEPCD){
 //                logger.severe("ACHTUNG GEFAHR: " + conflictingNcis + " zu " + conflictingNcisONESTEPCD);

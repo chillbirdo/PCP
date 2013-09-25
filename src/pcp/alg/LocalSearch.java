@@ -23,7 +23,7 @@ public class LocalSearch {
         int iterations = 0;
         int tabuSizeTooLong = 0;
         while (c.getConflictingNCIs().size() > 0 && iterations <= maxIterations) {
-            //find node-color-pair with least resulting conflicts
+            //find node-color-pair with fewest resulting conflicts
             NodeColorInfoIF chosenNci = null;
             NodeColorInfoIF chosenConflictingNci = null;
             int chosenColor = 0;
@@ -53,6 +53,7 @@ public class LocalSearch {
                     break;
                 }
             }
+            //if all possibilities are on the tabu list
             if (chosenConflictingNci == null) {
                 for (int i = 0; i < tabuData.length; i++) {
                     for (int j = 0; j < tabuData[0].length; j++) {
@@ -61,7 +62,7 @@ public class LocalSearch {
                 }
                 iterations = 0;
                 tabuSize = tabuSize / 2;
-//                logger.severe("LOCALSEARCH: all possibilities are on the tabu list. New tabusize: " + tabuSize);
+                logger.severe("LOCALSEARCH: all possibilities are on the tabu list. New tabusize: " + tabuSize);
                 if (tabuSize < c.getChromatic()) {
                     return false;
                 }

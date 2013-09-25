@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 import pcp.model.Graph;
 import java.util.logging.Logger;
+import pcp.alg.ILPSolverExact;
 //import pcp.alg.Danger;
 import pcp.alg.LocalSearch;
 import pcp.alg.OneStepCD;
@@ -26,26 +27,69 @@ public class PCP {
     public static final int RECOLOR_WITH_ILP2 = 2;
 
     public static void main(String[] args) {
-        allFiles( RECOLOR_WITH_ILP2);
-////        File file = new File("pcp_instances/pcp/n100p5t2s1.pcp");
-//        File file = new File("pcp_instances/in/dsjc500.5-1.in");
-////        File file = new File("pcp_instances/pcp/n20p5t2s2.pcp");
-////        best factors:
-////        for .pcp:
-////        double iterationsFactor = 10;
-////        double tabuSizeFactor = 0.04;
-//        //for .in:
-//        double iterationsFactor = 0.3;
-//        double tabuSizeFactor = 0.002;
-//
-////        Coloring cOSCD = optimized(file, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ONESTEPCD);
-////        cOSCD.logSolution();
-//
-//        logger.severe("\n\n\n-------------------------- ILP ----------------------");
-//        Coloring cILP = optimized(file, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ILP2);
-//        cILP.logSolution();
+          allExact();
+//        allFiles( RECOLOR_WITH_ILP2);
     }
 
+//    public static void main(String[] args) {
+//        File file = new File("pcp_instances/pcp/n20p5t2s1.pcp");
+////        File file = new File("pcp_instances/pcp/n100p5t2s1.pcp");
+////        File file = new File("pcp_instances/in/dsjc500.5-1.in");
+//        
+//        //        File file = new File("pcp_instances/pcp/n20p5t2s2.pcp");
+////        best factors:
+////        for .pcp:
+//        double iterationsFactor = 10;
+//        double tabuSizeFactor = 0.04;
+//        //for .in:
+////        double iterationsFactor = 0.3;
+////        double tabuSizeFactor = 0.002;
+//
+////        logger.severe("\n\n\n-------------------------- ILP ----------------------");
+//        Coloring cILP = solveExact(file);
+////        Coloring cILP = optimized(file, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ONESTEPCD);
+//        cILP.logSolution();
+//    }
+
+    private static Coloring solveExact(File instanceFile) {
+        Graph g = null;
+        Coloring c = null;
+         try {
+            g = InstanceReader.readInstance(instanceFile.getAbsolutePath());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        c = OneStepCD.calcInitialColoring(g);
+        c = ILPSolverExact.solve(g, c.getChromatic());
+        
+        return c;
+    }
+    
+    public static void allExact() {
+        try {
+            int minChromaticSum = Integer.MAX_VALUE;
+
+            int chromaticSum = 0;
+            File folder = new File("pcp_instances/pcp20/");
+            File[] allfiles = folder.listFiles();
+            List<File> al = Arrays.asList(allfiles);
+            Collections.sort(al);
+            for (final File fileEntry : al) {
+                long timeMillisPerFile = System.currentTimeMillis();
+                if (fileEntry.isFile()) {
+                    Coloring c = solveExact(fileEntry);
+                    int chromatic = c.getChromatic();
+                    double timePassedPerFile = (double) (System.currentTimeMillis() - timeMillisPerFile) / 1000d;
+                    logger.severe(fileEntry.getName() + "\t\t" + timePassedPerFile + "\n");
+                    chromaticSum += chromatic;
+                }
+            }
+            logger.severe("\n FINISHED! SUM: " + chromaticSum);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    
     public static void allFiles(int recolorAlg) {
         try {
             int minChromaticSum = Integer.MAX_VALUE;
@@ -53,8 +97,8 @@ public class PCP {
 //            double iterationsFactor = 10;
 //            double tabuSizeFactor = 0.04;
             //in
-            double iterationsFactor = 0.3;
-            double tabuSizeFactor = 0.002;
+            double iterationsFactor = 0.5;
+            double tabuSizeFactor = 0.003;
 
             int chromaticSum = 0;
             File folder = new File("pcp_instances/in/");
