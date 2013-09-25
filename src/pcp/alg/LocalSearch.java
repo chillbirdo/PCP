@@ -55,24 +55,19 @@ public class LocalSearch {
             }
             //if all possibilities are on the tabu list
             if (chosenConflictingNci == null) {
-                for (int i = 0; i < tabuData.length; i++) {
-                    for (int j = 0; j < tabuData[0].length; j++) {
-                        tabuData[i][j] = 0;
-                    }
-                }
-                iterations = 0;
-                tabuSize = tabuSize / 2;
-                logger.severe("LOCALSEARCH: all possibilities are on the tabu list. New tabusize: " + tabuSize);
-                if (tabuSize < c.getChromatic()) {
-                    return false;
-                }
-                tabuSizeTooLong++;
+                logger.severe("LOCALSEARCH: all possibilities are on the tabu list. IT IS TOO LONG!");
+                iterations++;
                 continue;
             }
 
             //add chosen node and color to tabulist
+//            int randomPercent = 1000;
+//            int randomRange = Math.round((tabuSize/100))*randomPercent;
+//            int randomPart = (int) Math.floor(Math.random()*(2*randomRange))-randomRange; 
+//            tabuData[chosenNci.getNode().getId()][chosenColor] = iterations + tabuSize + randomPart;
             tabuData[chosenNci.getNode().getId()][chosenColor] = iterations + tabuSize;
-
+            
+            
             //set chosen color to chosen node
             c.uncolorNci(chosenConflictingNci);
             c.getSelectedColoredNCIs().remove(chosenConflictingNci);

@@ -27,8 +27,9 @@ public class PCP {
     public static final int RECOLOR_WITH_ILP2 = 2;
 
     public static void main(String[] args) {
-          allExact();
-//        allFiles( RECOLOR_WITH_ILP2);
+//          allExact();
+//        allFiles( RECOLOR_WITH_ONESTEPCD);
+        tabuSizeTest();
     }
 
 //    public static void main(String[] args) {
@@ -94,14 +95,14 @@ public class PCP {
         try {
             int minChromaticSum = Integer.MAX_VALUE;
             //pcp
-//            double iterationsFactor = 10;
-//            double tabuSizeFactor = 0.04;
+            double iterationsFactor = 10;
+            double tabuSizeFactor = 0.04;
             //in
-            double iterationsFactor = 0.5;
-            double tabuSizeFactor = 0.003;
+//            double iterationsFactor = 0.5;
+//            double tabuSizeFactor = 0.003;
 
             int chromaticSum = 0;
-            File folder = new File("pcp_instances/in/");
+            File folder = new File("pcp_instances/pcp/");
             File[] allfiles = folder.listFiles();
             List<File> al = Arrays.asList(allfiles);
             Collections.sort(al);
@@ -185,10 +186,10 @@ public class PCP {
         try {
             int minChromaticSum = Integer.MAX_VALUE;
             String minChromaticStr = "";
-            double iterationsFactor = 0.1;
-            File folder = new File("pcp_instances/in/");
+            double iterationsFactor = 5;
+            File folder = new File("pcp_instances/pcp/");
             int sumOverall = 0;
-            for (double tabuSizeFactor = 0.0001; tabuSizeFactor <= 0.006; tabuSizeFactor += 0.0002) {
+            for (double tabuSizeFactor = 0.016; tabuSizeFactor <= 0.05; tabuSizeFactor += 0.002) {
 //                for (double iterationsFactor = 1; iterationsFactor <= 10.1; iterationsFactor += 0.5) {
                 int chromaticSum = 0;
                 long timeMillisPerFolder = System.currentTimeMillis();
