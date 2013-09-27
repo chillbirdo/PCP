@@ -1,9 +1,0 @@
-- das problem ist dass bei addplayer immer der selbe player geadded wird. 
-gibt es zum beispiel 2 remoteplayers, dann sind zwar 2 einträge im remoteplayers objekt,
-beide zeigen aber auf den selben controller!!   
-
-
-- todo:
-schau dir js static fields an! welche variablen werden beim erstellen einer neuen
-instanz kopiert, welche nicht? eine private variable in der baseclass wird zb nicht 
-kopiert, eine variable im prototypen der baseclass schon.
