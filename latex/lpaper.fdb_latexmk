@@ -1,0 +1,23 @@
+# Fdb version 3
+["bibtex lpaper"] 1380297683 "lpaper.aux" "lpaper.bbl" "lpaper" 
+  "/usr/share/texlive/texmf-dist/bibtex/bst/base/unsrt.bst" 1292289607 18030 1376b4b231b50c66211e47e42eda2875 ""
+  "lpaper.aux" 1380298752 491 b952a9bcc9d4b5b588003d95846bed54 ""
+  "lpaper.bcf" 0 -1 0 ""
+  "pcp.bib" 1380292677 5286 9f53faa83a6125c4597f8ae1fcfa8274 ""
+  (generated)
+  "lpaper.blg"
+  "lpaper.bbl"
+["pdflatex"] 1380298752 "lpaper.tex" "lpaper.pdf" "lpaper" 
+  "/usr/share/texlive/texmf-dist/tex/latex/base/article.cls" 1254151887 20571 b8bd218bf2e18b4f5817ee643cd9c515 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/base/latex209.def" 1254151887 14704 a7e97ce6f41cceee174564f0d990c017 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/base/latexsym.sty" 1254151887 2717 322ad1a37c6c9974574bf6f55cbc9d77 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo" 1254151887 9042 248dfba326a1b8733d6bb8e0a3ac1e49 ""
+  "/usr/share/texlive/texmf-dist/tex/latex/base/tracefnt.sty" 1254151887 8500 906c11ba8cb5c1b955f0c0dd853bc38d ""
+  "/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd" 1254151887 1873 1e483a609ec3be8f16f6337fa0dc20e3 ""
+  "lpaper.aux" 1380298752 491 b952a9bcc9d4b5b588003d95846bed54 ""
+  "lpaper.bbl" 1380297683 256 267519c3565aaab638ac16323a456de2 "bibtex lpaper"
+  "lpaper.tex" 1380298751 2907 ffbf848a16b26aff22cf1dd2fddb6dbc ""
+  (generated)
+  "lpaper.aux"
+  "lpaper.log"
+  "lpaper.pdf"

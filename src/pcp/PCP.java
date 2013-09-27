@@ -179,7 +179,7 @@ public class PCP {
      * in: ts 0.002, it 0.3
      * 
      * best parameters (edges * colors * factor)
-     * pcp: ts 0.0009, it 0.1
+     * pcp: ts 0.036, it 5
      * in: 
      */
     public static void tabuSizeTest() {
