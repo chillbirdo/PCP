@@ -3,44 +3,44 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: lpaper.aux
 The style file: unsrt.bst
 Database file #1: pcp.bib
-You've used 1 entry,
+You've used 5 entries,
             1791 wiz_defined-function locations,
-            450 strings with 3668 characters,
-and the built_in function-call counts, 199 in all, are:
-= -- 12
-> -- 8
-< -- 0
-+ -- 3
-- -- 2
-* -- 8
-:= -- 36
-add.period$ -- 3
-call.type$ -- 1
-change.case$ -- 1
+            478 strings with 4393 characters,
+and the built_in function-call counts, 1332 in all, are:
+= -- 123
+> -- 52
+< -- 1
++ -- 19
+- -- 14
+* -- 94
+:= -- 204
+add.period$ -- 15
+call.type$ -- 5
+change.case$ -- 5
 chr.to.int$ -- 0
-cite$ -- 1
-duplicate$ -- 12
-empty$ -- 26
-format.name$ -- 2
-if$ -- 44
+cite$ -- 5
+duplicate$ -- 60
+empty$ -- 134
+format.name$ -- 14
+if$ -- 299
 int.to.chr$ -- 0
-int.to.str$ -- 1
-missing$ -- 1
-newline$ -- 8
-num.names$ -- 1
-pop$ -- 7
+int.to.str$ -- 5
+missing$ -- 5
+newline$ -- 28
+num.names$ -- 5
+pop$ -- 16
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 4
+skip$ -- 28
 stack$ -- 0
-substring$ -- 0
-swap$ -- 2
-text.length$ -- 0
+substring$ -- 107
+swap$ -- 15
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 1
-width$ -- 2
-write$ -- 12
+while$ -- 14
+width$ -- 6
+write$ -- 57

@@ -189,14 +189,3 @@ year = {2001},
 note = {},
 issn = {},
 }
-
-@article{campelo-04,
-author = { Y. Corrêa, M. Campelo, Cliques},
-title = { Cliques, holes and the vertex coloring polytope},
-journal = {Information Processing Letters},
-volume = {89},
-number = {},
-year = {2004},
-note = {},
-issn = {},
-}
