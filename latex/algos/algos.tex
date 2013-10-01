@@ -1,0 +1,53 @@
+
+\documentclass{article}
+
+\usepackage{epsfig}
+%\usepackage{algorithm2e}
+%\usepackage[linesnumbered]{algorithm2e}
+%\usepackage[linesnumbered,ruled]{algorithm2e}
+
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+
+
+\title{Uebersicht Algos}
+\author{Gilbert Fritz, 0827276 / 066931}
+
+\begin{document}
+
+\maketitle
+
+\section{OneStepCD}
+
+\begin{algorithm}
+\KwIn{A uncolored Graph G=(V,E)}
+Remove from G all edges $(i,j) \in E$ : $i,j \in V^k$ for some $k=1,\ldots,q$\; 
+Set $V' \gets \emptyset $\;
+\While{$|V'| < q$} {
+  Set $X \gets \emptyset $\;
+  \For{$k=1,\ldots,q$ : $V_k \cap V'=0$}{
+    Set $X \gets X \cup argmin\{CD(i) : i \in V^k\}$\; 
+  }
+  Set $x \gets argmax\{CD(i) : i \in X \}$\;
+  Set $V' \gets V' \cup \{x\}$\;
+  Assign the minimum possible colour to x\;
+  Remove from G all nodes in $V_{c(x)} \setminus \{x\} $
+}
+\caption{{\sc OneStepCD}}
+\label{algo:max}
+\end{algorithm}
+
+
+\section{GesamtAlgo}
+
+
+\section{ILP Conflicts}
+
+
+\section{State-of-the-art}
+ 
+
+\section{Bezug zum oben angef\"uhrten Studium}
+
+
+			     			      
+\end{document}

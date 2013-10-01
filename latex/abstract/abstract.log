@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.8.5)  28 SEP 2013 23:06
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.8.5)  1 OCT 2013 12:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**lpaper.tex
-(./lpaper.tex
+**abstract.tex
+(./abstract.tex
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, dumylang, nohyphenation, lo
 aded.
@@ -92,8 +92,8 @@ Compatibility mode: definition of \sc ignored.
 LaTeX Info: Redefining \cal on input line 506.
 LaTeX Info: Redefining \mit on input line 507.
 \bibindent=\dimen105
-) (./lpaper.aux)
-\openout1 = `lpaper.aux'.
+) (./abstract.aux)
+\openout1 = `abstract.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
@@ -147,22 +147,22 @@ Overfull \hbox (10.9501pt too wide) in paragraph at lines 35--36
 -raus-set-zun-gen vielf^^?altige L^^?osungsans^^?atze
  []
 
-(./lpaper.bbl [2]) [3] (./lpaper.aux) ) 
+(./abstract.bbl [2]) [3] (./abstract.aux) ) 
 Here is how much of TeX's memory you used:
  376 strings out of 495059
- 4300 string characters out of 3182031
+ 4322 string characters out of 3182031
  51180 words of memory out of 3000000
  3603 multiletter control sequences out of 15000+200000
  13291 words of font info for 48 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 21i,6n,21p,1165b,219s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texlive/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
-0.pfb>
-Output written on lpaper.pdf (3 pages, 83443 bytes).
+ 21i,6n,21p,1167b,219s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
+ts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mti10.pfb>
+Output written on abstract.pdf (3 pages, 83177 bytes).
 PDF statistics:
  34 PDF objects out of 1000 (max. 8388607)
  23 compressed objects within 1 object stream
