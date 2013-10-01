@@ -1,5 +1,7 @@
-\documentstyle{article}
+\documentclass{article}
 
+\usepackage[utf8x]{inputenc}
+\usepackage[ngerman]{babel} 
 
 \title{Ein Hybrider Algorithmus für das Partition Coloring Problem}
 \author{Gilbert Fritz, 0827276 / 066931}
@@ -11,28 +13,28 @@
 
 \section{Problemstellung}
 
-Diese Arbeit besch\"aftigt sich mit dem Partition Coloring Problem (PCP). Es handelt sich dabei um eine Generalisierung des Knotenf\"arbungsproblems und ist ein Optimierungsproblem der Komplexit\"atsklasse NP.\\
-Gegeben ist ein Graph, dessen Knotenmenge in disjunkte Partitionen unterteilt ist. Aus jeder Partition muss ein Knoten gew\"ahlt werden. Der aus den gew\"ahlten Knoten entstandene Subgraph soll unter der Bedingung eingef\"arbt werden, dass kein zueinander adjazentes Knotenpaar die gleiche Farbe annimmt.\\
-Zur L\"osung dieses Problems sollen mittels heuristischer Verfahren initiale L\"osungen erstellt und diese mittels Neueinf\"arbung und Lokaler Suche verbessert werden. Das Problem der Neueinf\"arbung soll sowohl heuristisch, als auch exakt gel\"ost werden.
+Diese Arbeit beschäftigt sich mit dem Partition Coloring Problem (PCP). Es handelt sich dabei um eine Generalisierung des Knotenfärbungsproblems und ist ein Optimierungsproblem der Komplexitätsklasse $\mathcal{NP}$.\\
+Gegeben ist ein Graph, dessen Knotenmenge in disjunkte Partitionen unterteilt ist. Aus jeder Partition muss ein Knoten gewählt werden. Der durch die gewählten Knoten induzierte Subgraph soll unter der Bedingung eingefärbt werden, dass kein zueinander adjazentes Knotenpaar die gleiche Farbe annimmt. Ziel ist es, die Gesamtanzahl der verwendeten Farben - die sogenannte chromatische Zahl - zu minimieren.\\
+Zur Lösung dieses Problems sollen mittels heuristischer Verfahren initiale Lösun\-gen erstellt und diese mittels Tabusuche und wiederholter, partieller Neueinfär\-bung verbessert werden. Das Problem der Neueinfärbung wird mit unterschiedlichen Ansätzen gelöst. 
 
 \section{Erwartetes Resultat}
 
-Mittels des beschriebenen, hybriden Verfahrens sollen in annehmbarer Zeit L\"osungen m\"oglichst nahe am Optimum gefunden werden. Weiters soll \"uberpr\"uft werden, ob ein exakter L\"osungsansatz mittels mathematischer Programmierung beim Teilproblem der Neueinf\"arbung zu Verbesserungen führt. Das Ziel der Arbeit ist es, einen alternativen L\"osungsansatz zu den bereits Bestehenden zu erforschen.
+Mittels des beschriebenen, hybriden Verfahrens sollen in annehmbarer Zeit Lösun\-gen möglichst nahe am Optimum gefunden werden. Weiters soll überprüft werden, ob ein exakter Lösungsansatz mittels mathematischer Programmierung beim Teilproblem der Neueinfärbung zu Verbesserungen führt. Das Ziel der Arbeit ist es, einen alternativen Lösungsansatz zu den bereits Bestehenden zu erforschen.
 
 
 \section{Methodisches Vorgehen}
 
-Zur Erzeugung einer Startl\"osung soll der in \cite{li-00} vorgestellte Greedy-Algorithmus "OneStepCD" implementiert werden. Der Prozess zur Verringerung der Farben besteht aus zwei Teilschritten. Zuerst sollen Teilgraphen neu eingef\"arbt und dabei sowohl heuristische als auch exakte Verfahren implementiert und deren Auswirkung auf die Gesamtl\"osung verglichen werden. Da das Ziel der exakten Neueinf\"arbung nicht die Minimierung der chromatischen Zahl, sondern die durch die F\"arbung verursachten Konflikte ist, m\"ussen Alternativen zu dem in \cite{frota-07} vorgestellten ILPs gefunden werden. Im zweiten Schritt sollen die neu eingef\"arbten Teilgraphen in die Gesamtl\"osung mittels Tabusuche integriert werden.
+Zur Erzeugung einer Startlösung wird der in \cite{li-00} vorgestellte Greedy-Algorithmus ``OneStepCD'' benutzt. Der Prozess zur Verringerung der Farben besteht aus zwei Teilschritten: Zuerst werden Teilgraphen neu eingefärbt und dabei sowohl heuristische als auch exakte Verfahren implementiert und deren Auswirkung auf die Gesamtlösung verglichen. Da das Ziel der exakten Neueinfärbung nicht die Minimierung der chromatischen Zahl, sondern die Minimierung der durch die Färbung verursachten gleichgefärbten, adjazenten Knotenpaare ist, müssen Alternativen zu dem in \cite{frota-07} vorgestellten Lösungsmodellen gefunden werden. Im zweiten Schritt sollen die neu eingefärbten Teilgraphen in die Gesamtlösung mittels Tabusuche integriert werden.
 
 
 \section{State-of-the-art}
 
-Li und Shima haben in \cite{li-00} bewiesen, dass das Partition Coloring Problem (PCP) NP schwer ist und pr\"asentierten einige Greedy-Heuristiken basierend auf Erweiterungen klassischer Methoden f\"ur das Vertex Coloring Problem (VCP). Mit einem Branch-And-Cut Algorithmus basierend auf der Formulierung durch Repr\"asentative stellen Frota und Ribeiro in \cite{frota-07} eine exakte Methode vor. Heuristische L\"osungsvorschl\"age existieren in unterschiedlichen Varianten: Die oben bereits erw\"ahnten Greedy-Heuristiken \cite{li-00}, ein memetischer Argorithmus in \cite{pop-13} von Pop, Hu und Raidl, ein Branch-And-Price Algorithmus von Hoshino, Frota und Souza in \cite{hoshino-11} und eine Algorithmus basierend auf Tabusuche von Nohora und Ribiero \cite{noronha-06}, welcher dem in dieser Arbeit ausgearbeiteten L\"osungsverfahren am n\"achsten kommt.
+Li und Shima haben in \cite{li-00} bewiesen, dass das PCP $\mathcal{NP}$ schwer ist und präsentier\-ten einige Greedy-Heuristiken basierend auf Erweiterungen klassischer Methoden für das Vertex Coloring Problem. Mit einem Branch-And-Cut Algorithmus basierend auf der Formulierung durch Repräsentative stellen Frota und Ribeiro in \cite{frota-07} eine exakte Methode vor. Heuristische Lösungsvorschläge existieren in unterschiedlichen Varianten: Die oben bereits erwähnten Greedy-Heuristiken \cite{li-00}, ein Branch-and-Bound Verfahren von Glover, Parker und Ryan in \cite{Glover-96}, ein memetischer Argorithmus von Pop, Hu und Raidl in \cite{pop-13}, ein Branch-And-Price Algorithmus von Hoshino, Frota und Souza in \cite{hoshino-11} und eine Algorithmus basierend auf Tabusuche von Nohora und Ribiero \cite{noronha-06}, welcher dem in dieser Arbeit ausgearbeiteten Lösungsverfahren am nächsten kommt.
  
 
-\section{Bezug zum oben angef\"uhrten Studium}
+\section{Bezug zum oben angeführten Studium}
 
-Bei meinem Studium "Computational Intelligence" habe ich mich vorwiegend auf den Bereich Algorithmik konzentriert - in jenen Bereich f\"allt auch der Inhalt dieser Arbeit. Aufbauend auf den Lehrveranstaltungen \textit{Algorithmen und Datenstrukturen 1 und 2}, verschafften mir die Lehrveranstaltungen \textit{Algorithmen auf Graphen}, \textit{Problem Solving and Search in Artificial Intelligence}, sowie \textit{Heuristische Optimierungsverfahren} die n\"otigen Voraussetzungen vielf\"altige L\"osungsans\"atze bei der Bearbeitung des "Partition Coloring Problems" in Betracht zu ziehen. F\"ur die Neueinf\"arbung von Teilgraphen wende ich unter anderem exakte Verfahren mittels mathematischer Programmierung an. Die Grundlagen dazu erlernte ich in den Lehrveranstaltungen \textit{Fortgeschrittene Algorithmen und Datenstrukturen} und \textit{Modeling and Solving Constrained Optimization Problems}. Die Besch\"aftigung mit Problemen, die in \textit{Effiziente Algorithmen} sowie \textit{Approximationsalgorithmen} behandelt wurden erg\"anzen das Wissen, dass zum Verfassen einer Masterarbeit im Bereich Algorithmik vorausgesetzt wird.
+Bei meinem Studium ``Computational Intelligence'' habe ich mich vorwiegend auf den Bereich Algorithmik konzentriert - in jenen Bereich fällt auch der Inhalt dieser Arbeit. Aufbauend auf den Lehrveranstaltungen \textit{Algorithmen und Datenstrukturen 1 und 2}, verschafften mir die Lehrveranstaltungen \textit{Algorithmen auf Graphen}, \textit{Problem Solving and Search in Artificial Intelligence}, sowie \textit{Heuristische Optimierungsverfahren} die nötigen Voraussetzungen vielfältige Lösungsansätze bei der Bearbeitung des PCP in Betracht zu ziehen. Für die Neueinfärbung von Teilgraphen wende ich unter anderem exakte Verfahren mittels mathematischer Programmierung an. Die Grundlagen dazu erlernte ich in den Lehrveranstaltungen \textit{Fortgeschrittene Algorithmen und Datenstrukturen} und \textit{Modeling and Solving Constrained Optimization Problems}. Die Beschäftigung mit Problemen, die in \textit{Effiziente Algorithmen} sowie \textit{Approximationsalgorithmen} behandelt wurden ergänzen das Wissen, dass zum Verfassen einer Masterarbeit im Bereich Algorithmik vorausgesetzt wird.
 
 \bibliographystyle{unsrt}   % this means that the order of references
 			    % is dtermined by the order in which the
