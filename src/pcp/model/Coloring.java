@@ -149,7 +149,7 @@ public class Coloring implements ColoringIF, Comparable<ColoringIF> {
             }
         }
 
-        //did the coloring of that node produce conflicts
+        //did the coloring of that node produce conflicts?
         if (nci.getConflicts(color) > 0) {
             Set<NodeColorInfoIF> conflictingNcis = getConflictingNeighboursOfNci(nci, nci.getConflicts(color));
             getConflictingNCIs().addAll(conflictingNcis);

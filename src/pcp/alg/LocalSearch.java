@@ -61,11 +61,11 @@ public class LocalSearch {
             }
 
             //add chosen node and color to tabulist
-//            int randomPercent = 1000;
-//            int randomRange = Math.round((tabuSize/100))*randomPercent;
-//            int randomPart = (int) Math.floor(Math.random()*(2*randomRange))-randomRange; 
-//            tabuData[chosenNci.getNode().getId()][chosenColor] = iterations + tabuSize + randomPart;
-            tabuData[chosenNci.getNode().getId()][chosenColor] = iterations + tabuSize;
+            int randomPercent = 50;
+            int randomRange = Math.round((tabuSize/100))*randomPercent;
+            int randomPart = (int) Math.floor(Math.random()*(2*randomRange))-randomRange; 
+            tabuData[chosenNci.getNode().getId()][chosenColor] = iterations + tabuSize + randomPart;
+//            tabuData[chosenNci.getNode().getId()][chosenColor] = iterations + tabuSize;
             
             
             //set chosen color to chosen node

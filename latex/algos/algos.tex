@@ -16,10 +16,11 @@
 
 \maketitle
 
-\section{OneStepCD}
+OneStepCD \\
 
 \begin{algorithm}
-\KwIn{A uncolored Graph G=(V,E)}
+\KwIn{An uncolored Graph $G=(V,E)$}
+\KwOut{A feasible Coloring $V'$}
 Remove from G all edges $(i,j) \in E$ : $i,j \in V^k$ for some $k=1,\ldots,q$\; 
 Set $V' \gets \emptyset $\;
 \While{$|V'| < q$} {
@@ -30,25 +31,71 @@ Set $V' \gets \emptyset $\;
   Set $x \gets argmax\{CD(i) : i \in X \}$\;
   Set $V' \gets V' \cup \{x\}$\;
   Assign the minimum possible colour to x\;
-  Remove from G all nodes in $V_{c(x)} \setminus \{x\} $
+  Remove from G all nodes in $V_{c(x)} \setminus \{x\} $\;
 }
+\Return{$V'$}\;
 \caption{{\sc OneStepCD}}
-\label{algo:max}
+\label{algo:osdc}
 \end{algorithm}
 
 
-\section{GesamtAlgo}
+OneStepCD Recoloring:\\
+\begin{algorithm}
+\KwIn{An
+ partial Solution $P$, a number of maximum colours $cmax$ }
+\KwOut{A feasible Coloring $S$}
+Let $U$ be the set of uncolored nodes in $P$\;
+\While{$|U| > 0$} {
+  Set $X \gets \emptyset $\;
+  \For{$k=1,\ldots,q$ : $V_k \cap V'=0$}{
+    Set $X \gets X \cup argmin\{CD(i) : i \in V^k\}$\; 
+  }
+  Set $x \gets argmax\{CD(i) : i \in X \}$\;
+  Set $V' \gets V' \cup \{x\}$\;
+  Set $cmin \gets$ the minimum possible colour \;
+  \If{$cmin \geq cmax$}{
+    $cmin \gets$ the color that produces the fewest conflicts.
+  }
+  Assign $cmin$ to $x$\;
+  Remove from G all nodes in $V_{c(x)} \setminus \{x\} $\;
+}
+\Return{$V'$}\;
+\caption{{\sc OneStepCD Recoloring}}
+\label{algo:osdc2}
+\end{algorithm}
 
-
-
-\section{ILP Conflicts}
-
-
-\section{State-of-the-art}
- 
-
-\section{Bezug zum oben angef\"uhrten Studium}
-
-
-			     			      
+Gesamtalgorithmus:\\
+\begin{algorithm}
+\KwIn{An uncolored Graph $G=(V,E)$, a recoloring-algorithm $RECOLOR$ }
+\KwOut{A feasible Coloring $S$}
+Set $S \gets OneStepCD(G)$\;
+Set $cmax \gets$ the chromatic number of $S$\;
+Set $X \gets \emptyset $\;
+\For{$c=1,\ldots,cmax$}{
+  Let $V_c$ be the set of nodes coloured by the colour $c$\;
+  Uncolor all nodes in $V_c$\;
+  
+  $S_c \gets RECOLOR(V_c, cmax-1)$\;
+  Let $C$ be the Set of nodes involved in color conflicts of $S_c$\;
+  Set $C_c \gets C \setminus V_c$\;
+  $X \gets X \cup (S_c,V_c,C_c)$
+}
+Sort $X$ ascendingly by $|C_c|$\;
+Set $reduction \gets$ false\;
+\For {$(S_c,V_c,C_c) \in X$}{
+  $S_c \gets TabuSearch(S_c, V_c, C_c)$\;
+  \If{ $S_c$ if free of conflicts}{
+    $reduction \gets$ true\;
+    break;
+  }
+}
+\If{$reduction$}{
+  $S \gets S_c$\;
+  $cmax = cmax - 1$\;
+  \textbf{goto} line 3;
+}
+\Return{$S$}\;
+\caption{{\sc PCP Hybrid}}
+\label{algo:overall}
+\end{algorithm}
 \end{document}

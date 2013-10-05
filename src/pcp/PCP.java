@@ -25,11 +25,13 @@ public class PCP {
     public static final int RECOLOR_WITH_ONESTEPCD = 0;
     public static final int RECOLOR_WITH_ILP = 1;
     public static final int RECOLOR_WITH_ILP2 = 2;
+    public static final int RECOLOR_WITH_RANDOM = 3;
 
     public static void main(String[] args) {
 //          allExact();
 //        allFiles( RECOLOR_WITH_ONESTEPCD);
-        tabuSizeTest();
+        allFiles(RECOLOR_WITH_ONESTEPCD, 5, "pcp_instances/pcp/");
+//        tabuSizeTest();
     }
 
 //    public static void main(String[] args) {
@@ -51,21 +53,20 @@ public class PCP {
 ////        Coloring cILP = optimized(file, tabuSizeFactor, iterationsFactor, RECOLOR_WITH_ONESTEPCD);
 //        cILP.logSolution();
 //    }
-
     private static Coloring solveExact(File instanceFile) {
         Graph g = null;
         Coloring c = null;
-         try {
+        try {
             g = InstanceReader.readInstance(instanceFile.getAbsolutePath());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         c = OneStepCD.calcInitialColoring(g);
         c = ILPSolverExact.solve(g, c.getChromatic());
-        
+
         return c;
     }
-    
+
     public static void allExact() {
         try {
             int minChromaticSum = Integer.MAX_VALUE;
@@ -90,8 +91,11 @@ public class PCP {
             ex.printStackTrace();
         }
     }
-    
-    public static void allFiles(int recolorAlg) {
+
+    public static void allFiles(int recolorAlg, int repetitions, String path) {
+        if (repetitions < 1) {
+            repetitions = 1;
+        }
         try {
             int minChromaticSum = Integer.MAX_VALUE;
             //pcp
@@ -101,22 +105,35 @@ public class PCP {
 //            double iterationsFactor = 0.5;
 //            double tabuSizeFactor = 0.003;
 
-            int chromaticSum = 0;
-            File folder = new File("pcp_instances/pcp/");
+            int bestSum = 0;
+            File folder = new File(path);
             File[] allfiles = folder.listFiles();
             List<File> al = Arrays.asList(allfiles);
             Collections.sort(al);
             for (final File fileEntry : al) {
                 long timeMillisPerFile = System.currentTimeMillis();
                 if (fileEntry.isFile()) {
-                    Coloring c = optimized(fileEntry, tabuSizeFactor, iterationsFactor, recolorAlg);
-                    int chromatic = c.getChromatic();
+                    int best = Integer.MAX_VALUE;
+                    int worst = 0;
+                    double avg = 0.0;
+                    for (int i = 0; i < repetitions; i++) {
+                        Coloring c = optimized(fileEntry, tabuSizeFactor, iterationsFactor, recolorAlg);
+                        int chromatic = c.getChromatic();
+                        avg += chromatic;
+                        if( chromatic < best){
+                            best = chromatic;
+                        }
+                        if( chromatic > worst){
+                            worst = chromatic;
+                        }
+                    }
+                    avg = avg / repetitions;
                     double timePassedPerFile = (double) (System.currentTimeMillis() - timeMillisPerFile) / 1000d;
-                    logger.severe(fileEntry.getName() + "\t\t" + timePassedPerFile + "\t\t" + tabuSizeFactor + "\t\t" + iterationsFactor + "\t\t" + chromatic);
-                    chromaticSum += chromatic;
+                    logger.severe(fileEntry.getName() + "\t\t" + timePassedPerFile + "\t\t" + tabuSizeFactor + "\t\t" + iterationsFactor + "\t\t" + best + "\t\t" + avg + "\t\t" + worst);
+                    bestSum += best;
                 }
             }
-            logger.severe("\n FINISHED! SUM: " + chromaticSum);
+            logger.severe("\n FINISHED! SUM: " + bestSum);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

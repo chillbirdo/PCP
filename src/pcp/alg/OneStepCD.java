@@ -30,7 +30,6 @@ public class OneStepCD {
                 for (int i = 0; i < c.getGraph().getPartitionSize(p); i++) {
                     Node n = c.getGraph().getNodeOfPartition(p, i);
                     NodeColorInfo nci = c.getNciById(n.getId());
-                    nci.getDiffColoredNeighbours();
                     if (nci.getDiffColoredNeighbours() < minDegree) {
                         minDegree = nci.getDiffColoredNeighbours();
                         minDegreeNci = nci;

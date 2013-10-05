@@ -1,0 +1,110 @@
+\documentclass{beamer}
+\usepackage{beamerthemesplit} % new 
+\usepackage[utf8x]{inputenc}
+\usepackage[ngerman]{babel} 
+\begin{document}
+\title{A Hybrid Algorithm for the Partition Coloring Problem} 
+\author{Gilbert Fritz} 
+\date{\today} 
+
+\frame{\titlepage} 
+
+\frame{\frametitle{Table of contents}\tableofcontents} 
+
+
+\section{Introduction} 
+\frame{\frametitle{Introduction} 
+\begin{itemize}
+\item was soll ich hier eigentlich sagen?  
+\item soll ich ein TU Wien template verwenden?
+\end{itemize} 
+}
+
+
+\section{Problem Description} 
+\subsection{The Partition Coloring Problem}
+\frame{\frametitle{Partition Coloring Problem}
+\begin{itemize}
+\item Problem erklären  
+\item anhand von Grafiken
+\end{itemize} 
+}
+
+\subsection{Routing and Wavelength Assignment}
+\frame{\frametitle{Routing and Wavelength Assignment}
+\begin{enumerate}
+\item Hintergrund erklären.
+\item Bezug zu PCP erklären.
+\item Kurz min-RWA erklären. 
+\end{enumerate}
+}
+
+
+\section{Previous work} 
+\frame{\frametitle{Routing and Wavelength Assignment}
+\begin{enumerate}
+\item Alle Papers kurz kommentieren.
+\item TabuSearch von Nohora genauer zeigen und erklären.
+\end{enumerate}
+}
+
+\section{My Approach}
+\subsection{Idea}
+\frame{\frametitle{Idea}
+\begin{enumerate}
+\item meine Idee vortragen
+\item und grafisch erläutern
+\end{enumerate}
+}
+\subsection{Algorithms}
+\frame{\frametitle{Alg1: GesamtAlgorithmus}
+\begin{enumerate}
+\item Pseudocode zeigen und erklären
+\end{enumerate}
+}
+\frame{\frametitle{Alg2: Lokale Suche}
+\begin{enumerate}
+\item Pseudocode zeigen und erklären
+\end{enumerate}
+}
+\frame{\frametitle{Alg3: Recoloring with OneStepCD}
+\begin{enumerate}
+\item OneStepCD Original und Abänderung zeigen
+\end{enumerate}
+}
+\frame{\frametitle{ILP1: Recoloring with ILP1}
+\begin{enumerate}
+\item ILP1 zeigen und erklären
+\end{enumerate}
+}
+\frame{\frametitle{ILP2: Recoloring with ILP2}
+\begin{enumerate}
+\item ILP2 zeigen und erklären
+\end{enumerate}
+}
+
+\section{Results}
+\frame{\frametitle{Results}
+\begin{enumerate}
+\item Ergebnisse von Random, OneStepCD, ILP1, ILP2
+\item Beim Zufallsbasierten worst, best, avg
+\end{enumerate}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Instance} & \textbf{Runtime} & \textbf{Result} \\
+\hline
+a.pcp & 0.01 & 3  \\
+\hline
+b.pcp & 20.34 & 9 \\
+\hline
+\end{tabular}}
+
+\section{Conclusion}
+\frame{\frametitle{Conclusion}
+\begin{enumerate}
+\item aufwand in die wiedereinfärbung zu stecken hat nichts genutzt.
+\end{enumerate}
+}
+
+
+\end{document}
