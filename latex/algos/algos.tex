@@ -2,6 +2,8 @@
 \documentclass{article}
 
 \usepackage{epsfig}
+\usepackage{amsmath}
+
 %\usepackage{algorithm2e}
 %\usepackage[linesnumbered]{algorithm2e}
 %\usepackage[linesnumbered,ruled]{algorithm2e}
@@ -21,12 +23,12 @@ OneStepCD \\
 \begin{algorithm}
 \KwIn{An uncolored Graph $G=(V,E)$}
 \KwOut{A feasible Coloring $V'$}
-Remove from G all edges $(i,j) \in E$ : $i,j \in V^k$ for some $k=1,\ldots,q$\; 
+Remove from G all edges $(i,j) \in E$ : $i,j \in V_k$ for some $k=1,\ldots,q$\; 
 Set $V' \gets \emptyset $\;
 \While{$|V'| < q$} {
   Set $X \gets \emptyset $\;
   \For{$k=1,\ldots,q$ : $V_k \cap V'=0$}{
-    Set $X \gets X \cup argmin\{CD(i) : i \in V^k\}$\; 
+    Set $X \gets X \cup argmin\{CD(i) : i \in V_k\}$\; 
   }
   Set $x \gets argmax\{CD(i) : i \in X \}$\;
   Set $V' \gets V' \cup \{x\}$\;
@@ -41,23 +43,23 @@ Set $V' \gets \emptyset $\;
 
 OneStepCD Recoloring:\\
 \begin{algorithm}
-\KwIn{An
- partial Solution $P$, a number of maximum colours $cmax$ }
-\KwOut{A feasible Coloring $S$}
+\KwIn{A partial Solution $P$, a number of maximum colours $cmax$ }
+\KwOut{A feasible Solution $S$}
 Let $U$ be the set of uncolored nodes in $P$\;
+Set $S \gets \emptyset$\;
 \While{$|U| > 0$} {
   Set $X \gets \emptyset $\;
-  \For{$k=1,\ldots,q$ : $V_k \cap V'=0$}{
-    Set $X \gets X \cup argmin\{CD(i) : i \in V^k\}$\; 
+  \For{ $u \in U$}{
+    $X \gets X \cup argmin\{CD(i) : i \in V_{c(u)}\}$\; 
   }
   Set $x \gets argmax\{CD(i) : i \in X \}$\;
-  Set $V' \gets V' \cup \{x\}$\;
-  Set $cmin \gets$ the minimum possible colour \;
+  Set $cmin \gets$ the minimum possible colour that can be assigned to x\;
   \If{$cmin \geq cmax$}{
     $cmin \gets$ the color that produces the fewest conflicts.
   }
   Assign $cmin$ to $x$\;
-  Remove from G all nodes in $V_{c(x)} \setminus \{x\} $\;
+  $S \gets S \cup \{x\}$\;
+  $U \gets U \setminus V_{c(x)}$\;
 }
 \Return{$V'$}\;
 \caption{{\sc OneStepCD Recoloring}}
@@ -67,7 +69,7 @@ Let $U$ be the set of uncolored nodes in $P$\;
 Gesamtalgorithmus:\\
 \begin{algorithm}
 \KwIn{An uncolored Graph $G=(V,E)$, a recoloring-algorithm $RECOLOR$ }
-\KwOut{A feasible Coloring $S$}
+\KwOut{A feasible Solution $S$}
 Set $S \gets OneStepCD(G)$\;
 Set $cmax \gets$ the chromatic number of $S$\;
 Set $X \gets \emptyset $\;
@@ -76,15 +78,15 @@ Set $X \gets \emptyset $\;
   Uncolor all nodes in $V_c$\;
   
   $S_c \gets RECOLOR(V_c, cmax-1)$\;
-  Let $C$ be the Set of nodes involved in color conflicts of $S_c$\;
+  Let $C$ be the set of all nodes involved in color conflicts of $S_c$\;
   Set $C_c \gets C \setminus V_c$\;
   $X \gets X \cup (S_c,V_c,C_c)$
 }
 Sort $X$ ascendingly by $|C_c|$\;
 Set $reduction \gets$ false\;
 \For {$(S_c,V_c,C_c) \in X$}{
-  $S_c \gets TabuSearch(S_c, V_c, C_c)$\;
-  \If{ $S_c$ if free of conflicts}{
+  $S_c' \gets TabuSearch(S_c, V_c, C_c)$\;
+  \If{ $S_c'$ is free of conflicts}{
     $reduction \gets$ true\;
     break;
   }
@@ -98,4 +100,58 @@ Set $reduction \gets$ false\;
 \caption{{\sc PCP Hybrid}}
 \label{algo:overall}
 \end{algorithm}
+
+
+\begin{algorithm}
+\KwIn{An infeasible solution $S$, the set of previously recolored nodes $R$, the set of conflicting nodes $C$}
+\KwOut{A Solution $\bar{S}$}
+Set $cmax \gets$ the chromatic number of $S$\;
+Set $iter \gets 0$\;
+Set $minConflicts \gets \infty$\;
+Set $\bar{S} \gets S$\;
+\While{$|C|>0$ and $iter < maxiter$}{
+  \For{$V_{c(u)} : u \in C$}{
+    \For{$v \in V_{c(u)}$ and \bf{for} $c = 1,\ldots,cmax$}{
+      Obtain a tentative solution $S'$ by selecting and coloring node v with color c in $\bar{S}$\; 
+      \If{$conflicts(S') = 0$}{
+          $\bar{S} \gets S', \bar{v} \gets v, \bar{c} \gets c$\;
+          goto line 16\;
+      }
+      \ElseIf{the pair $v,c$ is not in the tabu list}{
+        \If{$conflicts(S') < minConflicts$}{
+          $minConflicts \gets conflicts(S')$\;
+          $\bar{S} \gets S', \bar{v} \gets v, \bar{c} \gets c$\;
+        }
+      }
+    }
+  }
+    insert pair $\bar{v}$, $\bar{c}$ in the tabu list for TabuTenure iterations\;
+    $C \gets C \setminus u$\;
+    Let $C_{\bar{v}}$ be the set of nodes conflicting with $\bar{v}$\;
+    $C \gets C \cup C_{\bar{v}}$\;
+}
+
+\Return{$\bar{S}$}\;
+\caption{{\sc TabuSearch}}
+\label{algo:tabusearch}
+\end{algorithm}
+
+\section{ILP}
+
+Let $Q = {Q_1,\ldots,Q_q}$ be the set of Clusters. Every cluster $Q_p$ consists of a set of nodes. Let $C=\{1,\ldots,cmax\}$ be the
+set of allowed colors. Let $M$ be a 3-dimensional array of constants, storing
+for every cluster $p \in Q$, the number conflicts that would occur by selecting the pair $(v \in Q_p, c \in C)$.
+$E$ denotes the set of edges and $P[v]$ the cluster of node $v$.
+
+\begin{equation*}
+\begin{aligned}
+& \underset{X}{\text{minimize}}
+& & \sum_{p \in Q}\sum_{v \in Q_p}\sum_{c \in C} X_{pvc} * M_{pvc} \\
+& \text{subject to}
+& & \sum_{v \in Q_p}\sum_{c \in C} X_{pvc}=1, && \forall p \in Q\\
+&&& X_{pvc}+X_{quc} \leq 1, && \forall (v,u) \in E, \forall c \in C, p=P[v], q=P[u]\\
+&&& X_{pvc} \in \{0,1\}, && \forall p \in Q, \forall v \in Q_p, \forall c \in C
+\end{aligned}
+\end{equation*}
+
 \end{document}
