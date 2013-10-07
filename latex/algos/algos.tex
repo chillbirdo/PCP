@@ -3,6 +3,7 @@
 
 \usepackage{epsfig}
 \usepackage{amsmath}
+\usepackage{placeins}
 
 %\usepackage{algorithm2e}
 %\usepackage[linesnumbered]{algorithm2e}
@@ -17,8 +18,6 @@
 \begin{document}
 
 \maketitle
-
-OneStepCD \\
 
 \begin{algorithm}
 \KwIn{An uncolored Graph $G=(V,E)$}
@@ -41,7 +40,6 @@ Set $V' \gets \emptyset $\;
 \end{algorithm}
 
 
-OneStepCD Recoloring:\\
 \begin{algorithm}
 \KwIn{A partial Solution $P$, a number of maximum colours $cmax$ }
 \KwOut{A feasible Solution $S$}
@@ -66,7 +64,6 @@ Set $S \gets \emptyset$\;
 \label{algo:osdc2}
 \end{algorithm}
 
-Gesamtalgorithmus:\\
 \begin{algorithm}
 \KwIn{An uncolored Graph $G=(V,E)$, a recoloring-algorithm $RECOLOR$ }
 \KwOut{A feasible Solution $S$}
@@ -136,6 +133,7 @@ Set $\bar{S} \gets S$\;
 \label{algo:tabusearch}
 \end{algorithm}
 
+\FloatBarrier
 \section{ILP}
 
 Let $Q = {Q_1,\ldots,Q_q}$ be the set of Clusters. Every cluster $Q_p$ consists of a set of nodes. Let $C=\{1,\ldots,cmax\}$ be the
@@ -145,13 +143,28 @@ $E$ denotes the set of edges and $P[v]$ the cluster of node $v$.
 
 \begin{equation*}
 \begin{aligned}
-& \underset{X}{\text{minimize}}
-& & \sum_{p \in Q}\sum_{v \in Q_p}\sum_{c \in C} X_{pvc} * M_{pvc} \\
-& \text{subject to}
-& & \sum_{v \in Q_p}\sum_{c \in C} X_{pvc}=1, && \forall p \in Q\\
-&&& X_{pvc}+X_{quc} \leq 1, && \forall (v,u) \in E, \forall c \in C, p=P[v], q=P[u]\\
-&&& X_{pvc} \in \{0,1\}, && \forall p \in Q, \forall v \in Q_p, \forall c \in C
+& \underset{X}{\text{minimize}} && \sum_{p \in Q}\sum_{v \in Q_p}\sum_{c \in C} X_{pvc} * M_{pvc}                    &&&(1)\\
+& \text{subject to} && \sum_{v \in Q_p}\sum_{c \in C} X_{pvc}=1, && \forall p \in Q    &(2)\\
+&&& X_{pvc}+X_{quc} \leq 1, && \forall ((p,v),(q,u)) \in E, \forall c \in C     &(3)\\
+&&& X_{pvc} \in \{0,1\}, && \forall p \in Q, \forall v \in Q_p, \forall c \in C         &(4)
 \end{aligned}
 \end{equation*}
 
+\section{ILP2}
+
+Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ the color of the node $v$ in partition $p$.
+
+\begin{equation*}
+\begin{aligned}
+& \underset{Z}{\text{minimize}} && \sum_{p \in Q}\sum_{v \in Q_p}\sum_{c \in C} Z_{pvc}                                              &&&(1)\\
+& \text{subject to} && Z_{pvc} \geq X_{quc}, && \forall ((p,v),(q,u))\in E : (p,v) \notin U, (q,u) \in U, c=color[(p,v)]                                                            &(2)\\
+&&& \sum_{v \in Q_p}\sum_{c \in C} X_{pvc}=1, && \forall p \in Q   &(3)\\
+&&& X_{pvc}+X_{quc} \leq 1, && \forall ((p,v),(q,u)) \in E, \forall c \in C     &(4)\\
+&&& X_{pvc} \in \{0,1\}, && \forall p \in Q, \forall v \in Q_p, \forall c \in C        &(5)
+\end{aligned}
+\end{equation*}
+
+
+
 \end{document}
+
