@@ -2,6 +2,16 @@
 \usepackage{beamerthemesplit} % new 
 \usepackage[utf8x]{inputenc}
 \usepackage[ngerman]{babel} 
+
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{placeins}
+\usepackage{float}
+
+\usepackage{algorithmic}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+
+
 \begin{document}
 \title{A Hybrid Algorithm for the Partition Coloring Problem} 
 \author{Gilbert Fritz} 
@@ -12,17 +22,8 @@
 \frame{\frametitle{Table of contents}\tableofcontents} 
 
 
-\section{Introduction} 
-\frame{\frametitle{Introduction} 
-\begin{itemize}
-\item was soll ich hier eigentlich sagen?  
-\item soll ich ein TU Wien template verwenden?
-\end{itemize} 
-}
-
-
-\section{Problem Description} 
-\subsection{The Partition Coloring Problem}
+\section{Problem Beschreibung} 
+\subsection{Partition Coloring Problem}
 \frame{\frametitle{Partition Coloring Problem}
 \begin{itemize}
 \item Problem erklären  
@@ -40,50 +41,148 @@
 }
 
 
-\section{Previous work} 
-\frame{\frametitle{Routing and Wavelength Assignment}
+\section{Bestehende Arbeiten} 
+\subsection{Exakte Verfahren}
+\frame{\frametitle{Exakte Verfahren}
 \begin{enumerate}
-\item Alle Papers kurz kommentieren.
-\item TabuSearch von Nohora genauer zeigen und erklären.
+\item Frota, Ribiero (2010): Branch-And-Cut Algorithmus basierend auf der Formulierung durch Repräsentative
+\end{enumerate}
+}
+\subsection{Heuristische Verfahren}
+\frame{\frametitle{Heuristische Verfahren}
+\begin{enumerate}
+\item Li, Shima (2000): Einige Greedy Heuristiken, u.a. OneStepCD
+\item Noronha, Ribiero (2006): Tabusuche
+\item Hoshino, Souza, Frota (2011): Branch-And-Price
+\item Hu, Raidl, Pop (2013): Memetischer Algorithmus
 \end{enumerate}
 }
 
-\section{My Approach}
-\subsection{Idea}
-\frame{\frametitle{Idea}
+\section{Eigener Ansatz}
+\subsection{Übersicht}
+\frame{\frametitle{Gesamtalgorithmus: Vorgehen}
 \begin{enumerate}
-\item meine Idee vortragen
-\item und grafisch erläutern
-\end{enumerate}
-}
-\subsection{Algorithms}
-\frame{\frametitle{Alg1: GesamtAlgorithmus}
-\begin{enumerate}
-\item Pseudocode zeigen und erklären
-\end{enumerate}
-}
-\frame{\frametitle{Alg2: Lokale Suche}
-\begin{enumerate}
-\item Pseudocode zeigen und erklären
-\end{enumerate}
-}
-\frame{\frametitle{Alg3: Recoloring with OneStepCD}
-\begin{enumerate}
-\item OneStepCD Original und Abänderung zeigen
-\end{enumerate}
-}
-\frame{\frametitle{ILP1: Recoloring with ILP1}
-\begin{enumerate}
-\item ILP1 zeigen und erklären
-\end{enumerate}
-}
-\frame{\frametitle{ILP2: Recoloring with ILP2}
-\begin{enumerate}
-\item ILP2 zeigen und erklären
+\item Startheuristik: OneStepCD
+\item Für jede Menge $U$ an Knoten gleicher Farbe $c$: Entfärbe und färbe ohne $c$ neu ein mittels $\{RANDOM, OneStepCD, ILP1, ILP2\}$
+\item Die Lösungen pro Farbe nach Anzahl der Konflikte sortieren.
+\item Für jede Lösung versuche Konflikte mittels Tabusuche zu eliminieren. Alle Knoten-Farb-Paare kommen von Beginn an für eine gewisse Anzahl an Iterationen auf die Tabuliste.
+\item Konnten bei einer Lösung alle Konflikte elminiert werden, beginne wieder bei 2, sonst gib die letzte zulässige Lösung zurück.
 \end{enumerate}
 }
 
-\section{Results}
+\begin{frame}[fragile]
+\frametitle{Pseudocode Gesamtalgorithmus}
+\includegraphics[scale=0.32]{gesamtalgo.png}
+\end{frame}
+
+\subsection{Startlösung}
+\begin{frame}
+\frametitle{Startlösung: OneStepCD}
+  \begin{algorithm}[H]
+  \scriptsize
+  \KwIn{An uncolored Graph $G=(V,E)$}
+  \KwOut{A feasible Coloring $V'$}
+  Remove from G all edges $(i,j) \in E$ : $i,j \in V_k$ for some $k=1,\ldots,q$\; 
+  Set $V' \gets \emptyset $\;
+  \While{$|V'| < q$} {
+    Set $X \gets \emptyset $\;
+    \For{$k=1,\ldots,q$ : $V_k \cap V'=0$}{
+      Set $X \gets X \cup argmin\{CD(i) : i \in V_k\}$\; 
+    }
+    Set $x \gets argmax\{CD(i) : i \in X \}$\;
+    Set $V' \gets V' \cup \{x\}$\;
+    Assign the minimum possible colour to x\;
+    Remove from G all nodes in $V_{c(x)} \setminus \{x\} $\;
+  }
+  \Return{$V'$}\;
+  \caption{{\sc OneStepCD}}
+  \label{algo:osdc}
+  \end{algorithm}
+\end{frame}
+
+\FloatBarrier
+\subsection{Neueinfärbung}
+\begin{frame}
+\frametitle{Random Recoloring}
+\begin{enumerate}
+\item Knoten werden zufällig neu eingefärbt.
+\end{enumerate}
+
+\end{frame}
+
+\frame{\frametitle{Recoloring with OneStepCD}
+\begin{algorithm}[H]
+\scriptsize
+\KwIn{A partial Solution $P$, a number of maximum colours $cmax$ }
+\KwOut{A feasible Solution $S$}
+Let $U$ be the set of uncolored nodes in $P$\;
+Set $S \gets \emptyset$\;
+\While{$|U| > 0$} {
+  Set $X \gets \emptyset $\;
+  \For{ $u \in U$}{
+    $X \gets X \cup argmin\{CD(i) : i \in V_{c(u)}\}$\; 
+  }
+  Set $x \gets argmax\{CD(i) : i \in X \}$\;
+  Set $cmin \gets$ the minimum possible colour that can be assigned to x\;
+  \If{$cmin \geq cmax$}{
+    $cmin \gets$ the color that produces the fewest conflicts.
+  }
+  Assign $cmin$ to $x$\;
+  $S \gets S \cup \{x\}$\;
+  $U \gets U \setminus V_{c(x)}$\;
+}
+\Return{$V'$}\;
+\caption{{\sc OneStepCD Recoloring}}
+\label{algo:osdc2}
+\end{algorithm}
+
+}
+\frame{\frametitle{Recoloring with ILP1}
+
+Let $Q = {Q_1,\ldots,Q_q}$ be the set of Clusters. Every cluster $Q_p$ consists of a set of nodes. Let $C=\{1,\ldots,cmax\}$ be the
+set of allowed colors. Let $M$ be a 3-dimensional array of constants, storing
+for every cluster $p \in Q$, the number conflicts that would occur by selecting the pair $(v \in Q_p, c \in C)$.
+$E$ denotes the set of edges and $P[v]$ the cluster of node $v$.
+
+
+\begin{equation*}
+\scriptsize
+\begin{aligned}
+& \underset{X}{\text{minimize}} && \sum_{p \in Q}\sum_{v \in Q_p}\sum_{c \in C} X_{pvc} * M_{pvc}                    &&&(1)\\
+& \text{subject to} && \sum_{v \in Q_p}\sum_{c \in C} X_{pvc}=1, && \forall p \in Q    &(2)\\
+&&& X_{pvc}+X_{quc} \leq 1, && \forall ((p,v),(q,u)) \in E, \forall c \in C     &(3)\\
+&&& X_{pvc} \in \{0,1\}, && \forall p \in Q, \forall v \in Q_p, \forall c \in C         &(4)
+\end{aligned}
+\end{equation*}
+}
+
+
+\frame{\frametitle{Recoloring with ILP2}
+
+Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ the color of the node $v$ in partition $p$.
+
+\begin{equation*}
+\scriptsize
+\begin{aligned}
+& \underset{Z}{\text{minimize}} && \sum_{p \in Q}\sum_{v \in Q_p}\sum_{c \in C} Z_{pvc}                                              &&&(1)\\
+& \text{subject to} && Z_{pvc} \geq X_{quc}, && \forall ((p,v),(q,u))\in E : (p,v) \notin U, (q,u) \in U, c=color[(p,v)]                                                            &(2)\\
+&&& \sum_{v \in Q_p}\sum_{c \in C} X_{pvc}=1, && \forall p \in Q   &(3)\\
+&&& X_{pvc}+X_{quc} \leq 1, && \forall ((p,v),(q,u)) \in E, \forall c \in C     &(4)\\
+&&& X_{pvc} \in \{0,1\}, && \forall p \in Q, \forall v \in Q_p, \forall c \in C        &(5)
+\end{aligned}
+\end{equation*}
+
+}
+
+\subsection{Konflikte eliminieren: Tabusuche}
+\begin{frame}[fragile]
+\frametitle{Pseudocode Tabusuche}
+\includegraphics[scale=0.32]{tabusearch.png}
+
+\end{frame}
+
+
+\section{Resultate}
 \frame{\frametitle{Results}
 \begin{enumerate}
 \item Ergebnisse von Random, OneStepCD, ILP1, ILP2
@@ -99,10 +198,10 @@ b.pcp & 20.34 & 9 \\
 \hline
 \end{tabular}}
 
-\section{Conclusion}
-\frame{\frametitle{Conclusion}
+\section{Zusammenfassung}
+\frame{\frametitle{Zusammenfassung}
 \begin{enumerate}
-\item aufwand in die wiedereinfärbung zu stecken hat nichts genutzt.
+\item Beim Reduzieren der Farben spiel die Tabusuche eine weit wichtigere Rolle als die Neueinfärbung.
 \end{enumerate}
 }
 
