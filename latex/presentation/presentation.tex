@@ -22,23 +22,15 @@
 \frame{\frametitle{Table of contents}\tableofcontents} 
 
 
-\section{Problem Beschreibung} 
+\section{Problem Description} 
 \subsection{Partition Coloring Problem}
 \frame{\frametitle{Partition Coloring Problem}
 \begin{itemize}
-\item Let $G = (V, E)$ be a non-directed graph, where
-$V$ is the set of nodes and $E$ is the set of edges. Furthermore,
-let $V_1, V_2,\ldots, V_q$ be a partition of $V$ into
-$q$ subsets with $V_1 \cup V_2 \cup \ldots \cup V_q = V$ and
-$V_i \cap V_j = \emptyset, \forall i, j = 1, \ldots , q$ with $i \neq j$. We refer
-to $V_1, V_2, \ldots , V_q$ as the components of the partition. The Partition Colouring Problem (PCP)
-consists in finding a subset $V' \subset V$ such that
-$|V' \cap V_i| = 1, \forall i = 1, \ldots , q$ (i.e., $V'$ contains one
-node from each component $V_i$), and the chromatic
-number of the graph induced in $G$ by $V'$ is minimum. This problem is clearly a generalization of
-the graph colouring problem. Li and Simha	
-have shown that the decision version of PCP is
-NP-complete.
+\item given $G = (V, E)$
+\item let $V_1, V_2,\ldots, V_q$ be a partition of $V$ into $q$ disjoint subsets
+\item find a subset $V' \subset V$ such that $|V' \cap V_i| = 1, \forall i = 1, \ldots , q$ (i.e., $V'$ contains one
+node from each component $V_i$)
+\item find a coloring on the induced graph, such that the chromatic number of the graph induced in $G$ by $V'$ is minimum.  \item Proof of Li and Simha have shown that PCP is $\mathcal{NP}$-complete.
 \end{itemize}
 }
 \frame{\frametitle{Partition Coloring Problem}
@@ -46,49 +38,36 @@ NP-complete.
 }
 
 
-\subsection{Routing and Wavelength Assignment}
-\frame{\frametitle{Routing and Wavelength Assignment}
+\section{Existing Works} 
+\subsection{Exact methods}
+\frame{\frametitle{Exact methods}
 \begin{enumerate}
-\item Hintergrund erklären.
-\item Bezug zu PCP erklären.
-\item Kurz min-RWA erklären. 
-\end{enumerate}
-}
-
-
-\section{Bestehende Arbeiten} 
-\subsection{Exakte Verfahren}
-\frame{\frametitle{Exakte Verfahren}
-\begin{enumerate}
-\item Frota, Ribiero (2010): Branch-And-Cut Algorithmus basierend auf der Formulierung durch Repräsentative
-\end{enumerate}
-}
-\subsection{Heuristische Verfahren}
-\frame{\frametitle{Heuristische Verfahren}
-\begin{enumerate}
-\item Li, Shima (2000): Einige Greedy Heuristiken, u.a. OneStepCD
-\item Noronha, Ribiero (2006): Tabusuche
+\item Frota, Ribiero (2010): branch-and-cut algorithm based on a formulation by representa-
+tive vertices
 \item Hoshino, Souza, Frota (2011): Branch-And-Price
-\item Hu, Raidl, Pop (2013): Memetischer Algorithmus
 \end{enumerate}
 }
-
-\section{Eigener Ansatz}
-\subsection{Übersicht}
-\frame{\frametitle{Gesamtalgorithmus: Vorgehen}
+\subsection{Heuristical methods}
+\frame{\frametitle{Heuristical methods}
 \begin{enumerate}
-\item Startheuristik: OneStepCD
-\item Für jede Menge $U$ an Knoten gleicher Farbe $c$: Entfärbe und färbe ohne $c$ neu mittels $\{RANDOM, OneStepCD, ILP1, ILP2\}$
-\item Die Lösungen pro Farbe nach Anzahl der Konflikte sortieren.
-\item Für jede Lösung versuche Konflikte mittels Tabusuche zu eliminieren. Alle Knoten-Farb-Paare kommen von Beginn an für eine gewisse Anzahl an Iterationen auf die Tabuliste.
-\item Konnten bei einer Lösung alle Konflikte eliminiert werden, beginne wieder bei 2, sonst gib die letzte zulässige Lösung zurück.
+\item Li, Shima (2000): group of heuristics based on extensions of classical meth-
+ods for the vertex coloring problem
+\item Noronha, Ribiero (2006): Tabusearch
+\item Hu, Raidl, Pop (2013): Memetic algorithm
 \end{enumerate}
 }
 
-\begin{frame}[fragile]
-\frametitle{Pseudocode Gesamtalgorithmus}
-\includegraphics[scale=0.32]{gesamtalgo.png}
-\end{frame}
+\section{My Approach}
+\subsection{Overview}
+\frame{\frametitle{Algorithm Overview}
+\begin{enumerate}
+\item Create initial solution: OneStepCD
+\item For each set $U$ of vertices of same color $c$: recolor without using $c$ by $\{RANDOM, OneStepCD, ILP1, ILP2\}$
+\item Sort the solutions by amount of conflicts.
+\item For each solution try to eliminate conflicts by using tabusearch. Put each vertex-color-pair on the tabulist for a specified amount of iterations. 
+\item If all the conflicts could be eliminated, go back to 2, else return the latest feasible solution.
+\end{enumerate}
+}
 
 \subsection{Startlösung}
 \begin{frame}
@@ -150,7 +129,6 @@ Set $S \gets \emptyset$\;
 \caption{{\sc OneStepCD Recoloring}}
 \label{algo:osdc2}
 \end{algorithm}
-
 }
 \frame{\frametitle{Recoloring with ILP1}
 
