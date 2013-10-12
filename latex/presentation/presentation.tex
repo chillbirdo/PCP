@@ -19,6 +19,58 @@
 
 \frame{\titlepage} 
 
+\frame{
+
+\begin{table}
+\frametitle{Instances with different size}
+\resizebox{\columnwidth}{!}{%
+
+\begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}
+\hline
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{3}{l||}{Random}&\multicolumn{3}{|l|}{OneStepCD}&\multicolumn{3}{|l|}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
+\cline{1-14}
+ nodes & density   & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$\\
+\hline
+20 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+40 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+60 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+70 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+80 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+90 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+100 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+120 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+\hline
+\end{tabular}
+}
+\end{table}
+}
+
+\begin{frame}
+\frametitle{Instances with different density}
+
+\begin{table}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}
+\hline
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{3}{l||}{Random}&\multicolumn{3}{|l|}{OneStepCD}&\multicolumn{3}{|l|}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
+\cline{1-14}
+ nodes & density   & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$\\
+\hline
+90 & 0.1   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+90 & 0.2   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+90 & 0.3   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+90 & 0.4   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+90 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+90 & 0.6   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+90 & 0.7   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+90 & 0.8   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+90 & 0.9   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
+\hline
+\end{tabular}
+}
+\end{table}
+\end{frame}
+
 \frame{\frametitle{Table of contents}\tableofcontents} 
 
 
@@ -40,7 +92,6 @@ node from each component $V_i$)
 
 %TODO noch mehr über alle papers schreiben
 \section{Existing Works} 
-\subsection{Exact methods}
 \frame{
 \frametitle{Exact methods}
 Exact:
@@ -53,20 +104,6 @@ Heuristics:
 \item Li, Shima (2000): Group of heuristics based on extensions of classical methods for the vertex coloring problem
 \item Noronha, Ribiero (2006): Tabusearch
 \item Hu, Raidl, Pop (2013): Memetic algorithm
-\end{enumerate}
-}
-\subsection{Heuristical methods}
-\frame{
-\frametitle{Heuristical methods}
-\begin{enumerate}
-\item Li, Shima (2000): Group of heuristics based on extensions of classical methods for the vertex coloring problem
-\item Noronha, Ribiero (2006): Tabusearch
-\item Hu, Raidl, Pop (2013): Memetic algorithm
-\end{enumerate}
-}
-\frame{\frametitle{Tabusearch by Noronha, Ribiero (2006)}
-\begin{enumerate}
-\item mit Bin darüber sprechen
 \end{enumerate}
 }
 
@@ -197,6 +234,18 @@ Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ t
 %TODO resultate besser darstellen und vergleichen
 \section{Results}
 \subsection{Instances and Testing Environment}
+
+\frame{
+\frametitle{Instances and Testing Environment}
+
+\begin{tabular}{ l | c || r }
+  1 & 2 & 3 \\
+  4 & 5 & 6 \\
+  7 & 8 & 9 \\
+\end{tabular}
+
+}
+
 \frame{\frametitle{Instances and Testing Environment}
 \begin{enumerate}
 \item Instances of Noronha, Ribiero
