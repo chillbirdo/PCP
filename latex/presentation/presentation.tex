@@ -30,7 +30,7 @@
 \item let $V_1, V_2,\ldots, V_q$ be a partition of $V$ into $q$ disjoint subsets
 \item find a subset $V' \subset V$ such that $|V' \cap V_i| = 1, \forall i = 1, \ldots , q$ (i.e., $V'$ contains one
 node from each component $V_i$)
-\item find a coloring on the induced graph, such that the chromatic number of the graph induced in $G$ by $V'$ is minimum.  \item Proof of Li and Simha have shown that PCP is $\mathcal{NP}$-complete.
+\item find a coloring on the induced graph, such that the chromatic number of the graph induced in $G$ by $V'$ is minimum.  \item Proof of Li and Simha has shown that PCP is $\mathcal{NP}$-complete.
 \end{itemize}
 }
 \frame{\frametitle{Partition Coloring Problem}
@@ -38,22 +38,35 @@ node from each component $V_i$)
 }
 
 
+%TODO noch mehr über alle papers schreiben
 \section{Existing Works} 
 \subsection{Exact methods}
-\frame{\frametitle{Exact methods}
+\frame{
+\frametitle{Exact methods}
+Exact:
 \begin{enumerate}
-\item Frota, Ribiero (2010): branch-and-cut algorithm based on a formulation by representa-
-tive vertices
+\item Frota, Ribiero (2010): Branch-And-Cut %algorithm based on a formulation by representative vertices
 \item Hoshino, Souza, Frota (2011): Branch-And-Price
+\end{enumerate}
+Heuristics:
+\begin{enumerate}
+\item Li, Shima (2000): Group of heuristics based on extensions of classical methods for the vertex coloring problem
+\item Noronha, Ribiero (2006): Tabusearch
+\item Hu, Raidl, Pop (2013): Memetic algorithm
 \end{enumerate}
 }
 \subsection{Heuristical methods}
-\frame{\frametitle{Heuristical methods}
+\frame{
+\frametitle{Heuristical methods}
 \begin{enumerate}
-\item Li, Shima (2000): group of heuristics based on extensions of classical meth-
-ods for the vertex coloring problem
+\item Li, Shima (2000): Group of heuristics based on extensions of classical methods for the vertex coloring problem
 \item Noronha, Ribiero (2006): Tabusearch
 \item Hu, Raidl, Pop (2013): Memetic algorithm
+\end{enumerate}
+}
+\frame{\frametitle{Tabusearch by Noronha, Ribiero (2006)}
+\begin{enumerate}
+\item mit Bin darüber sprechen
 \end{enumerate}
 }
 
@@ -69,9 +82,9 @@ ods for the vertex coloring problem
 \end{enumerate}
 }
 
-\subsection{Startlösung}
+\subsection{Initial Solution}
 \begin{frame}
-\frametitle{Startlösung: OneStepCD}
+\frametitle{Initial Solution: OneStepCD}
   \begin{algorithm}[H]
   \scriptsize
   \KwIn{An uncolored Graph $G=(V,E)$}
@@ -95,11 +108,11 @@ ods for the vertex coloring problem
 \end{frame}
 
 \FloatBarrier
-\subsection{Neueinfärbung}
+\subsection{Reselecting/Recoloring subgraphs}
 \begin{frame}
 \frametitle{Random Recoloring}
 \begin{enumerate}
-\item Knoten werden zufällig neu eingefärbt.
+\item Nodes are reselected and recolored randomly.
 \end{enumerate}
 
 \end{frame}
@@ -158,7 +171,7 @@ Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ t
 \scriptsize
 \begin{aligned}
 & \underset{Z}{\text{minimize}} && \sum_{p \in Q}\sum_{v \in Q_p}\sum_{c \in C} Z_{pvc}                                              &&&(1)\\
-& \text{subject to} && Z_{pvc} \geq X_{quc}, && \forall ((p,v),(q,u))\in E : (p,v) \notin U, (q,u) \in U, c=color[(p,v)]                                                            &(2)\\
+& \text{subject to} && Z_{pvc} \geq X_{quc}, && \forall ((p,v),(q,u))\in E : (p,v) \notin U, (q,u) \in U,\\&&&&& c=color[(p,v)]                                                            &(2)\\
 &&& \sum_{v \in Q_p}\sum_{c \in C} X_{pvc}=1, && \forall p \in Q   &(3)\\
 &&& X_{pvc}+X_{quc} \leq 1, && \forall ((p,v),(q,u)) \in E, \forall c \in C     &(4)\\
 &&& X_{pvc} \in \{0,1\}, && \forall p \in Q, \forall v \in Q_p, \forall c \in C        &(5)
@@ -167,19 +180,26 @@ Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ t
 
 }
 
-\subsection{Konflikte eliminieren: Tabusuche}
+\subsection{Eliminating Conflicts: Tabusearch}
 \begin{frame}[fragile]
-\frametitle{Pseudocode Tabusuche}
-\includegraphics[scale=0.32]{tabusearch.png}
-
+\frametitle{Tabusearch: Outline}
+\begin{enumerate}
+\item Let $R$ be the set of clusters that has been recolored before.
+\item Initialize $C$ with the set of conflicting clusters not in $R$.
+\item Over all cluster in $C$, search for the node-color pair $(n,c)$ that produces the fewest conflicts and is not on the tabulist.
+\item Select and color node $n$ with color $c$ and add $(n,c)$ to the tabulist.
+\item Remove the cluster of node $n$ from $C$.
+\item Add the clusters of all the produced conflicting nodes to set $C$.
+\item If $C$ is not empty, go back to step 3.
+\end{enumerate}
 \end{frame}
 
-
-\section{Ergebnisse}
-\subsection{Instanzen und Testumgebung}
-\frame{\frametitle{Instanzen und Testumgebung}
+%TODO resultate besser darstellen und vergleichen
+\section{Results}
+\subsection{Instances and Testing Environment}
+\frame{\frametitle{Instances and Testing Environment}
 \begin{enumerate}
-\item Testinstanzen von Noronha, Ribiero
+\item Instances of Noronha, Ribiero
 
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
@@ -198,16 +218,16 @@ dsjc500.5-4.in & 2000 & 500 & 4 & 0.5\\
 \end{center}
 
 
-\item Java Implementierung
+\item Java implementation
 \item System: Intel i5 DualCore 2.5GHz
 \end{enumerate}
 }
 
 \frame{\frametitle{Wiedereinfärbung mit Random}
 \begin{itemize}
-\item 10 Läufe pro Instanz
-\item Tabulänge: 0.002*Knoten*Farben
-\item MaxIterations: 0.3*Knoten*Farben
+\item 10 runs per instance
+\item Tabusize: 0.002*nodes*colors
+\item MaxIterations: 0.3*nodes*colors
 \end{itemize}
 
 \begin{center}
@@ -229,9 +249,9 @@ dsjc500.5-4.in & 211.6 & 44 & 44.0 & 44\\
 
 \frame{\frametitle{Wiedereinfärbung mit OneStepCD}
 \begin{itemize}
-\item 10 Läufe pro Instanz
-\item Tabulänge: 0.002*Knoten*Farben
-\item MaxIterations: 0.3*Knoten*Farben
+\item 10 runs per instance
+\item Tabusize: 0.002*nodes*colors
+\item MaxIterations: 0.3*nodes*colors
 \end{itemize}
 
 \begin{center}
@@ -253,9 +273,9 @@ dsjc500.5-4.in & 290.2 & 44 & 44.0 & 44\\
 
 \frame{\frametitle{Wiedereinfärbung mit ILP1}
 \begin{itemize}
-\item 1 Lauf pro Instanz
-\item Tabulänge: 0.002*Knoten*Farben
-\item MaxIterations: 0.3*Knoten*Farben
+\item 1 run per instance
+\item Tabusize: 0.002*nodes*colors
+\item MaxIterations: 0.3*nodes*colors
 \end{itemize}
 
 \begin{center}
@@ -277,9 +297,9 @@ dsjc500.5-4.in & 347.26 & 44\\
 
 \frame{\frametitle{Wiedereinfärbung mit ILP2}
 \begin{itemize}
-\item 1 Lauf pro Instanz
-\item Tabulänge: 0.002*Knoten*Farben
-\item MaxIterations: 0.3*Knoten*Farben
+\item 1 run per instance
+\item Tabusize: 0.002*nodes*colors
+\item MaxIterations: 0.3*nodes*colors
 \end{itemize}
 
 \begin{center}
@@ -324,18 +344,52 @@ dsjc500.5-4.in & 1058.115 & 42 & 42.0 & 42\\
 }
 
 
-\section{Zusammenfassung}
-\frame{\frametitle{Zusammenfassung}
+\section{Summary}
+\frame{
+\frametitle{Summary}
+Main insight:
 \begin{itemize}
-\item Beim Reduzieren der Farben spiel die Tabusuche eine weit wichtigere Rolle als die Neueinfärbung.
+\item optimizing the number of conflicting nodes does not lead to better results
+\end{itemize}
+}
+\frame{
+\frametitle{Advantages and disadvantages}
+Advantages:
+\begin{itemize}
+\item low calculation time when recoloring randomly or using OneStepCD
+\item good results compared to other heuristical methods
+\end{itemize}
+Disadvantages:
+\begin{itemize}
+\item Noronha and Ribiero's tabusearch search still performs slightly better
+\end{itemize}
+}
+\frame{
+\frametitle{Future Work}
+\begin{itemize}
+\item All node-color-combinations from all recently recolored clusters could be put on the tabulist for a number of iterations
 \end{itemize}
 }
 
-\begin{frame}
-\bibliographystyle{unsrt}   % this means that the order of references
-			    % is dtermined by the order in which the
-			    % \cite and \nocite commands appear
-\bibliography{pcp}  % list here all the bibliographies that
+\frame{
+\frametitle{Discussion}
+\begin{itemize}
+\item Questions?
+\end{itemize}
+}
+
+
+\begin{frame}[fragile]
+\frametitle{Pseudocode}
+\includegraphics[scale=0.25]{tabusearch.png}
 \end{frame}
+
+
+%\begin{frame}
+%\bibliographystyle{unsrt}   % this means that the order of references
+%			    % is dtermined by the order in which the
+%			    % \cite and \nocite commands appear
+%\bibliography{pcp}  % list here all the bibliographies that
+%\end{frame}
 
 \end{document}
