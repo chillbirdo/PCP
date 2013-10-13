@@ -19,58 +19,6 @@
 
 \frame{\titlepage} 
 
-\frame{
-
-\begin{table}
-\frametitle{Instances with different size}
-\resizebox{\columnwidth}{!}{%
-
-\begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}
-\hline
-\multicolumn{2}{|l||}{Instance set}&\multicolumn{3}{l||}{Random}&\multicolumn{3}{|l|}{OneStepCD}&\multicolumn{3}{|l|}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
-\cline{1-14}
- nodes & density   & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$\\
-\hline
-20 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-40 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-60 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-70 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-80 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-90 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-100 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-120 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-\hline
-\end{tabular}
-}
-\end{table}
-}
-
-\begin{frame}
-\frametitle{Instances with different density}
-
-\begin{table}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}
-\hline
-\multicolumn{2}{|l||}{Instance set}&\multicolumn{3}{l||}{Random}&\multicolumn{3}{|l|}{OneStepCD}&\multicolumn{3}{|l|}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
-\cline{1-14}
- nodes & density   & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$\\
-\hline
-90 & 0.1   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-90 & 0.2   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-90 & 0.3   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-90 & 0.4   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-90 & 0.5   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-90 & 0.6   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-90 & 0.7   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-90 & 0.8   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-90 & 0.9   & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2  & \textbf{3.0} & 0.0 & 12.2   & \textbf{3.0} & 0.0 & 12.2\\
-\hline
-\end{tabular}
-}
-\end{table}
-\end{frame}
-
 \frame{\frametitle{Table of contents}\tableofcontents} 
 
 
@@ -86,14 +34,27 @@ node from each component $V_i$)
 \end{itemize}
 }
 \frame{\frametitle{Partition Coloring Problem}
+\begin{center}
 \includegraphics[scale=0.3]{pcp.png}
+\end{center}
+}
+
+\subsection{Application to min-RWA}
+\frame{\frametitle{Routing and Wavelength Assignment}
+\begin{itemize}
+\item Finding paths
+\item Assigning Wavelengths is dual to PCP
+\end{itemize}
+\begin{center}
+\includegraphics[scale=0.18]{rwa.png}
+\end{center}
 }
 
 
 %TODO noch mehr über alle papers schreiben
-\section{Existing Works} 
+\section{Previous Works} 
 \frame{
-\frametitle{Exact methods}
+\frametitle{Previous Works}
 Exact:
 \begin{enumerate}
 \item Frota, Ribiero (2010): Branch-And-Cut %algorithm based on a formulation by representative vertices
@@ -235,36 +196,25 @@ Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ t
 \section{Results}
 \subsection{Instances and Testing Environment}
 
-\frame{
-\frametitle{Instances and Testing Environment}
-
-\begin{tabular}{ l | c || r }
-  1 & 2 & 3 \\
-  4 & 5 & 6 \\
-  7 & 8 & 9 \\
-\end{tabular}
-
-}
-
 \frame{\frametitle{Instances and Testing Environment}
 \begin{enumerate}
-\item Instances of Noronha, Ribiero
-
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-\textbf{Instance} & \textbf{Nodes} & \textbf{Clusters} & \textbf{N/Cl} & \textbf{Density} \\
-\hline
-dsjc500.5-1.in & 500 & 500 & 1 & 0.5\\
-\hline
-dsjc500.5-2.in & 1000 & 500 & 2 & 0.5\\
-\hline
-dsjc500.5-3.in & 1500 & 500 & 3 & 0.5\\
-\hline
-dsjc500.5-4.in & 2000 & 500 & 4 & 0.5\\
-\hline
-\end{tabular}
-\end{center}
+%\item Instances of Noronha, Ribiero
+%
+%\begin{center}
+%\begin{tabular}{|c|c|c|c|c|}
+%\hline
+%\textbf{Instance} & \textbf{Nodes} & \textbf{Clusters} & \textbf{N/Cl} & \textbf{Density} \\
+%\hline
+%dsjc500.5-1.in & 500 & 500 & 1 & 0.5\\
+%\hline
+%dsjc500.5-2.in & 1000 & 500 & 2 & 0.5\\
+%\hline
+%dsjc500.5-3.in & 1500 & 500 & 3 & 0.5\\
+%\hline
+%dsjc500.5-4.in & 2000 & 500 & 4 & 0.5\\
+%\hline
+%\end{tabular}
+%\end{center}
 
 
 \item Java implementation
@@ -272,125 +222,196 @@ dsjc500.5-4.in & 2000 & 500 & 4 & 0.5\\
 \end{enumerate}
 }
 
-\frame{\frametitle{Wiedereinfärbung mit Random}
-\begin{itemize}
-\item 10 runs per instance
-\item Tabusize: 0.002*nodes*colors
-\item MaxIterations: 0.3*nodes*colors
-\end{itemize}
+\frame{
 
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
+\begin{table}
+\frametitle{Instances with different size: Conflicting Nodes}
+\resizebox{\columnwidth}{!}{%
+
+\begin{tabular}{|l|l||l||l||l||l|}
 \hline
-\textbf{Instance} & \textbf{avg Runtime} & \textbf{worst} & \textbf{avg} & \textbf{best} \\
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{1}{l||}{Random (10 runs/inst)}&\multicolumn{1}{|l||}{OneStepCD}&\multicolumn{1}{|l||}{ILP1}&\multicolumn{1}{|l|}{ILP2}\\
+\cline{1-6}
+ nodes & density   & $\overline{cnodes/recoloring}$  & $\overline{cnodes/recoloring}$ & $\overline{cnodes/recoloring}$ & $\overline{cnodes/recoloring}$\\
 \hline
-dsjc500.5-1.in & 24.2 & 53 & 53.0 & 53\\
-\hline
-dsjc500.5-2.in & 73.3 & 48 & 48.0 & 48\\
-\hline
-dsjc500.5-3.in & 192.8 & 45 & 45.6 & 46\\
-\hline
-dsjc500.5-4.in & 211.6 & 44 & 44.0 & 44\\
+20 & 0.5 & 		3.694   & 2.25  	& 1.605  	& 1.363\\
+40 & 0.5 & 		7.338    & 3.854  & 3.215	  & 2.295\\
+60 & 0.5 & 		10.218    & 4.99   & 4.218	  & 2.834\\
+70 & 0.5 & 		11.3    & 5.845	  	& 4.563	  	& 3.274\\
+80 & 0.5 & 		12.696    & 6.048	 & 4.979 	& 3.415\\
+90 & 0.5 & 		12.324    & 5.93	  & 4.648	  & 3.387\\
+100 & 0.5 & 	14.914    & 7.1		  & 5.235	  & 3.926\\
+120 & 0.5 & 	15.530    & 6.447	  & 5.078	  & 3.386\\
 \hline
 \end{tabular}
-\end{center}
+}
+\end{table}
 }
 
-\frame{\frametitle{Wiedereinfärbung mit OneStepCD}
-\begin{itemize}
-\item 10 runs per instance
-\item Tabusize: 0.002*nodes*colors
-\item MaxIterations: 0.3*nodes*colors
-\end{itemize}
 
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
+\frame{
+
+\begin{table}
+\frametitle{Instances with different size: Results}
+\resizebox{\columnwidth}{!}{%
+
+\begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}
 \hline
-\textbf{Instance} & \textbf{avg Runtime} & \textbf{worst} & \textbf{avg} & \textbf{best} \\
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{3}{l||}{Random (10 runs/inst)}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
+\cline{1-14}
+ nodes & density   & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$\\
 \hline
-dsjc500.5-1.in & 19.1 & 53 & 53.0 & 53\\
-\hline
-dsjc500.5-2.in & 71.3 & 48 & 48.0 & 48\\
-\hline
-dsjc500.5-3.in & 199.0 & 45 & 45.6 & 46\\
-\hline
-dsjc500.5-4.in & 290.2 & 44 & 44.0 & 44\\
+20 & 0.5   & \textbf{3.0} & 0.0 & 0.015   & \textbf{3.0} & 0.0 & 0.07  & \textbf{3.0} & 0.0 & 0.113  & \textbf{3.0} & 0.0 & 0.123\\
+40 & 0.5   & \textbf{4.0} & 0.0 & 0.023   & \textbf{4.0} & 0.0 & 0.053  & \textbf{4.0} & 0.0 & 0.148   & \textbf{4.0} & 0.0 & 0.224\\
+60 & 0.5   & \textbf{5.0} & 0.0 & 0.061   & \textbf{5.0} & 0.0 & 0.098  & \textbf{5.0} & 0.0 & 0.251   & \textbf{5.0} & 0.0 & 0.473\\
+70 & 0.5   & \textbf{6.0} & 0.0 & 0.081   & \textbf{6.0} & 0.0 & 0.086  & \textbf{6.0} & 0.0 & 0.214   & \textbf{6.0} & 0.0 & 0.479\\
+80 & 0.5   & \textbf{6.27} & 0.137 & 0.153  & \textbf{6.2} & 0.159 & 0.186  & \textbf{6.2} & 0.159 & 0.340   & \textbf{6.2} & 0.159 & 0.755\\
+90 & 0.5   & \textbf{7.884} & 15.478 & 0.369  & \textbf{7.911} & 15.547 & 0.384 & \textbf{7.888} & 15.52 & 0.597   & \textbf{7.91} & 15.547 & 1.084\\
+100 & 0.5   & \textbf{7.12} & 0.013 & 0.326   & \textbf{7.2} & 0.159 & 0.323  & \textbf{7.2} & 0.159 & 0.53   & \textbf{7.0} & 0.0 & 1.395\\
+120 & 0.5   & \textbf{8.64} & 0.198 & 0.521   & \textbf{8.6} & 0.24 & 0.644  & \textbf{8.6} & 0.24 & 0.858   & \textbf{8.6} & 0.24 & 1.859\\
 \hline
 \end{tabular}
-\end{center}
+}
+\end{table}
 }
 
-\frame{\frametitle{Wiedereinfärbung mit ILP1}
+\frame{
+
+\begin{table}
+\frametitle{Instances with different size: Compared}
+
 \begin{itemize}
-\item 1 run per instance
-\item Tabusize: 0.002*nodes*colors
-\item MaxIterations: 0.3*nodes*colors
+\item Compared to memetic algorithm. Hu, Raidl, Pop (2013)
 \end{itemize}
 
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|l|l||l|l|l||l|l|l|}
 \hline
-\textbf{Instance} & \textbf{Runtime} & \textbf{Result}\\
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{3}{l||}{Random (10 runs/inst)}&\multicolumn{3}{|l|}{MA2}\\
+\cline{1-8}
+ nodes & density   & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$\\
 \hline
-dsjc500.5-1.in & 15.9 & 53\\
-\hline
-dsjc500.5-2.in & 57.2 & 48\\
-\hline
-dsjc500.5-3.in & 164.02 & 45\\
-\hline
-dsjc500.5-4.in & 347.26 & 44\\
+20 & 0.5   & \textbf{3.0} & 0.0 & 0.015   & \textbf{3.0} & 0.0 & 0.14 \\
+40 & 0.5   & \textbf{4.0} & 0.0 & 0.023   & \textbf{4.0} & 0.0 & 0.60 \\
+60 & 0.5   & \textbf{5.0} & 0.0 & 0.061   & \textbf{5.63} & 0.49 & 2.00 \\
+70 & 0.5   & \textbf{6.0} & 0.0 & 0.081   & \textbf{6.06} & 0.24 & 3.33 \\
+80 & 0.5   & \textbf{6.27} & 0.137 & 0.153  & \textbf{6.94} & 0.29 & 4.90 \\
+90 & 0.5   & \textbf{7.884} & 15.478 & 0.369  & \textbf{7.55} & 0.50 & 7.49 \\
+100 & 0.5   & \textbf{7.12} & 0.013 & 0.326   & \textbf{7.93} & 0.30 & 11.04 \\
+120 & 0.5   & \textbf{8.64} & 0.198 & 0.521   & \textbf{9.22} & 0.43 & 21.05 \\
 \hline
 \end{tabular}
-\end{center}
+}
+\end{table}
 }
 
-\frame{\frametitle{Wiedereinfärbung mit ILP2}
+
+\frame{
+
+\begin{table}
+\frametitle{Instances with different density: Conflicting Nodes}
+\resizebox{\columnwidth}{!}{%
+
+\begin{tabular}{|l|l||l||l||l||l|}
+\hline
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{1}{l||}{Random (10 runs/inst)}&\multicolumn{1}{|l||}{OneStepCD}&\multicolumn{1}{|l||}{ILP1}&\multicolumn{1}{|l|}{ILP2}\\
+\cline{1-6}
+ nodes & density   & $\overline{cnodes/recoloring}$  & $\overline{cnodes/recoloring}$ & $\overline{cnodes/recoloring}$ & $\overline{cnodes/recoloring}$\\
+\hline
+90 & 0.1 & 		15.719   & 9.5  	& 6.6  	& 5.65\\
+90 & 0.2 & 		16.708    & 7.999  & 6.36	  & 4.874\\
+90 & 0.3 & 		15.949    & 7.605   & 5.488	  & 4.038\\
+90 & 0.4 & 		14.736    & 6.161	  	& 4.751	  	& 3.416\\
+90 & 0.5 & 		13.519    & 5.934	 & 4.941 	& 3.413\\
+90 & 0.6 & 		11.784    & 5.202	  & 4.391	  & 2.844\\
+90 & 0.7 & 		9.601    & 4.61		  & 3.901	  & 2.449\\
+90 & 0.8 & 		7.704    & 3.665	  & 3.049	  & 2.054\\
+90 & 0.9 & 		5.565    & 2.692	  & 2.348	  & 1.741\\
+
+\hline
+\end{tabular}
+}
+\end{table}
+}
+
+\begin{frame}
+\frametitle{Instances with different density: Results}
+
+\begin{table}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}
+\hline
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{3}{l||}{Random (10 runs/inst)}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
+\cline{1-14}
+ nodes & density   & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$\\
+\hline
+90 & 0.1   & \textbf{3.0} & 0.0 & 0.029   & \textbf{3.0} &0.0 & 0.114  & \textbf{3.0} & 0.0 & 0.164 & \textbf{3.0} & 0.0 & 0.361\\
+90 & 0.2   & \textbf{3.8} & 0.158 & 0.033   & \textbf{3.8} & 0.159 & 0.067  & \textbf{3.8} & 0.159 & 0.158 & \textbf{3.8} & 0.159 & 0.518\\
+90 & 0.3   & \textbf{5.0} & 0.0 & 0.063   & \textbf{5.0} & 0.0 & 0.067  & \textbf{5.0} & 0.0 & 0.179 & \textbf{5.0} & 0.0 & 0.439\\
+90 & 0.4   & \textbf{6.0} & 0.0 & 0.110   & \textbf{6.0} & 0.0 & 0.114  & \textbf{6.0} & 0.0 & 0.262 & \textbf{6.0} & 0.0 & 0.598\\
+90 & 0.5   & \textbf{7.0} & 0.0 & 0.185   & \textbf{7.0} & 0.0 & 0.194  & \textbf{7.0} & 0.0 & 0.391  & \textbf{7.0} & 0.0 & 0.845\\
+90 & 0.6   & \textbf{8.28} & 0.153 & 0.317   & \textbf{8.4} & 0.24 & 0.316  & \textbf{8.2} & 0.16 & 0.58 & \textbf{8.4} & 0.24 & 1.035\\
+90 & 0.7   & \textbf{10.0} &0.0 & 0.458   & \textbf{10.0} & 0.0 & 0.455  & \textbf{10.0} & 0.0 & 0.73   & \textbf{10.0} & 0.0 & 1.259\\
+90 & 0.8   & \textbf{12.059} & 0.014 & 0.809   & \textbf{12.2} & 0.159 & 0.779  & \textbf{12.2} & 0.159 & 1.162 & \textbf{12.2} & 0.159 & 1.836\\
+90 & 0.9   & \textbf{15.8} & 0.15 & 1.238   & \textbf{15.8} & 0.159 & 1.267  & \textbf{15.8} & 0.159 & 1.626 & \textbf{15.8} & 0.159 & 2.279\\
+\hline
+\end{tabular}
+}
+\end{table}
+\end{frame}
+
+\frame{
+
+\begin{table}
+\frametitle{Instances with different density: Compared}
+
 \begin{itemize}
-\item 1 run per instance
-\item Tabusize: 0.002*nodes*colors
-\item MaxIterations: 0.3*nodes*colors
+\item Compared to memetic algorithm. Hu, Raidl, Pop (2013)
 \end{itemize}
 
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|l|l||l|l|l||l|l|l|}
 \hline
-\textbf{Instance} & \textbf{Runtime} & \textbf{Result}\\
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{3}{l||}{Random (10 runs/inst)}&\multicolumn{3}{|l|}{MA2}\\
+\cline{1-8}
+ nodes & density   & $\overline{obj}$ & $sd$ & $\overline{time}$  & $\overline{obj}$ & $sd$ & $\overline{time}$\\
 \hline
-dsjc500.5-1.in & 121.02 & 53\\
-\hline
-dsjc500.5-2.in & 365.377 & 48\\
-\hline
-dsjc500.5-3.in & 964.729 & 45\\
-\hline
-dsjc500.5-4.in & 1058.115 & 44\\
+90 & 0.1   & \textbf{3.0} & 0.0 & 0.029   & \textbf{3.09} & 0.29 & 1.37 \\
+90 & 0.2   & \textbf{3.8} & 0.158 & 0.033   & \textbf{4.41} & 0.49 & 3.24 \\
+90 & 0.3   & \textbf{5.0} & 0.0 & 0.063   & \textbf{5.52} & 0.56 & 4.90 \\
+90 & 0.4   & \textbf{6.0} & 0.0 & 0.110   & \textbf{6.79} & 0.83 & 6.54 \\
+90 & 0.5   & \textbf{7.0} & 0.0 & 0.185  & \textbf{7.55} & 0.50 & 7.49 \\
+90 & 0.6   & \textbf{8.28} & 0.153 & 0.317  & \textbf{10.50} & 0.87 & 11.95 \\
+90 & 0.7   & \textbf{10.0} & 0.0 & 0.458   & \textbf{12.39} & 1.12 & 14.83 \\
+90 & 0.8   & \textbf{12.059} & 0.14 & 0.809   & \textbf{15.18} & 0.80 & 20.98 \\
+90 & 0.9   & \textbf{15.8} & 0.15 & 1.238   & \textbf{17.27} & 0.98 & 45.75 \\
 \hline
 \end{tabular}
-\end{center}
+}
+\end{table}
 }
 
-\frame{\frametitle{Ergebnisse von Frota und Ribiero}
+\begin{frame}
+\frametitle{Large instances: Conflicting Nodes}
 \begin{itemize}
-\item 10 Läufe pro Instanz
-\item Tabulänge: verstehe ich noch immer nicht ganz
-\item MaxIterations: auch noch nicht
+\item todo
 \end{itemize}
+\end{frame}
 
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-\textbf{Instance} & \textbf{Runtime} & \textbf{worst} & \textbf{avg} & \textbf{best} \\
-\hline
-dsjc500.5-1.in & 121.02 & 52 & 51.3 & 51\\
-\hline
-dsjc500.5-2.in & 365.377 & 46 & 45.9 & 45\\
-\hline
-dsjc500.5-3.in & 964.729 & 44 & 43.2 & 43\\
-\hline
-dsjc500.5-4.in & 1058.115 & 42 & 42.0 & 42\\
-\hline
-\end{tabular}
-\end{center}
-}
+\begin{frame}
+\frametitle{Large instances: Results}
+\begin{itemize}
+\item todo
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Large instances: Compared}
+\begin{itemize}
+\item todo: compare to Noronha, Ribiero
+\end{itemize}
+\end{frame}
+
 
 
 \section{Summary}
@@ -429,7 +450,7 @@ Disadvantages:
 
 
 \begin{frame}[fragile]
-\frametitle{Pseudocode}
+\frametitle{Pseudocode Tabusearch}
 \includegraphics[scale=0.25]{tabusearch.png}
 \end{frame}
 
