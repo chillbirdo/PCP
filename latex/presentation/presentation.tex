@@ -61,12 +61,12 @@ node from each component $V_i$)
 \frametitle{Previous Works}
 Exact:
 \begin{enumerate}
-\item Frota, Ribiero (2010): Branch-And-Cut %algorithm based on a formulation by representative vertices
+\item Frota, Ribeiro (2010): Branch-And-Cut %algorithm based on a formulation by representative vertices
 \item Hoshino, Souza, Frota (2011): Branch-And-Price
 \end{enumerate}
 Heuristics:
 \begin{enumerate}
-\item Li, Shima (2000): Group of heuristics based on extensions of classical methods for the vertex coloring problem
+\item Li, Simha (2000): Group of heuristics based on extensions of classical methods for the vertex coloring problem
 \item Noronha, Ribiero (2006): Tabusearch
 \item Hu, Raidl, Pop (2013): Memetic algorithm
 \end{enumerate}
@@ -77,9 +77,9 @@ Heuristics:
 \frame{\frametitle{Algorithm Overview}
 \begin{enumerate}
 \item Create initial solution: OneStepCD
-\item For each set $U$ of vertices of same color $c$: recolor without using $c$ by $\{RANDOM, OneStepCD, ILP1, ILP2\}$
+\item For each set $U_c$ of clusters of same color $c$: recolor without using $c$ by $\{RANDOM, OneStepCD, ILP1, ILP2\}$
 \item Sort the solutions by amount of conflicts.
-\item For each solution try to eliminate conflicts by using tabusearch. Put each vertex-color-pair on the tabulist for a specified amount of iterations. 
+\item For each solution try to eliminate conflicts by using tabusearch.
 \item If all the conflicts could be eliminated, go back to 2, else return the latest feasible solution.
 \end{enumerate}
 }
@@ -225,11 +225,12 @@ Set $S \gets \emptyset$\;
 %\end{tabular}
 %\end{center}
 
-\item Java implementation
-\item uses single thread
 \item Intel Core i5 DualCore 2.5GHz
 \item 8GB Memory
 \item Linux Mint 15 (Ubuntu)
+\item Java implementation
+\item uses single thread
+\item cplex 12.5
 \item Small instances used by Frota and later Hu
 \item Large instance used by Noronha
 \end{itemize}
@@ -278,20 +279,20 @@ Set $S \gets \emptyset$\;
 \frametitle{Instances with different size: Results}
 
 \resizebox{\columnwidth}{!}{%
-\begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}
+\begin{tabular}{|l|l||l|l|l||l|l||l|l||l|l|}
 \hline
-\multicolumn{2}{|l||}{Instance set}&\multicolumn{3}{l||}{Random (10 runs/inst)}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
-\cline{1-14}
- nodes & density   & $\overline{obj}$ & $sd$ & $\overline{time}$  & $obj$ & $sd$ & $time$  & $obj$ & $sd$ & $time$  & $obj$ & $sd$ & $time$\\
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{3}{l||}{Random (10 runs/inst)}&\multicolumn{2}{|l||}{OneStepCD}&\multicolumn{2}{|l||}{ILP1}&\multicolumn{2}{|l|}{ILP2}\\
+\cline{1-11}
+ nodes & density   & $\overline{obj}$ & $sd$ & $\overline{time}$  & $obj$ & $time$  & $obj$ & $time$  & $obj$ & $time$\\
 \hline
-20 & 0.5   & \textbf{3.00} & 0.00 & 0.01   & \textbf{3.00} & 0.00 & 0.07  & \textbf{3.00} & 0.00 & 0.11  & \textbf{3.00} & 0.00 & 0.12\\
-40 & 0.5   & \textbf{4.00} & 0.00 & 0.02   & \textbf{4.00} & 0.00 & 0.05  & \textbf{4.00} & 0.00 & 0.14   & \textbf{4.00} & 0.00 & 0.22\\
-60 & 0.5   & \textbf{5.00} & 0.00 & 0.06   & \textbf{5.00} & 0.00 & 0.09  & \textbf{5.00} & 0.00 & 0.25   & \textbf{5.00} & 0.00 & 0.47\\
-70 & 0.5   & \textbf{6.00} & 0.00 & 0.08   & \textbf{6.00} & 0.00 & 0.08  & \textbf{6.00} & 0.00 & 0.21   & \textbf{6.00} & 0.00 & 0.47\\
-80 & 0.5   & 6.27 & 0.13 & 0.15  & \textbf{6.21} & 0.15 & 0.18  & 6.26 & 0.15 & 0.34   & \textbf{6.21} & 0.15 & 0.75\\
-90 & 0.5   & \textbf{7.88} & 15.47 & 0.36  & 7.91 & 15.54 & 0.38 & \textbf{7.88} & 15.52 & 0.59   & 7.91 & 15.54 & 1.08\\
-100 & 0.5   & 7.12 & 0.01 & 0.32   & 7.22 & 0.15 & 0.32  & 7.23 & 0.15 & 0.53   & \textbf{7.00} & 0.00 & 1.35\\
-120 & 0.5   & 8.64 & 0.19 & 0.52   & 8.64 & 0.24 & 0.64  & 8.62 & 0.24 & 0.85   & \textbf{8.60} & 0.24 & 1.89\\
+20 & 0.5   & \textbf{3.00} & 0.00 & 0.01   & \textbf{3.00} & 0.07  & \textbf{3.00} & 0.11  & \textbf{3.00}  & 0.12\\
+40 & 0.5   & \textbf{4.00} & 0.00 & 0.02   & \textbf{4.00} & 0.05  & \textbf{4.00} & 0.14   & \textbf{4.00}  & 0.22\\
+60 & 0.5   & \textbf{5.00} & 0.00 & 0.06   & \textbf{5.00} & 0.09  & \textbf{5.00} & 0.25   & \textbf{5.00}  & 0.47\\
+70 & 0.5   & \textbf{6.00} & 0.00 & 0.08   & \textbf{6.00} & 0.08  & \textbf{6.00} & 0.21   & \textbf{6.00} & 0.47\\
+80 & 0.5   & 6.27 & 0.13 & 0.15  			& \textbf{6.21} & 0.18  & 6.26 & 0.34   			& \textbf{6.21} & 0.75\\
+90 & 0.5   & \textbf{7.88} & 0.24 & 0.36  	& 7.91 & 0.38 			 & \textbf{7.88} & 0.59   		& 7.91 & 1.08\\
+100 & 0.5   & 7.12 & 0.01 & 0.32   		& 7.22 & 0.32 			 & 7.23  & 0.53   					& \textbf{7.00} & 1.35\\
+120 & 0.5   & 8.64 & 0.19 & 0.52   		& 8.64 & 0.64			 & 8.62  & 0.85   					& \textbf{8.60} & 1.89\\
 \hline
 \end{tabular}
 }
@@ -319,7 +320,7 @@ Set $S \gets \emptyset$\;
 60 & 0.5  & 5 & 5  & \textbf{5.00} & 0.00 & 0.06   & 5.63 & 0.49 & 2.00 \\
 70 & 0.5  & 6 & 6  & \textbf{6.00} & 0.00 & 0.08   & 6.06 & 0.24 & 3.33 \\
 80 & 0.5  & 6 & 6  & \textbf{6.27} & 0.13 & 0.15  & 6.94 & 0.29 & 4.90 \\
-90 & 0.5  & 6 & 7  & 7.88 & 15.47 & 0.36  & \textbf{7.55} & 0.50 & 7.49 \\
+90 & 0.5  & 6 & 7  & 7.88 & 0.17 & 0.36  & \textbf{7.55} & 0.50 & 7.49 \\
 100 & 0.5  & 6 & 7  & \textbf{7.12} & 0.01 & 0.32   & 7.93 & 0.30 & 11.04 \\
 120 & 0.5  & 7 & 8  & \textbf{8.64} & 0.19 & 0.52   & 9.22 & 0.43 & 21.05 \\
 \hline
@@ -366,21 +367,21 @@ Set $S \gets \emptyset$\;
 
 \begin{table}
 \resizebox{\columnwidth}{!}{%
-\begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}
+\begin{tabular}{|l|l||l|l|l||l|l||l|l||l|l|}
 \hline
-\multicolumn{2}{|l||}{Instance set}&\multicolumn{3}{l||}{Random (10 runs/inst)}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
-\cline{1-14}
- nodes & density   & $\overline{obj}$ & $sd$ & $\overline{time(s)}$  & $obj$ & $sd$ & $time(s)$  & $obj$ & $sd$ & $time(s)$  & $obj$ & $sd$ & $time(s)$\\
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{3}{l||}{Random (10 runs/inst)}&\multicolumn{2}{|l||}{OneStepCD}&\multicolumn{2}{|l||}{ILP1}&\multicolumn{2}{|l|}{ILP2}\\
+\cline{1-11}
+ nodes & density   & $\overline{obj}$ & $sd$ & $\overline{time(s)}$  & $obj$ & $time(s)$  & $obj$ & $time(s)$  & $obj$ & $time(s)$\\
 \hline
-90 & 0.1   & \textbf{3.00} & 0.00 & 0.02   & \textbf{3.00} & 0.00 & 0.11  & \textbf{3.00} & 0.00 & 0.16 & \textbf{3.00} & 0.00 & 0.36\\
-90 & 0.2   & \textbf{3.80} & 0.15 & 0.03   & \textbf{3.80} & 0.15 & 0.06  & \textbf{3.80} & 0.15 & 0.15 & \textbf{3.80} & 0.15 & 0.51\\
-90 & 0.3   & \textbf{5.00} & 0.00 & 0.06   & \textbf{5.00} & 0.00 & 0.06  & \textbf{5.00} & 0.00 & 0.17 & \textbf{5.00} & 0.00 & 0.43\\
-90 & 0.4   & \textbf{6.00} & 0.00 & 0.11   & \textbf{6.00} & 0.00 & 0.11  & \textbf{6.00} & 0.00 & 0.26 & \textbf{6.00} & 0.00 & 0.59\\
-90 & 0.5   & \textbf{7.00} & 0.00 & 0.18   & \textbf{7.00} & 0.00 & 0.19  & \textbf{7.00} & 0.00 & 0.39  & \textbf{7.00} & 0.00 & 0.84\\
-90 & 0.6   & 8.28 & 0.15 & 0.31   & 8.40 & 0.24 & 0.36  & \textbf{8.20} & 0.16 & 0.58 & 8.40 & 0.24 & 1.03\\
-90 & 0.7   & \textbf{10.00} &0.00 & 0.45   & \textbf{10.0} & 0.00 & 0.45  & \textbf{10.00} & 0.00 & 0.73   & \textbf{10.00} & 0.00 & 1.25\\
-90 & 0.8   & \textbf{12.05} & 0.01 & 0.80   & 12.20 & 0.15 & 0.77  & 12.20 & 0.15 & 1.16 & 12.20 & 0.15 & 1.83\\
-90 & 0.9   & \textbf{15.80} & 0.15 & 1.23   & \textbf{15.80} & 0.15 & 1.26  & \textbf{15.80} & 0.15 & 1.62 & \textbf{15.80} & 0.15 & 2.27\\
+90 & 0.1   & \textbf{3.00} & 0.00 & 0.02   & \textbf{3.00} & 0.11  	& \textbf{3.00} & 0.16 & 	\textbf{3.00} & 0.36\\
+90 & 0.2   & \textbf{3.80} & 0.15 & 0.03   & \textbf{3.80} & 0.06  	& \textbf{3.80} & 0.15 & 	\textbf{3.80} & 0.51\\
+90 & 0.3   & \textbf{5.00} & 0.00 & 0.06   & \textbf{5.00} & 0.06  	& \textbf{5.00} & 0.17 & 	\textbf{5.00} & 0.43\\
+90 & 0.4   & \textbf{6.00} & 0.00 & 0.11   & \textbf{6.00} & 0.11  	& \textbf{6.00} & 0.26 & 	\textbf{6.00} & 0.59\\
+90 & 0.5   & \textbf{7.00} & 0.00 & 0.18   & \textbf{7.00} & 0.19  	& \textbf{7.00} & 0.39  & 	\textbf{7.00} & 0.84\\
+90 & 0.6   & 8.28 & 0.15 & 0.31   			 & 8.40 & 0.36  			& \textbf{8.20} & 0.58 	& 	8.40 & 1.03\\
+90 & 0.7   & \textbf{10.00} & 0.00 & 0.45   & \textbf{10.0} & 0.45  	& \textbf{10.00} & 0.73   	& \textbf{10.00} & 1.25\\
+90 & 0.8   & \textbf{12.05} & 0.01 & 0.80   & 12.20 & 0.77  			& 12.20 & 1.16 &				12.20 & 1.83\\
+90 & 0.9   & \textbf{15.80} & 0.15 & 1.23   & \textbf{15.80} & 1.26  	& \textbf{15.80} & 1.62 &	\textbf{15.80} & 2.27\\
 \hline
 \end{tabular}
 }
@@ -421,30 +422,82 @@ Set $S \gets \emptyset$\;
 \subsection{Large instances}
 
 
-\begin{frame}
+\frame{
+
+\begin{table}
 \frametitle{Large instances: Conflicting Nodes}
-\begin{itemize}
-\item todo on sunday
-\end{itemize}
-\end{frame}
+\resizebox{\columnwidth}{!}{%
+
+\begin{tabular}{|l|l||l||l||l||l|}
+\hline
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{1}{l||}{Random (10 runs/inst)}&\multicolumn{1}{|l||}{OneStepCD}&\multicolumn{1}{|l||}{ILP1}&\multicolumn{1}{|l|}{ILP2}\\
+\cline{1-6}
+ nodes & density   & $\overline{cnodes/recoloring}$  & $cnodes/recoloring$ & $cnodes/recoloring$ & $cnodes/recoloring$\\
+\hline
+500 & 0.5 & 		35.13   & 7.89  	& 7.88  	& \textbf{5.02}\\
+1000 & 0.5 & 		39.87    & 9.15  & 7.74	  & \textbf{5.15}\\
+1500 & 0.5 & 		44.67    & 11.52   & 8.12	  & \textbf{6.02}\\
+2000 & 0.5 & 		46.81    & 12.29	  	& 4.75	  	& \textbf{6.42}\\
+
+\hline
+\end{tabular}
+}
+\begin{tiny}
+\textit{$cnodes$ denote the number of conflicting nodes} 
+\end{tiny}
+\end{table}
+}
 
 \begin{frame}
-\frametitle{Large instances: Results}
-\begin{itemize}
-\item todo on sunday
-\end{itemize}
+\frametitle{Large Instances: Results}
+
+\begin{table}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}
+\hline
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{3}{l||}{Random (10 runs/inst)}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
+\cline{1-14}
+ nodes & density   & $\overline{obj}$ & $sd$ & $\overline{time(s)}$  & $obj$ & $sd$ & $time(s)$  & $obj$ & $sd$ & $time(s)$  & $obj$ & $sd$ & $time(s)$\\
+\hline
+500 & 0.5    & 53.6 & 0.0 & 18.011   			& \textbf{53.0} & 0.0 & 19.91  & \textbf{53.0} & 0.0 & 29.87 & \textbf{53.0} & 0.0 & 118.90\\
+1000 & 0.5   & \textbf{48.0} & 0.0 & 67.74   	& \textbf{48.0} & 0.0 & 76.68  & \textbf{48.0} & 0.0 & 107.20 & \textbf{48.0} & 0.0 & 637.36\\
+1500 & 0.5   & 45.4 & 0.0 & 202.99   			& \textbf{45.0} & 0.0 & 175.14 & 46.0 & 0.0 & 244.90 			&  \textbf{45.0} & 0.0 & 3005.96\\
+2000 & 0.5   & \textbf{43.8} & 0.0 & 316.90   & 44.0 & 0.0 & 289.03  			& 44.0 & 0.0 & 473.30 				& 44.0 & 0.0 & 7637.26\\
+\hline
+\end{tabular}
+}
+\end{table}
 \end{frame}
 
-\begin{frame}
+\frame{
 \frametitle{Large instances: Compared}
+
 \begin{itemize}
-\item todo on sunday: compare to Noronha, Ribiero
+\item Compared to Local Search. Noronha, Ribiero (2006)
 \end{itemize}
-\end{frame}
+
+\begin{table}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|l|l||l|l|l|l||l|l|l|}
+\hline
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{4}{l||}{Random (10 runs/inst)}&\multicolumn{3}{|l|}{Nohora (10 runs/inst)}\\
+\cline{1-9}
+ nodes & density & $min$ & $avg$ & $max$ & $\overline{time(s)}$  & $min$ & $avg$ & $max$\\
+\hline
+500 & 0.5  & 53 & 53.6 & 54 & 18.01  	& 51 & \textbf{51.3} & 52 \\
+1000 & 0.5  & 48 & 48.0 & 48 & 67.74   & 45 & \textbf{45.9} & 46 \\
+1500 & 0.5  & 45 & 45.4 & 46 & 202.99   & 43 & \textbf{43.2} & 44 \\
+2000 & 0.5  & 43 & 43.8 & 44 & 316.90   & 42 & \textbf{42.0} & 42 \\
+\hline
+\end{tabular}
+}
+\end{table}
+}
 
 
 
 \section{Summary}
+\subsection{Summary}
 \frame{
 \frametitle{Summary}
 Main insight:
@@ -460,12 +513,19 @@ Disadvantages:
 \begin{itemize}
 \item Noronha and Ribiero's tabusearch search still performs slightly better
 \end{itemize}
-Future Work
-\begin{itemize}
-\item All node-color-combinations from all recently recolored clusters could be put on the tabulist for a number of iterations
-\end{itemize}
 }
 
+\subsection{Future works}
+\begin{frame}
+\frametitle{Future works}
+\begin{itemize}
+\item All node-color-combinations from all recently recolored clusters could be put on the tabulist for a number of iterations
+\item adapt size of tabulist to instances more individually
+\item try first improvement strategy
+\end{itemize}
+\end{frame}
+
+\subsection{Discussion}
 \frame{
 \frametitle{Discussion}
 \begin{itemize}
