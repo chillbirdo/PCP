@@ -11,7 +11,8 @@ public class LocalSearch {
 
     private static final Logger logger = Logger.getLogger(LocalSearch.class.getName());
 
-    public static boolean start(Coloring c, int tabuSize, int maxIterations) {
+    public static boolean start(Coloring c, int tabuSizeMin, int tabuSizeMax, int maxIterations) {
+//        logger.severe("Tabusize: " + tabuSize);
         logger.info("LOCALSEARCH: trying to eliminate " + c.getConflictingNCIs().size() + " conflicting nodes.");
 
         int[][] tabuData = new int[c.getGraph().getNodes().length][c.getChromatic()];
@@ -60,14 +61,11 @@ public class LocalSearch {
                 continue;
             }
 
-            //add chosen node and color to tabulist
-            int randomPercent = 50;
-            int randomRange = Math.round((tabuSize/100))*randomPercent;
-            int randomPart = (int) Math.floor(Math.random()*(2*randomRange))-randomRange; 
-            tabuData[chosenNci.getNode().getId()][chosenColor] = iterations + tabuSize + randomPart;
-//            tabuData[chosenNci.getNode().getId()][chosenColor] = iterations + tabuSize;
-            
-            
+//            add chosen node and color to tabulist
+            int randomTabuSize = (int) Math.round(Math.random() * (tabuSizeMax - tabuSizeMin)) + tabuSizeMin;
+            tabuData[chosenNci.getNode().getId()][chosenColor] = iterations + randomTabuSize;
+
+
             //set chosen color to chosen node
             c.uncolorNci(chosenConflictingNci);
             c.getSelectedColoredNCIs().remove(chosenConflictingNci);

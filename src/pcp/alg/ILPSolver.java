@@ -14,7 +14,7 @@ public class ILPSolver {
 
     private static final Logger logger = Logger.getLogger(ILPSolver.class.getName());
 
-    public static int performOnUnselected(Coloring cc) {
+    public static int performOnUnselected(Coloring cc, boolean coloringRestriction) {
 
         int result = 0;
 
@@ -101,35 +101,37 @@ public class ILPSolver {
                 cplex.addEq(expr, 1);
             }
 
-            //build constraints 2: no two adjacent nodes may have the same color
-            //select only edges that are between nodes represented by x:
-            ArrayList<Integer[]> xEdges = new ArrayList<Integer[]>();
-            for (Integer[] edge : cc.getGraph().getEdges()) {
-                Node n1 = cc.getGraph().getNode(edge[0]);
-                Node n2 = cc.getGraph().getNode(edge[1]);
-                if (unSelectedPartitionMapping[n1.getPartition()] != -1 && unSelectedPartitionMapping[n2.getPartition()] != -1) {
+            if (coloringRestriction) {
+                //build constraints 2: no two adjacent nodes may have the same color
+                //select only edges that are between nodes represented by x:
+                ArrayList<Integer[]> xEdges = new ArrayList<Integer[]>();
+                for (Integer[] edge : cc.getGraph().getEdges()) {
+                    Node n1 = cc.getGraph().getNode(edge[0]);
+                    Node n2 = cc.getGraph().getNode(edge[1]);
+                    if (unSelectedPartitionMapping[n1.getPartition()] != -1 && unSelectedPartitionMapping[n2.getPartition()] != -1) {
 //                    logger.finest("CONSTRAINT 2: added edge: " + edge[0] + " to " + edge[1]);
-                    xEdges.add(edge);
+                        xEdges.add(edge);
+                    }
                 }
-            }
-            //set constraint:
-            for (Integer[] edge : xEdges) {
-                Node n1 = cc.getGraph().getNode(edge[0]);
-                Node n2 = cc.getGraph().getNode(edge[1]);
+                //set constraint 2:
+                for (Integer[] edge : xEdges) {
+                    Node n1 = cc.getGraph().getNode(edge[0]);
+                    Node n2 = cc.getGraph().getNode(edge[1]);
 
-                int p1 = unSelectedPartitionMapping[n1.getPartition()];
-                int p2 = unSelectedPartitionMapping[n2.getPartition()];
-                int v1idx = n1.getIdxInPartition();
-                int v2idx = n2.getIdxInPartition();
-                IloIntVar[] v1 = (IloIntVar[]) xL[p1].get(v1idx);
-                IloIntVar[] v2 = (IloIntVar[]) xL[p2].get(v2idx);
-                for (int color = 0; color < v1.length; color++) {
-                    IloLinearIntExpr expr = cplex.linearIntExpr();
-                    expr.addTerm(1, v1[color]);
-                    expr.addTerm(1, v2[color]);
-                    cplex.addLe(expr, 1);
-                }
+                    int p1 = unSelectedPartitionMapping[n1.getPartition()];
+                    int p2 = unSelectedPartitionMapping[n2.getPartition()];
+                    int v1idx = n1.getIdxInPartition();
+                    int v2idx = n2.getIdxInPartition();
+                    IloIntVar[] v1 = (IloIntVar[]) xL[p1].get(v1idx);
+                    IloIntVar[] v2 = (IloIntVar[]) xL[p2].get(v2idx);
+                    for (int color = 0; color < v1.length; color++) {
+                        IloLinearIntExpr expr = cplex.linearIntExpr();
+                        expr.addTerm(1, v1[color]);
+                        expr.addTerm(1, v2[color]);
+                        cplex.addLe(expr, 1);
+                    }
 //                logger.finer("\nCONTSTRAINT 2 for edge (" + edge[0] + ", " + edge[1] + "): " + objectiveExpr);
+                }
             }
 
             //solve, output and integrate solution into coloring

@@ -50,12 +50,16 @@ public class Recolorer {
 
             int res = 0;
             if (recolorAlg == PCP.RECOLOR_WITH_ILP) {
-                res = ILPSolver.performOnUnselected((Coloring) cc);
+                res = ILPSolver.performOnUnselected((Coloring) cc, true);
+            }else if ( recolorAlg == PCP.RECOLOR_WITH_ILP_NOCOLORINGCONSTRAINT){
+                res = ILPSolver.performOnUnselected((Coloring) cc, false);
             }else if ( recolorAlg == PCP.RECOLOR_WITH_ILP2){
-                res = ILPSolver2.performOnUnselected((Coloring) cc);
-            } else if (recolorAlg == PCP.RECOLOR_WITH_ONESTEPCD) {
+                res = ILPSolver2.performOnUnselected((Coloring) cc, true);
+            }else if ( recolorAlg == PCP.RECOLOR_WITH_ILP2_NOCOLORINGCONTRAINT){
+                res = ILPSolver2.performOnUnselected((Coloring) cc, false);
+            }else if (recolorAlg == PCP.RECOLOR_WITH_ONESTEPCD) {
                 res = OneStepCD.performOnUnselected((Coloring) cc);
-            } else if (recolorAlg == PCP.RECOLOR_WITH_RANDOM) {
+            }else if (recolorAlg == PCP.RECOLOR_WITH_RANDOM) {
                 res = Recolorer.randomRecoloringPerformOnUnselected((Coloring) cc);
             }
 
