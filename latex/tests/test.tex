@@ -1,0 +1,46 @@
+\documentclass{article}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[ngerman]{babel} 
+
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{placeins}
+\usepackage{float}
+
+\usepackage{algorithmic}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
+
+
+\title{Ein Hybrider Algorithmus für das Partition Coloring Problem}
+\author{Gilbert Fritz, 0827276 / 066931}
+
+
+\begin{document}
+
+\section{Tables}
+
+ \begin{table}
+      \begin{tiny}
+      \textit{500-1.in, mit verschiedenen Tabusizes} 
+      \end{tiny}
+      
+      \resizebox{\columnwidth}{!}{%
+      \begin{tabular}{|l|l||l|l|l|}\hline
+      \multicolumn{2}{|l||}{Instance set}&\multicolumn{3}{|l|}{Random}\\
+      \cline{1-5}
+      tsMin & tsMax & $\overline{obj}$ & $sd$ & $\overline{time}$\\
+      \hline
+            
+      0.25 & 0.75 & \textbf{53.0} & 0.000 & 19.535 \\
+      0.0 & 1.0 & \textbf{52.8} & 0.000 & 21.058 \\
+      0.0 & 0.5 & \textbf{53.0} & 0.000 & 18.278 \\
+      0.5 & 1.0 & \textbf{52.9} & 0.000 & 20.997 \\
+      0.25 & 1.0 & \textbf{53.1} & 0.000 & 19.455 \\
+      0.0 & 0.75 & \textbf{53.0} & 0.000 & 20.211 \\
+      \hline
+      \end{tabular}
+      }
+      \end{table}
+
+\end{document}

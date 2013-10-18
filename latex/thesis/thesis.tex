@@ -1,0 +1,72 @@
+\documentclass{article}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[ngerman]{babel} 
+
+\title{Ein Hybrider Algorithmus für das Partition Coloring Problem}
+\author{Gilbert Fritz, 0827276 / 066931}
+
+
+\begin{document}
+\maketitle
+\nocite{li-00}
+
+\section{Abstract ger}
+
+Diese Arbeit beschäftigt sich mit dem Partition Coloring Problem (PCP). Es handelt sich dabei um eine Generalisierung des Knotenfärbungsproblems und ist ein Optimierungsproblem der Komplexitätsklasse $\mathcal{NP}$.\\
+Gegeben ist ein Graph, dessen Knotenmenge in disjunkte Partitionen unterteilt ist. Aus jeder Partition muss ein Knoten gewählt werden. Der durch die gewählten Knoten induzierte Subgraph soll unter der Bedingung eingefärbt werden, dass kein zueinander adjazentes Knotenpaar die gleiche Farbe annimmt. Ziel ist es, die Gesamtanzahl der verwendeten Farben - die sogenannte chromatische Zahl - zu minimieren.\\
+Zur Lösung dieses Problems sollen mittels heuristischer Verfahren initiale Lösun\-gen erstellt und diese mittels Tabusuche und wiederholter, partieller Neueinfär\-bung verbessert werden. Das Problem der Neueinfärbung wird mit unterschiedlichen Ansätzen gelöst. 
+
+\section{Abstract en}
+
+\section{Formal Definition}
+\begin{itemize}
+
+\item Let $G = (V, E)$ be a non-directed graph, where
+$V$ is the set of nodes and $E$ is the set of edges. Furthermore,
+let $V_1, V_2,\ldots, V_q$ be a partition of $V$ into
+$q$ subsets with $V_1 \cup V_2 \cup \ldots \cup V_q = V$ and
+$V_i \cap V_j = \emptyset, \forall i, j = 1, \ldots , q$ with $i \neq j$. We refer
+to $V_1, V_2, \ldots , V_q$ as the components of the partition. The Partition Colouring Problem (PCP)
+consists in finding a subset $V' \subset V$ such that
+$|V' \cap V_i| = 1, \forall i = 1, \ldots , q$ (i.e., $V'$ contains one
+node from each component $V_i$), and the chromatic
+number of the graph induced in $G$ by $V'$ is minimum. This problem is clearly a generalization of
+the graph colouring problem. Li and Simha \cite{li-00}	
+have shown that the decision version of PCP is
+NP-complete.
+\end{itemize}
+
+\section{ILP1}
+Let $Q = {Q_1,\ldots,Q_q}$ be the set of Clusters. Every cluster $Q_p$ consists of a set of nodes. Let $C=\{1,\ldots,cmax\}$ be the
+set of allowed colors. Let $M$ be a 3-dimensional array of constants, storing
+for every cluster $p \in Q$, the number conflicts that would occur by selecting the pair $(v \in Q_p, c \in C)$.
+$E$ denotes the set of edges and $P[v]$ the cluster of node $v$.
+
+
+\section{Erwartetes Resultat}
+
+Mittels des beschriebenen, hybriden Verfahrens sollen in annehmbarer Zeit Lösun\-gen möglichst nahe am Optimum gefunden werden. Weiters soll überprüft werden, ob ein exakter Lösungsansatz mittels mathematischer Programmierung beim Teilproblem der Neueinfärbung zu Verbesserungen führt. Das Ziel der Arbeit ist es, einen alternativen Lösungsansatz zu den bereits Bestehenden zu erforschen.
+
+
+\section{Methodisches Vorgehen}
+
+Zur Erzeugung einer Startlösung wird der in \cite{li-00} vorgestellte Greedy-Algorithmus ``OneStepCD'' benutzt. Der Prozess zur Verringerung der Farben besteht aus zwei Teilschritten: Zuerst werden Teilgraphen neu eingefärbt und dabei sowohl heuristische als auch exakte Verfahren implementiert und deren Auswirkung auf die Gesamtlösung verglichen. Da das Ziel der exakten Neueinfärbung nicht die Minimierung der chromatischen Zahl, sondern die Minimierung der durch die Färbung verursachten gleichgefärbten, adjazenten Knotenpaare ist, müssen Alternativen zu dem in \cite{frota-07} vorgestellten Lösungsmodellen gefunden werden. Im zweiten Schritt sollen die neu eingefärbten Teilgraphen in die Gesamtlösung mittels Tabusuche integriert werden.
+
+
+\section{State-of-the-art}
+
+Li und Shima haben in \cite{li-00} bewiesen, dass das PCP $\mathcal{NP}$ schwer ist und präsentier\-ten einige Greedy-Heuristiken basierend auf Erweiterungen klassischer Methoden für das Vertex Coloring Problem. Mit einem Branch-And-Cut Algorithmus basierend auf der Formulierung durch Repräsentative stellen Frota und Ribeiro in \cite{frota-07} eine exakte Methode vor. Heuristische Lösungsvorschläge existieren in unterschiedlichen Varianten: Die oben bereits erwähnten Greedy-Heuristiken \cite{li-00}, ein memetischer Argorithmus von Pop, Hu und Raidl in \cite{pop-13}, ein Branch-And-Price Algorithmus von Hoshino, Frota und Souza in \cite{hoshino-11} und eine Algorithmus basierend auf Tabusuche von Nohora und Ribiero \cite{noronha-06}, welcher dem in dieser Arbeit ausgearbeiteten Lösungsverfahren am nächsten kommt.
+ 
+
+\section{Bezug zum oben angeführten Studium}
+
+Bei meinem Studium ``Computational Intelligence'' habe ich mich vorwiegend auf den Bereich Algorithmik konzentriert - in jenen Bereich fällt auch der Inhalt dieser Arbeit. Aufbauend auf den Lehrveranstaltungen \textit{Algorithmen und Datenstrukturen 1 und 2}, verschafften mir die Lehrveranstaltungen \textit{Algorithmen auf Graphen}, \textit{Problem Solving and Search in Artificial Intelligence}, sowie \textit{Heuristische Optimierungsverfahren} die nötigen Voraussetzungen vielfältige Lösungsansätze bei der Bearbeitung des PCP in Betracht zu ziehen. Für die Neueinfärbung von Teilgraphen wende ich unter anderem exakte Verfahren mittels mathematischer Programmierung an. Die Grundlagen dazu erlernte ich in den Lehrveranstaltungen \textit{Fortgeschrittene Algorithmen und Datenstrukturen} und \textit{Modeling and Solving Constrained Optimization Problems}. Die Beschäftigung mit Problemen, die in \textit{Effiziente Algorithmen} sowie \textit{Approximationsalgorithmen} behandelt wurden ergänzen das Wissen, dass zum Verfassen einer Masterarbeit im Bereich Algorithmik vorausgesetzt wird.
+
+\bibliographystyle{unsrt}   % this means that the order of references
+			    % is dtermined by the order in which the
+			    % \cite and \nocite commands appear
+\bibliography{pcp}  % list here all the bibliographies that
+			     % you need.
+			     			      
+\end{document}
