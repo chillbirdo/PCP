@@ -68,9 +68,7 @@ public class LatexPrinter {
             }
         }
         String tableStr = "\\begin{table}\n"
-                + "\\begin{tiny}\n"
                 + "\\textit{" + title + "} \n"
-                + "\\end{tiny}\n"
                 + "\n"
                 + "\\resizebox{\\columnwidth}{!}{%\n"
                 + "\\begin{tabular}{" + columnDefinition + "}"

@@ -32,26 +32,53 @@ public class PCP {
 
     public static void main(String[] args) {
         int[] algs = {RECOLOR_WITH_ILP, RECOLOR_WITH_ILP_NOCOLORINGCONSTRAINT, RECOLOR_WITH_ILP2, RECOLOR_WITH_ILP2_NOCOLORINGCONTRAINT};
-        algComparisonTable1("pcp_instances/in1/", algs, 10);
-//        algComparisonTable1("pcp_instances/in2/", algs, 10);
-//        algComparisonTable1("pcp_instances/in3/", algs, 10);
-//        algComparisonTable1("pcp_instances/in4/", algs, 10);
+//        int[] algs = {RECOLOR_WITH_RANDOM, RECOLOR_WITH_ONESTEPCD, RECOLOR_WITH_ILP, RECOLOR_WITH_ILP2};
+        algComparisonTable1("pcp_instances/pcpn90p1/", algs, 10);
+        algComparisonTable1("pcp_instances/pcpn90p2/", algs, 10);
+        algComparisonTable1("pcp_instances/pcpn90p3/", algs, 10);
+        algComparisonTable1("pcp_instances/pcpn90p4/", algs, 10);
+        algComparisonTable1("pcp_instances/pcpn90p5/", algs, 10);
+        algComparisonTable1("pcp_instances/pcpn90p6/", algs, 10);
+        algComparisonTable1("pcp_instances/pcpn90p7/", algs, 10);
+        algComparisonTable1("pcp_instances/pcpn90p8/", algs, 10);
+        algComparisonTable1("pcp_instances/pcpn90p9/", algs, 10);
+        algComparisonTable1("pcp_instances/pcp20/", algs, 10);
+        algComparisonTable1("pcp_instances/pcp40/", algs, 10);
+        algComparisonTable1("pcp_instances/pcp60/", algs, 10);
+        algComparisonTable1("pcp_instances/pcp70/", algs, 10);
+        algComparisonTable1("pcp_instances/pcp80/", algs, 10);
+        algComparisonTable1("pcp_instances/pcp90/", algs, 10);
+        algComparisonTable1("pcp_instances/pcp100/", algs, 10);
+        algComparisonTable1("pcp_instances/pcp120/", algs, 10);
 
-//        tabuSizeTable("pcp_instances/in1/");
-//        tabuSizeTable("pcp_instances/in2/");
+
+//        double[][] tabuIntervalsIn = {{0.25, 0.75},
+//            {0.0, 1.0},
+//            {0.0, 0.5},
+//            {0.5, 1.0},
+//            {0.25, 1.0},
+//            {0.0, 0.75},
+//            {1.0, 2.0},
+//            {1.5, 2.5},
+//            {2.0, 3.0},
+//            {3.0, 5.0}};
+//        tabuSizeTable("pcp_instances/in1/", tabuIntervalsIn, 5.0);
+//        tabuSizeTable("pcp_instances/in2/", tabuIntervalsIn, 5.0);
+//        tabuSizeTable("pcp_instances/in3/", tabuIntervalsIn, 5.0);
+//        tabuSizeTable("pcp_instances/in4/", tabuIntervalsIn, 5.0);
+    
     }
 
-    public static void algComparisonTable1(String inst, int[] algs, int rep) {
-        int iterationsFactor = 1;
+    public static void algComparisonTable1(String instSet, int[] algs, int rep) {
+        int iterationsFactor = 10;
 
 //        int[] algs = {RECOLOR_WITH_RANDOM};
         List<String> algLabelList = new ArrayList<String>(10);
-        double[][] tabuIntervals = {//{{0.25, 0.75},
-            {0.0, 1.0},
-            {0.0, 0.5},
-            {0.5, 1.0},
-            {0.25, 1.0},
-            {0.0, 0.75}};
+        double[][] tabuIntervalsPCP = {//{{0.25, 0.75},
+            {1.0, 2.5},
+            {2.5, 5.0},
+            {2.0, 4.0},
+            {1.0, 5.0}};
 
         List<String> entryLabelList = new ArrayList<String>(100);
         List<List<List<Double>>> methodList = new ArrayList<List<List<Double>>>(10);
@@ -61,33 +88,23 @@ public class PCP {
 
             //fill entries
             List<List<Double>> entryList = new ArrayList<List<Double>>();
-            for (double[] tabuInterval : tabuIntervals) {
-                entryList.add(allFiles(inst, method, rep, tabuInterval[0], tabuInterval[1], iterationsFactor));
+            for (double[] tabuInterval : tabuIntervalsPCP) {
+                entryList.add(allFiles(instSet, method, rep, tabuInterval[0], tabuInterval[1], iterationsFactor));
             }
             methodList.add(entryList);
         }
 
-        String tableStr = LatexPrinter.toLatexTableStr("Different Tabusizes", algLabelList, tabuIntervals, methodList);
+        String[] pathSplit = instSet.split("/");
+        String tableName = pathSplit[pathSplit.length-1];
+        String tableStr = LatexPrinter.toLatexTableStr(tableName, algLabelList, tabuIntervalsPCP, methodList);
         logger.severe("\n\n" + tableStr);
     }
 
-    public static void tabuSizeTable(String inst) {
+    public static void tabuSizeTable(String instSet, double[][] tabuIntervals, double iterationsFactor) {
         int rep = 10;
-        int iterationsFactor = 10;
 
-        //        int[] algs = {RECOLOR_WITH_ILP, RECOLOR_WITH_ILP_NOCOLORINGCONSTRAINT, RECOLOR_WITH_ILP2, RECOLOR_WITH_ILP2_NOCOLORINGCONTRAINT};
         int[] algs = {RECOLOR_WITH_RANDOM};
         List<String> algLabelList = new ArrayList<String>(10);
-        double[][] tabuIntervals = {{0.25, 0.75},
-            {0.0, 1.0},
-            {0.0, 0.5},
-            {0.5, 1.0},
-            {0.25, 1.0},
-            {0.0, 0.75},
-            {1.0, 2.0},
-            {1.5, 2.5},
-            {2.0, 3.0},
-            {3.0, 5.0}};
 
         List<String> entryLabelList = new ArrayList<String>(100);
         List<List<List<Double>>> methodList = new ArrayList<List<List<Double>>>(10);
@@ -98,12 +115,12 @@ public class PCP {
             //fill entries
             List<List<Double>> entryList = new ArrayList<List<Double>>();
             for (double[] tabuInterval : tabuIntervals) {
-                entryList.add(allFiles(inst, method, rep, tabuInterval[0], tabuInterval[1], iterationsFactor));
+                entryList.add(allFiles(instSet, method, rep, tabuInterval[0], tabuInterval[1], iterationsFactor));
             }
             methodList.add(entryList);
         }
 
-        String tableStr = LatexPrinter.toLatexTableStr("Different Tabusizes", algLabelList, tabuIntervals, methodList);
+        String tableStr = LatexPrinter.toLatexTableStr(instSet, algLabelList, tabuIntervals, methodList);
         logger.severe("\n\n" + tableStr);
     }
 
@@ -116,7 +133,7 @@ public class PCP {
 //            entryList.add( allFiles("pcp_instances/pcpn90p8/", method, tabuSizeMin, tabuSizeMax, rep));
 //            entryList.add( allFiles("pcp_instances/pcpn90p9/", method, tabuSizeMin, tabuSizeMax, rep));
     public static List<Double> allFiles(String path, int recolorAlg, int repetitions, double tabuSizeMinFactor, double tabuSizeMaxFactor, double iterationsFactor) {
-        logger.severe(path);
+//        logger.severe(path);
 
         List<Double> ret = new ArrayList<Double>(3);
         if (repetitions < 1) {
@@ -142,7 +159,7 @@ public class PCP {
                 if (fileEntry.isFile()) {
                     int best = Integer.MAX_VALUE;
                     int worst = 0;
-                    double avgRepSum = 0.0;
+                    double repSum = 0.0;
                     double[] resultsOfRepetition = new double[repetitions];
 
 //                    double conflictingNodesAmount = 0.0;
@@ -151,7 +168,7 @@ public class PCP {
                         ColoringDoubleDouble cdp = optimized(fileEntry, recolorAlg, tabuSizeMinFactor, tabuSizeMaxFactor, iterationsFactor);
                         Coloring c = cdp.coloring;
                         int chromatic = c.getChromatic();
-                        avgRepSum += chromatic;
+                        repSum += chromatic;
                         resultsOfRepetition[i] = chromatic;
 //                        conflictingNodesAmount += cdp.conflictingNodes;
 //                        recoloringAmount += cdp.recolorings;
@@ -162,7 +179,7 @@ public class PCP {
                             worst = chromatic;
                         }
                     }
-                    double meanInst = avgRepSum / repetitions;
+                    double meanInst = repSum / repetitions;
 
                     double varianceInst = 0.0;
                     for (int i = 0; i < repetitions; i++) {
@@ -177,7 +194,7 @@ public class PCP {
 
 //                    logger.severe(fileEntry.getName() + "\t\t" + avgTimePassedPerFile + "\t\t" + tabusizeMinFactor + "\t\t" + iterationsFactor + "\t\t" + best + "\t\t" + avg + "\t\t" + worst);
 
-                    meanInstSum += avgRepSum;
+                    meanInstSum += meanInst;
                     varianceInstSum += varianceInst;
                     avgTimeInstSum += avgTimeInst;
 //                    conflictingNodesAmountSum += conflictingNodesAmount;
@@ -191,7 +208,7 @@ public class PCP {
             double variance = varianceInstSum / fileList.size();
             double avgTime = avgTimeInstSum / fileList.size();
 
-            logger.severe("\n FINISHED!\n" + "\\textbf{" + mean + "} & " + variance + " & " + avgTime);
+//             logger.severe("\n FINISHED!\n" + "\\textbf{" + mean + "} & " + variance + " & " + avgTime);
 //            logger.severe(conflictingNodesAmountAvg + " & " + recoloringAvg + "\n\n");
 
             ret.add(mean);
