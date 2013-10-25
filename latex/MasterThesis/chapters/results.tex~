@@ -1,0 +1,15 @@
+This chapter provides some information about the implementation, testing environment and instances used for evaluation. The computational results of different methods and parameters presented in chapter [TODO] are compared to each other and results of [Li],[Noronha],[exact] . 
+
+\section{Implementation Details and Instances}
+The program has been implemented in Java and compiled with the JDK compiler version 1.7.0\_25. For reasons of runtime comparability it has been designed to execute on a single thread, although the recoloring for each set of clusters of same color makes the program highly suitable to be processed in a parallel way. For the implementation of abstract datastructures no other libraries than the ones provides by the JDK have been used. For solving the ILPs described in [TODO], ILOG CPLEX version 12.5 has been used, which is by now the fastest CP solver available. It is written in C++, provides facades to Java, Python, .NET, Matlab and Excel and supports confortable usage of integer variables and a wide set of constraints and solving strategies.
+
+\section{Testing Environment}
+All tests have been performed on a Pentium i5 DualCore, 2.5 GHz, 8GB RAM, with Linux Mint 14 and OpenJDK Runtime Environment (IcedTea 2.3.9) installed.
+
+\section{Instances}
+Instances provided by the authors of [Todo] and [Todo] have been used. The latter are freely available at [TODO]. All of them have been generated randomly. They feature diversity in terms of amount of nodes, nodes-per-cluster ratio and density, which can be measured as the propability for each pair of distinct nodes of sharing an edge. It is worth to mention that considering real world instances of the min-RWA problem, a density of $0.5$ is very high.
+
+\subsection{Results}
+To provide most exact comparison to [TODO-HU] and [TODO-Frota?] as well as for gaining an overview more easily, instances have been taken together by criteria of size and density. For each set of instances experiments with various ranges of tabulist lengths have been performed. Since the value inbetween these ranges is chosen randomly, ten runs per each instance have been evaluated.
+
+

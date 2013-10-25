@@ -8,7 +8,6 @@
 \usepackage{graphicx}            			% Figures
 \usepackage{verbatim}            			% Code-Environment
 \usepackage[lined,linesnumbered,algochapter]{algorithm2e} % Algorithm-Environment
-\usepackage{multirow}
 
 \usepackage{pgf}					
 \usepackage{tikz}					% tikz graphics
@@ -86,11 +85,11 @@
 %%%   ABSTARCT    %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\input{chapters/abstract_en}
-%\cleardoublepage
-%\selectlanguage{ngerman}
-%\input{chapters/abstract_de}
-%\selectlanguage{english}
+\input{chapters/abstract_en}
+\cleardoublepage
+\selectlanguage{ngerman}
+\input{chapters/abstract_de}
+\selectlanguage{english}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%   CONTENTS    %%%%%%%%%%%%%%%%%%%%%%%
@@ -113,11 +112,11 @@
 \pagestyle{numberCorner}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\chapter{Introduction}
-%\label{ch:intro}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%\input{chapters/introduction}
+\chapter{Introduction}
+\label{ch:intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{chapters/introduction}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Computational Results}
