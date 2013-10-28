@@ -1,7 +1,9 @@
 \contentsline {chapter}{\chapternumberline {1}Computational Results}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Implementation Details and Instances}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Testing Environment}{1}{section.1.2}
-\contentsline {subsection}{Final results of different recoloring methods}{1}{section*.3}
-\contentsline {subsection}{Variants}{19}{section*.4}
-\contentsline {subsection}{Comparison to previous works}{31}{section*.5}
-\contentsline {chapter}{Bibliography}{33}{section*.7}
+\contentsline {section}{\numberline {1.1}Implementation Details and Testing Environment}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Instances}{1}{section.1.2}
+\contentsline {section}{\numberline {1.3}Results}{2}{section.1.3}
+\contentsline {subsection}{Conflicting Nodes}{2}{section*.3}
+\contentsline {subsection}{Final results of different recoloring methods}{4}{section*.4}
+\contentsline {subsection}{Variants}{21}{section*.5}
+\contentsline {subsection}{Comparison to previous works}{33}{section*.6}
+\contentsline {chapter}{Bibliography}{35}{section*.8}
