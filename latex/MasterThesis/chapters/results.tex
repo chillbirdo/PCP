@@ -6,14 +6,14 @@ All tests have been performed on a Pentium i5 DualCore, 2.5 GHz, 8GB RAM, with L
 
 \section{Instances}
 Instances of different size, nodes per cluster ratio and density have been used, where density is defined as the propability for each pair of nodes beeing connected by an edge. Note that when considering a real world instance of RWA (see [TODO]), a density of $0.5$ is very high and most instances will be of much sparser nature. Tests have been performed on instances provided by the authors of [TODO], which have also been evaluated in [TODO-exact] and [TODO-bin]. For reasons of better comparability to previous works, instances have been pooled to sets of same size or density.
-Furthermore four large instances with constant density of $0.5$ and different sizes of $500$, $1000$, $1500$ and $2000$ nodes have been used and compared to the results in [TODO-noronha]. All used instances have been generated randomly by the authors of [TODO] respectively [TODO].
+Furthermore four large instances with constant density of $0.5$ and different sizes of $500$, $1000$, $1500$ and $2000$ nodes have been used and compared to the results in [TODO-noronha]. All used instances have been generated randomly. % by the authors of [TODO] respectively [TODO].
 
 \section{Results}
-In the following section preliminarily and final results as well as comparison to results of previous works is presented. There have been proceding tests to select the most competetive ranges of parameters used in the tables.
+In the following section preliminarily and final results as well as comparison to results of previous works is presented. There have been preceding tests to select the most competetive ranges of parameters used in the tables.
 
 \subsection{Conflicting Nodes}
 As an intermediate result the numbers of conflicting nodes per each recoloring produced by the different recoloring algorithm have been recorded and compared to each other. Since for these experiments a constant length has been used for the tabulist, $HYBRID-PCP$ is deterministic except the case when random recoloring is used. Therefore for random recoloring the average of ten runs per instance and recoloring has been calculated.\\
-In tables \ref{tab:conflitingSize} and \ref{tab:conflitingDens} the results for sets of different size respectively density are presented. Each set contains five instances. Table \ref{tab:conflitingIn} presents the results for the four larger instances. It can be seen that a large number of nodes and as well as low density lead to a high amount of conflicts per each recoloring. The difference between $RANDOM$ and $ILP2$ recoloring grows to a factor of over $7.5$ on the larger instances.
+In tables \ref{tab:conflitingSize} and \ref{tab:conflitingDens} the results for sets of different size respectively density are presented. Each set contains five instances. Table \ref{tab:conflitingIn} presents the results for the four larger instances. It can be seen that a large number of nodes and as well as a low density lead to a high amount of conflicts per recoloring. The difference between the results for $RANDOM$ and $ILP2$ grows to a factor of over $7.5$ on the larger instances.
 
 \begin{table}[h]
 \resizebox{\columnwidth}{!}{%
@@ -34,7 +34,7 @@ In tables \ref{tab:conflitingSize} and \ref{tab:conflitingDens} the results for 
 \hline
 \end{tabular}
 }
-\caption{conflitingSize}
+\caption{Sets of different size containing five instances each. $cnodes/recoloring$ denotes the average amount of conflicting nodes per recoloring.}
 \label{tab:conflitingSize}
 \end{table}
 
@@ -58,7 +58,7 @@ In tables \ref{tab:conflitingSize} and \ref{tab:conflitingDens} the results for 
 \hline
 \end{tabular}
 }
-\caption{conflitingDens}
+\caption{Sets of different density containing five instances each.}
 \label{tab:conflitingDens}
 \end{table}
 
@@ -78,18 +78,18 @@ In tables \ref{tab:conflitingSize} and \ref{tab:conflitingDens} the results for 
 \hline
 \end{tabular}
 }
-\caption{conflitingIn}
+\caption{Evaluation of the four larger instances. $ILP2$ produces about $7.5$ times less conflicting nodes than $RANDOM$.}
 \label{tab:conflitingIn}
 \end{table}
 
 \clearpage
 
-\subsection{Final results of different recoloring methods}
-To provide most exact comparison to [TODO-HU] and [TODO-Frota?] as well as for reasons of clearness, instances have again been taken together by criteria of size and density. The four larger instances with $500$ clusters each are tested seperately as it has been done in [TODO].\\
-For each set of instances experiments with various ranges of tabulist lengths as well as various boundaries for the maximum number of iterations have been performed. The size of the tabulist for each insertion is a random number between the lower and upper bound given as $TabuTenure$. The maximum number of iterations used as stopping criterion is set as $maxIter=q*(maxC-1)*F_{end}$, where $maxC-1$ is the tentative number of colours. Tables [TODO] to [TODO] show the results for the instances provided in [TODO]. In table [TODO] results of instances provided by [TODO] are shown, where the values of the parameters $TabuTenure$ and $F_{end}$ are nearly similar to the ones used in [TODO].\\
+\subsection{Final Results}
+For each set of instances experiments with various ranges of tabulist lengths as well as various boundaries for the maximum number of iterations have been performed. The size of the tabulist for each insertion is a random number between the lower and upper bound given as $TabuTenure$, where $C'$ is the tentative number of colors. Because of that indeterminism $10$ runs per instance have been performed. The maximum number of iterations used as stopping criterion is set as $maxIter=q*(C')*F_{end}$. Tables \ref{tab:pcpn90p1} to \ref{tab:pcpn120} show the results of the instances provided in [TODO]. In tables \ref{tab:in1} to \ref{tab:in4} results of the large instances are shown, where the values of the parameters $TabuTenure$ and $F_{end}$ have been chosen similar to the ones used in [TODO]. The following tables are labeled like the names of each instance, indicating its size and density, e.g. \textit{pcpn90p1} indicates an instance of $90$ nodes and density $0.1$.\\
+The final results do not exhibit an improvement similar to the preliminary results or any significant improvement at all. Especially on larger instances the dramatic differences between the runtimes of the exact and non-exact methods becomes visibile. For all instances except the four large ones a $TabuTenure$ of $U[1.0C',4.0C']$ and $U[0.0C',5.0C']$ has shown to lead to best results. For the larger instances, a $TabuTenure$ of $U[0.0C',0.5C']$ fits best, which approves the results in [TODO-Noronha].
 
 %\begin{sidewaystable}
-      \begin{table}      
+      \begin{table}[h]      
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -494,8 +494,8 @@ For each set of instances experiments with various ranges of tabulist lengths as
       \hline
       \end{tabular}
       }
-      \caption{pcp20}
-      \label{tab:pcp20}\end{table}
+      \caption{pcpn20}
+      \label{tab:pcpn20}\end{table}
 
 
       \begin{table}[h]
@@ -535,8 +535,8 @@ For each set of instances experiments with various ranges of tabulist lengths as
       \hline
       \end{tabular}
       }
-      \caption{pcp40}
-      \label{tab:pcp40}\end{table}
+      \caption{pcpn40}
+      \label{tab:pcpn40}\end{table}
 
 
       \begin{table}[h]
@@ -576,8 +576,8 @@ For each set of instances experiments with various ranges of tabulist lengths as
       \hline
       \end{tabular}
       }
-      \caption{pcp60}
-      \label{tab:pcp60}\end{table}
+      \caption{pcpn60}
+      \label{tab:pcpn60}\end{table}
 
 
       \begin{table}[h]
@@ -617,8 +617,8 @@ For each set of instances experiments with various ranges of tabulist lengths as
       \hline
       \end{tabular}
       }
-      \caption{pcp70}
-      \label{tab:pcp70}\end{table}
+      \caption{pcpn70}
+      \label{tab:pcpn70}\end{table}
 
 
       \begin{table}[h]
@@ -658,8 +658,8 @@ For each set of instances experiments with various ranges of tabulist lengths as
       \hline
       \end{tabular}
       }
-      \caption{pcp80}
-      \label{tab:pcp80}\end{table}
+      \caption{pcpn80}
+      \label{tab:pcpn80}\end{table}
 
 
       \begin{table}[h]
@@ -699,8 +699,8 @@ For each set of instances experiments with various ranges of tabulist lengths as
       \hline
       \end{tabular}
       }
-      \caption{pcp90}
-      \label{tab:pcp90}\end{table}
+      \caption{pcpn90}
+      \label{tab:pcpn90}\end{table}
 
 
       \begin{table}[h]
@@ -740,8 +740,8 @@ For each set of instances experiments with various ranges of tabulist lengths as
       \hline
       \end{tabular}
       }
-      \caption{pcp100}
-      \label{tab:pcp100}\end{table}
+      \caption{pcpn100}
+      \label{tab:pcpn100}\end{table}
 
 
       \begin{table}[h]
@@ -781,8 +781,8 @@ For each set of instances experiments with various ranges of tabulist lengths as
       \hline
       \end{tabular}
       }
-      \caption{pcp120}
-      \label{tab:pcp120}\end{table}
+      \caption{pcpn120}
+      \label{tab:pcpn120}\end{table}
 	
 %TODO insert IN tables
       \begin{table}[h]
@@ -797,34 +797,35 @@ For each set of instances experiments with various ranges of tabulist lengths as
       \multirow{6}{*}{1} & $U[0.25C',0.75C']$ & 53.00 & 0.000 & 32.675 & 52.50 & 0.250 & 45.955 & \textbf{52.00} & 0.000 & 41.061 & 52.50 & 0.250 & 131.369 \\
        & $U[0.0C',1.0C']$ & 53.00 & 0.000 & 31.822 & 53.00 & 0.000 & 31.307 & \textbf{52.50} & 0.250 & 38.698 & 53.00 & 0.000 & 124.405 \\
        & $U[0.0C',0.5C']$ & \textbf{52.00} & 0.000 & 49.998 & 52.50 & 0.250 & 40.508 & \textbf{52.00} & 0.000 & 47.886 & 52.50 & 0.250 & 133.227 \\
-       & $U[0.5C',0.1C']$ & 52.50 & 0.250 & 34.443 & 52.50 & 0.250 & 34.702 & 53.00 & 0.000 & 34.162 & \textbf{52.00} & 0.000 & 151.490 \\
+       & $U[0.5C',1.0C']$ & 52.50 & 0.250 & 34.443 & 52.50 & 0.250 & 34.702 & 53.00 & 0.000 & 34.162 & \textbf{52.00} & 0.000 & 151.490 \\
        & $U[0.25C',1.0C']$ & 53.00 & 0.000 & 33.513 & \textbf{52.50} & 0.250 & 34.969 & 53.00 & 0.000 & 35.207 & 53.00 & 0.000 & 126.708 \\
        & $U[0.0C',0.75C']$ & \textbf{52.50} & 0.250 & 37.164 & \textbf{52.50} & 0.250 & 42.677 & \textbf{52.50} & 0.250 & 43.436 & \textbf{52.50} & 0.250 & 137.571 \\
       \hline\hline
       \multirow{6}{*}{5} & $U[0.25C',0.75C']$ & 52.00 & 0.000 & 175.018 & \textbf{51.50} & 0.250 & 222.313 & 52.00 & 0.000 & 167.028 & 52.00 & 0.000 & 263.785 \\
        & $U[0.0C',1.0C']$ & \textbf{51.50} & 0.250 & 192.997 & 52.00 & 0.000 & 166.878 & 52.00 & 0.000 & 168.842 & 52.00 & 0.000 & 270.638 \\
        & $U[0.0C',0.5C']$ & \textbf{51.50} & 0.250 & 188.598 & \textbf{51.50} & 0.250 & 194.900 & \textbf{51.50} & 0.250 & 234.086 & 52.00 & 0.000 & 267.352 \\
-       & $U[0.5C',0.1C']$ & 52.00 & 0.000 & 167.531 & \textbf{51.50} & 0.250 & 197.548 & \textbf{51.50} & 0.250 & 191.290 & \textbf{51.50} & 0.250 & 301.400 \\
+       & $U[0.5C',1.0C']$ & 52.00 & 0.000 & 167.531 & \textbf{51.50} & 0.250 & 197.548 & \textbf{51.50} & 0.250 & 191.290 & \textbf{51.50} & 0.250 & 301.400 \\
        & $U[0.25C',1.0C']$ & \textbf{51.50} & 0.250 & 227.016 & \textbf{51.50} & 0.250 & 190.509 & \textbf{51.50} & 0.250 & 226.595 & 52.00 & 0.000 & 273.516 \\
        & $U[0.0C',0.75C']$ & 52.00 & 0.000 & 166.399 & \textbf{51.00} & 0.000 & 243.717 & 51.50 & 0.250 & 188.605 & 51.50 & 0.250 & 323.258 \\
       \hline\hline
       \multirow{6}{*}{10} & $U[0.25C',0.75C']$ & \textbf{51.00} & 0.000 & 460.830 & \textbf{51.00} & 0.000 & 499.770 & 51.50 & 0.250 & 385.627 & \textbf{51.00} & 0.000 & 580.569 \\
        & $U[0.0C',1.0C']$ & \textbf{51.00} & 0.000 & 445.430 & \textbf{51.00} & 0.000 & 441.279 & \textbf{51.00} & 0.000 & 556.089 & \textbf{51.00} & 0.000 & 1920.230 \\
        & $U[0.0C',0.5C']$ & \textbf{51.00} & 0.000 & 438.898 & \textbf{51.00} & 0.000 & 506.921 & \textbf{51.00} & 0.000 & 491.451 & \textbf{51.00} & 0.000 & 574.642 \\
-       & $U[0.5C',0.1C']$ & \textbf{51.00} & 0.000 & 434.163 & 51.50 & 0.250 & 368.134 & \textbf{51.00} & 0.000 & 467.440 & \textbf{51.00} & 0.000 & 617.425 \\
+       & $U[0.5C',1.0C']$ & \textbf{51.00} & 0.000 & 434.163 & 51.50 & 0.250 & 368.134 & \textbf{51.00} & 0.000 & 467.440 & \textbf{51.00} & 0.000 & 617.425 \\
        & $U[0.25C',1.0C']$ & 51.50 & 0.250 & 365.680 & \textbf{51.00} & 0.000 & 424.486 & 51.50 & 0.250 & 365.924 & 51.50 & 0.250 & 441.895 \\
        & $U[0.0C',0.75C']$ & \textbf{51.00} & 0.000 & 425.001 & \textbf{51.00} & 0.000 & 526.258 & 51.50 & 0.250 & 353.324 & 51.50 & 0.250 & 479.716 \\
       \hline
       \end{tabular}
       }
-      \caption{in1}
+      \caption{pcpn500p5}
       \label{tab:in1}\end{table}
 
 
 \clearpage
 
 \subsection{Variants}
-As discussed in chapter [TODO], a variant for both ILPs has been created by removing the inequation that restricts conflicts inside the recolored set of clusters. In table [TODO] the standard ILP marked as $ILP1$ and $ILP2$ are compared to their variants $ILP1*$ and $ILP2*$ by evaluating three instances of different size as well as three instances of different density. It can be seen that removing the aforementioned contraint decreases the quality of the results.\\
+As discussed in chapter [TODO], variants for both ILPs have been created by removing the inequation that restricts conflicts inside the recolored set of clusters. In tables \ref{tab:pcpn90p7ILPVariant} to \ref{tab:pcpn120ILPVariant} the standard ILPs marked as $ILP1$ and $ILP2$ are compared to their variants $ILP1*$ and $ILP2*$ by evaluating three instances of different size as well as three instances of different density. It can be seen that removing the aforementioned constraint does not increase the solution quality.\\
+Furthermore experiments have been performed by placing the recently recolored set of clusters on the tabulist as discussed in section [TODO]. In tables \ref{tab:pcpn90p7RecoloredTT} to \ref{tab:pcpn120RecoloredTT} sets diversing in size and density have been evaluated using $F_{max}=5$. The paramter $TTRecolored$ sets the number of iterations as $Tabusize=TTRecolored*C'$ for all the node-color pairs of the recolored set of clusters to remain on the tabulist.
 
       \begin{table}[h]
       \resizebox{\columnwidth}{!}{%
@@ -864,7 +865,7 @@ As discussed in chapter [TODO], a variant for both ILPs has been created by remo
       \end{tabular}
       }
       \caption{pcpn90p7}
-      \label{tab:pcpn90p7}\end{table}
+      \label{tab:pcpn90p7ILPVariant}\end{table}
       
       \begin{table}[h]
       \resizebox{\columnwidth}{!}{%
@@ -904,7 +905,7 @@ As discussed in chapter [TODO], a variant for both ILPs has been created by remo
       \end{tabular}
       }
       \caption{pcpn90p8}
-      \label{tab:pcpn90p8}\end{table}
+      \label{tab:pcpn90p8ILPVariant}\end{table}
       
       \begin{table}[h]
       \resizebox{\columnwidth}{!}{%
@@ -944,7 +945,7 @@ As discussed in chapter [TODO], a variant for both ILPs has been created by remo
       \end{tabular}
       }
       \caption{pcpn90p9}
-      \label{tab:pcpn90p9}\end{table}
+      \label{tab:pcpn90p9ILPVariant}\end{table}
       
       \begin{table}[h]
       \resizebox{\columnwidth}{!}{%
@@ -983,8 +984,9 @@ As discussed in chapter [TODO], a variant for both ILPs has been created by remo
       \hline
       \end{tabular}
       }
-      \caption{pcp90}
-      \label{tab:pcp90}\end{table}
+      \caption{pcpn90}
+      \label{tab:pcpn90ILPVariant}
+      \end{table}
       
       \begin{table}[h]
       \resizebox{\columnwidth}{!}{%
@@ -1023,8 +1025,8 @@ As discussed in chapter [TODO], a variant for both ILPs has been created by remo
       \hline
       \end{tabular}
       }
-      \caption{pcp100}
-      \label{tab:pcp100}\end{table}
+      \caption{pcpn100}
+      \label{tab:pcpn100ILPVariant}\end{table}
       
       \begin{table}[h]
       \resizebox{\columnwidth}{!}{%
@@ -1063,10 +1065,14 @@ As discussed in chapter [TODO], a variant for both ILPs has been created by remo
       \hline
       \end{tabular}
       }
-      \caption{pcp120}
-      \label{tab:pcp120}\end{table}
+      \caption{pcpn120}
+      \label{tab:pcpn120ILPVariant}\end{table}
 
-Furthermore experiments have been performed with placing the recently recolored set of clusters on the tabulist as discussed in section [TODO]. In tables [TODO] to [TODO] sets diversing in size and density have been evaluated using $F_{max}=5$. The paramter $TTRecolored$ sets the number of iterations for all the node-color pairs of the recolored set of clusters to remain on the tabulist. It is shown that the restriction does not lead to better results.
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
       \begin{table}[h]
       \resizebox{\columnwidth}{!}{%
@@ -1127,7 +1133,7 @@ Furthermore experiments have been performed with placing the recently recolored 
       \end{tabular}
       }
       \caption{pcpn90p7}
-      \label{tab:pcpn90p7}\end{table}
+      \label{tab:pcpn90p7RecoloredTT}\end{table}
       
       
       \begin{table}[h]
@@ -1189,7 +1195,7 @@ Furthermore experiments have been performed with placing the recently recolored 
       \end{tabular}
       }
       \caption{pcpn90p8}
-      \label{tab:pcpn90p8}\end{table}      
+      \label{tab:pcpn90p8RecoloredTT}\end{table}      
       
 
       \begin{table}[h]
@@ -1251,7 +1257,7 @@ Furthermore experiments have been performed with placing the recently recolored 
       \end{tabular}
       }
       \caption{pcpn90p9}
-      \label{tab:pcpn90p9}\end{table}      
+      \label{tab:pcpn90p9RecoloredTT}\end{table}      
       
 
       \begin{table}[h]
@@ -1312,8 +1318,8 @@ Furthermore experiments have been performed with placing the recently recolored 
       \hline
       \end{tabular}
       }
-      \caption{pcp90}
-      \label{tab:pcp90}\end{table}      
+      \caption{pcpn90}
+      \label{tab:pcpn90RecoloredTT}\end{table}      
       
 
       \begin{table}[h]
@@ -1374,8 +1380,8 @@ Furthermore experiments have been performed with placing the recently recolored 
       \hline
       \end{tabular}
       }
-      \caption{pcp100}
-      \label{tab:pcp100}\end{table}
+      \caption{pcpn100}
+      \label{tab:pcpn100RecoloredTT}\end{table}
       
       
       \begin{table}[h]
@@ -1436,9 +1442,85 @@ Furthermore experiments have been performed with placing the recently recolored 
       \hline
       \end{tabular}
       }
-      \caption{pcp120}
-      \label{tab:pcp120}\end{table}
+      \caption{pcpn120}
+      \label{tab:pcpn120RecoloredTT}
+      \end{table}
 \clearpage
 
 \subsection{Comparison to previous works}
+Since $RANDOM$ performs best in terms of solution quality and runtime, its results are compared to those of [TODO-Exact] and [TODO-Hu] in tables \ref{tab:pcpSizeCompared} and \ref{tab:pcpDensCompared}. In \ref{tab:inCompared} results are compared to [TODO].
+
+\begin{table}
+
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|l|l||l|l||l|l|l||l|l|l|}
+\hline
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{2}{l||}{B \& C}&\multicolumn{3}{l||}{Random (10 runs/inst)}&\multicolumn{3}{|l|}{MA2}\\
+\cline{1-10}
+ nodes & density & LB & UB  & $\overline{obj}$ & $sd$ & $\overline{time(s)}$  & $\overline{obj}$ & $sd$ & $\overline{time(s)}$\\
+\hline
+20 & 0.5  & 3 & 3  & \textbf{3.00} & 0.00 & 0.01   & \textbf{3.00} & 0.00 & 0.14 \\
+40 & 0.5  & 4 & 4  & \textbf{4.00} & 0.00 & 0.02   & \textbf{4.00} & 0.00 & 0.60 \\
+60 & 0.5  & 5 & 5  & \textbf{5.00} & 0.00 & 0.06   & 5.63 & 0.49 & 2.00 \\
+70 & 0.5  & 6 & 6  & \textbf{6.00} & 0.00 & 0.08   & 6.06 & 0.24 & 3.33 \\
+80 & 0.5  & 6 & 6  & \textbf{6.27} & 0.13 & 0.15  & 6.94 & 0.29 & 4.90 \\
+90 & 0.5  & 6 & 7  & 7.88 & 0.17 & 0.36  & \textbf{7.55} & 0.50 & 7.49 \\
+100 & 0.5  & 6 & 7  & \textbf{7.12} & 0.01 & 0.32   & 7.93 & 0.30 & 11.04 \\
+120 & 0.5  & 7 & 8  & \textbf{8.64} & 0.19 & 0.52   & 9.22 & 0.43 & 21.05 \\
+\hline
+\end{tabular}
+}
+      \caption{pcpn120}
+      \label{tab:pcpSizeCompared}
+
+\end{table}
+
+
+\begin{table}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|l|l||l|l||l|l|l||l|l|l|}
+\hline
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{2}{l||}{B \& C}&\multicolumn{3}{l||}{Random (10 runs/inst)}&\multicolumn{3}{|l|}{MA2}\\
+\cline{1-10}
+ nodes & density & LB & UB  & $\overline{obj}$ & $sd$ & $\overline{time(s)}$  & $\overline{obj}$ & $sd$ & $\overline{time(s)}$\\
+\hline
+90 & 0.1  & 2 & 3  & \textbf{3.00} & 0.00 & 0.02   & 3.09 & 0.29 & 1.37 \\
+90 & 0.2  & 3 & 4  & \textbf{3.80} & 0.15 & 0.03   & 4.41 & 0.49 & 3.24 \\
+90 & 0.3  & 4 & 5  & \textbf{5.00} & 0.00 & 0.06   & 5.52 & 0.56 & 4.90 \\
+90 & 0.4  & 5 & 6  & \textbf{6.00} & 0.00 & 0.11   & 6.79 & 0.83 & 6.54 \\
+90 & 0.5  & 6 & 7  & \textbf{7.00} & 0.00 & 0.18  & 7.55 & 0.50 & 7.49 \\
+90 & 0.6  & 8 & 8  & \textbf{8.28} & 0.15 & 0.31  & 10.50 & 0.87 & 11.95 \\
+90 & 0.7  & 10 & 10  & \textbf{10.00} & 0.00 & 0.45   & 12.39 & 1.12 & 14.83 \\
+90 & 0.8  & 12 & 12  & \textbf{12.05} & 0.14 & 0.80   & 15.18 & 0.80 & 20.98 \\
+90 & 0.9  & 16 & 16  & \textbf{15.80} & 0.15 & 1.23   & 17.27 & 0.98 & 45.75 \\
+\hline
+\end{tabular}
+}
+      \caption{pcpn120}
+      \label{tab:pcpDensCompared}
+\end{table}
+
+
+\begin{table}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|l|l||l|l|l|l||l|l|l|}
+\hline
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{4}{l||}{Random (10 runs/inst)}&\multicolumn{3}{|l|}{Nohora (10 runs/inst)}\\
+\cline{1-9}
+ nodes & density & $min$ & $avg$ & $max$ & $\overline{time(s)}$  & $min$ & $avg$ & $max$\\
+\hline
+500 & 0.5  & 53 & 53.6 & 54 & 18.01  	& 51 & \textbf{51.3} & 52 \\
+1000 & 0.5  & 48 & 48.0 & 48 & 67.74   & 45 & \textbf{45.9} & 46 \\
+1500 & 0.5  & 45 & 45.4 & 46 & 202.99   & 43 & \textbf{43.2} & 44 \\
+2000 & 0.5  & 43 & 43.8 & 44 & 316.90   & 42 & \textbf{42.0} & 42 \\
+\hline
+\end{tabular}
+}
+      \caption{TODO}
+      \label{tab:inCompared}
+\end{table}
+
+
+
+
 A comparison to results of [TODO] is shown in table [TODO]. Although the algorithm shown in [TODO] recolors only one color in contrast to the algorithm presented in this theses which recolors all colors, the former performs better on all instances. Table [TODO] shows a comparison to results presented in [TODO] and [TODO]

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  28 OCT 2013 14:03
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  29 OCT 2013 15:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1155,44 +1155,7 @@ Package: rotating 2009/03/28 v2.16a rotated objects in LaTeX
 \rot@float@box=\box65
 \rot@mess@toks=\toks36
 ) (./thesis.aux
-(./titlepage.aux) (./titlepage_en.aux)
-
-LaTeX Warning: Label `tab:pcpn90p7' multiply defined.
-
-
-LaTeX Warning: Label `tab:pcpn90p8' multiply defined.
-
-
-LaTeX Warning: Label `tab:pcpn90p9' multiply defined.
-
-
-LaTeX Warning: Label `tab:pcp90' multiply defined.
-
-
-LaTeX Warning: Label `tab:pcp100' multiply defined.
-
-
-LaTeX Warning: Label `tab:pcp120' multiply defined.
-
-
-LaTeX Warning: Label `tab:pcpn90p7' multiply defined.
-
-
-LaTeX Warning: Label `tab:pcpn90p8' multiply defined.
-
-
-LaTeX Warning: Label `tab:pcpn90p9' multiply defined.
-
-
-LaTeX Warning: Label `tab:pcp90' multiply defined.
-
-
-LaTeX Warning: Label `tab:pcp100' multiply defined.
-
-
-LaTeX Warning: Label `tab:pcp120' multiply defined.
-
-)
+(./titlepage.aux) (./titlepage_en.aux))
 \openout1 = `thesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
@@ -1210,7 +1173,8 @@ LaTeX Font Info:    ... okay on input line 50.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 50.
 LaTeX Font Info:    ... okay on input line 50.
 LaTeX Font Info:    Try loading font information for T1+ptm on input line 50.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
@@ -1516,17 +1480,12 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 [2] [3]
-Overfull \hbox (4.06245pt too wide) in paragraph at lines 88--90
-\OML/cmm/m/it/10.95 TabuTenure$\T1/ptm/m/n/10.95 . The max-i-mum num-ber of it-
-er-a-tions used as stop-ping cri-te-rion is set as $\OML/cmm/m/it/10.95 maxIter
- \OT1/cmr/m/n/10.95 =
- []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 88--90
-
- []
+LaTeX Warning: Reference `tab:in4' on page 4 undefined on input line 88.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -1583,28 +1542,6 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 ] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18] [19]
 [20]
-Underfull \hbox (badness 10000) in paragraph at lines 827--828
-
- []
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -1622,8 +1559,25 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 [21
 
-] [22] [23] [24] [25] [26] [27] [28] [29] [30] [31] [32]) (./thesis.bbl
-[33
+] [22] [23] [24] [25] [26]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[27
+
+] [28] [29] [30] [31] [32]) (./thesis.bbl [33
 
 ] [34
 
@@ -1652,18 +1606,18 @@ Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: 940D2FDC999888B8EF83424A1FAE46D9;304.
 
 
-LaTeX Warning: There were multiply-defined labels.
+LaTeX Warning: There were undefined references.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 141.
  ) 
 Here is how much of TeX's memory you used:
- 20843 strings out of 494987
- 354010 string characters out of 3178575
- 936698 words of memory out of 3000000
- 23554 multiletter control sequences out of 15000+200000
+ 20856 strings out of 494987
+ 354313 string characters out of 3178575
+ 936748 words of memory out of 3000000
+ 23567 multiletter control sequences out of 15000+200000
  69067 words of font info for 85 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 69i,19n,57p,824b,820s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 69i,19n,57p,1036b,820s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/
@@ -1675,10 +1629,10 @@ tic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (45 pages, 298950 bytes).
+Output written on thesis.pdf (45 pages, 305057 bytes).
 PDF statistics:
- 349 PDF objects out of 1000 (max. 8388607)
- 286 compressed objects within 3 object streams
+ 356 PDF objects out of 1000 (max. 8388607)
+ 293 compressed objects within 3 object streams
  91 named destinations out of 1000 (max. 500000)
  63 words of extra memory for PDF output out of 10000 (max. 10000000)
 
