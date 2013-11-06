@@ -4,22 +4,19 @@
 \BOOKMARK [0][-]{chapter.2}{Preliminaries}{}% 4
 \BOOKMARK [1][-]{section.2.1}{Graph Theory Definitions}{chapter.2}% 5
 \BOOKMARK [1][-]{section.2.2}{Metaheuristics}{chapter.2}% 6
-\BOOKMARK [0][-]{chapter.3}{Problem Definition}{}% 7
-\BOOKMARK [1][-]{section.3.1}{Partition Coloring Problem}{chapter.3}% 8
-\BOOKMARK [1][-]{section.3.2}{Routing and Wavelength Assignment Problem}{chapter.3}% 9
-\BOOKMARK [0][-]{chapter.4}{Previous Works}{}% 10
-\BOOKMARK [1][-]{section.4.1}{Exact Approaches}{chapter.4}% 11
-\BOOKMARK [1][-]{section.4.2}{Heuristical Approaches}{chapter.4}% 12
-\BOOKMARK [0][-]{chapter.5}{Problem solving Approach}{}% 13
-\BOOKMARK [1][-]{section.5.1}{Constructional Heuristics}{chapter.5}% 14
-\BOOKMARK [1][-]{section.5.2}{Recoloring}{chapter.5}% 15
-\BOOKMARK [1][-]{section.5.3}{Local Search}{chapter.5}% 16
-\BOOKMARK [0][-]{chapter.6}{Computational Results}{}% 17
-\BOOKMARK [1][-]{section.6.1}{Implementation Details and Testing Environment}{chapter.6}% 18
-\BOOKMARK [1][-]{section.6.2}{Instances}{chapter.6}% 19
-\BOOKMARK [1][-]{section.6.3}{Results}{chapter.6}% 20
-\BOOKMARK [0][-]{chapter.7}{Critical Reflection and Outlook}{}% 21
-\BOOKMARK [1][-]{section.7.1}{Critical Reflection}{chapter.7}% 22
-\BOOKMARK [1][-]{section.7.2}{Future Works}{chapter.7}% 23
-\BOOKMARK [0][-]{chapter.8}{Summary}{}% 24
-\BOOKMARK [0][-]{section*.12}{Bibliography}{}% 25
+\BOOKMARK [0][-]{chapter.3}{Previous Works}{}% 7
+\BOOKMARK [1][-]{section.3.1}{Exact Approaches}{chapter.3}% 8
+\BOOKMARK [1][-]{section.3.2}{Heuristical Approaches}{chapter.3}% 9
+\BOOKMARK [0][-]{chapter.4}{Problem Solving Approach}{}% 10
+\BOOKMARK [1][-]{section.4.1}{Constructional Heuristics}{chapter.4}% 11
+\BOOKMARK [1][-]{section.4.2}{Recoloring}{chapter.4}% 12
+\BOOKMARK [1][-]{section.4.3}{Local Search}{chapter.4}% 13
+\BOOKMARK [0][-]{chapter.5}{Computational Results}{}% 14
+\BOOKMARK [1][-]{section.5.1}{Implementation Details and Testing Environment}{chapter.5}% 15
+\BOOKMARK [1][-]{section.5.2}{Instances}{chapter.5}% 16
+\BOOKMARK [1][-]{section.5.3}{Results}{chapter.5}% 17
+\BOOKMARK [0][-]{chapter.6}{Critical Reflection and Outlook}{}% 18
+\BOOKMARK [1][-]{section.6.1}{Critical Reflection}{chapter.6}% 19
+\BOOKMARK [1][-]{section.6.2}{Future Works}{chapter.6}% 20
+\BOOKMARK [0][-]{chapter.7}{Summary}{}% 21
+\BOOKMARK [0][-]{section*.8}{Bibliography}{}% 22
