@@ -1,5 +1,5 @@
 This chapter provides information about the implementation, testing environment, instances used for evaluation and the computational results of different methods and parameters presented in chapter \ref{ch:approach} are compared to each other and results of~\cite{li-00}.
-%~\cite{li-00, noronha-06, frota-07}. 
+%%~\cite{li-00, noronha-06, frota-07}. 
 
 \section{Implementation Details and Testing Environment}
 The program has been implemented in Java and compiled with the JDK compiler version 1.7.0\_25. For reasons of runtime comparability it has been designed to execute on a single thread, although the recoloring for each set of clusters of same color makes the program highly suitable to be processed in a parallel way. For the implementation of abstract datastructures no other libraries than the ones provides by the JDK have been used. For solving the ILPs described in [TODO], ILOG CPLEX version 12.5 has been used, which is by now one of the fastest CP solver available [TODO-paper]. It is written in C++, provides facades to Java, Python, .NET, Matlab, Excel and supports confortable usage of integer variables and a wide set of constraints and solving strategies.\\
