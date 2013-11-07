@@ -4,23 +4,27 @@
 \contentsline {chapter}{\chapternumberline {2}Preliminaries}{3}{chapter.2}
 \contentsline {section}{\numberline {2.1}Graph Theory Definitions}{3}{section.2.1}
 \contentsline {section}{\numberline {2.2}Metaheuristics}{3}{section.2.2}
-\contentsline {chapter}{\chapternumberline {3}Previous Works}{5}{chapter.3}
-\contentsline {section}{\numberline {3.1}Exact Approaches}{5}{section.3.1}
-\contentsline {section}{\numberline {3.2}Heuristical Approaches}{5}{section.3.2}
-\contentsline {chapter}{\chapternumberline {4}Problem Solving Approach}{7}{chapter.4}
-\contentsline {section}{\numberline {4.1}Constructional Heuristics}{7}{section.4.1}
-\contentsline {section}{\numberline {4.2}Recoloring}{7}{section.4.2}
-\contentsline {section}{\numberline {4.3}Local Search}{7}{section.4.3}
-\contentsline {chapter}{\chapternumberline {5}Computational Results}{9}{chapter.5}
-\contentsline {section}{\numberline {5.1}Implementation Details and Testing Environment}{9}{section.5.1}
-\contentsline {section}{\numberline {5.2}Instances}{9}{section.5.2}
-\contentsline {section}{\numberline {5.3}Results}{10}{section.5.3}
-\contentsline {subsection}{Conflicting Nodes}{10}{section*.3}
-\contentsline {subsection}{Final Results}{12}{section*.4}
-\contentsline {subsection}{Variants}{23}{section*.5}
-\contentsline {subsection}{Comparison to previous works}{33}{section*.6}
-\contentsline {chapter}{\chapternumberline {6}Critical Reflection and Outlook}{35}{chapter.6}
-\contentsline {section}{\numberline {6.1}Critical Reflection}{35}{section.6.1}
-\contentsline {section}{\numberline {6.2}Future Works}{35}{section.6.2}
-\contentsline {chapter}{\chapternumberline {7}Summary}{37}{chapter.7}
-\contentsline {chapter}{Bibliography}{39}{section*.8}
+\contentsline {chapter}{\chapternumberline {3}Problem Definition}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}Partition Coloring Problem}{5}{section.3.1}
+\contentsline {section}{\numberline {3.2}Routing and Wavelength Assignment Problem}{6}{section.3.2}
+\contentsline {section}{\numberline {3.3}Complexity}{6}{section.3.3}
+\contentsline {chapter}{\chapternumberline {4}Previous Works}{7}{chapter.4}
+\contentsline {section}{\numberline {4.1}Exact Approaches}{7}{section.4.1}
+\contentsline {section}{\numberline {4.2}Heuristical Approaches}{7}{section.4.2}
+\contentsline {chapter}{\chapternumberline {5}Problem Solving Approach}{9}{chapter.5}
+\contentsline {section}{\numberline {5.1}Constructional Heuristics}{9}{section.5.1}
+\contentsline {section}{\numberline {5.2}Recoloring}{9}{section.5.2}
+\contentsline {section}{\numberline {5.3}Local Search}{9}{section.5.3}
+\contentsline {chapter}{\chapternumberline {6}Computational Results}{11}{chapter.6}
+\contentsline {section}{\numberline {6.1}Implementation Details and Testing Environment}{11}{section.6.1}
+\contentsline {section}{\numberline {6.2}Instances}{11}{section.6.2}
+\contentsline {section}{\numberline {6.3}Results}{12}{section.6.3}
+\contentsline {subsection}{Conflicting Nodes}{12}{section*.3}
+\contentsline {subsection}{Final Results}{14}{section*.4}
+\contentsline {subsection}{Variants}{25}{section*.5}
+\contentsline {subsection}{Comparison to previous works}{35}{section*.6}
+\contentsline {chapter}{\chapternumberline {7}Critical Reflection and Outlook}{37}{chapter.7}
+\contentsline {section}{\numberline {7.1}Critical Reflection}{37}{section.7.1}
+\contentsline {section}{\numberline {7.2}Future Works}{37}{section.7.2}
+\contentsline {chapter}{\chapternumberline {8}Summary}{39}{chapter.8}
+\contentsline {chapter}{Bibliography}{41}{section*.8}

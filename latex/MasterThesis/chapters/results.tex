@@ -1,21 +1,15 @@
-This chapter provides information about the implementation, testing environment, instances used for evaluation and the computational results of different methods and parameters presented in chapter \ref{ch:approach} are compared to each other and results of~\cite{li-00}.
-%%~\cite{li-00, noronha-06, frota-07}. 
-
+This chapter provides information about the implementation, testing environment, instances used for evaluation and the computational results of different methods and parameters presented in chapter \ref{ch:approach} are compared to each other and results of~\cite{li-00, noronha-06, frota-07}. 
 \section{Implementation Details and Testing Environment}
-The program has been implemented in Java and compiled with the JDK compiler version 1.7.0\_25. For reasons of runtime comparability it has been designed to execute on a single thread, although the recoloring for each set of clusters of same color makes the program highly suitable to be processed in a parallel way. For the implementation of abstract datastructures no other libraries than the ones provides by the JDK have been used. For solving the ILPs described in [TODO], ILOG CPLEX version 12.5 has been used, which is by now one of the fastest CP solver available [TODO-paper]. It is written in C++, provides facades to Java, Python, .NET, Matlab, Excel and supports confortable usage of integer variables and a wide set of constraints and solving strategies.\\
+The program has been implemented in Java and compiled with the JDK compiler version 1.7.0\_25. For reasons of runtime comparability it has been designed to execute on a single thread, although the recoloring for each set of clusters of same color makes the program highly suitable to be processed in a parallel way. For the implementation of abstract data structures no other libraries than the ones provides by the JDK have been used. For solving the ILPs described in [TODO], ILOG CPLEX version 12.5 has been used, which is by now one of the fastest CP solvers available [TODO-paper]. It is written in C++, provides facades to Java, Python, .NET, Matlab, Excel and supports comfortable usage of integer variables and a wide set of constraints and solving strategies.\\
 All tests have been performed on a Pentium i5 DualCore, 2.5 GHz, 8GB RAM, with Linux Mint 14 and OpenJDK Runtime Environment (IcedTea 2.3.9) installed.
-
 \section{Instances}
-Instances of different size, nodes per cluster ratio and density have been used, where density is defined as the propability for each pair of nodes beeing connected by an edge. Note that when considering a real world instance of RWA (see [TODO]), a density of $0.5$ is very high and most instances will be of much sparser nature. Tests have been performed on instances provided by the authors of [TODO], which have also been evaluated in [TODO-exact] and [TODO-bin]. For reasons of better comparability to previous works, instances have been pooled to sets of same size or density.
+Instances of different size, nodes per cluster ratio and density have been used, where density is defined as the probability for each pair of nodes being connected by an edge. Note that when considering a real world instance of RWA (see [TODO]), a density of $0.5$ is very high and most instances will be of much sparser nature. Tests have been performed on instances provided by the authors of [TODO], which have also been evaluated in [TODO-exact] and [TODO-bin]. For reasons of better comparability to previous works, instances have been pooled to sets of same size or density.
 Furthermore four large instances with constant density of $0.5$ and different sizes of $500$, $1000$, $1500$ and $2000$ nodes have been used and compared to the results in [TODO-noronha]. All used instances have been generated randomly. % by the authors of [TODO] respectively [TODO].
-
 \section{Results}
-In the following section preliminarily and final results as well as comparison to results of previous works is presented. There have been preceding tests to select the most competetive ranges of parameters used in the tables.
-
+In the following section preliminarily and final results as well as comparison to results of previous works is presented. There have been preceding tests to select the most competitive ranges of parameters used in the tables.
 \subsection{Conflicting Nodes}
-As an intermediate result the numbers of conflicting nodes per each recoloring produced by the different recoloring algorithm have been recorded and compared to each other. Since for these experiments a constant length has been used for the tabulist, $HYBRID-PCP$ is deterministic except the case when random recoloring is used. Therefore for random recoloring the average of ten runs per instance and recoloring has been calculated.\\
+As an intermediate result the numbers of conflicting nodes per each recoloring produced by the different recoloring algorithm have been recorded and compared to each other. Since for these experiments a constant length has been used for the tabu list, $HYBRID-PCP$ is deterministic except the case when random recoloring is used. Therefore for random recoloring the average of ten runs per instance and recoloring has been calculated.\\
 In tables \ref{tab:conflitingSize} and \ref{tab:conflitingDens} the results for sets of different size respectively density are presented. Each set contains five instances. Table \ref{tab:conflitingIn} presents the results for the four larger instances. It can be seen that a large number of nodes and as well as a low density lead to a high amount of conflicts per recoloring. The difference between the results for $RANDOM$ and $ILP2$ grows to a factor of over $7.5$ on the larger instances.
-
 \begin{table}[h]
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{|l|l||l||l||l||l|}
@@ -24,21 +18,20 @@ In tables \ref{tab:conflitingSize} and \ref{tab:conflitingDens} the results for 
 \cline{1-6}
  nodes & density   & $\overline{cnodes/recoloring}$  & $cnodes/recoloring$ & $cnodes/recoloring$ & $cnodes/recoloring$\\
 \hline
-20 & 0.5 & 		3.69   & 2.25  	& 1.60  	& \textbf{1.36}\\
-40 & 0.5 & 		7.33    & 3.85  & 3.21	  & \textbf{2.29}\\
-60 & 0.5 & 		10.21    & 4.99   & 4.21	  & \textbf{2.83}\\
-70 & 0.5 & 		11.30    & 5.84	  	& 4.56	  	& \textbf{3.27}\\
-80 & 0.5 & 		12.69    & 6.04	 & 4.97 	& \textbf{3.41}\\
-90 & 0.5 & 		12.32    & 5.93	  & 4.64	  & \textbf{3.38}\\
-100 & 0.5 & 	14.91    & 7.16		  & 5.23	  & \textbf{3.92}\\
-120 & 0.5 & 	15.53    & 6.44	  & 5.07	  & \textbf{3.38}\\
+20 & 0.5 &              3.69   & 2.25   & 1.60          & \textbf{1.36}\\
+40 & 0.5 &              7.33    & 3.85  & 3.21    & \textbf{2.29}\\
+60 & 0.5 &              10.21    & 4.99   & 4.21          & \textbf{2.83}\\
+70 & 0.5 &              11.30    & 5.84         & 4.56          & \textbf{3.27}\\
+80 & 0.5 &              12.69    & 6.04  & 4.97         & \textbf{3.41}\\
+90 & 0.5 &              12.32    & 5.93   & 4.64          & \textbf{3.38}\\
+100 & 0.5 &     14.91    & 7.16           & 5.23          & \textbf{3.92}\\
+120 & 0.5 &     15.53    & 6.44   & 5.07          & \textbf{3.38}\\
 \hline
 \end{tabular}
 }
 \caption{Sets of different size containing five instances each. $cnodes/recoloring$ denotes the average amount of conflicting nodes per recoloring.}
 \label{tab:conflitingSize}
 \end{table}
-
 \begin{table}[h]
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{|l|l||l||l||l||l|}
@@ -47,22 +40,21 @@ In tables \ref{tab:conflitingSize} and \ref{tab:conflitingDens} the results for 
 \cline{1-6}
  nodes & density   & $\overline{cnodes/recoloring}$  & $cnodes/recoloring$ & $cnodes/recoloring$ & $cnodes/recoloring$\\
 \hline
-90 & 0.1 & 		15.71   & 9.50  	& 6.61  	& \textbf{5.65}\\
-90 & 0.2 & 		16.70    & 7.99  & 6.36	  & \textbf{4.87}\\
-90 & 0.3 & 		15.94    & 7.60   & 5.48	  & \textbf{4.03}\\
-90 & 0.4 & 		14.73    & 6.16	  	& 4.75	  	& \textbf{3.41}\\
-90 & 0.5 & 		13.51    & 5.93	 & 4.94 	& \textbf{3.43}\\
-90 & 0.6 & 		11.78    & 5.20	  & 4.39	  & \textbf{2.84}\\
-90 & 0.7 & 		9.60    & 4.61		  & 3.90	  & \textbf{2.44}\\
-90 & 0.8 & 		7.70    & 3.66	  & 3.04	  & \textbf{2.05}\\
-90 & 0.9 & 		5.56    & 2.69	  & 2.34	  & \textbf{1.74}\\
+90 & 0.1 &              15.71   & 9.50          & 6.61          & \textbf{5.65}\\
+90 & 0.2 &              16.70    & 7.99  & 6.36   & \textbf{4.87}\\
+90 & 0.3 &              15.94    & 7.60   & 5.48          & \textbf{4.03}\\
+90 & 0.4 &              14.73    & 6.16         & 4.75          & \textbf{3.41}\\
+90 & 0.5 &              13.51    & 5.93  & 4.94         & \textbf{3.43}\\
+90 & 0.6 &              11.78    & 5.20   & 4.39          & \textbf{2.84}\\
+90 & 0.7 &              9.60    & 4.61            & 3.90          & \textbf{2.44}\\
+90 & 0.8 &              7.70    & 3.66    & 3.04          & \textbf{2.05}\\
+90 & 0.9 &              5.56    & 2.69    & 2.34          & \textbf{1.74}\\
 \hline
 \end{tabular}
 }
 \caption{Sets of different density containing five instances each.}
 \label{tab:conflitingDens}
 \end{table}
-
 \begin{table}[h]
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{|l|l||l||l||l||l|}
@@ -71,23 +63,20 @@ In tables \ref{tab:conflitingSize} and \ref{tab:conflitingDens} the results for 
 \cline{1-6}
  nodes & density   & $\overline{cnodes/recoloring}$  & $cnodes/recoloring$ & $cnodes/recoloring$ & $cnodes/recoloring$\\
 \hline
-500 & 0.5 & 		35.13   & 7.89  	& 7.88  	& \textbf{5.02}\\
-1000 & 0.5 & 		39.87    & 9.15  & 7.74	  & \textbf{5.15}\\
-1500 & 0.5 & 		44.67    & 11.52   & 8.12	  & \textbf{6.02}\\
-2000 & 0.5 & 		46.81    & 12.29	  	& 4.75	  	& \textbf{6.42}\\
-
+500 & 0.5 &             35.13   & 7.89          & 7.88          & \textbf{5.02}\\
+1000 & 0.5 &            39.87    & 9.15  & 7.74   & \textbf{5.15}\\
+1500 & 0.5 &            44.67    & 11.52   & 8.12         & \textbf{6.02}\\
+2000 & 0.5 &            46.81    & 12.29                & 4.75          & \textbf{6.42}\\
 \hline
 \end{tabular}
 }
 \caption{Evaluation of the four larger instances. $ILP2$ produces about $7.5$ times less conflicting nodes than $RANDOM$.}
 \label{tab:conflitingIn}
 \end{table}
-
 \clearpage
-
 \subsection{Final Results}
-For each set of instances experiments with various ranges of tabulist lengths as well as various boundaries for the maximum number of iterations have been performed. The size of the tabulist for each insertion is a random number between the lower and upper bound given as $TabuTenure$, where $C'$ is the tentative number of colors. Because of that indeterminism $10$ runs per instance have been performed. The maximum number of iterations used as stopping criterion is set as $maxIter=q*(C')*F_{end}$. Tables \ref{tab:pcpn90p1} to \ref{tab:pcpn120} show the results of the instances provided in [TODO]. In tables \ref{tab:in1} to \ref{tab:in4} results of the large instances are shown, where the values of the parameters $TabuTenure$ and $F_{end}$ have been chosen similar to the ones used in [TODO]. The following tables are labeled like the names of each instance, indicating its size and density, e.g. \textit{pcpn90p1} indicates an instance of $90$ nodes and density $0.1$.\\
-The final results do not exhibit an improvement similar to the preliminary results or any significant improvement at all. Especially on larger instances the dramatic differences between the runtimes of the exact and non-exact methods becomes visibile. For all instances except the four large ones a $TabuTenure$ of $U[1.0C',4.0C']$ and $U[0.0C',5.0C']$ has shown to lead to best results. For the larger instances, a $TabuTenure$ of $U[0.0C',0.5C']$ fits best, which approves the results in [TODO-Noronha].
+For each set of instances experiments with various ranges of tabu list lengths as well as various boundaries for the maximum number of iterations have been performed. The size of the tabu list for each insertion is a random number between the lower and upper bound given as $TabuTenure$, where $C'$ is the tentative number of colors. Because of that indeterminism $10$ runs per instance have been performed. The maximum number of iterations used as stopping criterion is set as $maxIter=q*(C')*F_{end}$. Tables \ref{tab:pcpn90p1} to \ref{tab:pcpn120} show the results of the instances provided in [TODO]. In tables \ref{tab:in1} to \ref{tab:in4} results of the large instances are shown, where the values of the parameters $TabuTenure$ and $F_{end}$ have been chosen similar to the ones used in [TODO]. The following tables are labeled like the names of each instance, indicating its size and density, e.g. \textit{pcpn90p1} indicates an instance of $90$ nodes and density $0.1$.\\
+The final results do not exhibit an improvement similar to the preliminary results or any significant improvement at all. Especially on larger instances the dramatic differences between the runtimes of the exact and non-exact methods becomes visible. For all instances except the four large ones a $TabuTenure$ of $U[1.0C',4.0C']$ and $U[0.0C',5.0C']$ has shown to lead to best results. For the larger instances, a $TabuTenure$ of $U[0.0C',0.5C']$ fits best, which approves the results in [TODO-Noronha].
 
 %\begin{sidewaystable}
       \begin{table}[h]      
@@ -942,7 +931,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
 
 \subsection{Variants}
 As discussed in chapter [TODO], variants for both ILPs have been created by removing the inequation that restricts conflicts inside the recolored set of clusters. In tables \ref{tab:pcpn90p7ILPVariant} to \ref{tab:pcpn120ILPVariant} the standard ILPs marked as $ILP1$ and $ILP2$ are compared to their variants $ILP1*$ and $ILP2*$ by evaluating three instances of different size as well as three instances of different density. It can be seen that removing the aforementioned constraint does not increase the solution quality.\\
-Furthermore experiments have been performed by placing the recently recolored set of clusters on the tabulist as discussed in section [TODO]. In tables \ref{tab:pcpn90p7RecoloredTT} to \ref{tab:pcpn120RecoloredTT} sets diversing in size and density have been evaluated using $F_{max}=5$. The paramter $TTRecolored$ sets the number of iterations as $Tabusize=TTRecolored*C'$ for all the node-color pairs of the recolored set of clusters to remain on the tabulist.
+Furthermore experiments have been performed by placing the recently recolored set of clusters on the tabu list as discussed in section [TODO]. In tables \ref{tab:pcpn90p7RecoloredTT} to \ref{tab:pcpn120RecoloredTT} sets diversing in size and density have been evaluated using $F_{max}=5$. The parameter $TTRecolored$ sets the number of iterations as $Tabusize=TTRecolored*C'$ for all the node-color pairs of the recolored set of clusters to remain on the tabu list.
 
       \begin{table}[h]
       \resizebox{\columnwidth}{!}{%
@@ -1566,7 +1555,7 @@ Furthermore experiments have been performed by placing the recently recolored se
 \clearpage
 
 \subsection{Comparison to previous works}
-Since $RANDOM$ performs best in terms of solution quality and runtime, its results are compared to those of [TODO-Exact] and [TODO-Hu] in tables \ref{tab:pcpSizeCompared} and \ref{tab:pcpDensCompared}. In \ref{tab:inCompared} results are compared to [TODO].
+Since $RANDOM$ performs best in terms of runtime and is not significantly inferior to other methods in terms of quality, its results are compared to those of \cite{frota-07} and \citep{pop-13} in tables \ref{tab:pcpSizeCompared} and \ref{tab:pcpDensCompared}. In \ref{tab:inCompared} results are compared to \citep{noronha-06}.
 
 \begin{table}[h]
 \resizebox{\columnwidth}{!}{%
@@ -1653,7 +1642,3 @@ Since $RANDOM$ performs best in terms of solution quality and runtime, its resul
       }
       \caption{in1}
       \label{tab:in1comp}\end{table}
-
-
-
-A comparison to results of [TODO] is shown in table [TODO]. Although the algorithm shown in [TODO] recolors only one color in contrast to the algorithm presented in this theses which recolors all colors, the former performs better on all instances. Table [TODO] shows a comparison to results presented in [TODO] and [TODO]

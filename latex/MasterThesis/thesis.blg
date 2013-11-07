@@ -4,47 +4,45 @@ The top-level auxiliary file: thesis.aux
 A level-1 auxiliary file: titlepage.aux
 A level-1 auxiliary file: titlepage_en.aux
 The style file: plain.bst
-I found no \citation commands---while reading file thesis.aux
 Database file #1: pcp.bib
-You've used 0 entries,
+You've used 3 entries,
             2118 wiz_defined-function locations,
-            499 strings with 4017 characters,
-and the built_in function-call counts, 18 in all, are:
-= -- 0
-> -- 0
+            518 strings with 4496 characters,
+and the built_in function-call counts, 1024 in all, are:
+= -- 97
+> -- 49
 < -- 0
-+ -- 0
-- -- 0
-* -- 2
-:= -- 7
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
++ -- 21
+- -- 16
+* -- 76
+:= -- 176
+add.period$ -- 9
+call.type$ -- 3
+change.case$ -- 17
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
-format.name$ -- 0
-if$ -- 1
+cite$ -- 3
+duplicate$ -- 36
+empty$ -- 83
+format.name$ -- 16
+if$ -- 206
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 3
-num.names$ -- 0
-pop$ -- 0
+int.to.str$ -- 3
+missing$ -- 3
+newline$ -- 18
+num.names$ -- 6
+pop$ -- 17
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 14
 quote$ -- 0
-skip$ -- 1
+skip$ -- 23
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
+substring$ -- 67
+swap$ -- 4
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 0
+type$ -- 12
 warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 2
-(There was 1 error message)
+while$ -- 10
+width$ -- 4
+write$ -- 34
