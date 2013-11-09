@@ -28,8 +28,7 @@
 \contentsline {subsection}{Final Results}{14}{section*.8}
 \contentsline {subsection}{Variants}{25}{section*.9}
 \contentsline {subsection}{Comparison to previous works}{35}{section*.10}
-\contentsline {chapter}{\chapternumberline {7}Critical Reflection and Outlook}{37}{chapter.7}
+\contentsline {chapter}{\chapternumberline {7}Summary}{37}{chapter.7}
 \contentsline {section}{\numberline {7.1}Critical Reflection}{37}{section.7.1}
-\contentsline {section}{\numberline {7.2}Future Works}{37}{section.7.2}
-\contentsline {chapter}{\chapternumberline {8}Summary}{39}{chapter.8}
-\contentsline {chapter}{Bibliography}{41}{section*.12}
+\contentsline {section}{\numberline {7.2}Future Works}{38}{section.7.2}
+\contentsline {chapter}{Bibliography}{39}{section*.12}
