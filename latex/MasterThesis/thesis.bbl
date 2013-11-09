@@ -1,5 +1,16 @@
 \begin{thebibliography}{1}
 
+\bibitem{Meindl-12}
+M.~Templ B.Meindl.
+\newblock Analysis of commercial and free and open source solvers for linear
+  optimization problems.
+\newblock 2012.
+
+\bibitem{Volko-13}
+C.Volko.
+\newblock Selective graph coloring problem.
+\newblock 2012.
+
 \bibitem{frota-07}
 Yuri Frota, Nelson Maculan, Thiago~F. Noronha, and Celso~C. Ribeiro.
 \newblock A branch-and-cut algorithm for the partition coloring problem.
@@ -16,5 +27,11 @@ Thiago~F. Noronha and Celso~C. Ribeiro.
 \newblock Routing and wavelength assignment by partition colouring.
 \newblock {\em European Journal of Operational Research}, 171(3):797--810,
   2006.
+
+\bibitem{pop-13}
+Petrica~C.\ Pop, Bin Hu, and G\"unther~R.\ Raidl.
+\newblock A memetic algorithm for the partition graph coloring problem.
+\newblock In {\em Extended Abstracts of the 14th International Conference on
+  Computer Aided Systems Theory}, pages 167--169, Gran Canaria, Spain, 2013.
 
 \end{thebibliography}

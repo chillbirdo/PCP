@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  7 NOV 2013 00:17
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  7 NOV 2013 19:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1334,14 +1334,14 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 10.44997pt on input line 81.
 
-<figures/titlepage/dokumentenkopf__klein.pdf, id=111, 512.91624pt x 47.17625pt>
+<figures/titlepage/dokumentenkopf__klein.pdf, id=115, 512.91624pt x 47.17625pt>
 File: figures/titlepage/dokumentenkopf__klein.pdf Graphic file (type pdf)
 <use figures/titlepage/dokumentenkopf__klein.pdf>
 Package pdftex.def Info: figures/titlepage/dokumentenkopf__klein.pdf used on in
 put line 114.
 (pdftex.def)             Requested size: 509.30415pt x 46.84425pt.
 
-<figures/titlepage/INF_Logo_typo_grau.pdf, id=112, 171.64125pt x 46.1725pt>
+<figures/titlepage/INF_Logo_typo_grau.pdf, id=116, 171.64125pt x 46.1725pt>
 File: figures/titlepage/INF_Logo_typo_grau.pdf Graphic file (type pdf)
 
 <use figures/titlepage/INF_Logo_typo_grau.pdf>
@@ -1458,13 +1458,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 8--14
 ] (./thesis.toc
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 1.
-) [5] [6
-
-]
+) [5] [6]
 (./chapters/introduction.tex
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 1.
 ) [1
+
 
 ] [2
 
@@ -1472,32 +1471,27 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
 [4
 
 ] (./chapters/problem_definition.tex
-<figures/pcp.png, id=217, 1252.68pt x 638.385pt>
+<figures/pcp.png, id=222, 1252.68pt x 638.385pt>
 File: figures/pcp.png Graphic file (type png)
  <use figures/pcp.png>
 Package pdftex.def Info: figures/pcp.png used on input line 9.
 (pdftex.def)             Requested size: 375.8069pt x 191.51697pt.
-)
-[5 <./figures/pcp.png>] [6] (./chapters/previous.tex) [7
+ [5 <./figures/pcp.png>]) [6] (./chapters/previous.tex) [7
 
 ] [8
 
-]
-(./chapters/approach.tex) [9] [10
+] (./chapters/approach.tex
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 7.
+) [9] [10
 
 ] (./chapters/results.tex
-Overfull \hbox (6.48111pt too wide) in paragraph at lines 4--6
+Overfull \hbox (6.48111pt too wide) in paragraph at lines 3--5
 \T1/ptm/m/n/10.95 The pro-gram has been im-ple-mented in Java and com-piled wit
 h the JDK com-piler ver-sion 1.7.0_25.
  []
 
 [11]
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 14.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -1601,7 +1595,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [29] [30] [31] [32] [33] [34]
 
 LaTeX Warning: Reference `tab:inCompared' on page 35 undefined on input line 15
-68.
+59.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -1635,7 +1629,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 177.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 177.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 177.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 12CAC5C2D83BD9823637469C838B8B35;1589.
+(rerunfilecheck)             Checksum: E7EA652CD30DCC5F1015F944D983AA1B;1645.
 
 
 LaTeX Warning: There were undefined references.
@@ -1643,13 +1637,13 @@ LaTeX Warning: There were undefined references.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 177.
  ) 
 Here is how much of TeX's memory you used:
- 20975 strings out of 494987
- 356060 string characters out of 3178575
- 919023 words of memory out of 3000000
- 23626 multiletter control sequences out of 15000+200000
+ 20989 strings out of 494987
+ 356225 string characters out of 3178575
+ 920337 words of memory out of 3000000
+ 23632 multiletter control sequences out of 15000+200000
  69067 words of font info for 85 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 69i,19n,57p,1036b,820s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 69i,19n,57p,1095b,820s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/
@@ -1662,10 +1656,10 @@ symbols/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb
 /share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/
 texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/font
 s/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (51 pages, 459568 bytes).
+Output written on thesis.pdf (51 pages, 462734 bytes).
 PDF statistics:
- 520 PDF objects out of 1000 (max. 8388607)
- 446 compressed objects within 5 object streams
- 128 named destinations out of 1000 (max. 500000)
- 236 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 546 PDF objects out of 1000 (max. 8388607)
+ 472 compressed objects within 5 object streams
+ 136 named destinations out of 1000 (max. 500000)
+ 244 words of extra memory for PDF output out of 10000 (max. 10000000)
 

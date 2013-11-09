@@ -1,1 +1,14 @@
 
+The PCP is a quite recently proposed COP which generalizes the classical VCP by considering the possiblity to select subsets of nodes. While for the VCP much research has been done, only a few papers about the PCP has been published so far. In this work a strategy is presented that creates an initial solution by a heuristical algorithm and improves the solution quality by recoloring sets of nodes of same color brefore eliminating the resulting conflicts by applying a tabu search. It has been tried to enhance the algorithm presented in \cite{noronha-06} by substituting the process of random recoloring by more sophisticated algorithms in order to minimize the number of resulting conlficts. A variation of the $ONESTEPCD$ algorithm \cite{li-00} and two ILPs were used. A local search algorithm then tries to eliminate all these conflicting nodes to create a feasible solution. Furthermore experiments with variations of the ILPs and a mechanism that -- on order to protect a recolored subgraph from being overwritten -- puts that subgraph on the tabulist for an amount of iteration.\\
+The results have shown that more sophisticated recoloring algorithms can reduce the number of conflicts dramatically. For the instances used, a random recoloring produces an amount of conflicting nodes up to $7.5$ times higher than an optimized recoloring does. The fact that this gap is not reflected significantry in the final results leads to the conclusion that for the presented strategy the tabu search is much more relevant than the recoloring process.
+
+\section{Critical Reflection}
+Selecting and optimizing the coloring of a subset of clusters regardless of their location in the graph does not tackle the problem in an efficient way. The selection does not take into account any features of the graph like regional density, although dense subgraphs involve the danger of increasing the chromatic number by a suboptimal coloring at most. Considering graph features being crucial for a good selection of clusters, the selection presented in this thesis is done randomly and therefore an optimal, partial recoloring can not be integrated in the solution more probably than a random coloring.  
+
+\section{Future Works}
+Future works could consider a more suggestive selection of the clusters to be recolored. Rather than selecting all clusters of the same color, the set could be chosen by criteria of regional density. Putting effort in optimizing these regions -- e.g. by the use of exact methods -- could lead to results of higher quality. 
+
+- find an initial coloring
+- keep the selection of vertices and search for the x densest subgraphs of maximum size k, 
+- solve these subgraphs optimally
+- uncolor all other vertices and recolor

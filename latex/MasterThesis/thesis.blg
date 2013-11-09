@@ -5,44 +5,47 @@ A level-1 auxiliary file: titlepage.aux
 A level-1 auxiliary file: titlepage_en.aux
 The style file: plain.bst
 Database file #1: pcp.bib
-You've used 3 entries,
+Warning--empty journal in Meindl-12
+Warning--empty journal in Volko-13
+You've used 6 entries,
             2118 wiz_defined-function locations,
-            518 strings with 4496 characters,
-and the built_in function-call counts, 1024 in all, are:
-= -- 97
-> -- 49
-< -- 0
-+ -- 21
-- -- 16
-* -- 76
-:= -- 176
-add.period$ -- 9
-call.type$ -- 3
-change.case$ -- 17
+            534 strings with 4914 characters,
+and the built_in function-call counts, 1917 in all, are:
+= -- 187
+> -- 81
+< -- 1
++ -- 35
+- -- 26
+* -- 122
+:= -- 321
+add.period$ -- 18
+call.type$ -- 6
+change.case$ -- 31
 chr.to.int$ -- 0
-cite$ -- 3
-duplicate$ -- 36
-empty$ -- 83
-format.name$ -- 16
-if$ -- 206
+cite$ -- 8
+duplicate$ -- 79
+empty$ -- 156
+format.name$ -- 26
+if$ -- 398
 int.to.chr$ -- 0
-int.to.str$ -- 3
-missing$ -- 3
-newline$ -- 18
-num.names$ -- 6
-pop$ -- 17
+int.to.str$ -- 6
+missing$ -- 6
+newline$ -- 33
+num.names$ -- 12
+pop$ -- 38
 preamble$ -- 1
-purify$ -- 14
+purify$ -- 25
 quote$ -- 0
-skip$ -- 23
+skip$ -- 55
 stack$ -- 0
-substring$ -- 67
-swap$ -- 4
-text.length$ -- 0
+substring$ -- 115
+swap$ -- 14
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 12
-warning$ -- 0
-while$ -- 10
-width$ -- 4
-write$ -- 34
+type$ -- 24
+warning$ -- 2
+while$ -- 19
+width$ -- 7
+write$ -- 64
+(There were 2 warnings)

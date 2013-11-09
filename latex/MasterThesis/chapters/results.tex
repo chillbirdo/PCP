@@ -1,14 +1,15 @@
-This chapter provides information about the implementation, testing environment, instances used for evaluation and the computational results of different methods and parameters presented in chapter \ref{ch:approach} are compared to each other and results of~\cite{li-00, noronha-06, frota-07}. 
+This chapter provides information about the implementation, testing environment, instances used for evaluation and the computational results for different methods and parameters presented in chapter \ref{ch:approach} are compared to each other and to results of~\cite{li-00, noronha-06, frota-07}. 
 \section{Implementation Details and Testing Environment}
-The program has been implemented in Java and compiled with the JDK compiler version 1.7.0\_25. For reasons of runtime comparability it has been designed to execute on a single thread, although the recoloring for each set of clusters of same color makes the program highly suitable to be processed in a parallel way. For the implementation of abstract data structures no other libraries than the ones provides by the JDK have been used. For solving the ILPs described in [TODO], ILOG CPLEX version 12.5 has been used, which is by now one of the fastest CP solvers available [TODO-paper]. It is written in C++, provides facades to Java, Python, .NET, Matlab, Excel and supports comfortable usage of integer variables and a wide set of constraints and solving strategies.\\
+The program has been implemented in Java and compiled with the JDK compiler version 1.7.0\_25. For reasons of runtime comparability it has been designed to execute on a single thread, although the recoloring for each set of clusters of same color makes the program highly suitable to be processed in a parallel way. For the implementation of abstract data structures no other libraries than the ones provides by the JDK have been used. For solving the ILPs described in \ref{sec:variants}, ILOG CPLEX version 12.5 has been used, which is by now one of the fastest CP solvers available \cite{Meindl-12}. It is written in C++, provides facades to Java, Python, .NET, Matlab, Excel and supports comfortable usage of integer variables and a wide set of constraints and solving strategies.\\
 All tests have been performed on a Pentium i5 DualCore, 2.5 GHz, 8GB RAM, with Linux Mint 14 and OpenJDK Runtime Environment (IcedTea 2.3.9) installed.
 \section{Instances}
-Instances of different size, nodes per cluster ratio and density have been used, where density is defined as the probability for each pair of nodes being connected by an edge. Note that when considering a real world instance of RWA (see [TODO]), a density of $0.5$ is very high and most instances will be of much sparser nature. Tests have been performed on instances provided by the authors of [TODO], which have also been evaluated in [TODO-exact] and [TODO-bin]. For reasons of better comparability to previous works, instances have been pooled to sets of same size or density.
-Furthermore four large instances with constant density of $0.5$ and different sizes of $500$, $1000$, $1500$ and $2000$ nodes have been used and compared to the results in [TODO-noronha]. All used instances have been generated randomly. % by the authors of [TODO] respectively [TODO].
+Instances of different size, nodes per cluster ratio and density have been evaluated. Generated randomly and used by the authors of \cite{frota-07}, the instances have also been evaluated in \cite{pop-13} and \cite{volko-13}. For reasons of better comparability to previous works, instances have been pooled to sets of same size respectively density.
+Furthermore four larger instances with constant density of $0.5$ and different sizes of $500$, $1000$, $1500$ and $2000$ nodes provided by the authors of \cite{noronha-06} have been evaluated and compared.
+
 \section{Results}
-In the following section preliminarily and final results as well as comparison to results of previous works is presented. There have been preceding tests to select the most competitive ranges of parameters used in the tables.
+In the following section preliminarily and final results as well as comparison to results of previous works are presented. There have been preceding tests to select the most competitive ranges of parameters used in the tables.
 \subsection{Conflicting Nodes}
-As an intermediate result the numbers of conflicting nodes per each recoloring produced by the different recoloring algorithm have been recorded and compared to each other. Since for these experiments a constant length has been used for the tabu list, $HYBRID-PCP$ is deterministic except the case when random recoloring is used. Therefore for random recoloring the average of ten runs per instance and recoloring has been calculated.\\
+As an intermediate result the numbers of conflicting nodes per each recoloring produced by the different recoloring algorithms have been recorded and compared to each other. Since for these experiments a constant length has been used for the tabu list, $HYBRID-PCP$ is deterministic except the case when random recoloring is used. Therefore for random recoloring the average of ten runs per instance and recoloring has been calculated.\\
 In tables \ref{tab:conflitingSize} and \ref{tab:conflitingDens} the results for sets of different size respectively density are presented. Each set contains five instances. Table \ref{tab:conflitingIn} presents the results for the four larger instances. It can be seen that a large number of nodes and as well as a low density lead to a high amount of conflicts per recoloring. The difference between the results for $RANDOM$ and $ILP2$ grows to a factor of over $7.5$ on the larger instances.
 \begin{table}[h]
 \resizebox{\columnwidth}{!}{%
@@ -75,8 +76,8 @@ In tables \ref{tab:conflitingSize} and \ref{tab:conflitingDens} the results for 
 \end{table}
 \clearpage
 \subsection{Final Results}
-For each set of instances experiments with various ranges of tabu list lengths as well as various boundaries for the maximum number of iterations have been performed. The size of the tabu list for each insertion is a random number between the lower and upper bound given as $TabuTenure$, where $C'$ is the tentative number of colors. Because of that indeterminism $10$ runs per instance have been performed. The maximum number of iterations used as stopping criterion is set as $maxIter=q*(C')*F_{end}$. Tables \ref{tab:pcpn90p1} to \ref{tab:pcpn120} show the results of the instances provided in [TODO]. In tables \ref{tab:in1} to \ref{tab:in4} results of the large instances are shown, where the values of the parameters $TabuTenure$ and $F_{end}$ have been chosen similar to the ones used in [TODO]. The following tables are labeled like the names of each instance, indicating its size and density, e.g. \textit{pcpn90p1} indicates an instance of $90$ nodes and density $0.1$.\\
-The final results do not exhibit an improvement similar to the preliminary results or any significant improvement at all. Especially on larger instances the dramatic differences between the runtimes of the exact and non-exact methods becomes visible. For all instances except the four large ones a $TabuTenure$ of $U[1.0C',4.0C']$ and $U[0.0C',5.0C']$ has shown to lead to best results. For the larger instances, a $TabuTenure$ of $U[0.0C',0.5C']$ fits best, which approves the results in [TODO-Noronha].
+For each set of instances experiments with various ranges of tabu list lengths as well as various boundaries for the maximum number of iterations have been performed. The size of the tabu list for each insertion is a random number between the lower and upper bound given as $TabuTenure$, where $C'$ is the tentative number of colors. Because of that indeterminism $10$ runs per instance have been performed. The maximum number of iterations used as stopping criterion is set as $maxIter=q*(C')*F_{end}$, where $q$ is the amount of clusters. Tables \ref{tab:pcpn90p1} to \ref{tab:pcpn120} show the results of the instances provided in \cite{frota-07}. In tables \ref{tab:in1} to \ref{tab:in4} results of the large instances are shown, where the values of the parameters $TabuTenure$ and $F_{end}$ have been chosen similar to the ones used in \cite{noronha-06}. The following tables are labeled like the names of each instance, indicating its size and density, e.g. \textit{pcpn90p1} indicates an instance of $90$ nodes and density $0.1$.\\
+The final results do not exhibit an improvement similar to the preliminary results or any significant improvement at all. Especially on larger instances the dramatic differences between the runtimes of the exact and non-exact methods becomes visible. For most instances except the four large ones a $TabuTenure$ of $U[1.0C',4.0C']$ and $U[0.0C',5.0C']$ has shown to lead to best results. For the larger instances, a $TabuTenure$ of $U[0.0C',0.5C']$ fits best, which approves the results in \cite{noronha-06}.
 
 %\begin{sidewaystable}
       \begin{table}[h]      
@@ -116,7 +117,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn90p1}
+      \caption{Results for a set of 5 instances of size $90$ and density $0.1$}
       \label{tab:pcpn90p1}
 	  \end{table}
 %\end{sidewaystable}
@@ -158,7 +159,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn90p2}
+      \caption{Results for a set of 5 instances of size $90$ and density $0.2$}
       \label{tab:pcpn90p2}\end{table}
       
       \begin{table}[h]
@@ -191,7 +192,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
        & $U[10.0C',20.0C']$ & \textbf{5.0} & 0.000 & 0.056 & \textbf{5.0} & 0.000 & 0.059 & \textbf{5.0} & 0.000 & 0.150 & \textbf{5.0} & 0.000 & 0.447 \\
       \hline\hline
       \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{5.0} & 0.000 & 0.127 & \textbf{5.0} & 0.000 & 0.126 & \textbf{5.0} & 0.000 & 0.205 & \textbf{5.0} & 0.000 & 0.513 \\
-       & $U[0.5C',1.0C']$ & \textbf{5.0} & 0.000 & 0.125 & \textbf{5.0} & 0.000 & 0.128 & \textbf{5.0} & 0.000 & 0.212 & \textbf{5.0} & 0.000 & 0.525 \\
+       & $U[0.5C',1.0C']$ & \textbf{5.0} & 0.000 & 0.125 & \textbf{5.0} &  0.000 & 0.128 & \textbf{5.0} & 0.000 & 0.212 & \textbf{5.0} & 0.000 & 0.525 \\
        & $U[1.0C',4.0C']$ & \textbf{5.0} & 0.000 & 0.128 & \textbf{5.0} & 0.000 & 0.129 & \textbf{5.0} & 0.000 & 0.217 & \textbf{5.0} & 0.000 & 0.526 \\
        & $U[0.0C',5.0C']$ & \textbf{5.0} & 0.000 & 0.128 & \textbf{5.0} & 0.000 & 0.133 & \textbf{5.0} & 0.000 & 0.215 & \textbf{5.0} & 0.000 & 0.481 \\
        & $U[5.0C',10.0C']$ & \textbf{5.0} & 0.000 & 0.136 & \textbf{5.0} & 0.000 & 0.131 & \textbf{5.0} & 0.000 & 0.223 & \textbf{5.0} & 0.000 & 0.538 \\
@@ -199,7 +200,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn90p3}
+      \caption{Results for a set of 5 instances of size $90$ and density $0.3$}
       \label{tab:pcpn90p3}\end{table}
       
 
@@ -240,7 +241,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn90p4}
+      \caption{Results for a set of 5 instances of size $90$ and density $0.4$}
       \label{tab:pcpn90p4}\end{table}
       
       \begin{table}[h]
@@ -280,7 +281,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn90p5}
+      \caption{Results for a set of 5 instances of size $90$ and density $0.5$}
       \label{tab:pcpn90p5}\end{table}
 
 
@@ -321,7 +322,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn90p6}
+      \caption{Results for a set of 5 instances of size $90$ and density $0.6$}
       \label{tab:pcpn90p6}\end{table}
 
       \begin{table}[h]
@@ -361,7 +362,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn90p7}
+      \caption{Results for a set of 5 instances of size $90$ and density $0.7$}
       \label{tab:pcpn90p7}\end{table}
 
 
@@ -402,7 +403,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn90p8}
+      \caption{Results for a set of 5 instances of size $90$ and density $0.8$}
       \label{tab:pcpn90p8}\end{table}
 
 
@@ -443,7 +444,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn90p9}
+      \caption{Results for a set of 5 instances of size $90$ and density $0.9$}
       \label{tab:pcpn90p9}\end{table}
 
 
@@ -484,7 +485,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn20}
+      \caption{Results for a set of 5 instances of size $20$ and density $0.5$}
       \label{tab:pcpn20}\end{table}
 
 
@@ -525,7 +526,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn40}
+      \caption{Results for a set of 5 instances of size $40$ and density $0.5$}
       \label{tab:pcpn40}\end{table}
 
 
@@ -566,7 +567,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn60}
+      \caption{Results for a set of 5 instances of size $60$ and density $0.5$}
       \label{tab:pcpn60}\end{table}
 
 
@@ -607,7 +608,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn70}
+      \caption{Results for a set of 5 instances of size $70$ and density $0.5$}
       \label{tab:pcpn70}\end{table}
 
 
@@ -648,7 +649,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn80}
+      \caption{Results for a set of 5 instances of size $80$ and density $0.5$}
       \label{tab:pcpn80}\end{table}
 
 
@@ -689,7 +690,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn90}
+      \caption{Results for a set of 5 instances of size $90$ and density $0.5$}
       \label{tab:pcpn90}\end{table}
 
 
@@ -730,7 +731,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn100}
+      \caption{Results for a set of 5 instances of size $100$ and density $0.5$}
       \label{tab:pcpn100}\end{table}
 
 
@@ -771,7 +772,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{pcpn120}
+      \caption{Results for a set of 5 instances of size $120$ and density $0.5$}
       \label{tab:pcpn120}\end{table}
 	
 \clearpage	
@@ -810,7 +811,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{in1}
+      \caption{Results for the instance \textit{dsjc500.5-1}, $500$ nodes, density $0.5$}
       \label{tab:in1}\end{table}
 
 
@@ -847,7 +848,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{in2}
+      \caption{Results for the instance \textit{dsjc500.5-2}, $1000$ nodes, density $0.5$}
       \label{tab:in2}
       \end{table}
 
@@ -885,7 +886,7 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{in3}
+      \caption{Results for the instance \textit{dsjc500.5-3}, $1500$ nodes, density $0.5$}
       \label{tab:in3}\end{table}
 
 
@@ -923,15 +924,15 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{in4}
+      \caption{Results for the instance \textit{dsjc500.5-4}, $2000$ nodes, density $0.5$}
       \label{tab:in4}\end{table}
 
 
 \clearpage
 
 \subsection{Variants}
-As discussed in chapter [TODO], variants for both ILPs have been created by removing the inequation that restricts conflicts inside the recolored set of clusters. In tables \ref{tab:pcpn90p7ILPVariant} to \ref{tab:pcpn120ILPVariant} the standard ILPs marked as $ILP1$ and $ILP2$ are compared to their variants $ILP1*$ and $ILP2*$ by evaluating three instances of different size as well as three instances of different density. It can be seen that removing the aforementioned constraint does not increase the solution quality.\\
-Furthermore experiments have been performed by placing the recently recolored set of clusters on the tabu list as discussed in section [TODO]. In tables \ref{tab:pcpn90p7RecoloredTT} to \ref{tab:pcpn120RecoloredTT} sets diversing in size and density have been evaluated using $F_{max}=5$. The parameter $TTRecolored$ sets the number of iterations as $Tabusize=TTRecolored*C'$ for all the node-color pairs of the recolored set of clusters to remain on the tabu list.
+As discussed in section \ref{sec:variants}, variants for both ILPs have been created by removing the inequation that restricts conflicts inside the recolored set of clusters. In tables \ref{tab:pcpn90p7ILPVariant} to \ref{tab:pcpn120ILPVariant} the standard ILPs marked as $ILP1$ and $ILP2$ are compared to their variants $ILP1*$ and $ILP2*$ by evaluating three instances of different size as well as three instances of different density. It can be seen that removing the aforementioned constraint does not increase the solution quality.\\
+Furthermore experiments have been performed, placing the recently recolored set of clusters on the tabu list. In tables \ref{tab:pcpn90p7RecoloredTT} to \ref{tab:pcpn120RecoloredTT} sets diversing in size and density have been evaluated using $F_{max}=5$. The parameter $TTRecolored$ sets the number of iterations as $Tabusize=TTRecolored*C'$ for all the node-color pairs of the recolored set of clusters to remain on the tabu list.
 
       \begin{table}[h]
       \resizebox{\columnwidth}{!}{%
@@ -970,7 +971,7 @@ Furthermore experiments have been performed by placing the recently recolored se
       \hline
       \end{tabular}
       }
-      \caption{pcpn90p7}
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.7$ each.}
       \label{tab:pcpn90p7ILPVariant}\end{table}
       
       \begin{table}[h]
@@ -1010,7 +1011,7 @@ Furthermore experiments have been performed by placing the recently recolored se
       \hline
       \end{tabular}
       }
-      \caption{pcpn90p8}
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.8$ each.}
       \label{tab:pcpn90p8ILPVariant}\end{table}
       
       \begin{table}[h]
@@ -1050,7 +1051,7 @@ Furthermore experiments have been performed by placing the recently recolored se
       \hline
       \end{tabular}
       }
-      \caption{pcpn90p9}
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.9$ each.}
       \label{tab:pcpn90p9ILPVariant}\end{table}
       
       \begin{table}[h]
@@ -1090,7 +1091,7 @@ Furthermore experiments have been performed by placing the recently recolored se
       \hline
       \end{tabular}
       }
-      \caption{pcpn90}
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.5$ each.}
       \label{tab:pcpn90ILPVariant}
       \end{table}
       
@@ -1131,7 +1132,7 @@ Furthermore experiments have been performed by placing the recently recolored se
       \hline
       \end{tabular}
       }
-      \caption{pcpn100}
+      \caption{ILP variants compared on a set of 5 instances with $100$ nodes and a density of $0.5$ each.}
       \label{tab:pcpn100ILPVariant}\end{table}
       
       \begin{table}[h]
@@ -1171,7 +1172,7 @@ Furthermore experiments have been performed by placing the recently recolored se
       \hline
       \end{tabular}
       }
-      \caption{pcpn120}
+      \caption{ILP variants compared on a set of 5 instances with $120$ nodes and a density of $0.5$ each.}
       \label{tab:pcpn120ILPVariant}\end{table}
 
 \clearpage
@@ -1237,7 +1238,7 @@ Furthermore experiments have been performed by placing the recently recolored se
       \hline
       \end{tabular}
       }
-      \caption{pcpn90p7}
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.7$ each.}
       \label{tab:pcpn90p7RecoloredTT}
       \end{table}
 
@@ -1300,7 +1301,7 @@ Furthermore experiments have been performed by placing the recently recolored se
       \hline
       \end{tabular}
       }
-      \caption{pcpn90p8}
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.8$ each.}
       \label{tab:pcpn90p8RecoloredTT}
       \end{table}
       
@@ -1363,7 +1364,7 @@ Furthermore experiments have been performed by placing the recently recolored se
       \hline
       \end{tabular}
       }
-      \caption{pcpn90p9}
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.9$ each.}
       \label{tab:pcpn90p9RecoloredTT}\end{table}
 
       
@@ -1425,7 +1426,7 @@ Furthermore experiments have been performed by placing the recently recolored se
       \hline
       \end{tabular}
       }
-      \caption{pcp90i5}
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.5$ each.}
       \label{tab:pcpn90RecoloredTT}\end{table}
  
       
@@ -1487,7 +1488,7 @@ Furthermore experiments have been performed by placing the recently recolored se
       \hline
       \end{tabular}
       }
-      \caption{pcp100}
+      \caption{ILP variants compared on a set of 5 instances with $100$ nodes and a density of $0.5$ each.}
       \label{tab:pcpn100RecoloredTT}\end{table}
 
 
@@ -1549,13 +1550,13 @@ Furthermore experiments have been performed by placing the recently recolored se
       \hline
       \end{tabular}
       }
-      \caption{pcp120}
+      \caption{ILP variants compared on a set of 5 instances with $120$ nodes and a density of $0.5$ each.}
       \label{tab:pcpn120RecoloredTT}\end{table}
 
 \clearpage
 
 \subsection{Comparison to previous works}
-Since $RANDOM$ performs best in terms of runtime and is not significantly inferior to other methods in terms of quality, its results are compared to those of \cite{frota-07} and \citep{pop-13} in tables \ref{tab:pcpSizeCompared} and \ref{tab:pcpDensCompared}. In \ref{tab:inCompared} results are compared to \citep{noronha-06}.
+Since $RANDOM$ performs best in terms of runtime and is not significantly inferior to other methods in terms of quality, its results are compared to those of \cite{frota-07} and \cite{pop-13} in tables \ref{tab:pcpSizeCompared} and \ref{tab:pcpDensCompared}. In \ref{tab:inCompared} results are compared to \cite{noronha-06}.
 
 \begin{table}[h]
 \resizebox{\columnwidth}{!}{%
@@ -1576,7 +1577,7 @@ Since $RANDOM$ performs best in terms of runtime and is not significantly inferi
 \hline
 \end{tabular}
 }
-      \caption{pcpn120}
+      \caption{TODO}
       \label{tab:pcpSizeCompared}
 
 \end{table}
@@ -1641,4 +1642,4 @@ Since $RANDOM$ performs best in terms of runtime and is not significantly inferi
       \end{tabular}
       }
       \caption{in1}
-      \label{tab:in1comp}\end{table}
+      \label{tab:inCompared}\end{table}

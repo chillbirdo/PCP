@@ -35,7 +35,6 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2.1}Graph Theory Definitions}{3}{section.2.1}}
 \@writefile{toc}{\contentsline {section}{\numberline {2.2}Metaheuristics}{3}{section.2.2}}
 \@writefile{loa}{\addvspace {10\p@ }}
-\citation{li-00}
 \@writefile{lof}{\addvspace {10pt}}
 \@writefile{lot}{\addvspace {10pt}}
 \@writefile{toc}{\contentsline {chapter}{\chapternumberline {3}Problem Definition}{5}{chapter.3}}
@@ -43,6 +42,7 @@
 \@writefile{toc}{\contentsline {section}{\numberline {3.1}Partition Coloring Problem}{5}{section.3.1}}
 \@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces (a) Shows a problem instance and (b) its solution.}}{5}{figure.3.1}}
 \newlabel{pd:pcpExample}{{\M@TitleReference {3.1}{(a) Shows a problem instance and (b) its solution.}}{5}{(a) Shows a problem instance and (b) its solution}{figure.3.1}{}}
+\citation{li-00}
 \@writefile{toc}{\contentsline {section}{\numberline {3.2}Routing and Wavelength Assignment Problem}{6}{section.3.2}}
 \@writefile{toc}{\contentsline {section}{\numberline {3.3}Complexity}{6}{section.3.3}}
 \@writefile{loa}{\addvspace {10\p@ }}
@@ -59,9 +59,21 @@
 \newlabel{ch:approach}{{\M@TitleReference {5}{Problem Solving Approach}}{9}{Problem Solving Approach\relax }{chapter.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5.1}Constructional Heuristics}{9}{section.5.1}}
 \@writefile{toc}{\contentsline {section}{\numberline {5.2}Recoloring}{9}{section.5.2}}
+\newlabel{sec:recoloring}{{\M@TitleReference {5.2}{Recoloring}}{9}{Recoloring\relax }{section.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{Random}{9}{section*.3}}
+\@writefile{toc}{\contentsline {subsection}{OneStepCD}{9}{section*.4}}
+\@writefile{toc}{\contentsline {subsection}{ILP minimizing conflicts}{9}{section*.5}}
+\@writefile{toc}{\contentsline {subsection}{ILP minimizing conflicting nodes}{9}{section*.6}}
 \@writefile{toc}{\contentsline {section}{\numberline {5.3}Local Search}{9}{section.5.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Variants}{9}{section.5.4}}
+\newlabel{sec:variants}{{\M@TitleReference {5.4}{Variants}}{9}{Variants\relax }{section.5.4}{}}
 \@writefile{loa}{\addvspace {10\p@ }}
 \citation{li-00,noronha-06,frota-07}
+\citation{Meindl-12}
+\citation{frota-07}
+\citation{pop-13}
+\citation{Volko-13}
+\citation{noronha-06}
 \@writefile{lof}{\addvspace {10pt}}
 \@writefile{lot}{\addvspace {10pt}}
 \@writefile{toc}{\contentsline {chapter}{\chapternumberline {6}Computational Results}{11}{chapter.6}}
@@ -69,14 +81,17 @@
 \@writefile{toc}{\contentsline {section}{\numberline {6.1}Implementation Details and Testing Environment}{11}{section.6.1}}
 \@writefile{toc}{\contentsline {section}{\numberline {6.2}Instances}{11}{section.6.2}}
 \@writefile{toc}{\contentsline {section}{\numberline {6.3}Results}{12}{section.6.3}}
-\@writefile{toc}{\contentsline {subsection}{Conflicting Nodes}{12}{section*.3}}
+\@writefile{toc}{\contentsline {subsection}{Conflicting Nodes}{12}{section*.7}}
 \@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Sets of different size containing five instances each. $cnodes/recoloring$ denotes the average amount of conflicting nodes per recoloring.}}{12}{table.6.1}}
 \newlabel{tab:conflitingSize}{{\M@TitleReference {6.1}{Sets of different size containing five instances each. $cnodes/recoloring$ denotes the average amount of conflicting nodes per recoloring.}}{12}{Sets of different size containing five instances each. $cnodes/recoloring$ denotes the average amount of conflicting nodes per recoloring}{table.6.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces Sets of different density containing five instances each.}}{13}{table.6.2}}
-\newlabel{tab:conflitingDens}{{\M@TitleReference {6.2}{Sets of different density containing five instances each.}}{13}{Sets of different density containing five instances each}{table.6.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces Sets of different density containing five instances each.}}{12}{table.6.2}}
+\newlabel{tab:conflitingDens}{{\M@TitleReference {6.2}{Sets of different density containing five instances each.}}{12}{Sets of different density containing five instances each}{table.6.2}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {6.3}{\ignorespaces Evaluation of the four larger instances. $ILP2$ produces about $7.5$ times less conflicting nodes than $RANDOM$.}}{13}{table.6.3}}
 \newlabel{tab:conflitingIn}{{\M@TitleReference {6.3}{Evaluation of the four larger instances. $ILP2$ produces about $7.5$ times less conflicting nodes than $RANDOM$.}}{13}{Evaluation of the four larger instances. $ILP2$ produces about $7.5$ times less conflicting nodes than $RANDOM$}{table.6.3}{}}
-\@writefile{toc}{\contentsline {subsection}{Final Results}{14}{section*.4}}
+\citation{frota-07}
+\citation{noronha-06}
+\citation{noronha-06}
+\@writefile{toc}{\contentsline {subsection}{Final Results}{14}{section*.8}}
 \@writefile{lot}{\contentsline {table}{\numberline {6.4}{\ignorespaces pcpn90p1}}{14}{table.6.4}}
 \newlabel{tab:pcpn90p1}{{\M@TitleReference {6.4}{pcpn90p1}}{14}{pcpn90p1\relax }{table.6.4}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {6.5}{\ignorespaces pcpn90p2}}{15}{table.6.5}}
@@ -119,7 +134,7 @@
 \newlabel{tab:in3}{{\M@TitleReference {6.23}{in3}}{24}{in3\relax }{table.6.23}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {6.24}{\ignorespaces in4}}{24}{table.6.24}}
 \newlabel{tab:in4}{{\M@TitleReference {6.24}{in4}}{24}{in4\relax }{table.6.24}{}}
-\@writefile{toc}{\contentsline {subsection}{Variants}{25}{section*.5}}
+\@writefile{toc}{\contentsline {subsection}{Variants}{25}{section*.9}}
 \@writefile{lot}{\contentsline {table}{\numberline {6.25}{\ignorespaces pcpn90p7}}{25}{table.6.25}}
 \newlabel{tab:pcpn90p7ILPVariant}{{\M@TitleReference {6.25}{pcpn90p7}}{25}{pcpn90p7\relax }{table.6.25}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {6.26}{\ignorespaces pcpn90p8}}{26}{table.6.26}}
@@ -144,7 +159,10 @@
 \newlabel{tab:pcpn100RecoloredTT}{{\M@TitleReference {6.35}{pcp100}}{33}{pcp100\relax }{table.6.35}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {6.36}{\ignorespaces pcp120}}{34}{table.6.36}}
 \newlabel{tab:pcpn120RecoloredTT}{{\M@TitleReference {6.36}{pcp120}}{34}{pcp120\relax }{table.6.36}{}}
-\@writefile{toc}{\contentsline {subsection}{Comparison to previous works}{35}{section*.6}}
+\citation{frota-07}
+\citation{pop-13}
+\citation{noronha-06}
+\@writefile{toc}{\contentsline {subsection}{Comparison to previous works}{35}{section*.10}}
 \@writefile{lot}{\contentsline {table}{\numberline {6.37}{\ignorespaces pcpn120}}{35}{table.6.37}}
 \newlabel{tab:pcpSizeCompared}{{\M@TitleReference {6.37}{pcpn120}}{35}{pcpn120\relax }{table.6.37}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {6.38}{\ignorespaces pcpn120}}{35}{table.6.38}}
@@ -166,9 +184,12 @@
 \@writefile{toc}{\contentsline {chapter}{\chapternumberline {8}Summary}{39}{chapter.8}}
 \newlabel{ch:summary}{{\M@TitleReference {8}{Summary}}{39}{Summary\relax }{chapter.8}{}}
 \@writefile{loa}{\addvspace {10\p@ }}
-\bibcite{frota-07}{1}
-\bibcite{li-00}{2}
-\bibcite{noronha-06}{3}
-\@writefile{toc}{\contentsline {chapter}{Bibliography}{41}{section*.8}}
+\bibcite{Meindl-12}{1}
+\bibcite{Volko-13}{2}
+\bibcite{frota-07}{3}
+\bibcite{li-00}{4}
+\bibcite{noronha-06}{5}
+\bibcite{pop-13}{6}
+\@writefile{toc}{\contentsline {chapter}{Bibliography}{41}{section*.12}}
 \memsetcounter{lastsheet}{51}
 \memsetcounter{lastpage}{41}
