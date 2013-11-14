@@ -5,47 +5,58 @@ A level-1 auxiliary file: titlepage.aux
 A level-1 auxiliary file: titlepage_en.aux
 The style file: plain.bst
 Database file #1: pcp.bib
+Too many commas in name 1 of "Y. Asahiroa, K. Iwamab, H. Tamakic, T. Tokuyamad" for entry asahiroa-00
+while executing---line 1049 of file plain.bst
+Name 1 in "U. Feige, G. Kortsarz, and D. Peleg" has a comma at the end for entry feige-97
+while executing---line 1049 of file plain.bst
 Warning--empty journal in Meindl-12
-Warning--empty journal in Volko-13
-You've used 6 entries,
+Warning--there's a number but no volume in charikar-00
+Warning--empty journal in volko-13
+Warning--empty journal in lawler-76
+Warning--empty journal in khuller-09
+Name 1 in "U. Feige, G. Kortsarz, and D. Peleg" has a comma at the end for entry feige-97
+while executing---line 1090 of file plain.bst
+Too many commas in name 1 of "Y. Asahiroa, K. Iwamab, H. Tamakic, T. Tokuyamad" for entry asahiroa-00
+while executing---line 1090 of file plain.bst
+You've used 13 entries,
             2118 wiz_defined-function locations,
-            534 strings with 4914 characters,
-and the built_in function-call counts, 1917 in all, are:
-= -- 187
-> -- 81
+            571 strings with 5547 characters,
+and the built_in function-call counts, 3420 in all, are:
+= -- 333
+> -- 136
 < -- 1
-+ -- 35
-- -- 26
-* -- 122
-:= -- 321
-add.period$ -- 18
-call.type$ -- 6
-change.case$ -- 31
++ -- 59
+- -- 42
+* -- 197
+:= -- 605
+add.period$ -- 39
+call.type$ -- 13
+change.case$ -- 60
 chr.to.int$ -- 0
-cite$ -- 8
-duplicate$ -- 79
-empty$ -- 156
-format.name$ -- 26
-if$ -- 398
+cite$ -- 18
+duplicate$ -- 149
+empty$ -- 278
+format.name$ -- 42
+if$ -- 698
 int.to.chr$ -- 0
-int.to.str$ -- 6
-missing$ -- 6
-newline$ -- 33
-num.names$ -- 12
-pop$ -- 38
+int.to.str$ -- 13
+missing$ -- 13
+newline$ -- 68
+num.names$ -- 26
+pop$ -- 62
 preamble$ -- 1
-purify$ -- 25
+purify$ -- 47
 quote$ -- 0
-skip$ -- 55
+skip$ -- 107
 stack$ -- 0
-substring$ -- 115
-swap$ -- 14
+substring$ -- 151
+swap$ -- 19
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 24
-warning$ -- 2
-while$ -- 19
-width$ -- 7
-write$ -- 64
-(There were 2 warnings)
+type$ -- 52
+warning$ -- 5
+while$ -- 33
+width$ -- 15
+write$ -- 137
+(There were 4 error messages)

@@ -1,18 +1,18 @@
 
-The PCP is a quite recently proposed COP which generalizes the classical VCP by considering the possiblity to select subsets of nodes. While for the VCP much research has been done, only a few papers about the PCP has been published so far. In this work a strategy is presented that creates an initial solution by a heuristical algorithm and improves the solution quality by recoloring sets of nodes of same color before eliminating the resulting conflicts by applying a tabu search. It has been tried to enhance the algorithm presented in \cite{noronha-06} by substituting the process of random recoloring by more sophisticated algorithms in order to minimize the number of resulting conlficts. A variation of the $ONESTEPCD$ algorithm \cite{li-00} and two ILPs were used. A local search algorithm then tries to eliminate all these conflicting nodes to create a feasible solution. Furthermore experiments with variations of the ILPs and a mechanism that -- on order to protect a recolored subgraph from being overwritten -- puts that subgraph on the tabulist for an amount of iteration.\\
+The PCP is a quite recently proposed COP which generalizes the classical VCP by considering the possiblity to select subsets of nodes. While for the VCP much research has been done, only a few papers about the PCP has been published so far. In this work a strategy is presented that creates an initial solution by a heuristical algorithm and improves the solution quality by recoloring sets of nodes of same color before eliminating the resulting conflicts by applying a tabu search. It has been tried to enhance the algorithm presented in \cite{noronha-06} by substituting the process of random recoloring by more sophisticated algorithms in order to minimize the number of resulting conflicts. A variation of the $ONESTEPCD$ algorithm \cite{li-00} and two ILPs were used. A local search algorithm then tries to eliminate all these conflicting nodes to create a feasible solution. Furthermore experiments with variations of the ILPs and a mechanism that puts the most recently recolored subgraph on the tabulist for an amount of iteration in order to protect a that subgraph from being overwritten have been done.\\
 The results have shown that more sophisticated recoloring algorithms can reduce the number of conflicts dramatically. For the instances used, a random recoloring produces an amount of conflicting nodes up to $7.5$ times higher than an optimized recoloring does. The fact that that gap is not reflected significantry in the final results leads to the conclusion that for the presented strategy the tabu search is much more relevant than the recoloring process.
 
 \section{Critical Reflection}
-Selecting and optimizing the coloring of a subset of clusters regardless of their location in the graph does not tackle the problem in an efficient way. The selection does not take into account any features of the graph like regional density, although dense subgraphs involve the most danger of increasing the chromatic number by a suboptimal coloring. Considering graph features being crucial for a good selection of clusters, the selection presented in this thesis is done in a random way and therefore an optimal, partial recoloring can not be integrated in the solution more probably than a random coloring.  
+Selecting and optimizing the coloring of a subset of clusters regardless of their location in the graph does not tackle the problem in an efficient way. The selection does not take into account any features of the graph like regional density, although dense subgraphs involve the most danger of increasing the chromatic number by being colored with a suboptimal coloring. Considering graph features being crucial for a good selection of clusters, the selection presented in this thesis is done in a random way and therefore an optimal, partial recoloring can not be integrated in the solution more probably than any random coloring.  
 
 \section{Future Works}
-Future works could consider a more suggestive selection of the clusters to be recolored. Rather than selecting all clusters of the same color, the set could be chosen by criteria of regional density. Putting effort in optimizing these regions -- e.g. by the use of exact methods -- could lead to results of higher quality. 
+Future works could consider a more suggestive selection of the clusters to be recolored. Rather than selecting all clusters of the same color, the set could be chosen by criteria of regional density. Putting effort in optimizing the coloring of these regions -- e.g. by the use of exact methods -- could lead to results of higher quality.
 
-%- find an initial coloring
-%- keep the selection of vertices and search for the x densest subgraphs of maximum size k, that contain c different colors
-%- color these subgraphs with c-1 colors optimally in terms of the amount of conflicts (like ILP1 und ILP2)
-%- color the set of remaining nodes of color c randomly.
-%- perform tabusearch to eliminate all conflicts.
+\subsection{On finding dense subgraphs}
+Finding dense subgraphs is a intensively studied problem in graph theory and became more relevant in recent years because of its application to social network graphs. As long as there are no boundaries set on the size of the densest subgraph, it can be found in polynomial time, despite the fact that there are exponentially many subgraphs to consider \cite{lawler-76, asahiro-02}. Additionaly, Charikar \cite{charikar-00} showed a 2 approximation to the densest subgraph problem in linear time using a very simple greedy algorithm which was previously studied by Asahiro et. al. \cite{asahiroa-00}). The densest $k$-subgraph problem (\textit{DkS}), which finds the densest subgraph of size $k$ is shown to be $\mathcal{NP}$-hard \cite{feige-97,asahiro-02}. For the densest at-most-$k$-subgraph problem (\textit{DamkS}), which searches for the densest subgraph of maximum size $k$ (and therefore is a relaxation of \textit{DkS}), Andersen et.al. \cite{andersen-07} showed that if there exists a $\alpha$ approximation for \textit{DamkS}, then there exists a $\mathcal O(\alpha ^ 2)$ approximisation for \textit{DkS}, indicating that this problem is quite hard as well. Khuller and Saha showed that approximating \textit{DamkS} is as hard as \textit{DkS} within a constant factor \cite{khuller-09}, specifically an $\alpha$ approximation for \textit{DamkS}, implies a $4\alpha$ approximation for \textit{DkS}. A number of polynomial time greedy heuristics for \textit{DkS} are proposed in Asahiro et.al. \cite{asahiroa-00}.
+
+\subsection{Algorithm proposal}
+Algorithm \ref{algo:proposal} proposes a procedure for the discussed approach. The graph $G$, a recoloring algorithm $RECOLOR$ like these presented in \ref{sec:recoloring} and two integers used to parameterize the search for dense subgraphs are taken as input. In line 1 an initial solution is calculated and its chromatic number is assigned to $cmax$ in line 2. In line 3 an algorithm is called that returns up to $maxSubgraphs$ subgraphs with a maximum size of $denseMaxSize$. Line 4 to line 6 recolor all found subgraphs by applying $RECOLOR$ and all remaining nodes colored with colors $cmax$ randomly, all with $cmax-1$ colors. In line 8 the tabusearch tries to eliminate all resulting conflicts and puts the recolored regions on the tabulist for a number of iterations as presented in [TODO]. Line 9 to 11 accept the new solution in case of feasablity and starts searching for dense regions again.
 
 \begin{algorithm}
 \KwIn{An uncolored Graph $G=(V,E)$, a recoloring-algorithm $RECOLOR$, two integers $maxSubgraphs$ and $denseMaxSize$ }
@@ -20,19 +20,24 @@ Future works could consider a more suggestive selection of the clusters to be re
 Set $S \gets ONESTEPCD(G)$\;
 Set $cmax \gets$ the chromatic number of $S$\;
 Set $D \gets FINDDENSESUBGRAPHS( S, maxSubgraphs, denseMaxSize) $\;
+Let $S'$ be the solution after recoloring all subgraphs in $D$ with $RECOLOR$ and $cmax-1$ colors\;
 Let $R$ be the set of all remaining nodes in $V$ colored with $cmax$\;
-Let $S'$ be the solution after recoloring $R$ randomly and all subgraphs in $D$ with $RECOLOR$\;
+Let $S'$ be the solution after recoloring $R$ randomly with $cmax-1$ colors\;
 Let $C'$ be the set of nodes involved into color conflicts in $S'$\;
-Set $C_c \gets C \setminus V_c$\;
 $S' \gets TABUSEARCH(S', D \cup R, C')$\;
-
 \If{ $S'$ is free of conflicts}{
-  $S \gets S_c$\;
-  $cmax = cmax - 1$\;
-  \textbf{goto} line 3;
+  $S \gets S'$\;
+  \textbf{goto} line 2;
 }
-  
 \Return{$S$}\;
 \caption{PCP HYBRID DENSERECOLORING}
 \label{algo:proposal}
 \end{algorithm}
+
+
+%- find an initial coloring
+%- keep the selection of vertices and search for the x densest subgraphs of maximum size k, that contain c different colors
+%- color these subgraphs with c-1 colors optimally in terms of the amount of conflicts (like ILP1 und ILP2)
+%- color the set of remaining nodes of color c randomly.
+%- perform tabusearch to eliminate all conflicts.
+

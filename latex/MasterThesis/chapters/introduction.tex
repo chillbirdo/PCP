@@ -1,5 +1,28 @@
 \section{Motivation}
 
+In order to obey the emerging demand for advanced broadband Internet applications such as video-conferences, high performance computing and others, extensive networks capacities have to be achieved. Links in optical networks operate much faster than their currently available electronic counterparts. Combined with the technique of Wavelength Division Multiplexing (WDM), which permits the simultaneous transmission of different channels along the same fiber, optical networks are promising candidates for providing a flexible transport backbone network. These so called Wavelength Routed Optical Networks (WRON's) bring out new problems in coordination of wavelengths usage \cite{murthy-02}. One of them is the Routing and Wavelength Assignment Problem (RWA), which consists in routing a set of light-paths and assigning a wavelength to each of them. The variant where all connection requirements are known beforehands and which aims to minimize the amount of used wavelength is called min-RWA and found to be \mathcal{NP}-hard \cite{erlebach-01}.\\\\
+Assigning wavelengths to one out of many paths for each connection requirement is equivalent to the \mathcal{NP}-hard \textbf{Partition Coloring Problem (PCP)} \cite{li-00} which is subject of this thesis. Given a graph consisting of clusters containing vertices and edges, the aim is to select one vertice per cluster and assign a color to each selected vertice in the way that the overall number of colors is minimized. If each cluster holds only one vertex, the problem reduces to the Standard Vertex Coloring Problem (VCP), which is used for a wide range of applications as scheduling, register allocation, pattern matching and others and has been studied extensively. In contrast, only a few papers have been published on PCP so far.\\\\
+The aim of this thesis is to explore a solution method that has not been subject of publications on PCP yet,	in order to achieve better results for the PCP. 
+
+%
+%WAVELENGTH routed optical networks (WRON’s) are
+%promising candidates for providing a flexible transport
+%backbone network. The basic service which a WRON will offer
+%is a lightpath service. A lightpath service between any two nodes
+%of a WRON is the ability to provide a dedicated wavelength
+%between them for carrying bits.
+%
+%THE emerging demand for advanced broadband
+%Internet applications requires excessive network
+%capacities which can be effectively achieved by
+%Wavelength Division Multiplexing (WDM) technique.
+%WDM brings out new problems in coordination of
+%wavelengths usage in optical network [1]. Each
+%wavelength represents the independent communication
+%channel, called a lightpath, carrying the information with
+%data rates up to 40 Gb/s. When it is necessary to establish
+%a lightpath between two network nodes, a route has to be
+%chosen and the particular wavelength has to be assigned.
 
 
 \section{Guide to the Thesis}

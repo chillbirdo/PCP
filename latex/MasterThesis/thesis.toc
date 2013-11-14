@@ -12,23 +12,25 @@
 \contentsline {section}{\numberline {4.1}Exact Approaches}{7}{section.4.1}
 \contentsline {section}{\numberline {4.2}Heuristical Approaches}{7}{section.4.2}
 \contentsline {chapter}{\chapternumberline {5}Problem Solving Approach}{9}{chapter.5}
-\contentsline {section}{\numberline {5.1}Constructional Heuristics}{9}{section.5.1}
-\contentsline {section}{\numberline {5.2}Recoloring}{9}{section.5.2}
-\contentsline {subsection}{Random}{9}{section*.3}
-\contentsline {subsection}{OneStepCD}{9}{section*.4}
-\contentsline {subsection}{ILP minimizing conflicts}{9}{section*.5}
-\contentsline {subsection}{ILP minimizing conflicting nodes}{9}{section*.6}
-\contentsline {section}{\numberline {5.3}Local Search}{9}{section.5.3}
-\contentsline {section}{\numberline {5.4}Variants}{9}{section.5.4}
-\contentsline {chapter}{\chapternumberline {6}Computational Results}{11}{chapter.6}
-\contentsline {section}{\numberline {6.1}Implementation Details and Testing Environment}{11}{section.6.1}
-\contentsline {section}{\numberline {6.2}Instances}{11}{section.6.2}
-\contentsline {section}{\numberline {6.3}Results}{12}{section.6.3}
-\contentsline {subsection}{Conflicting Nodes}{12}{section*.7}
-\contentsline {subsection}{Final Results}{14}{section*.8}
-\contentsline {subsection}{Variants}{25}{section*.9}
-\contentsline {subsection}{Comparison to previous works}{35}{section*.10}
-\contentsline {chapter}{\chapternumberline {7}Summary}{37}{chapter.7}
-\contentsline {section}{\numberline {7.1}Critical Reflection}{37}{section.7.1}
-\contentsline {section}{\numberline {7.2}Future Works}{38}{section.7.2}
-\contentsline {chapter}{Bibliography}{39}{section*.12}
+\contentsline {section}{\numberline {5.1}Constructional Heuristics}{10}{section.5.1}
+\contentsline {section}{\numberline {5.2}Recoloring}{10}{section.5.2}
+\contentsline {subsection}{Random}{10}{section*.6}
+\contentsline {subsection}{OneStepCD}{10}{section*.7}
+\contentsline {subsection}{ILP minimizing conflicts}{12}{section*.8}
+\contentsline {subsection}{ILP minimizing conflicting nodes}{12}{section*.9}
+\contentsline {section}{\numberline {5.3}Tabu Search}{12}{section.5.3}
+\contentsline {section}{\numberline {5.4}Variants}{12}{section.5.4}
+\contentsline {chapter}{\chapternumberline {6}Computational Results}{15}{chapter.6}
+\contentsline {section}{\numberline {6.1}Implementation Details and Testing Environment}{15}{section.6.1}
+\contentsline {section}{\numberline {6.2}Instances}{15}{section.6.2}
+\contentsline {section}{\numberline {6.3}Results}{16}{section.6.3}
+\contentsline {subsection}{Conflicting Nodes}{16}{section*.10}
+\contentsline {subsection}{Final Results}{18}{section*.11}
+\contentsline {subsection}{Variants}{29}{section*.12}
+\contentsline {subsection}{Comparison to previous works}{39}{section*.13}
+\contentsline {chapter}{\chapternumberline {7}Summary}{41}{chapter.7}
+\contentsline {section}{\numberline {7.1}Critical Reflection}{41}{section.7.1}
+\contentsline {section}{\numberline {7.2}Future Works}{42}{section.7.2}
+\contentsline {subsection}{On finding dense subgraphs}{42}{section*.14}
+\contentsline {subsection}{Algorithm proposal}{42}{section*.15}
+\contentsline {chapter}{Bibliography}{45}{section*.17}
