@@ -11,6 +11,11 @@ M.~Templ B.~Meindl.
   optimization problems.
 \newblock 2012.
 
+\bibitem{murthy-02}
+M.Gurusamy C.~S. Ram~Murthy.
+\newblock Wdm optical networks - concepts.
+\newblock {\em Design and Algorithms}, 2002.
+
 \bibitem{charikar-00}
 M.~Charikar.
 \newblock Greedy approximation algorithms for finding dense components in a
@@ -26,6 +31,12 @@ C.Volko.
 Yuri Frota, Nelson Maculan, Thiago~F. Noronha, and Celso~C. Ribeiro.
 \newblock A branch-and-cut algorithm for the partition coloring problem.
 \newblock {\em Networks}, 55(3):194--204, 2010.
+
+\bibitem{krishnaswamy-01}
+R.~M. Krishnaswamy and K.~N. Sivarajan.
+\newblock Algorithms for routing and wavelength assignment based on solutions
+  of lp-relaxations.
+\newblock {\em IEEE Communication Letters}, 5(10), 2001.
 
 \bibitem{lawler-76}
 E.L. Lawler.
@@ -54,6 +65,11 @@ Petrica~C.\ Pop, Bin Hu, and G\"unther~R.\ Raidl.
 B.~Saha S.~Khuller.
 \newblock On finding dense subgraphs.
 \newblock 2009.
+
+\bibitem{erlebach-01}
+K.~Jansen T.~Erlebach.
+\newblock The complexity of path coloring and call scheduling.
+\newblock {\em Theoretical Computer Science}, 255, 2001.
 
 \bibitem{feige-97}
 G.~Kortsarz U.~Feige and D.~Peleg.

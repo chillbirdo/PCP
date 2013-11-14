@@ -18,45 +18,45 @@ Name 1 in "U. Feige, G. Kortsarz, and D. Peleg" has a comma at the end for entry
 while executing---line 1090 of file plain.bst
 Too many commas in name 1 of "Y. Asahiroa, K. Iwamab, H. Tamakic, T. Tokuyamad" for entry asahiroa-00
 while executing---line 1090 of file plain.bst
-You've used 13 entries,
+You've used 16 entries,
             2118 wiz_defined-function locations,
-            571 strings with 5547 characters,
-and the built_in function-call counts, 3420 in all, are:
-= -- 333
-> -- 136
+            586 strings with 5894 characters,
+and the built_in function-call counts, 4083 in all, are:
+= -- 398
+> -- 163
 < -- 1
-+ -- 59
-- -- 42
-* -- 197
-:= -- 605
-add.period$ -- 39
-call.type$ -- 13
-change.case$ -- 60
++ -- 71
+- -- 50
+* -- 230
+:= -- 730
+add.period$ -- 48
+call.type$ -- 16
+change.case$ -- 73
 chr.to.int$ -- 0
-cite$ -- 18
-duplicate$ -- 149
-empty$ -- 278
-format.name$ -- 42
-if$ -- 698
+cite$ -- 21
+duplicate$ -- 179
+empty$ -- 330
+format.name$ -- 50
+if$ -- 831
 int.to.chr$ -- 0
-int.to.str$ -- 13
-missing$ -- 13
-newline$ -- 68
-num.names$ -- 26
-pop$ -- 62
+int.to.str$ -- 16
+missing$ -- 16
+newline$ -- 83
+num.names$ -- 32
+pop$ -- 71
 preamble$ -- 1
-purify$ -- 47
+purify$ -- 57
 quote$ -- 0
-skip$ -- 107
+skip$ -- 131
 stack$ -- 0
-substring$ -- 151
-swap$ -- 19
+substring$ -- 167
+swap$ -- 22
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 52
+type$ -- 64
 warning$ -- 5
-while$ -- 33
-width$ -- 15
-write$ -- 137
+while$ -- 39
+width$ -- 18
+write$ -- 169
 (There were 4 error messages)
