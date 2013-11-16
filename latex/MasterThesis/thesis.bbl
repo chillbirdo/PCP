@@ -32,6 +32,12 @@ Yuri Frota, Nelson Maculan, Thiago~F. Noronha, and Celso~C. Ribeiro.
 \newblock A branch-and-cut algorithm for the partition coloring problem.
 \newblock {\em Networks}, 55(3):194--204, 2010.
 
+\bibitem{fritz-11}
+S.Pirkwieser G.Fritz, G.Raidl.
+\newblock Heuristic methods for the hop constrained survivable network design
+  problem.
+\newblock 2011.
+
 \bibitem{krishnaswamy-01}
 R.~M. Krishnaswamy and K.~N. Sivarajan.
 \newblock Algorithms for routing and wavelength assignment based on solutions
@@ -49,11 +55,23 @@ Guangzhi Li and Rahul Simha.
   routing and assignment.
 \newblock In {\em 1st Workshop on Optical Networks}, 2000.
 
+\bibitem{leitner-06}
+B.Hu M.Leitner, G.Raidl.
+\newblock Solving two generalized network design problems with exact and
+  heuristic methods.
+\newblock 2006.
+
 \bibitem{noronha-06}
 Thiago~F. Noronha and Celso~C. Ribeiro.
 \newblock Routing and wavelength assignment by partition colouring.
 \newblock {\em European Journal of Operational Research}, 171(3):797--810,
   2006.
+
+\bibitem{gebhard-12}
+S.Pirkwieser P.Gebhard, G.Raidl.
+\newblock The vehicle routing problem with compartments based on solutions of
+  lp-relaxations.
+\newblock 2012.
 
 \bibitem{pop-13}
 Petrica~C.\ Pop, Bin Hu, and G\"unther~R.\ Raidl.

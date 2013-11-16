@@ -2,7 +2,6 @@ This is BibTeX, Version 0.99d (TeX Live 2012/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
 A level-1 auxiliary file: titlepage.aux
-A level-1 auxiliary file: titlepage_en.aux
 The style file: plain.bst
 Database file #1: pcp.bib
 Too many commas in name 1 of "Y. Asahiroa, K. Iwamab, H. Tamakic, T. Tokuyamad" for entry asahiroa-00
@@ -12,51 +11,54 @@ while executing---line 1049 of file plain.bst
 Warning--empty journal in Meindl-12
 Warning--there's a number but no volume in charikar-00
 Warning--empty journal in volko-13
+Warning--empty journal in fritz-11
 Warning--empty journal in lawler-76
+Warning--empty journal in leitner-06
+Warning--empty journal in gebhard-12
 Warning--empty journal in khuller-09
 Name 1 in "U. Feige, G. Kortsarz, and D. Peleg" has a comma at the end for entry feige-97
 while executing---line 1090 of file plain.bst
 Too many commas in name 1 of "Y. Asahiroa, K. Iwamab, H. Tamakic, T. Tokuyamad" for entry asahiroa-00
 while executing---line 1090 of file plain.bst
-You've used 16 entries,
+You've used 19 entries,
             2118 wiz_defined-function locations,
-            586 strings with 5894 characters,
-and the built_in function-call counts, 4083 in all, are:
-= -- 398
-> -- 163
+            595 strings with 6233 characters,
+and the built_in function-call counts, 4694 in all, are:
+= -- 455
+> -- 184
 < -- 1
-+ -- 71
-- -- 50
-* -- 230
-:= -- 730
-add.period$ -- 48
-call.type$ -- 16
-change.case$ -- 73
++ -- 81
+- -- 56
+* -- 254
+:= -- 844
+add.period$ -- 57
+call.type$ -- 19
+change.case$ -- 85
 chr.to.int$ -- 0
-cite$ -- 21
-duplicate$ -- 179
-empty$ -- 330
-format.name$ -- 50
-if$ -- 831
+cite$ -- 27
+duplicate$ -- 209
+empty$ -- 381
+format.name$ -- 56
+if$ -- 951
 int.to.chr$ -- 0
-int.to.str$ -- 16
-missing$ -- 16
-newline$ -- 83
-num.names$ -- 32
-pop$ -- 71
+int.to.str$ -- 19
+missing$ -- 19
+newline$ -- 98
+num.names$ -- 38
+pop$ -- 89
 preamble$ -- 1
-purify$ -- 57
+purify$ -- 66
 quote$ -- 0
-skip$ -- 131
+skip$ -- 152
 stack$ -- 0
-substring$ -- 167
+substring$ -- 183
 swap$ -- 22
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 64
-warning$ -- 5
-while$ -- 39
-width$ -- 18
-write$ -- 169
+type$ -- 76
+warning$ -- 8
+while$ -- 45
+width$ -- 21
+write$ -- 196
 (There were 4 error messages)

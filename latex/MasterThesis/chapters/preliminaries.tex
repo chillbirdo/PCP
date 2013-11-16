@@ -1,7 +1,138 @@
+
+This chapter introduces theoretical fundamentals like definitions, terms and methods, that are necessary for analysing the Partition Coloring Problem. The presented notations will be used consistently in the thesis. The reader is referenced to [] for a more detailed introduction into graph theory.
+
+
 \section{Graph Theory Definitions}
 
+\begin{definition}[Graph]
+A graph is a tuple $G = (V, E)$, where $V$ denotes the set of nodes and $E \subseteq V \times V$ denotes the set of edges. An edge from node $i$ to $j$ is denoted by $\{i, j\}$. We call a graph simple, if it does not contain multiple edges, i.e. more than one edge between the same nodes, or loops, i.e. edges $\{i, i\}$.
+\end{definition}
 
+\begin{definition}[Directed graph]
+A directed graph or digraph is a tuple $D = (V, A)$, where $V$ denotes the set of nodes and $A \subseteq V \times V$ denotes the set of arcs
+or directed edges. An arc from node $i$ to $j$ is denoted by $(i, j)$. We call a directed graph simple, if it does not contain multiple arcs, i.e. more than one arc between the same nodes, or loops, i.e. arcs $(i, i)$.
+\end{definition}
+
+COPYPASTE:
+When in the following it is clear from the context if we mean directed or undirected graphs or if it makes no difference, we will for simplicity just speak of graphs. Furthermore we consider only simple graphs, unless explicitly stated otherwise.
+
+\begin{definition}[Directed graph]
+Given a graph $G = (V, E)$, $G' = (V', E')$ is called a subgraph if $V' \subseteq V$ , $E' \subseteq E$ and $E' \subseteq V' \times V'$ . If  $V' = V$ we call $G$ a spanning subgraph or factor.
+\end{definition}
+
+\begin{definition}[Deletion of a node]
+Given a graph $G = (V, E)$, $G - v = (V \setminus v, E \setminus \{e \mid v \in e\})$.
+\end{definition}
+
+\begin{definition}[Adjacency and incidence]
+Two nodes $x$ and $y$ are called adjacent, if they share an edge $e$, i.e. $\exists e = \{x, y\} \in E$. Two edges $e$ and $f$ are called adjacent, if they share a node $x$, i.e. $e \cap f = x$. A node $v$ is called incident to an edge $e$, if $v \in e$.
+\end{definition}
+
+\begin{definition}[Node degree]
+The degree of a node $v$ in an undirected graph $G$, denoted by $d(v)$, is the number of edges, that are incident to the node $v$, i.e. in $E$ there exists an edge $\{v, x\}$. The number of outgoing arcs $(v, x)$ from a node $v$ in a directed graph $D$ is called out-degree and is denoted by $d^+(v)$, the number of ingoing arcs $(x, v)$ to a node $v$ is called in-degree and is denoted by $d^-(v)$.
+\end{definition}
+
+\begin{lemma}[Handshaking Lemma]
+$$\sum_{v \in V}d(v) = 2\left\vert{E}\right\vert$$
+\end{lemma}
+\begin{proof}
+As every edge $\{i, j\}$ is incident to exactly two nodes, namely $i$ and $j$, it is
+counted one time at $d(i)$ and one time at $d(j)$. So the sum over all node degrees
+is exactly two times the number of edges.
+\end{proof}
+
+\begin{corollary}[Directed graph]
+The number of nodes with odd node degree is even.
+\end{corollary}
+\begin{proof}
+This immediately follows from the handshaking lemma.
+\end{proof}
+
+\begin{lemma}
+$$\sum_{v\in V}d^+(v)=\sum{v\in V}d^-(v)=2\left\vert{A}\right\vert$$
+\end{lemma}
+\begin{proof}
+As every arc $(i, j)$ has exactly one ”in-node“ and one ”out-node“, it follows,
+that the sum of all out-degrees equals the sum of all in-degrees and hence the
+number of arcs.
+\end{proof}
+
+
+\begin{definition}[Maximum and minimum node degree]
+$\triangle (G) = max\{d(v) \mid v \in V \}$ denotes the maximum node degree in a graph. $\delta (G) = min\{d(v) \mid v \in V \}$ denotes the minimum node degree in a graph.
+\end{definition}
+
+\begin{definition}[Neighborhood of a node]
+The neighborhood of a node $v \in V$ is denoted by $N(v) = \{x \mid \{v, x\} \in E\}$. In the directed case the neighborhood consists of all nodes that are reachable from $v$, i.e. $N(v) = \{x \mid (v, x) \in A\}$.
+\end{definition}
+
+\begin{definition}[Walk]
+A sequence $v_0,e_1,v_1,e_2,\ldots ,e_n,v_n$ with $n \geq 0$ is called
+a walk, if for all $v_i$ with $i \neq 0$ exists an $e_i = \{v_{i-1} , v_i \} \in E$.
+\end{definition}
+
+\begin{definition}[Directed walk]
+A sequence $v_0,a_1,v_1,a_2,\ldots ,a_n,v_n$ with $n \geq 0$ is called a directed walk, if for all $v_i$ with $i \neq 0$ exists an $a_i = (v_{i-1} , v_i ) \in A$.
+\end{definition}
+
+\begin{definition}[Trail]
+A sequence $v_0,e_1,v_1,e_2,\dots ,e_n,v_n$ with $n \geq 0$ is called a trail, if for all $v_i$ with $i \neq 0$ exists an $e_i = \{v_{i-1}, v_i\} \in E$ and all $e_i$ are distinct.
+\end{definition}
+
+\begin{definition}[Directed Trail]
+A sequence $v_0,a_1,v_1,a_2,\ldots ,a_n,v_n$ with $n \geq 0$ is called a directed trail, if for all $v_i$ with $i \neq 0$ exists an $a_i = (v_{i-1}, v_i) \in A$ and all $a_i$ are distinct.
+\end{definition}
+
+\begin{definition}[Path]
+A sequence $v_0,e_1,v_1,e_2,\ldots , e_n,v_n$ with $n \geq 0$ is called a path, if for all $v_i$ with $i \neq 0$ exists an $e_i = \{v_{i-1} , v_i\} \in E$ and all $v_i$ are distinct.
+\end{definition}
+
+\begin{definition}[Directed path]
+A sequence $v_0,a_1,v_1,a_2,\ldots ,a_n,v_n$ with $n \geq 0$ is called a directed path, if for all $v_i$ with $i \neq 0$ exists an $a_i = (v_{i-1}, v_i) \in A$ and all $v_i$ are distinct.
+\end{definition}
+
+COPYPAST\\
+When in the following it is clear from the context if we mean directed orundirected walks/trails/paths or if it makes no difference, we will for simplicity just speak of walks/trails/paths.
+
+\begin{definition}[Length of a path]
+Given a path $P = v_0,e_1,v_1,e_2,\ldots ,e_n,v_n = P(v_0,v_n)$, the length is the number of edges and denoted by $l(P) = n$, analogously for the directed case.
+\end{definition}
+
+\begin{definition}[Cycle]
+A cycle is a path, where $v_0 = v_n$.
+\end{definition}
+
+\begin{definition}[Acyclic graph]
+A graph is called acyclic if it does not contain a cycle.
+\end{definition}
+
+\begin{theorem}
+Let $W = W(v_0,v_n)$ be a walk, then there is a subsequence $P = P(v_0,v_n) \subseteq W(v_0,v_n)$ such that $P$ is a path.
+\label{theo:pathinwalk}
+\end{theorem}
+\begin{proof}
+We know that for a path holds $v_i = v_j \forall i < j$. Suppose for $W$ holds that $v_i = v_j$ for arbitrary $i < j$. Then $W = v_0,e_1,v1,\ldots,v_i,e_{j+1},v_{j+1},\ldots,v_n$ is a walk with $i-j$ less edges and $W$ is a subsequence of $W$. Applying this until $\forall i, j : v_i = v_j$ yields a path from $v_0$ to $v_n$. This of course also holds for the directed case.
+\end{proof}
+
+From Theorem \ref{theo:pathinwalk} follows that dealing with paths suffices when we want to draw conclusions about a connection between two nodes.
+
+\begin{definition}[Network]
+A network $N = (G, c)$ consists of a graph $G = (V, E)$ and a cost function $c : E(G) \longrightarrow \mathbb{R} \geq 0$, which assigns each edge $e$ a nonnegative value $c_e$ . Networks are also called weighted graphs.
+\end{definition}
+
+\begin{definition}[Costs of a graph]
+The cost $c_G$ of a graph $G$ is the sum of its edge costs, i.e. $c_G = \sum_{e\in E}c_e$ .
+\end{definition}
+
+\begin{definition}[Coloring]
+A coloring is a mapping $v \rightarrow c_v \mid c_v \in \mathbb{R}, \forall v\in V$. The coloring is feasible, iff $\{x,y\}\in V
+\end{definition}
+
+\begin{definition}[chromatic number]
+Let $G = (V, E)$ be a graph. We state that $c$ is a (proper) $k$-coloring of $G$ if all the vertices in $V$ are colored using $k$ colors such that no two adjacent vertices have the same color. The chromatic number is defined as the minimum $k$ for which there exists a (proper) $k$-coloring of $G$.
+\end{definition}
 
 \section{Metaheuristics}
+
 
 
