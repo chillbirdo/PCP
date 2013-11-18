@@ -4,61 +4,51 @@ The top-level auxiliary file: thesis.aux
 A level-1 auxiliary file: titlepage.aux
 The style file: plain.bst
 Database file #1: pcp.bib
-Too many commas in name 1 of "Y. Asahiroa, K. Iwamab, H. Tamakic, T. Tokuyamad" for entry asahiroa-00
-while executing---line 1049 of file plain.bst
-Name 1 in "U. Feige, G. Kortsarz, and D. Peleg" has a comma at the end for entry feige-97
-while executing---line 1049 of file plain.bst
-Warning--empty journal in Meindl-12
-Warning--there's a number but no volume in charikar-00
-Warning--empty journal in volko-13
+Warning--I didn't find a database entry for "papadimitriou-94"
 Warning--empty journal in fritz-11
-Warning--empty journal in lawler-76
+Warning--empty publisher in lawler-01
 Warning--empty journal in leitner-06
+Warning--empty publisher in pardalos-02
 Warning--empty journal in gebhard-12
-Warning--empty journal in khuller-09
-Name 1 in "U. Feige, G. Kortsarz, and D. Peleg" has a comma at the end for entry feige-97
-while executing---line 1090 of file plain.bst
-Too many commas in name 1 of "Y. Asahiroa, K. Iwamab, H. Tamakic, T. Tokuyamad" for entry asahiroa-00
-while executing---line 1090 of file plain.bst
-You've used 19 entries,
+You've used 6 entries,
             2118 wiz_defined-function locations,
-            595 strings with 6233 characters,
-and the built_in function-call counts, 4694 in all, are:
-= -- 455
-> -- 184
+            523 strings with 4670 characters,
+and the built_in function-call counts, 1318 in all, are:
+= -- 118
+> -- 48
 < -- 1
-+ -- 81
-- -- 56
-* -- 254
-:= -- 844
-add.period$ -- 57
-call.type$ -- 19
-change.case$ -- 85
++ -- 21
+- -- 14
+* -- 62
+:= -- 244
+add.period$ -- 18
+call.type$ -- 6
+change.case$ -- 23
 chr.to.int$ -- 0
-cite$ -- 27
-duplicate$ -- 209
-empty$ -- 381
-format.name$ -- 56
-if$ -- 951
+cite$ -- 11
+duplicate$ -- 64
+empty$ -- 113
+format.name$ -- 14
+if$ -- 262
 int.to.chr$ -- 0
-int.to.str$ -- 19
-missing$ -- 19
-newline$ -- 98
-num.names$ -- 38
-pop$ -- 89
+int.to.str$ -- 6
+missing$ -- 8
+newline$ -- 33
+num.names$ -- 12
+pop$ -- 38
 preamble$ -- 1
-purify$ -- 66
+purify$ -- 19
 quote$ -- 0
-skip$ -- 152
+skip$ -- 43
 stack$ -- 0
-substring$ -- 183
-swap$ -- 22
+substring$ -- 31
+swap$ -- 4
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 76
-warning$ -- 8
-while$ -- 45
-width$ -- 21
-write$ -- 196
-(There were 4 error messages)
+type$ -- 20
+warning$ -- 5
+while$ -- 12
+width$ -- 7
+write$ -- 59
+(There were 6 warnings)

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  16 NOV 2013 18:35
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  18 NOV 2013 02:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1402,7 +1402,7 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 10.44997pt on input line 81.
 
-<figures/titlepage/dokumentenkopf__klein.pdf, id=23, 512.91624pt x 47.17625pt>
+<figures/titlepage/dokumentenkopf__klein.pdf, id=27, 512.91624pt x 47.17625pt>
 File: figures/titlepage/dokumentenkopf__klein.pdf Graphic file (type pdf)
 
 <use figures/titlepage/dokumentenkopf__klein.pdf>
@@ -1410,7 +1410,7 @@ Package pdftex.def Info: figures/titlepage/dokumentenkopf__klein.pdf used on in
 put line 114.
 (pdftex.def)             Requested size: 509.30415pt x 46.84425pt.
 
-<figures/titlepage/INF_Logo_typo_grau.pdf, id=24, 171.64125pt x 46.1725pt>
+<figures/titlepage/INF_Logo_typo_grau.pdf, id=28, 171.64125pt x 46.1725pt>
 File: figures/titlepage/INF_Logo_typo_grau.pdf Graphic file (type pdf)
 
 <use figures/titlepage/INF_Logo_typo_grau.pdf>
@@ -1484,31 +1484,43 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
 
 ] (./chapters/preliminaries.tex
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 5.
- [1
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 4.
 
-] [2]
-Overfull \hbox (15.04326pt too wide) in paragraph at lines 94--96
+
+LaTeX Warning: Citation `papadimitriou-94' on page 1 undefined on input line 5.
+
+
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 10.
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 10.
+
+Underfull \hbox (badness 10000) in paragraph at lines 17--18
+
+ []
+
+[1
+
+] [2] [3]
+Overfull \hbox (15.04326pt too wide) in paragraph at lines 135--137
 \T1/ptm/m/n/10.95 When in the fol-low-ing it is clear from the con-text if we m
 ean di-rected orundi-rected walks/trails/paths
  []
 
-
-LaTeX Warning: Reference `theo:pathinwalk' on page 3 undefined on input line 11
-7.
-
-) (./thesis.bbl [3] [4
+[4]) (./thesis.bbl [5] [6
 
 ]
 bibitemlist
-[5])
+)
 
 Class memoir Warning: The material used in the headers is too large
 (77.80435pt) for the given head height (13.6pt), it is recommended to
 either increase the head height or redesign the header
 (in both cases you will find help in the memoir manual). on input line 193.
 
-[6]
+[7]
 \tf@toc=\write6
 \openout6 = `thesis.toc'.
 
@@ -1518,24 +1530,21 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 193.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 193.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 193.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: E088633153E8718725D1C56AB76AEF75;226.
+(rerunfilecheck)             Checksum: E417E474D949A2EAF1C8FB5FCBDD87C3;308.
 
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 193.
  ) 
 Here is how much of TeX's memory you used:
- 21473 strings out of 494987
- 361618 string characters out of 3178575
- 505524 words of memory out of 3000000
- 24183 multiletter control sequences out of 15000+200000
+ 21478 strings out of 494987
+ 361755 string characters out of 3178575
+ 507181 words of memory out of 3000000
+ 24189 multiletter control sequences out of 15000+200000
  65167 words of font info for 82 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 69i,19n,57p,443b,832s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 69i,19n,57p,728b,832s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -1550,10 +1559,10 @@ s/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols
 texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /urw/times/utmri8a.pfb>
-Output written on thesis.pdf (18 pages, 167731 bytes).
+Output written on thesis.pdf (19 pages, 173783 bytes).
 PDF statistics:
- 242 PDF objects out of 1000 (max. 8388607)
- 203 compressed objects within 3 object streams
- 72 named destinations out of 1000 (max. 500000)
- 55 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 251 PDF objects out of 1000 (max. 8388607)
+ 211 compressed objects within 3 object streams
+ 68 named destinations out of 1000 (max. 500000)
+ 63 words of extra memory for PDF output out of 10000 (max. 10000000)
 

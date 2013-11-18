@@ -1,6 +1,46 @@
 
-This chapter introduces theoretical fundamentals like definitions, terms and methods, that are necessary for analysing the Partition Coloring Problem. The presented notations will be used consistently in the thesis. The reader is referenced to [] for a more detailed introduction into graph theory.
+This chapter introduces theoretical fundamentals like definitions, terms and methods, that are necessary for analysing the Partition Coloring Problem. The presented notations will be used consistently in the thesis. 
 
+\section{Optimization Problems and Complexity}
+Some definition and explainations of optimization problems and complexity are given in this section. The reader is refered to \cite{lawler-01,papadimitriou-94,garey-79}. In general an optimization problem is the problem of finding best solution among all feasible solutions. Depending on weather the variables are continuous or discrete, the optimization problem is said to be a continuous optimization problem or a combinatorial optimization problem (COP). Since the PCP belongs to the latter category, this thesis will not cover further explainations of continuous optimization problems. For information on that topic, the reader is refered to \cite{pardalos-02}.
+
+\begin{definition}[Combinatorial Optimization Problem]
+According to \cite{gebhard-12}, a Combinatorial Optimization Problem $P$ is defined as $P = (S, f)$
+\begin{itemize}
+\item A set of variables with their respective domains $x_1 \in D_1, x_2\in D_2,\ldots, x_n \in D_n$
+\item Constraints among the variables (e.g. $x_1 \neq x_2$ or $\sum_{ i=0 \ldots n } x_i \leq C \in D_1 \cap D_2 \cap \ldots \cap D_n$)
+\item The fitness or objective function $f : D_1 \times D_2 \times \ldots D_n \rightarrow R$ that evaluates each element in $S$
+\item $A$ set $S$ of all feasible solutions: $S = \{(x_1=v_1,x_2=v_2\ldots x_n=v_n) \mid \forall i \in \{0,\ldots,n\},v_i\in D_i,s$ satisfies all constraints $\}$
+\end{itemize}
+\end{definition}
+
+The goal is to find an element $s_{opt} \in S : \nexists s' \in S \mid f(s') > f (s_{opt})$ for a maximization problem and $f(s) < f(s_{opt})$ for a minimization problem.\\
+
+For each COP $P$ there exists a corresponding decision problem $D$, i.e. a problem whose output is either \textit{YES} or \textit{NO}. The complexity of the $D$ determines the complexity of $P$.
+
+\begin{definition}[Decision Problem]
+The decision problem $D$ for a Combinatorial Optimization Problem $P$ asks if, for a given solution $s \in S$ , there exists a solution $s' \in S$, such that $f(s')$ is better than $f(s)$: for a minimization problem this means $f(s') < f(s)$ and for a maximization problem $f(s) > f (s')$.
+\end{definition}
+
+\begin{definition}[Complexity class $\mathcal{P}$]
+A problem is in $\mathcal{P}$ iff it can be solved by an algorithm in polynomial time.
+\end{definition}
+
+\begin{definition}[Complexity class $\mathcal{NP}$]
+A decision problem is in $\mathcal{NP}$ iff any given solution of the problem can be verified in polynomial time.
+\end{definition}
+
+\begin{definition}[$\mathcal{NP}$-optimization Problem]
+A COP is a $\mathcal{NP}$-optimization problem (NPO) if the corresponding decision problem is in $\mathcal{NP}$.
+\end{definition}
+
+\begin{definition}[$\mathcal{NP}$-hard problems]
+A problem is called $\mathcal{NP}$-hard iff it is at least as difficult as any problem in $\mathcal{NP}$, i.e., each problem in $\mathcal{NP}$ can be reduced to it.
+\end{definition}
+
+\begin{definition}[$\mathcal{NP}$-complete problems]
+A problem is $\mathcal{NP}$-complete iff it is $\mathcal{NP}$-hard and in $\mathcal{NP}$.
+\end{definition}
 
 \section{Graph Theory Definitions}
 
@@ -125,7 +165,7 @@ The cost $c_G$ of a graph $G$ is the sum of its edge costs, i.e. $c_G = \sum_{e\
 \end{definition}
 
 \begin{definition}[Coloring]
-A coloring is a mapping $v \rightarrow c_v \mid c_v \in \mathbb{R}, \forall v\in V$. The coloring is feasible, iff $\{x,y\}\in V
+A coloring is a mapping $v \rightarrow c_v \mid c_v \in \mathbb{R}, \forall v\in V$. The coloring is feasible, iff $\{x,y\}\in E \mid c_x \neq c_y, \forall x\in V, \forall y\in V$
 \end{definition}
 
 \begin{definition}[chromatic number]
@@ -134,5 +174,5 @@ Let $G = (V, E)$ be a graph. We state that $c$ is a (proper) $k$-coloring of $G$
 
 \section{Metaheuristics}
 
-
+Metaheuristics for solving hard combinatorial optimization problems (COPs) are typically divided into two groups, local search based metaheuristics (e. g. Variable Neighborhood Search) and population based metaheuristics (e. g. evolutionary algorithms). The latter will not be considered here. Before moving to basic local search, some terms need to be defined [1]. As this thesis does consider minimization problems only, minimum and optimum refer to the same term.
 
