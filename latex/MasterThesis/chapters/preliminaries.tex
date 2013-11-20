@@ -1,8 +1,8 @@
 
-This chapter introduces theoretical fundamentals like definitions, terms and methods, that are necessary for analysing the Partition Coloring Problem. The presented notations will be used consistently in the thesis. 
+This chapter introduces theoretical fundamentals like definitions, terms and methods, that are necessary for analysing the Partition Coloring Problem. The presented notations will be used consistently in this thesis. 
 
 \section{Optimization Problems and Complexity}
-Some definition and explainations of optimization problems and complexity are given in this section. The reader is refered to \cite{lawler-01,papadimitriou-94,garey-79}. In general an optimization problem is the problem of finding best solution among all feasible solutions. Depending on weather the variables are continuous or discrete, the optimization problem is said to be a continuous optimization problem or a combinatorial optimization problem (COP). Since the PCP belongs to the latter category, this thesis will not cover further explainations of continuous optimization problems. For information on that topic, the reader is refered to \cite{pardalos-02}.
+Some definition and explainations of optimization problems and complexity are given in this section. For a more detailed insight the reader is refered to \cite{lawler-01,papadimitriou-94,garey-79}. In general an optimization problem is the problem of finding the best solution among all feasible solutions. Depending on weather the variables are continuous or discrete, the optimization problem is said to be a continuous optimization problem or a combinatorial optimization problem (COP). Since the PCP belongs to the latter category, this thesis will not cover further explainations of continuous optimization problems. For information on that topic, the reader is refered to \cite{pardalos-02}.
 
 \begin{definition}[Combinatorial Optimization Problem]
 According to \cite{gebhard-12}, a Combinatorial Optimization Problem $P$ is defined as $P = (S, f)$
@@ -22,13 +22,22 @@ For each COP $P$ there exists a corresponding decision problem $D$, i.e. a probl
 The decision problem $D$ for a Combinatorial Optimization Problem $P$ asks if, for a given solution $s \in S$ , there exists a solution $s' \in S$, such that $f(s')$ is better than $f(s)$: for a minimization problem this means $f(s') < f(s)$ and for a maximization problem $f(s) > f (s')$.
 \end{definition}
 
+An important issue that comes up when considering combinatorial optimization problems is the classification of difficult problems \cite{papadimitriou-94}. To categorize problems into easy and difficult ones, the class of problems that are solvable in polynomial time by a deterministic touring machine and problems that are solvable in polynomial time by a nondeterministic touring machine are considered. This thesis does not cover the formalization of the characterization of the classes $\mathcal{P}$ and $\mathcal{NP}$ via Turing machines and prefer to outline the characteristics and notions connected with these classes at a more intuitive level. This leads to a straightforward definition to characterize problems that belong to $\mathcal{P}$\cite{neumann-10}.
+
 \begin{definition}[Complexity class $\mathcal{P}$]
 A problem is in $\mathcal{P}$ iff it can be solved by an algorithm in polynomial time.
 \end{definition}
 
+An examples for a problem in $\mathcal{P}$ is single source shortest path.\\
+The complexity class $\mathcal{NP}$ is associated with hard problems. $\mathcal{NP}$ stands for ``nondeterministic polynomial time'', where ``nondeterministic'' means that on all kinds of problems there is no more efficient way for finding the optimal solution than guessing randomly.
+The class $\mathcal{NP}$ is restricted to Decision Problems.
+
 \begin{definition}[Complexity class $\mathcal{NP}$]
 A decision problem is in $\mathcal{NP}$ iff any given solution of the problem can be verified in polynomial time.
 \end{definition}
+
+The definition states, that the solutions for problems in $\mathcal{NP}$ do not need to be calculated in polynomial time, but the solutions need to be verified in polinomial time. Therefore $\mathcal{P}$ \subseteq $\mathcal{NP}$ holds (slightly abusing notation by restricting $\mathcal{P}$ to decision problems), and it is widely assumed that $\mathcal{P}$ = $\mathcal{NP}$ \cite{neumann.10}.\\
+As an example consider the decision variant of the Vertex Coloring Problem (VCP), that asks weather a graph $G$ is colorable within $k$ colors or not. An algorithm can verify in linear time if for each vertex, all its neighbours are colored with a different color and further count the number of distinct color to check weather the number of colors is lower or equal to $k$.
 
 \begin{definition}[$\mathcal{NP}$-optimization Problem]
 A COP is a $\mathcal{NP}$-optimization problem (NPO) if the corresponding decision problem is in $\mathcal{NP}$.
@@ -176,3 +185,14 @@ Let $G = (V, E)$ be a graph. We state that $c$ is a (proper) $k$-coloring of $G$
 
 Metaheuristics for solving hard combinatorial optimization problems (COPs) are typically divided into two groups, local search based metaheuristics (e. g. Variable Neighborhood Search) and population based metaheuristics (e. g. evolutionary algorithms). The latter will not be considered here. Before moving to basic local search, some terms need to be defined [1]. As this thesis does consider minimization problems only, minimum and optimum refer to the same term.
 
+As mentioned before, solving COPs implies the search for the best solution among a possi-
+bly huge set of feasible solutions. In general there does not exist a heuristic that performs
+better on all kind of problems than some other heuristic including random search. This re-
+sults from the famous no free lunch theorem [63]. As a consequence researchers try to
+acquire and include as much knowledge as possible into sophisticated solvers for the dif-
+ferent problem classes. They try to evaluate the performance of different metaheuristic and
+exact algorithms.
+Definition 4. Metaheuristic algorithms make no assumptions on the problem and (in theory)
+can be applied on any optimization problem. They define an abstract order of instructions
+which lead to improved or feasible solutions. In almost any case these instructions must be
+implemented using problem specific knowledge.
