@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  20 NOV 2013 00:38
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  21 NOV 2013 01:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1485,42 +1485,51 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
 ] (./chapters/preliminaries.tex
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 4.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 13.
 
-Overfull \hbox (1.38976pt too wide) in paragraph at lines 8--10
-[]\T1/ptm/m/it/10.95 According to [[]15[]], a Com-bi-na-to-rial Op-
- []
-
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 10.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 10.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 13.
 
-Underfull \hbox (badness 10000) in paragraph at lines 17--18
+Underfull \hbox (badness 10000) in paragraph at lines 20--21
 
  []
 
 [1
 
-] [2] [3]
-Overfull \hbox (15.04326pt too wide) in paragraph at lines 138--140
+]
+Underfull \hbox (badness 10000) in paragraph at lines 46--47
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 46--47
+
+ []
+
+[2] [3] [4]
+Overfull \hbox (15.04326pt too wide) in paragraph at lines 157--159
 \T1/ptm/m/n/10.95 When in the fol-low-ing it is clear from the con-text if we m
 ean di-rected orundi-rected walks/trails/paths
  []
 
-[4]) (./thesis.bbl [5] [6
-
-]
+[5]
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 218.
+) (./thesis.bbl [6]
 bibitemlist
-[7])
+)
 
 Class memoir Warning: The material used in the headers is too large
 (77.80435pt) for the given head height (13.6pt), it is recommended to
 either increase the head height or redesign the header
 (in both cases you will find help in the memoir manual). on input line 193.
 
-[8]
+[7
+
+]
 \tf@toc=\write6
 \openout6 = `thesis.toc'.
 
@@ -1534,13 +1543,13 @@ Package rerunfilecheck Info: File `thesis.out' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 193.
  ) 
 Here is how much of TeX's memory you used:
- 21505 strings out of 494987
- 362095 string characters out of 3178575
- 507632 words of memory out of 3000000
- 24201 multiletter control sequences out of 15000+200000
+ 21487 strings out of 494987
+ 361883 string characters out of 3178575
+ 507316 words of memory out of 3000000
+ 24193 multiletter control sequences out of 15000+200000
  65167 words of font info for 82 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 69i,19n,57p,793b,832s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 69i,19n,57p,730b,832s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -1555,10 +1564,10 @@ s/msam10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols
 texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-d
 ist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /urw/times/utmri8a.pfb>
-Output written on thesis.pdf (20 pages, 177134 bytes).
+Output written on thesis.pdf (19 pages, 179023 bytes).
 PDF statistics:
- 274 PDF objects out of 1000 (max. 8388607)
- 233 compressed objects within 3 object streams
- 83 named destinations out of 1000 (max. 500000)
+ 265 PDF objects out of 1000 (max. 8388607)
+ 225 compressed objects within 3 object streams
+ 73 named destinations out of 1000 (max. 500000)
  63 words of extra memory for PDF output out of 10000 (max. 10000000)
 

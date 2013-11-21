@@ -1,31 +1,9 @@
 \begin{thebibliography}{10}
 
-\bibitem{andersen-07}
-R.~Andersen.
-\newblock Finding large and small dense subgraphs.
-\newblock {\em CoRR}, 0707032, 2007.
-
-\bibitem{Meindl-12}
-M.~Templ B.~Meindl.
-\newblock Analysis of commercial and free and open source solvers for linear
-  optimization problems.
-\newblock 2012.
-
-\bibitem{charikar-00}
-M.~Charikar.
-\newblock Greedy approximation algorithms for finding dense components in a
-  graph.
-\newblock {\em APPROX}, (84-95), 2000.
-
-\bibitem{volko-13}
-C.Volko.
-\newblock Selective graph coloring problem.
-\newblock 2012.
-
-\bibitem{frota-07}
-Yuri Frota, Nelson Maculan, Thiago~F. Noronha, and Celso~C. Ribeiro.
-\newblock A branch-and-cut algorithm for the partition coloring problem.
-\newblock {\em Networks}, 55(3):194--204, 2010.
+\bibitem{neumann-10}
+Bioinspired~Computation F.~Neumann, C.~Witt.
+\newblock Bioinspired computation in combinatorial optimization.
+\newblock {\em Combinatorial Optimization, Natural Computing Series}, 2010.
 
 \bibitem{garey-79}
 M.~R. Garey and D.~S. Johnson.
@@ -39,33 +17,21 @@ S.Pirkwieser G.Fritz, G.Raidl.
   problem.
 \newblock 2011.
 
+\bibitem{nocedal-00}
+S.~Wright J.~Nocedal.
+\newblock Numerical optimization.
+\newblock 2000.
+
 \bibitem{lawler-01}
 E.~Lawler.
 \newblock Combinatorial optimization: Networks and matroids.
 \newblock 2002.
-
-\bibitem{lawler-76}
-E.L. Lawler.
-\newblock Combinatorial optimization: Networks and matroids.
-\newblock 1976.
-
-\bibitem{li-00}
-Guangzhi Li and Rahul Simha.
-\newblock The partition coloring problem and its application to wavelength
-  routing and assignment.
-\newblock In {\em 1st Workshop on Optical Networks}, 2000.
 
 \bibitem{leitner-06}
 B.Hu M.Leitner, G.Raidl.
 \newblock Solving two generalized network design problems with exact and
   heuristic methods.
 \newblock 2006.
-
-\bibitem{noronha-06}
-Thiago~F. Noronha and Celso~C. Ribeiro.
-\newblock Routing and wavelength assignment by partition colouring.
-\newblock {\em European Journal of Operational Research}, 171(3):797--810,
-  2006.
 
 \bibitem{pardalos-02}
 H.Romeijn P.~Pardalos.
@@ -83,30 +49,12 @@ S.Pirkwieser P.Gebhard, G.Raidl.
   lp-relaxations.
 \newblock 2012.
 
-\bibitem{pop-13}
-Petrica~C.\ Pop, Bin Hu, and G\"unther~R.\ Raidl.
-\newblock A memetic algorithm for the partition graph coloring problem.
-\newblock In {\em Extended Abstracts of the 14th International Conference on
-  Computer Aided Systems Theory}, pages 167--169, Gran Canaria, Spain, 2013.
-
-\bibitem{khuller-09}
-B.~Saha S.~Khuller.
-\newblock On finding dense subgraphs.
-\newblock 2009.
-
-\bibitem{feige-97}
-G.~Kortsarz U.~Feige and D.~Peleg.
-\newblock The dense k-subgraph problem.
-\newblock {\em Algorithmica}, 29(410-421), 1997.
-
-\bibitem{asahiroa-00}
-H.~Tamakic T.~Tokuyamad Y.~Asahiroa, K.~Iwamab.
-\newblock Greedily finding a dense subgraph.
-\newblock {\em Journal of Algorithms}, 34, 2000.
-
-\bibitem{asahiro-02}
-K.Iwama Y.Asahiro, R.Hassin.
-\newblock Complexity of ÿnding dense subgraphs.
-\newblock {\em Discrete Applied Mathematics}, 121(15–26), 2002.
+\bibitem{wegener-05}
+Ingo Wegener.
+\newblock {\em Complexity Theory: Exploring the Limits of Efficient
+  Algorithms}.
+\newblock Springer, 2005.
+\newblock Reflects recent developments in its emphasis on randomized and
+  approximation algorithms and communication models.
 
 \end{thebibliography}

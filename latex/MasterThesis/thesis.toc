@@ -1,5 +1,5 @@
 \contentsline {chapter}{\chapternumberline {1}Preliminaries}{1}{chapter.1}
 \contentsline {section}{\numberline {1.1}Optimization Problems and Complexity}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Graph Theory Definitions}{2}{section.1.2}
-\contentsline {section}{\numberline {1.3}Metaheuristics}{5}{section.1.3}
+\contentsline {section}{\numberline {1.2}Graph Theory Definitions}{3}{section.1.2}
+\contentsline {section}{\numberline {1.3}Metaheuristics}{6}{section.1.3}
 \contentsline {chapter}{Bibliography}{7}{section*.6}

@@ -2,10 +2,13 @@
 This chapter introduces theoretical fundamentals like definitions, terms and methods, that are necessary for analysing the Partition Coloring Problem. The presented notations will be used consistently in this thesis. 
 
 \section{Optimization Problems and Complexity}
-Some definition and explainations of optimization problems and complexity are given in this section. For a more detailed insight the reader is refered to \cite{lawler-01,papadimitriou-94,garey-79}. In general an optimization problem is the problem of finding the best solution among all feasible solutions. Depending on weather the variables are continuous or discrete, the optimization problem is said to be a continuous optimization problem or a combinatorial optimization problem (COP). Since the PCP belongs to the latter category, this thesis will not cover further explainations of continuous optimization problems. For information on that topic, the reader is refered to \cite{pardalos-02}.
+Since this thesis deals with an optimization problem and the analysis of a solution to it needs to consider some complexity theory is an important field of computer science
+Some definition and explainations of optimization problems and complexity are given in this section.
+For a more detailed insight the reader is refered to \cite{lawler-01,papadimitriou-94,garey-79}.\\
+In general an optimization problem is the problem of finding the best solution among all feasible solutions. Depending on weather the variables are continuous or discrete, the optimization problem is said to be a continuous optimization problem or a combinatorial optimization problem (COP). Since the PCP belongs to the latter category, this thesis will not cover further explainations on continuous optimization problems. For information on that topic, the reader is refered to \cite{nocedal-00, pardalos-02}. The following the definitions have been introduced in \cite{gebhard-12, neumann-10}.
 
 \begin{definition}[Combinatorial Optimization Problem]
-According to \cite{gebhard-12}, a Combinatorial Optimization Problem $P$ is defined as $P = (S, f)$
+A Combinatorial Optimization Problem $P$ is defined as $P = (S, f)$
 \begin{itemize}
 \item A set of variables with their respective domains $x_1 \in D_1, x_2\in D_2,\ldots, x_n \in D_n$
 \item Constraints among the variables (e.g. $x_1 \neq x_2$ or $\sum_{ i=0 \ldots n } x_i \leq C \in D_1 \cap D_2 \cap \ldots \cap D_n$)
@@ -16,40 +19,52 @@ According to \cite{gebhard-12}, a Combinatorial Optimization Problem $P$ is defi
 
 The goal is to find an element $s_{opt} \in S : \nexists s' \in S \mid f(s') > f (s_{opt})$ for a maximization problem and $f(s) < f(s_{opt})$ for a minimization problem.\\
 
-For each COP $P$ there exists a corresponding decision problem $D$, i.e. a problem whose output is either \textit{YES} or \textit{NO}. The complexity of the $D$ determines the complexity of $P$.
+For each COP $P$ there exists a corresponding decision problem $D$, i.e. a problem whose output is either \textit{YES} or \textit{NO}. The complexity of $D$ determines the complexity of $P$.
 
 \begin{definition}[Decision Problem]
 The decision problem $D$ for a Combinatorial Optimization Problem $P$ asks if, for a given solution $s \in S$ , there exists a solution $s' \in S$, such that $f(s')$ is better than $f(s)$: for a minimization problem this means $f(s') < f(s)$ and for a maximization problem $f(s) > f (s')$.
 \end{definition}
 
-An important issue that comes up when considering combinatorial optimization problems is the classification of difficult problems \cite{papadimitriou-94}. To categorize problems into easy and difficult ones, the class of problems that are solvable in polynomial time by a deterministic touring machine and problems that are solvable in polynomial time by a nondeterministic touring machine are considered. This thesis does not cover the formalization of the characterization of the classes $\mathcal{P}$ and $\mathcal{NP}$ via Turing machines and prefer to outline the characteristics and notions connected with these classes at a more intuitive level. This leads to a straightforward definition to characterize problems that belong to $\mathcal{P}$\cite{neumann-10}.
+An important issue that comes up when considering combinatorial optimization problems is the classification problems by their difficulty . To categorize problems into easy and difficult ones, the class of problems that are solvable in polynomial time by a deterministic touring machine and problems that are solvable in polynomial time by a nondeterministic touring machine are considered. This thesis prefers to describe the characteristics of $\mathcal{P}$ and $\mathcal{NP}$ at a more intuitive level, rather than formalizing the classes via Turing Machines. An examples for a problem in $\mathcal{P}$ is single source shortest path.
 
 \begin{definition}[Complexity class $\mathcal{P}$]
 A problem is in $\mathcal{P}$ iff it can be solved by an algorithm in polynomial time.
 \end{definition}
 
-An examples for a problem in $\mathcal{P}$ is single source shortest path.\\
-The complexity class $\mathcal{NP}$ is associated with hard problems. $\mathcal{NP}$ stands for ``nondeterministic polynomial time'', where ``nondeterministic'' means that on all kinds of problems there is no more efficient way for finding the optimal solution than guessing randomly.
-The class $\mathcal{NP}$ is restricted to Decision Problems.
+The complexity class $\mathcal{NP}$ is associated with hard problems. $\mathcal{NP}$ stands for ``nondeterministic polynomial time'', where ``nondeterministic'' is a way to express that solutions are guessed. The class $\mathcal{NP}$ is restricted to Decision Problems.
 
 \begin{definition}[Complexity class $\mathcal{NP}$]
 A decision problem is in $\mathcal{NP}$ iff any given solution of the problem can be verified in polynomial time.
 \end{definition}
 
-The definition states, that the solutions for problems in $\mathcal{NP}$ do not need to be calculated in polynomial time, but the solutions need to be verified in polinomial time. Therefore $\mathcal{P}$ \subseteq $\mathcal{NP}$ holds (slightly abusing notation by restricting $\mathcal{P}$ to decision problems), and it is widely assumed that $\mathcal{P}$ = $\mathcal{NP}$ \cite{neumann.10}.\\
-As an example consider the decision variant of the Vertex Coloring Problem (VCP), that asks weather a graph $G$ is colorable within $k$ colors or not. An algorithm can verify in linear time if for each vertex, all its neighbours are colored with a different color and further count the number of distinct color to check weather the number of colors is lower or equal to $k$.
+The above definition states, that the solutions for problems in $\mathcal{NP}$ do not require to be calculated in polynomial time, but the solutions need to be verified in polynomial time. Therefore $\mathcal{P} \subseteq \mathcal{NP}$ holds (slightly abusing notation by restricting $\mathcal{P}$ to decision problems)\cite{neumann-10}.
 
 \begin{definition}[$\mathcal{NP}$-optimization Problem]
 A COP is a $\mathcal{NP}$-optimization problem (NPO) if the corresponding decision problem is in $\mathcal{NP}$.
 \end{definition}
 
+As an example the decision variant of the Stardard Vertex Coloring Problem (VCP) is considered, which asks weather a graph $G$ is colorable within $k$ colors or not. An algorithm has to verify for each vertex $v$ colored with color $c_v$, if all its neighbours are colored with a color different to $c_v$ and further count the number of distinct colors to check weather the number of colors is lower or equal to $k$. This can be done in time  $\mathcal O(\left\vert{V^2}\right\vert)$, where $V$ is the set of vertices.\\
+
+The VCP and many other optimization and decision problems are at least as difficult as any problem in $\mathcal{NP}$. These problems are said to be $\mathcal{NP}$-hard. Giving a polynomial-time reduction from an $\mathcal{NP}$-hard problem to a particular problem shows that this problem is $\mathcal{NP}$-hard, too. Such a reduction links the considered problem to the known $\mathcal{NP}$-hard problem in such a way that iff the considered problem can be solved in polynomial time also the $\mathcal{NP}$-hard problem to which it has been reduced can \cite{neumann-10}. To gain a more detailed insight into that topic, the reader is referenced to \cite{wegener-05}.
+
 \begin{definition}[$\mathcal{NP}$-hard problems]
 A problem is called $\mathcal{NP}$-hard iff it is at least as difficult as any problem in $\mathcal{NP}$, i.e., each problem in $\mathcal{NP}$ can be reduced to it.
 \end{definition}
 
+A lot of optimization problems are $\mathcal{NP}$-hard but not in $\mathcal{NP}$. For example, the optimization variant of the VCP, which searches for the minimum chromatic number is clearly at least as hard at its decision variant described above. Since the output is a number rather than a decision, it is not in $\mathcal{NP}$. $\mathcal{NP}$-hard problems that are also in $\mathcal{NP}$ are called $\mathcal{NP}$-complete. Many decision variants of $\mathcal{NP}$-hard problems like the VCP are $\mathcal{NP}$-complete.
+
 \begin{definition}[$\mathcal{NP}$-complete problems]
 A problem is $\mathcal{NP}$-complete iff it is $\mathcal{NP}$-hard and in $\mathcal{NP}$.
 \end{definition}
+
+Informally, $\mathcal{NP}$-complete problems are the hardest problems in the class $\mathcal{NP}$. If there is an algorithm that solves any $\mathcal{NP}$-complete problem in polynomial time, then every problem in $\mathcal{NP}$ can be solved in polynomial time. So far no polynomial time deterministic algorithm has been found to solve one of them.
+
+\begin{theorem}
+If any $\mathcal{NP}$-complete problem can be solved by a polynomial-time deterministic algorithm, then $\mathcal{NP} = \mathcal{NP}$. If any problem in $\mathcal{NP}$ cannot be solved by a polynomial-time deterministic algorithm, then $\mathcal{NP}$-complete problems are not in $\mathcal{P}$.
+\end{theorem}
+
+Most computer scientists assume that $\mathcal{P} \neq \mathcal{NP}$, although it has not been proven yet. The question $\mathcal{P} = \mathcal{NP}$ is one of the most promiment unresolved questions in the field of complexity theory, since a proof would imply a huge impact on any other discipline in discrete mathematics and computer science.
+
 
 \section{Graph Theory Definitions}
 
@@ -192,7 +207,20 @@ sults from the famous no free lunch theorem [63]. As a consequence researchers t
 acquire and include as much knowledge as possible into sophisticated solvers for the dif-
 ferent problem classes. They try to evaluate the performance of different metaheuristic and
 exact algorithms.
+
 Definition 4. Metaheuristic algorithms make no assumptions on the problem and (in theory)
 can be applied on any optimization problem. They define an abstract order of instructions
 which lead to improved or feasible solutions. In almost any case these instructions must be
 implemented using problem specific knowledge.
+
+Just because a problem is NP-complete,
+doesn’t mean we should give up on trying to
+solve it.
+• For some NP-complete problems, it is possible
+to develop algorithms that have average-case
+polynomial complexity (despite having worst-
+case exponential complexity)
+• For other NP-complete problems, approximate
+solutions can be found in polynomial time.
+Developing good approximation algorithms is
+an important area of research.
