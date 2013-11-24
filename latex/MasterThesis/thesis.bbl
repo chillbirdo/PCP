@@ -1,5 +1,16 @@
 \begin{thebibliography}{10}
 
+\bibitem{blum-05}
+C.~Blum and A.~Roli.
+\newblock {\em Metaheuristics in combinatorial optimization: Overview and
+  conceptual comparision}.
+\newblock ACM Computing Surveys, 2003.
+
+\bibitem{chiong-09}
+Raymond Chiong.
+\newblock Nature-inspired algorithms for optimisation.
+\newblock {\em Studies in Computational Intelligence}, 193, 2009.
+
 \bibitem{neumann-10}
 Bioinspired~Computation F.~Neumann, C.~Witt.
 \newblock Bioinspired computation in combinatorial optimization.
@@ -56,5 +67,10 @@ Ingo Wegener.
 \newblock Springer, 2005.
 \newblock Reflects recent developments in its emphasis on randomized and
   approximation algorithms and communication models.
+
+\bibitem{wolpert-97}
+D.~H. Wolpert and W.~G. Macready.
+\newblock No free lunch theorems for optimization.
+\newblock {\em IEEE Transactions on Evolutionary Computation}, 1(67-82), 1997.
 
 \end{thebibliography}

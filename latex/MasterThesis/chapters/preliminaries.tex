@@ -5,19 +5,19 @@ This chapter introduces theoretical fundamentals like definitions, terms and met
 Since this thesis deals with an optimization problem and the analysis of a solution to it needs to consider some complexity theory is an important field of computer science
 Some definition and explainations of optimization problems and complexity are given in this section.
 For a more detailed insight the reader is refered to \cite{lawler-01,papadimitriou-94,garey-79}.\\
-In general an optimization problem is the problem of finding the best solution among all feasible solutions. Depending on weather the variables are continuous or discrete, the optimization problem is said to be a continuous optimization problem or a combinatorial optimization problem (COP). Since the PCP belongs to the latter category, this thesis will not cover further explainations on continuous optimization problems. For information on that topic, the reader is refered to \cite{nocedal-00, pardalos-02}. The following the definitions have been introduced in \cite{gebhard-12, neumann-10}.
+In general an optimization problem is the problem of finding the best solution among all feasible solutions. Depending on weather the variables are continuous or discrete, the optimization problem is said to be a continuous optimization problem or a combinatorial optimization problem (COP). Since the PCP belongs to the latter category, this thesis will not cover further explainations on continuous optimization problems. For information on that topic, the reader is refered to \cite{nocedal-00, pardalos-02}. Most of the following the definitions have been introduced in \cite{blum-05, neumann-10}.
 
 \begin{definition}[Combinatorial Optimization Problem]
 A Combinatorial Optimization Problem $P$ is defined as $P = (S, f)$
 \begin{itemize}
-\item A set of variables with their respective domains $x_1 \in D_1, x_2\in D_2,\ldots, x_n \in D_n$
-\item Constraints among the variables (e.g. $x_1 \neq x_2$ or $\sum_{ i=0 \ldots n } x_i \leq C \in D_1 \cap D_2 \cap \ldots \cap D_n$)
-\item The fitness or objective function $f : D_1 \times D_2 \times \ldots D_n \rightarrow R$ that evaluates each element in $S$
-\item $A$ set $S$ of all feasible solutions: $S = \{(x_1=v_1,x_2=v_2\ldots x_n=v_n) \mid \forall i \in \{0,\ldots,n\},v_i\in D_i,s$ satisfies all constraints $\}$
+\item A set of variables $X=\{x_1,x_2,\ldots \,x_n\}$
+\item variable domains $D_1,\ldots , D_n$
+\item constraints among the variables
+\item an objective function $f : D_1 \times D_2 \times \ldots D_n \rightarrow R$ that evaluates each element in $S$\\
 \end{itemize}
 \end{definition}
 
-The goal is to find an element $s_{opt} \in S : \nexists s' \in S \mid f(s') > f (s_{opt})$ for a maximization problem and $f(s) < f(s_{opt})$ for a minimization problem.\\
+The set of all feasible assignments is $S = \{s=\{(x_1,v_1),(x_2,v_2),\ldots (x_n,v_n)\}) \mid v_i \in D_i$ \textit{satisfies all the constraints} $\}$\\
 
 For each COP $P$ there exists a corresponding decision problem $D$, i.e. a problem whose output is either \textit{YES} or \textit{NO}. The complexity of $D$ determines the complexity of $P$.
 
@@ -45,7 +45,7 @@ A COP is a $\mathcal{NP}$-optimization problem (NPO) if the corresponding decisi
 
 As an example the decision variant of the Stardard Vertex Coloring Problem (VCP) is considered, which asks weather a graph $G$ is colorable within $k$ colors or not. An algorithm has to verify for each vertex $v$ colored with color $c_v$, if all its neighbours are colored with a color different to $c_v$ and further count the number of distinct colors to check weather the number of colors is lower or equal to $k$. This can be done in time  $\mathcal O(\left\vert{V^2}\right\vert)$, where $V$ is the set of vertices.\\
 
-The VCP and many other optimization and decision problems are at least as difficult as any problem in $\mathcal{NP}$. These problems are said to be $\mathcal{NP}$-hard. Giving a polynomial-time reduction from an $\mathcal{NP}$-hard problem to a particular problem shows that this problem is $\mathcal{NP}$-hard, too. Such a reduction links the considered problem to the known $\mathcal{NP}$-hard problem in such a way that iff the considered problem can be solved in polynomial time also the $\mathcal{NP}$-hard problem to which it has been reduced can \cite{neumann-10}. To gain a more detailed insight into that topic, the reader is referenced to \cite{wegener-05}.
+The VCP and many other optimization and decision problems are at least as difficult as any problem in $\mathcal{NP}$. These problems are said to be $\mathcal{NP}$-hard. Giving a polynomial-time reduction from an $\mathcal{NP}$-hard problem to a particular problem shows that this problem is $\mathcal{NP}$-hard, too. Such a reduction links the considered problem to the known $\mathcal{NP}$-hard problem in such a way that iff the considered problem can be solved in polynomial time also the $\mathcal{NP}$-hard problem to which it has been reduced can.\cite{neumann-10} To gain a more detailed insight into that topic, the reader is referenced to \cite{wegener-05}.
 
 \begin{definition}[$\mathcal{NP}$-hard problems]
 A problem is called $\mathcal{NP}$-hard iff it is at least as difficult as any problem in $\mathcal{NP}$, i.e., each problem in $\mathcal{NP}$ can be reduced to it.
@@ -57,13 +57,25 @@ A lot of optimization problems are $\mathcal{NP}$-hard but not in $\mathcal{NP}$
 A problem is $\mathcal{NP}$-complete iff it is $\mathcal{NP}$-hard and in $\mathcal{NP}$.
 \end{definition}
 
-Informally, $\mathcal{NP}$-complete problems are the hardest problems in the class $\mathcal{NP}$. If there is an algorithm that solves any $\mathcal{NP}$-complete problem in polynomial time, then every problem in $\mathcal{NP}$ can be solved in polynomial time. So far no polynomial time deterministic algorithm has been found to solve one of them.
+Informally, $\mathcal{NP}$-complete problems are the hardest problems in the class $\mathcal{NP}$. If there is an algorithm that solves any $\mathcal{NP}$-complete problem in polynomial time, then every problem in $\mathcal{NP}$ can be solved in polynomial time. So far no polynomial time deterministic algorithm has been found to solve one of them. 
 
 \begin{theorem}
 If any $\mathcal{NP}$-complete problem can be solved by a polynomial-time deterministic algorithm, then $\mathcal{NP} = \mathcal{NP}$. If any problem in $\mathcal{NP}$ cannot be solved by a polynomial-time deterministic algorithm, then $\mathcal{NP}$-complete problems are not in $\mathcal{P}$.
 \end{theorem}
 
-Most computer scientists assume that $\mathcal{P} \neq \mathcal{NP}$, although it has not been proven yet. The question $\mathcal{P} = \mathcal{NP}$ is one of the most promiment unresolved questions in the field of complexity theory, since a proof would imply a huge impact on any other discipline in discrete mathematics and computer science.
+Most computer scientists assume that $\mathcal{P} \neq \mathcal{NP}$, although it has not been proven yet. The question $\mathcal{P} = \mathcal{NP}$ is one of the most promiment unresolved questions in the field of complexity theory, since a proof would imply a huge impact on any other discipline in discrete mathematics and computer science.\\
+Nevertheless, for some $\mathcal{NP}$-complete problems of this class it is possible develop algorithms that have an average-case polynomial time complexity, despite having exponential time complexity in worst case. For other problems in this class, approximation algorithms can be found that return solutions in polynomial time with a guarantee of a specific solution quality. The development and analysis of approximation algorithms is an important field of research. The following definitions are taken from \cite{williamson-10}.
+
+\begin{definition}[Approximation algorithm]
+An $\alpha$-approximation algorithm for an optimization problem is a polynomial-time algorithm that for all instances of the problem produces a solution whose value is within a factor of $\alpha$ of the value of an optimal solution.
+\begin{definition}
+
+The $\alpha$ is called approximation ratio or performance guarantee of the $\alpha$-approximation algorithm. For minimization problems $\alpha > 1$ and for maximization problems $\alpha < 1$ holds. For example, a $1/2$-approximation algorithm for a maximization problem always returns a solution in polynomial time, that is at least half as good as the optimal solution. For some problem there even exist polynomial time algorithms, whose approximation ratio is given as parameter. They have so called polynomial-time approximation schemes.
+
+\begin{definition}[Polynomial-time approximation scheme]
+A polynomial-time approximation scheme (PTAS) is a family of algorithms $\{A_{\epsilon}\}$, where there is an algorithm for each $\epsilon > 0$, such that $A_{\epsilon}$ is a $(1+\epsilon)$-approximation algorithm (for minimization problems) or a $(1-\epsilon)$-approximation algorithm (for maximization problems).
+\end{definition}
+
 
 
 \section{Graph Theory Definitions}
@@ -77,8 +89,7 @@ A directed graph or digraph is a tuple $D = (V, A)$, where $V$ denotes the set o
 or directed edges. An arc from node $i$ to $j$ is denoted by $(i, j)$. We call a directed graph simple, if it does not contain multiple arcs, i.e. more than one arc between the same nodes, or loops, i.e. arcs $(i, i)$.
 \end{definition}
 
-COPYPASTE:
-When in the following it is clear from the context if we mean directed or undirected graphs or if it makes no difference, we will for simplicity just speak of graphs. Furthermore we consider only simple graphs, unless explicitly stated otherwise.
+Unless declared explicitly, this thesis considers only simple, undirected graphs $G = (V, E)$.
 
 \begin{definition}[Directed graph]
 Given a graph $G = (V, E)$, $G' = (V', E')$ is called a subgraph if $V' \subseteq V$ , $E' \subseteq E$ and $E' \subseteq V' \times V'$ . If  $V' = V$ we call $G$ a spanning subgraph or factor.
@@ -121,7 +132,6 @@ that the sum of all out-degrees equals the sum of all in-degrees and hence the
 number of arcs.
 \end{proof}
 
-
 \begin{definition}[Maximum and minimum node degree]
 $\triangle (G) = max\{d(v) \mid v \in V \}$ denotes the maximum node degree in a graph. $\delta (G) = min\{d(v) \mid v \in V \}$ denotes the minimum node degree in a graph.
 \end{definition}
@@ -155,9 +165,6 @@ A sequence $v_0,e_1,v_1,e_2,\ldots , e_n,v_n$ with $n \geq 0$ is called a path, 
 A sequence $v_0,a_1,v_1,a_2,\ldots ,a_n,v_n$ with $n \geq 0$ is called a directed path, if for all $v_i$ with $i \neq 0$ exists an $a_i = (v_{i-1}, v_i) \in A$ and all $v_i$ are distinct.
 \end{definition}
 
-COPYPAST\\
-When in the following it is clear from the context if we mean directed orundirected walks/trails/paths or if it makes no difference, we will for simplicity just speak of walks/trails/paths.
-
 \begin{definition}[Length of a path]
 Given a path $P = v_0,e_1,v_1,e_2,\ldots ,e_n,v_n = P(v_0,v_n)$, the length is the number of edges and denoted by $l(P) = n$, analogously for the directed case.
 \end{definition}
@@ -178,8 +185,6 @@ Let $W = W(v_0,v_n)$ be a walk, then there is a subsequence $P = P(v_0,v_n) \sub
 We know that for a path holds $v_i = v_j \forall i < j$. Suppose for $W$ holds that $v_i = v_j$ for arbitrary $i < j$. Then $W = v_0,e_1,v1,\ldots,v_i,e_{j+1},v_{j+1},\ldots,v_n$ is a walk with $i-j$ less edges and $W$ is a subsequence of $W$. Applying this until $\forall i, j : v_i = v_j$ yields a path from $v_0$ to $v_n$. This of course also holds for the directed case.
 \end{proof}
 
-From Theorem \ref{theo:pathinwalk} follows that dealing with paths suffices when we want to draw conclusions about a connection between two nodes.
-
 \begin{definition}[Network]
 A network $N = (G, c)$ consists of a graph $G = (V, E)$ and a cost function $c : E(G) \longrightarrow \mathbb{R} \geq 0$, which assigns each edge $e$ a nonnegative value $c_e$ . Networks are also called weighted graphs.
 \end{definition}
@@ -198,29 +203,38 @@ Let $G = (V, E)$ be a graph. We state that $c$ is a (proper) $k$-coloring of $G$
 
 \section{Metaheuristics}
 
+As defined before, a COP consists of a set of feasible solutions. In almost every case this is of huge size compared to the size of the instance. Solving a COP exactly means finding the optimal solution out of that set. The famous no free lunch theorem \cite{wolpert-97} states, that over all possible problems, there is no heuristic that performs better than any other heuristic including random search. According to the theorem, if a strategy performs better in one subarea, it performs worse in another. By acquiring and including problemspecific knowledge, it is possible to develop strategies for classes of problems that perform better than others \cite{chiong-09}. In this context, Gebhard defined in \cite{gebhard-12}:
+
+\begin{definition}
+Metaheuristic algorithms make no assumptions on the problem and (in theory) can be applied on any optimization problem. They define an abstract order of instructions which lead to improved or feasible solutions. In almost any case these instructions must be
+implemented using problem specific knowledge.
+\end{definition}
+
+%TODO welche unterschiedlichen metaheuristiken gibt es? construction + verbesserung, dann local search and population. alles aus dem buch blum_roli
+
+
+\begin{definition}[Neighborhood structure]
+A neighborhood structure is a function $\mathcal{N} : S \rightarrow 2^S$ that assigns to every $s \in S$ a set of neighbors $\mathcal{N}(s) \subseteq S$. $\mathcal{N}(s)$ is called the neighborhood of $s$.
+\end{definition}
+
+The introduction of a neighborhood structure enables us to define the concept of locally minimal solutions.
+
+\begin{definition}[Local minimum]
+A locally minimal solution (or local minimum) with respect to a neighborhood structure $\mathcal{N}$ is a solution $\hat{s}$ such that $\forall s \in \mathcal{N}(\hat{s}):f(\hat{s})\leq f(s)$. We call $\hat{s}$ a strict locally minimal solution if $f(\hat{s})<f(s) \mid \forall s \in \mathcal{N}(\hat{s})$.
+\end{definition}
+
 Metaheuristics for solving hard combinatorial optimization problems (COPs) are typically divided into two groups, local search based metaheuristics (e. g. Variable Neighborhood Search) and population based metaheuristics (e. g. evolutionary algorithms). The latter will not be considered here. Before moving to basic local search, some terms need to be defined [1]. As this thesis does consider minimization problems only, minimum and optimum refer to the same term.
 
 As mentioned before, solving COPs implies the search for the best solution among a possi-
-bly huge set of feasible solutions. In general there does not exist a heuristic that performs
-better on all kind of problems than some other heuristic including random search. This re-
-sults from the famous no free lunch theorem [63]. As a consequence researchers try to
-acquire and include as much knowledge as possible into sophisticated solvers for the dif-
-ferent problem classes. They try to evaluate the performance of different metaheuristic and
-exact algorithms.
+bly huge set of feasible solutions. 
 
-Definition 4. Metaheuristic algorithms make no assumptions on the problem and (in theory)
-can be applied on any optimization problem. They define an abstract order of instructions
-which lead to improved or feasible solutions. In almost any case these instructions must be
-implemented using problem specific knowledge.
 
-Just because a problem is NP-complete,
-doesn’t mean we should give up on trying to
-solve it.
-• For some NP-complete problems, it is possible
-to develop algorithms that have average-case
-polynomial complexity (despite having worst-
-case exponential complexity)
-• For other NP-complete problems, approximate
-solutions can be found in polynomial time.
-Developing good approximation algorithms is
-an important area of research.
+\section{Linear Programming}
+
+Linear Programming (LP) or mathematical programming is a large field of operations re-
+search and tries to optimize an objective function under a set of constraints. The objective
+function and all constraints are linear inequations and equations. Most optimization prob-
+lems which arise from nowadays industries needs can be written as a linear program. A
+short introduction to the field of linear programming and the corresponding solving methods
+is given in Section 2.5. The following sections provide a detailed insight into the implemented
+metaheuristic algorithms.
