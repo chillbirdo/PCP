@@ -68,14 +68,13 @@ Nevertheless, for some $\mathcal{NP}$-complete problems of this class it is poss
 
 \begin{definition}[Approximation algorithm]
 An $\alpha$-approximation algorithm for an optimization problem is a polynomial-time algorithm that for all instances of the problem produces a solution whose value is within a factor of $\alpha$ of the value of an optimal solution.
-\begin{definition}
+\end{definition}
 
-The $\alpha$ is called approximation ratio or performance guarantee of the $\alpha$-approximation algorithm. For minimization problems $\alpha > 1$ and for maximization problems $\alpha < 1$ holds. For example, a $1/2$-approximation algorithm for a maximization problem always returns a solution in polynomial time, that is at least half as good as the optimal solution. For some problem there even exist polynomial time algorithms, whose approximation ratio is given as parameter. They have so called polynomial-time approximation schemes.
+The $\alpha$ is called approximation ratio or performance guarantee of the $\alpha$-approximation algorithm. For minimization problems $\alpha > 1$ and for maximization problems $\alpha < 1$ holds. For example, a $1/2$-approximation algorithm for a maximization problem always returns a solution in polynomial time, that is at least half as good as the optimal solution. For some problems there even exist polynomial time algorithms, whose approximation ratio can be given as parameter. They have so called polynomial-time approximation schemes.
 
 \begin{definition}[Polynomial-time approximation scheme]
 A polynomial-time approximation scheme (PTAS) is a family of algorithms $\{A_{\epsilon}\}$, where there is an algorithm for each $\epsilon > 0$, such that $A_{\epsilon}$ is a $(1+\epsilon)$-approximation algorithm (for minimization problems) or a $(1-\epsilon)$-approximation algorithm (for maximization problems).
 \end{definition}
-
 
 
 \section{Graph Theory Definitions}
@@ -203,31 +202,46 @@ Let $G = (V, E)$ be a graph. We state that $c$ is a (proper) $k$-coloring of $G$
 
 \section{Metaheuristics}
 
-As defined before, a COP consists of a set of feasible solutions. In almost every case this is of huge size compared to the size of the instance. Solving a COP exactly means finding the optimal solution out of that set. The famous no free lunch theorem \cite{wolpert-97} states, that over all possible problems, there is no heuristic that performs better than any other heuristic including random search. According to the theorem, if a strategy performs better in one subarea, it performs worse in another. By acquiring and including problemspecific knowledge, it is possible to develop strategies for classes of problems that perform better than others \cite{chiong-09}. In this context, Gebhard defined in \cite{gebhard-12}:
+As defined before, a COP consists of a set of feasible solutions. In almost every case this is of huge size compared to the size of the instance. Solving a COP exactly means finding the optimal solution out of that set. Since for $\mathcal{NP}$-complete problems no algorithm that performs in polynomial time could be found yet, scientists try to find algorithms that apporixmate optimal solutions.
+In general there exist two classes of approximation methods: construction and improvement heuristics. As its name states, the former construct a solution from scratch by adding components until the solution is complete. Usually these algorithms perform fastest but often return a solution quality that is inferior to the ones returned by improvement heuristics. Used as initial solution for an improvement heuristic, the construction heuristic may return an infeasible solution. Afterwards an improvement heuristic iteratrively tries to replace the solution by a better/feasible one that is derived from the current solution.\\
 
-\begin{definition}
-Metaheuristic algorithms make no assumptions on the problem and (in theory) can be applied on any optimization problem. They define an abstract order of instructions which lead to improved or feasible solutions. In almost any case these instructions must be
-implemented using problem specific knowledge.
+Improvement heuristics can be be divided into two groups, population based and local search based heuristics.\cite{blum-05} The former includes -- but is not restricted to -- Ant Colony Optimization (ACO), Evolutionary Computation (EC) including Genetic Algorithms (GA) and the second group consists of Iterated Local Search (ILS), Simulated Annealing (SA) and Tabu Search (TS). TS is described in more detail in section \ref{sec:ts} and as this thesis does not deal with population based algorithms, it excludes further descriptions of this group. The reader is refered to \cite{gendreau-10}.\\
+All these methods form a relatively new group of heuristics and are sumed up by the term \textit{metaheuristics}, which was first introduced in \cite{glover-86}. In 1996 Osman and Laporte provided a formal definition of metaheuristics \cite{osman-96}:
+
+\begin{definition}[Metaheuristic]
+A metaheuristic is formally defined as an iterative generation process which guides a subordinate heuristic by combining intelligently different concepts for exploring and exploiting the search space, learning strategies are used to structure information in order to find efficiently near-optimal solutions.
 \end{definition}
 
-%TODO welche unterschiedlichen metaheuristiken gibt es? construction + verbesserung, dann local search and population. alles aus dem buch blum_roli
+The famous no free lunch theorem \cite{wolpert-97} states, that over all possible problems, there is no heuristic that performs better than any other heuristic including random search. According to the theorem, if a strategy performs better in one subarea, it performs worse in another. By acquiring and including problemspecific knowledge, it is possible to develop strategies for classes of problems that perform better than others \cite{chiong-09}. In this context, Gebhard defined in \cite{gebhard-12}:
 
+\begin{definition}
+Metaheuristic algorithms make no assumptions on the problem and (in theory) can be applied on any optimization problem. They define an abstract order of instructions which lead to improved or feasible solutions. In almost any case these instructions must be implemented using problem specific knowledge.
+\end{definition}
+
+
+\section{Basic Local Search}
+
+Basic local search (LS) is an improvement heuristic that iteratively tries to replace the solution by a better one that is located in an appropriately defined neighborhood structure of the current solution.\cite{blum-05} 
 
 \begin{definition}[Neighborhood structure]
 A neighborhood structure is a function $\mathcal{N} : S \rightarrow 2^S$ that assigns to every $s \in S$ a set of neighbors $\mathcal{N}(s) \subseteq S$. $\mathcal{N}(s)$ is called the neighborhood of $s$.
 \end{definition}
 
-The introduction of a neighborhood structure enables us to define the concept of locally minimal solutions.
+Iterately improving the solution by choosing the first neighbor $s_f \in \mathcal{N}(s) \mid f(s_f)<f(s)$ for a minization problem is called \textit{First Fit} (FF), choosing the best neighbor $s_b \in \mathcal{N}(s) \mid f(s_b)<f(x), \forall x\in \mathcal{N}(s)$ is called \textit{Best Fit} (BF). In the basic version of LS, both variants stop if no better solution can be found, which is called a local minimum. As this thesis is about the PCP which is a minimization problem, optimum and minimum are used equivalently.
 
 \begin{definition}[Local minimum]
-A locally minimal solution (or local minimum) with respect to a neighborhood structure $\mathcal{N}$ is a solution $\hat{s}$ such that $\forall s \in \mathcal{N}(\hat{s}):f(\hat{s})\leq f(s)$. We call $\hat{s}$ a strict locally minimal solution if $f(\hat{s})<f(s) \mid \forall s \in \mathcal{N}(\hat{s})$.
+A locally minimal solution (or local minimum) with respect to a neighborhood structure $\mathcal{N}$ is a solution $\hat{s}$ such that $\forall s \in \mathcal{N}(\hat{s}):f(\hat{s})\leq f(s)$. We call $\hat{s}$ a strict locally minimal solution if $\forall s \in \mathcal{N}(\hat{s}) : f(\hat{s})<f(s)$.
 \end{definition}
 
-Metaheuristics for solving hard combinatorial optimization problems (COPs) are typically divided into two groups, local search based metaheuristics (e. g. Variable Neighborhood Search) and population based metaheuristics (e. g. evolutionary algorithms). The latter will not be considered here. Before moving to basic local search, some terms need to be defined [1]. As this thesis does consider minimization problems only, minimum and optimum refer to the same term.
+Stopping at a local minimum results in quite unsatisfactory solutions, therefore methods have been developed to escape from such a local minimum in order to find the global minimum. A simple technique is to start the LS from different points repeatedly, which is not very efficient, since the search information from preciding searches is not used. Metaheuristic algorithms use more complex termination conditions including maximum number of iterations or CPU time.
 
-As mentioned before, solving COPs implies the search for the best solution among a possi-
-bly huge set of feasible solutions. 
+\begin{definition}[Global minimum]
+A global minimum (optimum) of a minimizing combinatorial optimization problem is a solution, such that $f(\hat{s}) \leq f(s)$, $\forall x \in X$. Therefore a global optimum is a local optimum for all neighborhood structures $\mathcal{N}$.
+\end{definition}
 
+
+\section{Tabu Search}
+\label{sec:ts}
 
 \section{Linear Programming}
 

@@ -22,11 +22,22 @@ M.~R. Garey and D.~S. Johnson.
   np-completeness.
 \newblock {\em Series of Books in the Mathematical Sciences}, 1, 1979.
 
+\bibitem{gendreau-10}
+M.~Gendreau.
+\newblock {\em Handbook of metaheuristics}.
+\newblock Springer, 2010.
+
 \bibitem{fritz-11}
 S.Pirkwieser G.Fritz, G.Raidl.
 \newblock Heuristic methods for the hop constrained survivable network design
   problem.
 \newblock 2011.
+
+\bibitem{glover-86}
+F.~Glover.
+\newblock Future paths for integer programming and links to artificial
+  intelligence.
+\newblock {\em Cambridge University Press}, 13(533–549), 1986.
 
 \bibitem{nocedal-00}
 S.~Wright J.~Nocedal.
@@ -43,6 +54,11 @@ B.Hu M.Leitner, G.Raidl.
 \newblock Solving two generalized network design problems with exact and
   heuristic methods.
 \newblock 2006.
+
+\bibitem{osman-96}
+I.~H. Osman and G.~Laporte.
+\newblock Metaheuristics: A bibliography.
+\newblock {\em Annals of Operations Research}, 63(513-623), 1996.
 
 \bibitem{pardalos-02}
 H.Romeijn P.~Pardalos.
@@ -67,6 +83,11 @@ Ingo Wegener.
 \newblock Springer, 2005.
 \newblock Reflects recent developments in its emphasis on randomized and
   approximation algorithms and communication models.
+
+\bibitem{williamson-10}
+David~P. Williamson and David~B. Shmoys.
+\newblock The design of approximation algorithms.
+\newblock {\em Cambridge University Press}, 2010.
 
 \bibitem{wolpert-97}
 D.~H. Wolpert and W.~G. Macready.
