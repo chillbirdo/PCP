@@ -4,5 +4,9 @@
 \contentsline {section}{\numberline {1.3}Metaheuristics}{6}{section.1.3}
 \contentsline {section}{\numberline {1.4}Basic Local Search}{7}{section.1.4}
 \contentsline {section}{\numberline {1.5}Tabu Search}{8}{section.1.5}
-\contentsline {section}{\numberline {1.6}Linear Programming}{8}{section.1.6}
-\contentsline {chapter}{Bibliography}{9}{section*.6}
+\contentsline {section}{\numberline {1.6}Integer Linear Programming}{9}{section.1.6}
+\contentsline {chapter}{\chapternumberline {2}Problem Definition}{11}{chapter.2}
+\contentsline {section}{\numberline {2.1}Partition Coloring Problem}{11}{section.2.1}
+\contentsline {section}{\numberline {2.2}Wavelength Routing and Assignment Problem}{12}{section.2.2}
+\contentsline {section}{\numberline {2.3}Complexity}{12}{section.2.3}
+\contentsline {chapter}{Bibliography}{13}{section*.6}
