@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  27 NOV 2013 10:28
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  27 NOV 2013 17:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1506,11 +1506,9 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <8> not available
 \du=\skip211
  [8]
 
-LaTeX Warning: Citation `applegate-01' on page 9 undefined on input line 380.
+LaTeX Warning: Citation `applegate-01' on page 9 undefined on input line 395.
 
-) [9] [10
-
-] (./chapters/problem_definition.tex
+) [9] [10] (./chapters/problem_definition.tex
 <figures/pcp.png, id=303, 1252.68pt x 638.385pt>
 File: figures/pcp.png Graphic file (type png)
  <use figures/pcp.png>
@@ -1520,7 +1518,9 @@ Package pdftex.def Info: figures/pcp.png used on input line 27.
 
 LaTeX Warning: Citation `li-00' on page 11 undefined on input line 36.
 
-[11 <./figures/pcp.png>]) (./thesis.bbl [12]
+[11
+
+ <./figures/pcp.png>]) (./thesis.bbl [12]
 bibitemlist
 [13
 
@@ -1546,19 +1546,16 @@ Package rerunfilecheck Info: File `thesis.out' has not changed.
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 194.
  ) 
 Here is how much of TeX's memory you used:
  21645 strings out of 494987
  364213 string characters out of 3178575
- 507983 words of memory out of 3000000
+ 507981 words of memory out of 3000000
  24281 multiletter control sequences out of 15000+200000
  78027 words of font info for 98 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 69i,19n,57p,1102b,832s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 69i,19n,57p,1107b,832s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -1575,7 +1572,7 @@ xlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-
 dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utm
 ri8a.pfb>
-Output written on thesis.pdf (26 pages, 339167 bytes).
+Output written on thesis.pdf (26 pages, 339701 bytes).
 PDF statistics:
  409 PDF objects out of 1000 (max. 8388607)
  357 compressed objects within 4 object streams

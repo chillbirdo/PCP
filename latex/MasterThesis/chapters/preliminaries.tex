@@ -347,7 +347,7 @@ Stopping at a local minimum results in quite unsatisfactory solutions, therefore
 \end{center}
 \section{Tabu Search}
 \label{sec:ts}
-The simple Tabu Search outlined in \ref{alg:ts}, chooses the best fitting solution out of the neighborhood $\mathcal{N}(s)$, which is not held in a short term memory, the so called tabu list. It holds recently visited solutions and is used to prevent cycles. Moreover, since the tabu list causes the algorithm to accept uphill moves, it can help to escape from local minima. Each chosen solution is added to the tabu list, which is of a specified size and therefore the algorithm has to remove solutions from it, which is usually done in a FIFO order. Most implementations of TS -- like the one implemented in this thesis -- do not store whole solutions, but solution attributes like moves or differences between solutions. The size of the list is a crucial parameter in TS and has to be chosen wisely, since if it is chosen too short the algorithm may stuck in cycles of higher order more likely and if it is chosen too long, the search space is restricted too much. The algorithm terminates if a specified termination criterion is met.\\
+The Simple Tabu Search (TS) outlined in \ref{alg:ts}, chooses the best fitting solution out of the neighborhood $\mathcal{N}(s)$, which is not held in a short term memory, the so called tabu list. It holds recently visited solutions and is used to prevent cycles. Moreover, since the tabu list causes the algorithm to accept uphill moves, it can help to escape from local minima. Each chosen solution is added to the tabu list, which is of a specified size and therefore the algorithm has to remove solutions from it, which is usually done in a FIFO order. Most implementations of TS -- like the one implemented in this thesis -- do not store whole solutions, but solution attributes like moves or differences between solutions. The size of the list is a crucial parameter in TS and has to be chosen wisely, since if it is chosen too short the algorithm may stuck in cycles of higher order more likely and if it is chosen too long, the search space is restricted too much. The algorithm terminates if a specified termination criterion is met.\\
 \begin{algorithm}[h]
 \KwIn{A COP $P=(S,f)$}
 \KwOut{A feasible Solution $s$}
@@ -361,20 +361,35 @@ Update($TabuList$)\;
 \caption{Tabu Search}
 \label{alg:ts}
 \end{algorithm}
+
+
 \section{Integer Linear Programming}
 Linear Programming (LP) or Mathematical Programming is an important field of operations research. Formulating a Linear Program (LP) is a mathematical way to define a COP and consists of defining the following inequations and equations: an objective function, a set of constraints on the variables $x$ and a set of constraints on their domain, which are all inequations.  All LPs can be written in the following form:
+
 \begin{equation*}
 \begin{aligned}
-min. && c^Tx            \\
+max. && c^Tx            \\
 s.t. && Ax \leq b       \\
 && x \in \mathbb{R}^n \\
 \end{aligned}
 \end{equation*}
-Restrictions on the domain of the variables dedicates the LP into one the following categories:
+
+For each maximization problem there exists a minimization problem and vice versa, in the way that both problems are equivalent. The following set of equations defines the dual problem to the primal maximization problem:
+
+\begin{equation*}
+\begin{aligned}
+min. && b^Ty            \\
+s.t. && A^Ty \geq c       \\
+&& y \in \mathbb{R}^n 	\\
+\end{aligned}
+\end{equation*}
+
+Restrictions on the domain of the variables dedicates the LP into one of the following categories. Be $x$ the set of variables:
 \begin{enumerate}
 \item Linear Program (LP): $x \in \mathbb{R}^n$
 \item Integer Linear Program (ILP): $x \in \mathbb{Z}^n$
 \item Binary Integer Linear Program (BIP): $x \in \{0,1\}^n$
 \item Mixed Integer Linear Program (MIP): variables can be restricted to different domains
 \end{enumerate}
-Optimizing the objective function with respect to the constraints means to solve the problem exactly and is in general $\mathcal{NP}$-hard. It has to be considered that classifying the problem into complexity classes only gives a worst case analysis of the running time any algorithm would require. State-of-the-art solvers like CPLEX \footnote{http://www-01.ibm.com/software/commerce/optimization/cplex-optimizer/}, GUROBI \footnote{http://www.gurobi.com/}, XPRESS \footnote{www.solver.com/xpress-solver-engine} use advanced algorithms as Branch and Bound or Branch and Cut, what makes them acquire relatively good average running times, which makes LP a widely used method in operations research today. For example, for the TSP the optimal tour through 15112 Cities was calculated in 2001. \cite{applegate-01}
+
+Optimizing the objective function with respect to the constraints means to solve the problem exactly and is in general $\mathcal{NP}$-hard. It has to be considered that classifying the problem into complexity classes only gives a worst case analysis of the running time any algorithm would require. State-of-the-art solvers like CPLEX \footnote{http://www-01.ibm.com/software/commerce/optimization/cplex-optimizer/}, GUROBI \footnote{http://www.gurobi.com/}, XPRESS \footnote{www.solver.com/xpress-solver-engine} use the simplex or the interior point algorithm combined with solution pruning methods as Branch and Bound or Branch and Cut, what makes them acquire relatively good average running times and makes LP a widely used method in operations research today. For example, for the TSP the optimal tour through 15112 Cities was calculated in 2001. \cite{applegate-01}
