@@ -8,52 +8,69 @@ Repeated entry---line 458 of file pcp.bib
  : @article{garey-79
  :                  ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 582 of file pcp.bib
+ : @article{murthy-02
+ :                   ,
+I'm skipping whatever remains of this entry
+Too many commas in name 1 of "Y. Asahiroa, K. Iwamab, H. Tamakic, T. Tokuyamad" for entry asahiroa-00
+while executing---line 1049 of file plain.bst
+Name 1 in "U. Feige, G. Kortsarz, and D. Peleg" has a comma at the end for entry feige-97
+while executing---line 1049 of file plain.bst
+Warning--empty journal in Meindl-12
+Warning--there's a number but no volume in charikar-00
+Warning--empty journal in volko-13
 Warning--empty journal in fritz-11
 Warning--empty journal in nocedal-00
 Warning--empty journal in lawler-01
+Warning--empty journal in lawler-76
 Warning--empty journal in leitner-06
 Warning--empty journal in pardalos-02
 Warning--empty journal in papadimitriou-94
 Warning--empty journal in gebhard-12
-You've used 17 entries,
+Warning--empty journal in khuller-09
+Name 1 in "U. Feige, G. Kortsarz, and D. Peleg" has a comma at the end for entry feige-97
+while executing---line 1090 of file plain.bst
+Too many commas in name 1 of "Y. Asahiroa, K. Iwamab, H. Tamakic, T. Tokuyamad" for entry asahiroa-00
+while executing---line 1090 of file plain.bst
+You've used 37 entries,
             2118 wiz_defined-function locations,
-            577 strings with 5878 characters,
-and the built_in function-call counts, 3752 in all, are:
-= -- 354
-> -- 149
-< -- 0
-+ -- 63
-- -- 44
-* -- 174
-:= -- 703
-add.period$ -- 52
-call.type$ -- 17
-change.case$ -- 70
+            672 strings with 8215 characters,
+and the built_in function-call counts, 8841 in all, are:
+= -- 848
+> -- 373
+< -- 1
++ -- 159
+- -- 114
+* -- 464
+:= -- 1615
+add.period$ -- 112
+call.type$ -- 37
+change.case$ -- 165
 chr.to.int$ -- 0
-cite$ -- 24
-duplicate$ -- 176
-empty$ -- 308
-format.name$ -- 44
-if$ -- 753
+cite$ -- 49
+duplicate$ -- 395
+empty$ -- 706
+format.name$ -- 114
+if$ -- 1785
 int.to.chr$ -- 0
-int.to.str$ -- 17
-missing$ -- 20
-newline$ -- 89
-num.names$ -- 34
-pop$ -- 84
+int.to.str$ -- 37
+missing$ -- 40
+newline$ -- 189
+num.names$ -- 74
+pop$ -- 175
 preamble$ -- 1
-purify$ -- 56
+purify$ -- 131
 quote$ -- 0
-skip$ -- 127
+skip$ -- 289
 stack$ -- 0
-substring$ -- 87
-swap$ -- 10
-text.length$ -- 0
+substring$ -- 275
+swap$ -- 36
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 62
-warning$ -- 7
-while$ -- 34
-width$ -- 19
-write$ -- 174
-(There was 1 error message)
+type$ -- 142
+warning$ -- 12
+while$ -- 81
+width$ -- 39
+write$ -- 382
+(There were 6 error messages)

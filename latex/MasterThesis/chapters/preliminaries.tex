@@ -143,11 +143,23 @@ A network $N = (G, c)$ consists of a graph $G = (V, E)$ and a cost function $c :
 The cost $c_G$ of a graph $G$ is the sum of its edge costs, i.e. $c_G = \sum_{e\in E}c_e$ .
 \end{definition}
 \begin{definition}[Coloring]
-A coloring is a mapping $v \rightarrow c_v \mid c_v \in \mathbb{R}, \forall v\in V$. The coloring is feasible, iff $\{x,y\}\in E \mid c_x \neq c_y, \forall x\in V, \forall y\in V$
+A coloring is a mapping $v \rightarrow \mathbb{N}^+ \mid \forall v\in V$. Let $c_v$ denote the color assigned to node $v$. The coloring is feasible, iff $c_x \neq c_y \mid \{x,y\}\in E, \forall \{x,y\}\in E$.
 \end{definition}
+
 \begin{definition}[chromatic number]
 Let $G = (V, E)$ be a graph. We state that $c$ is a (proper) $k$-coloring of $G$ if all the vertices in $V$ are colored using $k$ colors such that no two adjacent vertices have the same color. The chromatic number is defined as the minimum $k$ for which there exists a (proper) $k$-coloring of $G$.
 \end{definition}
+
+%Definitionen von graph_theory_coloring.pdf
+%Definition 15 (Proper Coloring, k-Coloring, k-Colorable). A proper coloring is an as-
+%signment of colors to the vertices of a graph so that no two adjacent vertices have the same
+%color. A k-coloring of a graph is a proper coloring involving a total of k colors. A graph that
+%has a k-coloring is said to be k-colorable.
+%
+%Definition 16 (Chromatic Number). The chromatic number of a graph is the minimum
+%number of colors in a proper coloring of that graph.
+
+
 \section{Metaheuristics}
 As defined before, a COP consists of a set of feasible solutions. In almost every case this is of huge size compared to the size of the instance. Solving a COP exactly means finding the optimal solution out of that set. Since for $\mathcal{NP}$-complete problems no algorithm that performs in polynomial time could be found yet, scientists try to find algorithms that approximate optimal solutions.\\
 In general there exist two classes of approximation methods: construction and improvement heuristics. As its name states, the former construct a solution from scratch by adding components until the solution is complete. Usually these algorithms perform fastest but often return a solution quality that is inferior to the ones returned by improvement heuristics. Used as initial solution for an improvement heuristic, the construction heuristic may return an infeasible solution. Afterwards an improvement heuristic iteratively tries to replace the solution by a better/feasible one that is derived from the current solution.\\
