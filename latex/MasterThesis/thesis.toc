@@ -29,7 +29,7 @@
 \contentsline {section}{\numberline {6.1}Implementation Details and Testing Environment}{27}{section.6.1}
 \contentsline {section}{\numberline {6.2}Instances}{27}{section.6.2}
 \contentsline {section}{\numberline {6.3}Results}{28}{section.6.3}
-\contentsline {subsection}{Conflicting Vertices}{28}{section*.9}
+\contentsline {subsection}{Conflicting nodes}{28}{section*.9}
 \contentsline {subsection}{Final Results}{30}{section*.10}
 \contentsline {subsection}{Variants}{41}{section*.11}
 \contentsline {subsection}{Comparison to previous works}{51}{section*.12}

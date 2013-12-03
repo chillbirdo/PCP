@@ -1,8 +1,8 @@
 
-The Partition Coloring Problem is a generalization of the Standard Vertex Coloring Problem (VCP) and has initially been considered by Li and Simha in \cite{li-00}. The problem arose from considering the join problem of routing and wavelength assignment in Wavelength Division Multiplexing optical networks. It is therefore a subproblem of a variant of the Wavelength Routing and Assignment Problem (RWA), namely the min-RWA problem. This chapter aims to give formal definitions and examples of VCP, PCP and min-RWA and reason about their computational complexities.
+The Partition Coloring Problem is a generalization of the Standard Vertex Coloring Problem (VCP) and has initially been considered by Li and Simha in \cite{li-00}. The problem arose from considering the join problem of routing and wavelength assignment in Wavelength Division Multiplexing optical networks. It is therefore a subproblem of a variant of the Wavelength Routing and Assignment Problem (RWA), namely the min-RWA problem. This chapter aims to give formal definitions and examples of VCP, PCP and min-RWA and reasons about their computational complexities.
 
 \section{Standard Vertex Coloring Problem}
-As this thesis refers to VCP in various contexts and for the sake of completeness, this section provides a formal definition, although it has already been mentioned as an example in chapter \ref{ch:prelim} \\
+As this thesis refers to VCP in various contexts and for the sake of completeness, this section provides a formal definition, although the problem has already been explained as an example in chapter \ref{ch:prelim} \\
 Given a non-directed graph $G=(V,E)$, the VCP consists in assigning a color to each node in $V$, such that no adjacent nodes have the same color. The aim is to minimize the chromatic number, i.e. the overall number of colors used. Figure \ref{pd:vcp} shows a simple graph colored with three colors.
 
 \begin{figure}
@@ -296,7 +296,7 @@ Figure \ref{pd:pcpExample} shows an example of an instance with 5 clusters, each
 \section{Wavelength Routing and Assignment Problem}
 \label{sec:minrwa}
 
-Wavelength Division Multiplexing is a technique that allows a single optical link to transfer multiple data streams simultaneously by using distinct wavelengths for each data stream. Data is transferred along a route of linked physical network routing devices (nodes). An all optical connection between two nodes is called lightpath. Assuming the so called wavelength continuity constraint \cite{markovic-10} means to assume that the same wavelength has to be kept over all physical links along the route (i.e. it can not be converted by any node), so the lightpath has to be set up with one wavelength from the source to the destination node. It follows that any two paths, having at least one link in common, have to use different wavelengths, in order to enable the common link(s) to transfer data simultaneously. Figure \ref{pd:opticalNetwork} shows an extract of the European optical transport network.\\
+Wavelength Division Multiplexing is a technique that allows a single optical link to transfer multiple data streams simultaneously by using distinct wavelengths for each data stream. Data is transferred along a route of linked physical network routing devices (nodes). An all optical connection between two nodes is called lightpath. Assuming the so called wavelength continuity constraint \cite{markovic-10} means to assume that the same wavelength has to be kept over all physical links along the route (i.e. it can not be converted by any node), so the lightpath has to be set up with one wavelength from the source to the destination node. It follows that any two paths, having at least one link in common, have to use different wavelengths, in order to enable the common link(s) to transfer data simultaneously. As an example of how such a network looks like, figure \ref{pd:opticalNetwork} shows an extract of the European optical transport network.\\
 
 \begin{figure}
 \begin{center}
@@ -313,7 +313,7 @@ In general, the Wavelength Routing and Assignment Problem (RWA) consists of an u
 \item wavelength assignment: selecting exactly one path in $P_{s,d}$ and one wavelength $\alpha_i$ for each pair $(s,d) \in C$, in the way that the number of wavelength is minimized under the continuity constraint.
 \end{enumerate}
 
-Considering the demands of real world instances, it is clear that the computed paths should be relatively short. The first subproblem can be solved in polynomial time by any single source shortest path algorithms like Dijkstra's- or the B*-algorithm. If $\left\vert{P_{s,d}}\right\vert = 1, \forall (s,d)\in C$, i.e. there is exactly one path considered for each source-destination pair, the second subproblem can be transformed into VCP, in any other case $\exists (s,d)\in C : \left\vert{P_{s,d}}\right\vert > 1$ into PCP. The transformation consists in considering each source-destination pair $(s,d)$ as a cluster and and each path in $P_{s,d}$ as a node. In the case that two paths share at least one edge, the corresponding nodes are adjacent. Selecting a node-color pair out of a cluster in PCP is equivalent to selecting a path out of a  to a node in PCP is equivalent to Figure \ref{pd:transformation} demonstrates the transformation by example.
+Considering the demands of real world instances, it is clear that the computed paths should be relatively short. The first subproblem can be solved in polynomial time by any single source shortest path algorithm like Dijkstra's- or the B*-algorithm. If $\left\vert{P_{s,d}}\right\vert = 1, \forall (s,d)\in C$, i.e. there is exactly one path considered for each source-destination pair, the second subproblem can be transformed into VCP, in any other case $\exists (s,d)\in C : \left\vert{P_{s,d}}\right\vert > 1$ into PCP. The transformation consists in considering each source-destination pair $(s,d)$ as a cluster and and each path in $P_{s,d}$ as a node. In the case that two paths share at least one edge, the corresponding nodes are adjacent. Selecting a node-color pair out of a cluster in PCP is equivalent to selecting a path for a source-destination pair and assign a wavelength to it. Figure \ref{pd:transformation} demonstrates the transformation by example.
 
 
 \begin{center}
@@ -930,26 +930,26 @@ Considering the demands of real world instances, it is clear that the computed p
 
 \section{Problem Complexity}
 
-The decision variant of VCP decides weather a graph can be colored within $k$ colors or not. For $k=2$ the answer can be computed in linear time by checking if the graph is bipartite. For all $k\geq 3$, a certificate for a decision can only be given by a valid coloring. In chapter \ref{ch:prelim} it has been stated that the decision variant of VCP belongs to the class $\mathcal{NP}$. It has been proven in the early 1970s by Cook and Levin, that any problem in $\mathcal{NP}$ can be reduced to SAT. 
+The decision variant of VCP decides weather a graph can be colored within $k$ colors or not. For $k=2$ the answer can be computed in linear time by checking if the graph is bipartite. For all $k\geq 3$, a certificate for a decision can only be given by a valid coloring. In chapter \ref{ch:prelim} it has been stated that the decision variant of VCP belongs to the class $\mathcal{NP}$. It has been proven in the early 1970s by Cook and Levin, that any problem in $\mathcal{NP}$ can be reduced to SAT. In complexity theory, SAT is one the most prominent NPOs in $\mathcal{NP}$ and it is widely assumed that there does not exist an algorithm that solves it exactly in polynomial time. This assumption is closely linked to the question $\mathcal{P} \neq \mathcal{NP}$.
 
 \begin{definition}[SAT]
 Given a set of clauses $C_1, \ldots , C_k$ in CNF over a set of variables $X = \{x_1,\ldots,x_n\}$, the SAT problem asks if there exist a satisfying assignment.
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}[Cook Levin]
 Any problem in $\mathcal{NP}$ can be reduced in polynomial time by a deterministic Touring machine to SAT.
 \end{theorem}
 
-Generating a $k$-coloring of a graph $G=(V,E)$ can be reduced to SAT as follows. For each potential node-color assignment, introduce a boolean variable $x_{vc}, v\in V, c\in \{1,\ldots ,k\}$. Given the following formulas:
+Generating a $k$-coloring of a graph $G=(V,E)$ can be reduced to SAT as follows. For each possible node-color assignment, introduce a boolean variable $x_{vc}, v\in V, c\in \{1,\ldots ,k\}$. Considering the following formulas:
 \begin{align}
 \bigvee_{1\leq c \leq k}p_{vc} && (v\in V)\\
 \neg (p_{vc} \wedge p_{vd}) 		&& (v\in V, 1 \leq i < j \leq k),\\
 \neg (p_{vc} \wedge p_{wc})		&& (\{v,w\}\in E, 1 \leq i \leq k).
 \end{align}
 
-Finding an assignment satisfying these formulas is a one-to-one correspondence to finding a $k$-coloring of graph $G$. SAT is probably the most prominent NPO in $\mathcal{NP}$ and it is widely assumed that there does not exist a algorithm that solves it exactly in polynomial time. This assumption is closely linked to the question $\mathcal{P} \neq \mathcal{NP}$.\\
+Finding an assignment satisfying these formulas is a one-to-one correspondence to finding a $k$-coloring of graph $G$.\\
 
-When PCP is decomposed into two phases -- the node selection- and the coloring phase -- it becomes clear that the coloring phase is equivalent to VCP, therefore $VCP \leq_P PCP$ holds. Li and Simha show in \cite{li-00} another way to reduce PCP to VCP.
+When PCP is decomposed into two phases -- the node selection phase and the coloring phase -- it becomes clear that the coloring phase is equivalent to VCP, therefore $VCP \leq_P PCP$ holds. Li and Simha show in \cite{li-00} another way to reduce PCP to VCP.
 
 \begin{theorem}
 PCP is $\mathcal{NP}$-hard.

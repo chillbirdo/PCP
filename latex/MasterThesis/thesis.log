@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  3 DEC 2013 01:44
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  3 DEC 2013 14:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1552,10 +1552,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 299--300
 
  []
 
-
-Underfull \vbox (badness 6173) has occurred while \output is active []
-
- [14 <./figures/pcp.png>] <figures/rwa.png, id=456, 1317.92375pt x 1096.095pt>
+[14 <./figures/pcp.png>] <figures/rwa.png, id=456, 1317.92375pt x 1096.095pt>
 File: figures/rwa.png Graphic file (type png)
 
 <use figures/rwa.png>
@@ -1593,14 +1590,15 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 ] [25] [26
 
 ] (./chapters/results.tex
-Overfull \hbox (6.48111pt too wide) in paragraph at lines 3--5
+Overfull \hbox (6.48111pt too wide) in paragraph at lines 4--6
 \T1/ptm/m/n/10.95 The pro-gram has been im-ple-mented in Java and com-piled wit
 h the JDK com-piler ver-sion 1.7.0_25.
  []
 
 [27]
+Underfull \hbox (badness 10000) in paragraph at lines 14--16
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+ []
 
 [28] [29]
 
@@ -1700,6 +1698,23 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [45] [46] [47] [48] [49] [50]
+Underfull \hbox (badness 10000) in paragraph at lines 1563--1564
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1565--1566
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1567--1568
+
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
@@ -1708,7 +1723,12 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 
 ] [52] (./chapters/outlook.tex [53
 
-]) [54] (./chapters/summary.tex)
+]
+
+LaTeX Warning: Reference `sec:variations' on page 54 undefined on input line 11
+.
+
+) [54] (./chapters/summary.tex)
 Underfull \hbox (badness 10000) in paragraph at lines 2--177
 
  []
@@ -1737,13 +1757,20 @@ Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 194.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 194.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
 (rerunfilecheck)             Checksum: 186501FAD25E4B47ECC64CE13BCFC0B4;2010.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 194.
  ) 
 Here is how much of TeX's memory you used:
- 22035 strings out of 494987
- 369222 string characters out of 3178575
- 943154 words of memory out of 3000000
- 24410 multiletter control sequences out of 15000+200000
+ 22036 strings out of 494987
+ 369238 string characters out of 3178575
+ 943039 words of memory out of 3000000
+ 24411 multiletter control sequences out of 15000+200000
  83598 words of font info for 102 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  69i,24n,57p,1579b,856s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1764,10 +1791,10 @@ exmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
 imes/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (71 pages, 866699 bytes).
+Output written on thesis.pdf (71 pages, 869546 bytes).
 PDF statistics:
- 1007 PDF objects out of 1200 (max. 8388607)
- 900 compressed objects within 9 object streams
+ 1018 PDF objects out of 1200 (max. 8388607)
+ 907 compressed objects within 10 object streams
  368 named destinations out of 1000 (max. 500000)
  289 words of extra memory for PDF output out of 10000 (max. 10000000)
 
