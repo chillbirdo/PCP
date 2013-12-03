@@ -26,32 +26,44 @@ The complexity class $\mathcal{NP}$ is associated with hard problems. $\mathcal{
 \begin{definition}[Complexity class $\mathcal{NP}$]
 A decision problem is in $\mathcal{NP}$ iff any given solution of the problem can be verified in polynomial time.
 \end{definition}
-The above definition states, that the solutions for problems in $\mathcal{NP}$ do not require to be calculated in polynomial time, but the solutions need to be verified in polynomial time. Therefore $\mathcal{P} \subseteq \mathcal{NP}$ holds (slightly abusing notation by restricting $\mathcal{P}$ to decision problems)\cite{neumann-10}.
+The definition above states, that the solutions for problems in $\mathcal{NP}$ do not require to be calculated in polynomial time, but the solutions need to be verified in polynomial time. Therefore $\mathcal{P} \subseteq \mathcal{NP}$ holds (slightly abusing notation by restricting $\mathcal{P}$ to decision problems)\cite{neumann-10}.
 \begin{definition}[$\mathcal{NP}$-optimization Problem]
 A COP is a $\mathcal{NP}$-optimization problem (NPO) if the corresponding decision problem is in $\mathcal{NP}$.
 \end{definition}
 As an example the decision variant of the Standard Vertex Coloring Problem (VCP) is considered, which asks weather a graph $G$ is colorable within $k$ colors or not. An algorithm has to verify for each vertex $v$ colored with color $c_v$, if all its neighbors are colored with a color different to $c_v$ and further count the number of distinct colors to check weather the number of colors is lower or equal to $k$. This can be done in time  $\mathcal O(\left\vert{V^2}\right\vert)$, where $V$ is the set of vertices.\\
-The VCP and many other optimization and decision problems are at least as difficult as any problem in $\mathcal{NP}$. These problems are said to be $\mathcal{NP}$-hard. Giving a polynomial-time reduction from an $\mathcal{NP}$-hard problem to a particular problem shows that this problem is $\mathcal{NP}$-hard, too. Such a reduction links the considered problem to the known $\mathcal{NP}$-hard problem in such a way that if and only if the considered problem can be solved in polynomial time also the $\mathcal{NP}$-hard problem to which it has been reduced can.\cite{neumann-10} To gain a more detailed insight into that topic, the reader is referenced to \cite{wegener-05}.
+The decision variant of VCP and many other decision problems are at least as difficult as any problem in $\mathcal{NP}$. These problems are said to be $\mathcal{NP}$-hard. Giving a polynomial-time reduction from an $\mathcal{NP}$-hard problem to a particular problem shows that this problem is $\mathcal{NP}$-hard, too. Such a reduction links the considered problem to the known $\mathcal{NP}$-hard problem in such a way that if and only if the considered problem can be solved in polynomial time also the $\mathcal{NP}$-hard problem to which it has been reduced can.\cite{neumann-10} To gain a more detailed insight into that topic, the reader is referenced to \cite{wegener-05}. 
+
 \begin{definition}[$\mathcal{NP}$-hard problems]
 A problem is called $\mathcal{NP}$-hard iff it is at least as difficult as any problem in $\mathcal{NP}$, i.e., each problem in $\mathcal{NP}$ can be reduced to it.
 \end{definition}
-A lot of optimization problems are $\mathcal{NP}$-hard but not in $\mathcal{NP}$. For example, the optimization variant of the VCP, which searches for the minimum chromatic number is clearly at least as hard at its decision variant described above. Since the output is a number rather than a decision, it is not in $\mathcal{NP}$. $\mathcal{NP}$-hard problems that are also in $\mathcal{NP}$ are called $\mathcal{NP}$-complete. Many decision variants of $\mathcal{NP}$-hard problems like the VCP are $\mathcal{NP}$-complete.
+
+A lot of optimization problems are $\mathcal{NP}$-hard but not in $\mathcal{NP}$. For example, the optimization variant of the VCP, which searches for the minimum chromatic number is clearly at least as hard at its decision variant described above. Since the output is a number rather than a decision, it is not in $\mathcal{NP}$. $\mathcal{NP}$-hard problems that are also in $\mathcal{NP}$ are called $\mathcal{NP}$-complete. Many decision variants of $\mathcal{NP}$-hard problems like the one of VCP are $\mathcal{NP}$-complete. For the specific case of VCP, which is a generalization of PCP and therefore relevant for this thesis, its complexity is analysed in more detail in chapter \ref{ch:problem}.
+
 \begin{definition}[$\mathcal{NP}$-complete problems]
 A problem is $\mathcal{NP}$-complete iff it is $\mathcal{NP}$-hard and in $\mathcal{NP}$.
 \end{definition}
+
 Informally, $\mathcal{NP}$-complete problems are the hardest problems in the class $\mathcal{NP}$. If there is an algorithm that solves any $\mathcal{NP}$-complete problem in polynomial time, then every problem in $\mathcal{NP}$ can be solved in polynomial time. So far no polynomial time deterministic algorithm has been found to solve one of them. 
+
 \begin{theorem}
 If any $\mathcal{NP}$-complete problem can be solved by a polynomial-time deterministic algorithm, then $\mathcal{NP} = \mathcal{NP}$. If any problem in $\mathcal{NP}$ cannot be solved by a polynomial-time deterministic algorithm, then $\mathcal{NP}$-complete problems are not in $\mathcal{P}$.
 \end{theorem}
+
 Most computer scientists assume that $\mathcal{P} \neq \mathcal{NP}$, although it has not been proven yet. The question $\mathcal{P} = \mathcal{NP}$ is one of the most prominent unresolved questions in the field of complexity theory, since a proof would imply a huge impact on any other discipline in discrete mathematics and computer science.\\
+
 Nevertheless, for some $\mathcal{NP}$-complete problems of this class it is possible develop algorithms that have an average-case polynomial time complexity, despite having exponential time complexity in worst case. For other problems in this class, approximation algorithms can be found that return solutions in polynomial time with a guarantee of a specific solution quality. The development and analysis of approximation algorithms is an important field of research. The following definitions are taken from \cite{williamson-10}.
+
 \begin{definition}[Approximation algorithm]
 An $\alpha$-approximation algorithm for an optimization problem is a polynomial-time algorithm that for all instances of the problem produces a solution whose value is within a factor of $\alpha$ of the value of an optimal solution.
 \end{definition}
+
 The $\alpha$ is called approximation ratio or performance guarantee of the $\alpha$-approximation algorithm. For minimization problems $\alpha > 1$ and for maximization problems $\alpha < 1$ holds. For example, a $1/2$-approximation algorithm for a maximization problem always returns a solution in polynomial time, that is at least half as good as the optimal solution. For some problems there even exist polynomial time algorithms, whose approximation ratio can be given as parameter. They have so called polynomial-time approximation schemes.
+
 \begin{definition}[Polynomial-time approximation scheme]
 A polynomial-time approximation scheme (PTAS) is a family of algorithms $\{A_{\epsilon}\}$, where there is an algorithm for each $\epsilon > 0$, such that $A_{\epsilon}$ is a $(1+\epsilon)$-approximation algorithm (for minimization problems) or a $(1-\epsilon)$-approximation algorithm (for maximization problems).
 \end{definition}
+
+
 \section{Graph Theory Definitions}
 \begin{definition}[Graph]
 A graph is a tuple $G = (V, E)$, where $V$ denotes the set of nodes and $E \subseteq V \times V$ denotes the set of edges. An edge from node $i$ to $j$ is denoted by $\{i, j\}$. We call a graph simple, if it does not contain multiple edges, i.e. more than one edge between the same nodes, or loops, i.e. edges $\{i, i\}$.
@@ -61,93 +73,141 @@ A directed graph or digraph is a tuple $D = (V, A)$, where $V$ denotes the set o
 or directed edges. An arc from node $i$ to $j$ is denoted by $(i, j)$. We call a directed graph simple, if it does not contain multiple arcs, i.e. more than one arc between the same nodes, or loops, i.e. arcs $(i, i)$.
 \end{definition}
 Unless declared explicitly, this thesis considers only simple, undirected graphs $G = (V, E)$.
-\begin{definition}[Directed graph]
-Given a graph $G = (V, E)$, $G' = (V', E')$ is called a subgraph if $V' \subseteq V$ , $E' \subseteq E$ and $E' \subseteq V' \times V'$ . If  $V' = V$ we call $G$ a spanning subgraph or factor.
+
+\begin{definition}[Subgraph]
+Given a graph $G = (V, E)$, $G' = (V', E')$ is called a subgraph if $V' \subseteq V$ , $E' \subseteq E$ and $E' \subseteq V' \times V'$ . If  $V' = V$ we call $G'$ a spanning subgraph or factor.
 \end{definition}
+
 \begin{definition}[Deletion of a node]
 Given a graph $G = (V, E)$, $G - v = (V \setminus v, E \setminus \{e \mid v \in e\})$.
 \end{definition}
+
 \begin{definition}[Adjacency and incidence]
 Two nodes $x$ and $y$ are called adjacent, if they share an edge $e$, i.e. $\exists e = \{x, y\} \in E$. Two edges $e$ and $f$ are called adjacent, if they share a node $x$, i.e. $e \cap f = x$. A node $v$ is called incident to an edge $e$, if $v \in e$.
 \end{definition}
+
 \begin{definition}[Node degree]
 The degree of a node $v$ in an undirected graph $G$, denoted by $d(v)$, is the number of edges, that are incident to the node $v$, i.e. in $E$ there exists an edge $\{v, x\}$. The number of outgoing arcs $(v, x)$ from a node $v$ in a directed graph $D$ is called out-degree and is denoted by $d^+(v)$, the number of ingoing arcs $(x, v)$ to a node $v$ is called in-degree and is denoted by $d^-(v)$.
 \end{definition}
+
 \begin{lemma}[Handshaking Lemma]
 $$\sum_{v \in V}d(v) = 2\left\vert{E}\right\vert$$
 \end{lemma}
+
 \begin{proof}
 As every edge $\{i, j\}$ is incident to exactly two nodes, namely $i$ and $j$, it is
 counted one time at $d(i)$ and one time at $d(j)$. So the sum over all node degrees
 is exactly two times the number of edges.
 \end{proof}
+
 \begin{corollary}[Directed graph]
 The number of nodes with odd node degree is even.
 \end{corollary}
+
 \begin{proof}
 This immediately follows from the handshaking lemma.
 \end{proof}
+
 \begin{lemma}
-$$\sum_{v\in V}d^+(v)=\sum{v\in V}d^-(v)=2\left\vert{A}\right\vert$$
+$$\sum_{v\in V}d^+(v)=\sum_{v\in V}d^-(v)=2\left\vert{A}\right\vert$$
 \end{lemma}
+
 \begin{proof}
 As every arc $(i, j)$ has exactly one ”in-node“ and one ”out-node“, it follows,
 that the sum of all out-degrees equals the sum of all in-degrees and hence the
 number of arcs.
 \end{proof}
+
 \begin{definition}[Maximum and minimum node degree]
 $\triangle (G) = max\{d(v) \mid v \in V \}$ denotes the maximum node degree in a graph. $\delta (G) = min\{d(v) \mid v \in V \}$ denotes the minimum node degree in a graph.
 \end{definition}
+
 \begin{definition}[Neighborhood of a node]
 The neighborhood of a node $v \in V$ is denoted by $N(v) = \{x \mid \{v, x\} \in E\}$. In the directed case the neighborhood consists of all nodes that are reachable from $v$, i.e. $N(v) = \{x \mid (v, x) \in A\}$.
 \end{definition}
+
 \begin{definition}[Walk]
 A sequence $v_0,e_1,v_1,e_2,\ldots ,e_n,v_n$ with $n \geq 0$ is called
 a walk, if for all $v_i$ with $i \neq 0$ exists an $e_i = \{v_{i-1} , v_i \} \in E$.
 \end{definition}
+
 \begin{definition}[Directed walk]
 A sequence $v_0,a_1,v_1,a_2,\ldots ,a_n,v_n$ with $n \geq 0$ is called a directed walk, if for all $v_i$ with $i \neq 0$ exists an $a_i = (v_{i-1} , v_i ) \in A$.
 \end{definition}
+
 \begin{definition}[Trail]
 A sequence $v_0,e_1,v_1,e_2,\dots ,e_n,v_n$ with $n \geq 0$ is called a trail, if for all $v_i$ with $i \neq 0$ exists an $e_i = \{v_{i-1}, v_i\} \in E$ and all $e_i$ are distinct.
 \end{definition}
+
 \begin{definition}[Directed Trail]
 A sequence $v_0,a_1,v_1,a_2,\ldots ,a_n,v_n$ with $n \geq 0$ is called a directed trail, if for all $v_i$ with $i \neq 0$ exists an $a_i = (v_{i-1}, v_i) \in A$ and all $a_i$ are distinct.
 \end{definition}
+
 \begin{definition}[Path]
 A sequence $v_0,e_1,v_1,e_2,\ldots , e_n,v_n$ with $n \geq 0$ is called a path, if for all $v_i$ with $i \neq 0$ exists an $e_i = \{v_{i-1} , v_i\} \in E$ and all $v_i$ are distinct.
 \end{definition}
+
 \begin{definition}[Directed path]
 A sequence $v_0,a_1,v_1,a_2,\ldots ,a_n,v_n$ with $n \geq 0$ is called a directed path, if for all $v_i$ with $i \neq 0$ exists an $a_i = (v_{i-1}, v_i) \in A$ and all $v_i$ are distinct.
 \end{definition}
+
 \begin{definition}[Length of a path]
 Given a path $P = v_0,e_1,v_1,e_2,\ldots ,e_n,v_n = P(v_0,v_n)$, the length is the number of edges and denoted by $l(P) = n$, analogously for the directed case.
 \end{definition}
+
 \begin{definition}[Cycle]
 A cycle is a path, where $v_0 = v_n$.
 \end{definition}
+
 \begin{definition}[Acyclic graph]
 A graph is called acyclic if it does not contain a cycle.
 \end{definition}
+
+\begin{definition}[Bipartite Graph]
+todo
+\end{definition}
+
 \begin{theorem}
 Let $W = W(v_0,v_n)$ be a walk, then there is a subsequence $P = P(v_0,v_n) \subseteq W(v_0,v_n)$ such that $P$ is a path.
 \label{theo:pathinwalk}
 \end{theorem}
+
 \begin{proof}
-We know that for a path holds $v_i = v_j \forall i < j$. Suppose for $W$ holds that $v_i = v_j$ for arbitrary $i < j$. Then $W = v_0,e_1,v1,\ldots,v_i,e_{j+1},v_{j+1},\ldots,v_n$ is a walk with $i-j$ less edges and $W$ is a subsequence of $W$. Applying this until $\forall i, j : v_i = v_j$ yields a path from $v_0$ to $v_n$. This of course also holds for the directed case.
+We know that for a path holds $v_i \neq v_j, \forall i < j$. Suppose for $W$ holds that $v_i = v_j$ for arbitrary $i < j$. Then $W' = v_0,e_1,v1,\ldots,v_i,e_{j+1},v_{j+1},\ldots,v_n$ is a walk with $i-j$ less edges and $W'$ is a subsequence of $W$. Applying this until $\forall i, j : v_i \neq v_j$ yields a path from $v_0$ to $v_n$. This of course also holds for the directed case.
 \end{proof}
+
 \begin{definition}[Network]
 A network $N = (G, c)$ consists of a graph $G = (V, E)$ and a cost function $c : E(G) \longrightarrow \mathbb{R} \geq 0$, which assigns each edge $e$ a nonnegative value $c_e$ . Networks are also called weighted graphs.
 \end{definition}
+
 \begin{definition}[Costs of a graph]
 The cost $c_G$ of a graph $G$ is the sum of its edge costs, i.e. $c_G = \sum_{e\in E}c_e$ .
 \end{definition}
-\begin{definition}[Coloring]
-A coloring is a mapping $v \rightarrow \mathbb{N}^+ \mid \forall v\in V$. Let $c_v$ denote the color assigned to node $v$. The coloring is feasible, iff $c_x \neq c_y \mid \{x,y\}\in E, \forall \{x,y\}\in E$.
+
+%\begin{definition}[Coloring]
+%A coloring is a mapping $v \rightarrow \mathbb{N}^+ \mid \forall v\in V$. Let $c_v$ denote the color assigned to node $v$. The coloring is feasible, iff $c_x \neq c_y \mid \{x,y\}\in E, \forall \{x,y\}\in E$.
+%\end{definition}
+
+\begin{definition}[$k$-coloring]
+A $k$-coloring is a function $f : V \rightarrow \{1,\ldots , k\}$ such that
+for every edge $\{u, v\}\in E$ we have $f(u) \neq f(v)$.
 \end{definition}
 
-\begin{definition}[chromatic number]
+\begin{definition}[Chromatic Number]
 Let $G = (V, E)$ be a graph. We state that $c$ is a (proper) $k$-coloring of $G$ if all the vertices in $V$ are colored using $k$ colors such that no two adjacent vertices have the same color. The chromatic number is defined as the minimum $k$ for which there exists a (proper) $k$-coloring of $G$.
+\end{definition}
+
+\begin{definition}[Truth Assigment]
+A truth assignment is a choice of $true$ or $false$ for each variable, i.e., a function $v : X \rightarrow \{true, false\}$.
+\end{definition}
+
+\begin{definition}[Conjunctive Normal Form]
+A conjunctive normal form (CNF) formula is a conjunction of clauses:
+$C_1 \wedge C_2 \wedge \ldots \wedge C_k$
+\end{definition}
+
+\begin{definition}[Satisfying Assignment]
+A truth assignment is a satisfying assignment if it makes every clause $true$.
 \end{definition}
 
 %Definitionen von graph_theory_coloring.pdf

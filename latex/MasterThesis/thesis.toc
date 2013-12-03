@@ -11,32 +11,32 @@
 \contentsline {chapter}{\chapternumberline {3}Problem Definition}{13}{chapter.3}
 \contentsline {section}{\numberline {3.1}Standard Vertex Coloring Problem}{13}{section.3.1}
 \contentsline {section}{\numberline {3.2}Partition Coloring Problem}{13}{section.3.2}
-\contentsline {section}{\numberline {3.3}Wavelength Routing and Assignment Problem}{14}{section.3.3}
-\contentsline {section}{\numberline {3.4}Complexity}{16}{section.3.4}
-\contentsline {chapter}{\chapternumberline {4}Previous Works}{17}{chapter.4}
-\contentsline {section}{\numberline {4.1}Exact Approaches}{17}{section.4.1}
-\contentsline {section}{\numberline {4.2}Heuristical Approaches}{17}{section.4.2}
-\contentsline {chapter}{\chapternumberline {5}Problem Solving Approach}{19}{chapter.5}
-\contentsline {section}{\numberline {5.1}Constructional Heuristics}{20}{section.5.1}
-\contentsline {section}{\numberline {5.2}Recoloring}{20}{section.5.2}
-\contentsline {subsection}{Random}{20}{section*.5}
-\contentsline {subsection}{OneStepCD}{20}{section*.6}
-\contentsline {subsection}{ILP minimizing conflicts}{22}{section*.7}
-\contentsline {subsection}{ILP minimizing conflicting nodes}{22}{section*.8}
-\contentsline {section}{\numberline {5.3}Tabu Search}{22}{section.5.3}
-\contentsline {section}{\numberline {5.4}Variants}{22}{section.5.4}
-\contentsline {chapter}{\chapternumberline {6}Computational Results}{25}{chapter.6}
-\contentsline {section}{\numberline {6.1}Implementation Details and Testing Environment}{25}{section.6.1}
-\contentsline {section}{\numberline {6.2}Instances}{25}{section.6.2}
-\contentsline {section}{\numberline {6.3}Results}{26}{section.6.3}
-\contentsline {subsection}{Conflicting Vertices}{26}{section*.9}
-\contentsline {subsection}{Final Results}{28}{section*.10}
-\contentsline {subsection}{Variants}{39}{section*.11}
-\contentsline {subsection}{Comparison to previous works}{49}{section*.12}
-\contentsline {chapter}{\chapternumberline {7}Critical Reflection and Outlook}{51}{chapter.7}
-\contentsline {section}{\numberline {7.1}Critical Reflection}{51}{section.7.1}
-\contentsline {section}{\numberline {7.2}Future Works}{51}{section.7.2}
-\contentsline {subsection}{On finding dense subgraphs}{51}{section*.13}
-\contentsline {subsection}{Algorithm proposal}{52}{section*.14}
-\contentsline {chapter}{\chapternumberline {8}Summary}{53}{chapter.8}
-\contentsline {chapter}{Bibliography}{55}{section*.16}
+\contentsline {section}{\numberline {3.3}Wavelength Routing and Assignment Problem}{15}{section.3.3}
+\contentsline {section}{\numberline {3.4}Problem Complexity}{17}{section.3.4}
+\contentsline {chapter}{\chapternumberline {4}Previous Works}{19}{chapter.4}
+\contentsline {section}{\numberline {4.1}Exact Approaches}{19}{section.4.1}
+\contentsline {section}{\numberline {4.2}Heuristical Approaches}{19}{section.4.2}
+\contentsline {chapter}{\chapternumberline {5}Problem Solving Approach}{21}{chapter.5}
+\contentsline {section}{\numberline {5.1}Constructional Heuristics}{22}{section.5.1}
+\contentsline {section}{\numberline {5.2}Recoloring}{22}{section.5.2}
+\contentsline {subsection}{Random}{22}{section*.5}
+\contentsline {subsection}{OneStepCD}{22}{section*.6}
+\contentsline {subsection}{ILP minimizing conflicts}{24}{section*.7}
+\contentsline {subsection}{ILP minimizing conflicting nodes}{24}{section*.8}
+\contentsline {section}{\numberline {5.3}Tabu Search}{24}{section.5.3}
+\contentsline {section}{\numberline {5.4}Variants}{24}{section.5.4}
+\contentsline {chapter}{\chapternumberline {6}Computational Results}{27}{chapter.6}
+\contentsline {section}{\numberline {6.1}Implementation Details and Testing Environment}{27}{section.6.1}
+\contentsline {section}{\numberline {6.2}Instances}{27}{section.6.2}
+\contentsline {section}{\numberline {6.3}Results}{28}{section.6.3}
+\contentsline {subsection}{Conflicting Vertices}{28}{section*.9}
+\contentsline {subsection}{Final Results}{30}{section*.10}
+\contentsline {subsection}{Variants}{41}{section*.11}
+\contentsline {subsection}{Comparison to previous works}{51}{section*.12}
+\contentsline {chapter}{\chapternumberline {7}Critical Reflection and Outlook}{53}{chapter.7}
+\contentsline {section}{\numberline {7.1}Critical Reflection}{53}{section.7.1}
+\contentsline {section}{\numberline {7.2}Future Works}{53}{section.7.2}
+\contentsline {subsection}{On finding dense subgraphs}{53}{section*.13}
+\contentsline {subsection}{Algorithm proposal}{54}{section*.14}
+\contentsline {chapter}{\chapternumberline {8}Summary}{55}{chapter.8}
+\contentsline {chapter}{Bibliography}{57}{section*.16}

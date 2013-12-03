@@ -1,21 +1,286 @@
 
-The Partition Coloring Problem is a generalization of the Standard Vertex Coloring Problem (VCP) and has initially been considered by Li and Simha in \cite{li-00}. The problem arised from considering the join problem of routing and wavelength assignment in Wavelength Division Multiplexing optical networks. It is therefore a subproblem of a variant of the Wavelength Routing and Assignment Problem (RWA), namly the min-RWA problem. This chapter aims to give formal definitions and examples of VCP, PCP and min-RWA and reason about their computational complexities.
+The Partition Coloring Problem is a generalization of the Standard Vertex Coloring Problem (VCP) and has initially been considered by Li and Simha in \cite{li-00}. The problem arose from considering the join problem of routing and wavelength assignment in Wavelength Division Multiplexing optical networks. It is therefore a subproblem of a variant of the Wavelength Routing and Assignment Problem (RWA), namely the min-RWA problem. This chapter aims to give formal definitions and examples of VCP, PCP and min-RWA and reason about their computational complexities.
 
 \section{Standard Vertex Coloring Problem}
-As the PCP is a generalization of VCP, this section provides a formal defintion.\\
-Given a non-directed graph $G=(V,E)$, the VCP consists in assigning a color to each node in $V$, such that no adjancent nodes have the same color. The aim is to minimize the chromatic number, i.e. the overall number of colors used. Figure \ref{pd:vcp} shows the Petersen graph \cite{holton-08}, colored within 3 colors\footnote{Graphic taken from http://en.wikipedia.org/wiki/File:Petersen_graph_3-coloring.svg}.
+As this thesis refers to VCP in various contexts and for the sake of completeness, this section provides a formal definition, although it has already been mentioned as an example in chapter \ref{ch:prelim} \\
+Given a non-directed graph $G=(V,E)$, the VCP consists in assigning a color to each node in $V$, such that no adjacent nodes have the same color. The aim is to minimize the chromatic number, i.e. the overall number of colors used. Figure \ref{pd:vcp} shows a simple graph colored with three colors.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=1]{figures/vcp.png}
-\caption{Instance of an optical network with 57 vertices and 85 edges. Extracted from the European optical transport network. \cite{belgacem-13}}
+
+\ifx\du\undefined
+  \newlength{\du}
+\fi
+\setlength{\du}{15\unitlength}
+\begin{tikzpicture}[scale=1]
+\pgftransformxscale{1.000000}
+\pgftransformyscale{-1.000000}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.050000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.619608, 0.619608, 0.619608}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.722500\du}{2.237500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.722500\du}{2.237500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.722500\du}{2.237500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.050000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.619608, 0.619608, 0.619608}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{5.657500\du}{4.837500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{5.657500\du}{4.837500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{5.657500\du}{4.837500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.050000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.619608, 0.619608, 0.619608}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.692500\du}{7.737500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.692500\du}{7.737500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.692500\du}{7.737500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.050000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{7.277500\du}{9.337500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{7.277500\du}{9.337500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{7.277500\du}{9.337500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.050000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.223529, 0.223529, 0.223529}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{10.412500\du}{6.137500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{10.412500\du}{6.137500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{10.412500\du}{6.137500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.050000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.223529, 0.223529, 0.223529}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{3.897500\du}{1.687500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{3.897500\du}{1.687500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{3.897500\du}{1.687500\du}}{\pgfpoint{0.562500\du}{0\du}}{\pgfpoint{0\du}{0.562500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (5.371328\du,4.325317\du)--(4.183672\du,2.199683\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (2.807307\du,7.161081\du)--(3.782693\du,2.263919\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (3.267825\du,7.618262\du)--(9.837175\du,6.256738\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (6.224304\du,4.992462\du)--(9.845696\du,5.982538\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (4.484074\du,1.724057\du)--(12.135926\du,2.200943\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (7.688510\du,8.917969\du)--(10.001490\du,6.557031\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (3.238760\du,7.928125\du)--(6.731240\du,9.146875\du);
+}
+% setfont left to latex
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\node[anchor=west] at (2.850000\du,0.650000\du){1};
+% setfont left to latex
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\node[anchor=west] at (12.750000\du,1.050000\du){2};
+% setfont left to latex
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\node[anchor=west] at (5.950000\du,4.050000\du){3};
+% setfont left to latex
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\node[anchor=west] at (1.600000\du,6.950000\du){4};
+% setfont left to latex
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\node[anchor=west] at (10.950000\du,5.550000\du){5};
+% setfont left to latex
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\node[anchor=west] at (6.800000\du,10.550000\du){6};
+\end{tikzpicture}
+
+\caption{A graph with 6 nodes, colored optimally with 3 colors}
 \label{pd:vcp}
 \end{center}
 \end{figure}
 
 \section{Partition Coloring Problem}
 
-As many Network Design Problems (NDPs), the VCP can be generalized by partitioning the vertex set $V$ into clusters $V_k, k \in K$, and expressing feasability constraints in terms of the clusters instead of individual nodes. \cite{feremans-03} One resulting Generalized Network Design Problem (GNDP) is the PCP, which is due to Fereman's definition an ``Exactly'' GNDP, since it requires the solution to select exactly one vertex per each cluster. In contrast, ``At Least'' and ``At Most'' generalizations aim to select at least, respectively at most a given number of vertices per each cluster. A formal definiton of PCP follows: \\\\
+As many Network Design Problems (NDPs), the VCP can be generalized by partitioning the vertex set $V$ into clusters $V_k, k \in K$, and expressing feasibility constraints in terms of the clusters instead of individual nodes. \cite{feremans-03} One resulting Generalized Network Design Problem (GNDP) is the PCP, which is due to Fereman's definition an ``Exactly'' GNDP, since it requires the solution to select exactly one vertex per each cluster. In contrast, ``At Least'' and ``At Most'' generalizations aim to select at least, respectively at most a given number of vertices per each cluster. A formal definition of PCP follows: \\\\
 Let $G = (V, E)$ be a non-directed graph and $V$ partitioned into $q$ mutually exclusive, nonempty subsets $V_1, V_2,\ldots, V_q$, where $V_i \cap V_j = \emptyset, \forall i, j = 1, \ldots , q$, $i \neq j$. We refer to $V_1, V_2, \ldots , V_q$ as the components of the partition. The PCP consists in finding a subset $V' \subset V$ such that $|V' \cap V_i| = 1, \forall i = 1, \ldots , q$ (i.e., $V'$ contains one node of each component $V_i$), and the chromatic number of the graph induced in $G$ by $V'$ is minimum.\\\\
 Figure \ref{pd:pcpExample} shows an example of an instance with 5 clusters, each holding 2 nodes and its solution with a chromatic number of 2.
 
@@ -29,8 +294,9 @@ Figure \ref{pd:pcpExample} shows an example of an instance with 5 clusters, each
 
 
 \section{Wavelength Routing and Assignment Problem}
+\label{sec:minrwa}
 
-Wavelength Division Multiplexing is a technique that allows a single optical link to transfer multiple datastreams simultaneously by using distinct wavelengths for each datastream. Data is transferred along a route of linked physical network routing devices (nodes). An all optical connection between two nodes is called lightpath. Assuming the so called wavelength continuity constraint \cite{markovic-10} means to assume that the same wavelength has to be kept over all physical links along the route (i.e. it can not be converted by any node), so the lightpath has to be set up with one wavelength from the source to the destination node. It follows that any two paths, having at least one link in common, have to use different wavelengths, in order to enable the common link(s) to transfer data simultaneously. Figure \ref{pd:opticalNetwork} shows an extract of the European optical transport network.\\
+Wavelength Division Multiplexing is a technique that allows a single optical link to transfer multiple data streams simultaneously by using distinct wavelengths for each data stream. Data is transferred along a route of linked physical network routing devices (nodes). An all optical connection between two nodes is called lightpath. Assuming the so called wavelength continuity constraint \cite{markovic-10} means to assume that the same wavelength has to be kept over all physical links along the route (i.e. it can not be converted by any node), so the lightpath has to be set up with one wavelength from the source to the destination node. It follows that any two paths, having at least one link in common, have to use different wavelengths, in order to enable the common link(s) to transfer data simultaneously. Figure \ref{pd:opticalNetwork} shows an extract of the European optical transport network.\\
 
 \begin{figure}
 \begin{center}
@@ -40,14 +306,14 @@ Wavelength Division Multiplexing is a technique that allows a single optical lin
 \end{center}
 \end{figure}
   
-In general, the Wavelength Routing and Assignment Problem (RWA) consists of an undirected network Graph $N=(V,E)$, where nodes represent network routing devices and edges represent full duplex (optical) links, i.e. links supporting data transmission in both directions. Further, a set of source-destination pairs (or connection requests) $C=\{(s_1,d_2),\ldots , (s_k, d_k) : s_i,d_i \in V\}$ and a set of wavelengths $\Lambda = \{\alpha_1 , \ldots, \alpha_m \}$ is given. If all connection requests are known in advance, the RWA is said to be static, otherwise dynamic. \cite{murthy-02} The static RWA can further be distinguished by characteristics of its objective. In the context of this thesis, only the min-RWA problem is relevant, which is a static version of RWA aiming to select exactly one path and one wavelength for each pair $(s,d) \in C$, in the way that the number of wavelength $\left\vert{\Lambda}\right\vert$ is minimized under the continuity constraint and its consequences, i.e. if any two paths have at least one edge in common, distinct wavelengths have to be assigned to them. The problem can be split into two subproblems:
+In general, the Wavelength Routing and Assignment Problem (RWA) consists of an undirected network Graph $N=(V,E)$, where nodes represent network routing devices and edges represent full duplex (optical) links, i.e. links supporting data transmission in both directions. Further, a set of source-destination pairs (or connection requests) $C=\{(s_1,d_2),\ldots , (s_k, d_k) : s_i,d_i \in V\}$ and a set of wavelengths $\Lambda = \{\alpha_1 , \ldots, \alpha_m \}$ is given. If all connection requests are known in advance, the RWA is said to be static, otherwise dynamic. \cite{murthy-02} The static RWA can further be distinguished by characteristics of its objective. In the context of this thesis, only the min-RWA problem is relevant, which is a static version of RWA aiming to select exactly one path and one wavelength for each pair $(s,d) \in C$, in the way that the number of wavelength $\left\vert{\Lambda}\right\vert$ is minimized under the continuity constraint and its consequences, i.e. if any two paths have at least one edge in common, distinct wavelengths have to be assigned to them. The problem can be decomposed into two subproblems:
 
 \begin{enumerate}
 \item routing: finding a set of paths $P_{s,d}$ for each source-destination pair $(s,d) \in C$
 \item wavelength assignment: selecting exactly one path in $P_{s,d}$ and one wavelength $\alpha_i$ for each pair $(s,d) \in C$, in the way that the number of wavelength is minimized under the continuity constraint.
 \end{enumerate}
 
-Considering the demands of real world instances, it is clear that the computed paths should be relatively short. The first subproblem can be solved in polynomial time by any single source shortest path algorithms like Dijkstra's- or the B*-algorithm. If $\left\vert{P_{s,d}}\right\vert = 1, \forall (s,d)\in C$, i.e. there is exactly one path considered for each source-destination pair, the second subproblem can be transformed into VCP, in any other case $\exists (s,d)\in C : \left\vert{P_{s,d}}\right\vert > 1$ into PCP. The transformation consists in considering each source-destination pair $(s,d)$ as a cluster and and each path in $P_{s,d}$ as a node. In the case that two paths share at least one edge, the corresping nodes are adjacent. Selecting a node-color pair out of a cluster in PCP is equivalent to selecting a path out of a  to a node in PCP is equivalent to Figure \ref{pd:transformation} demonstrates the transformation by example.
+Considering the demands of real world instances, it is clear that the computed paths should be relatively short. The first subproblem can be solved in polynomial time by any single source shortest path algorithms like Dijkstra's- or the B*-algorithm. If $\left\vert{P_{s,d}}\right\vert = 1, \forall (s,d)\in C$, i.e. there is exactly one path considered for each source-destination pair, the second subproblem can be transformed into VCP, in any other case $\exists (s,d)\in C : \left\vert{P_{s,d}}\right\vert > 1$ into PCP. The transformation consists in considering each source-destination pair $(s,d)$ as a cluster and and each path in $P_{s,d}$ as a node. In the case that two paths share at least one edge, the corresponding nodes are adjacent. Selecting a node-color pair out of a cluster in PCP is equivalent to selecting a path out of a  to a node in PCP is equivalent to Figure \ref{pd:transformation} demonstrates the transformation by example.
 
 
 \begin{center}
@@ -211,11 +477,11 @@ Considering the demands of real world instances, it is clear that the computed p
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (17.492500\du,11.912500\du){1};
+\node[anchor=west] at (16.742500\du,11.145833\du){1};
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (22.332500\du,11.112500\du){2};
+\node[anchor=west] at (22.399167\du,9.945833\du){2};
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
@@ -223,15 +489,15 @@ Considering the demands of real world instances, it is clear that the computed p
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (14.262500\du,15.212500\du){3};
+\node[anchor=west] at (13.362500\du,14.529167\du){3};
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (19.481421\du,13.577576\du){4};
+\node[anchor=west] at (19.531421\du,12.477576\du){4};
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (16.347500\du,18.662500\du){5};
+\node[anchor=west] at (16.047500\du,19.862500\du){5};
 \pgfsetlinewidth{0.050000\du}
 \pgfsetdash{}{0pt}
 \pgfsetdash{}{0pt}
@@ -319,19 +585,19 @@ Considering the demands of real world instances, it is clear that the computed p
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{1.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (17.297900\du,10.775000\du){s1};
+\node[anchor=west] at (17.247900\du,11.908333\du){s1};
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 1.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (22.510400\du,10.075000\du){s2};
+\node[anchor=west] at (22.082500\du,11.062500\du){s2};
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 1.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (23.310400\du,18.775000\du){d2};
+\node[anchor=west] at (23.010400\du,17.475000\du){d2};
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{1.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (16.610400\du,19.908300\du){d1};
+\node[anchor=west] at (16.160400\du,18.708300\du){d1};
 \pgfsetlinewidth{0.050000\du}
 \pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
 \pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
@@ -549,15 +815,15 @@ Considering the demands of real world instances, it is clear that the computed p
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{1.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (15.808422\du,15.197056\du){p1};
+\node[anchor=west] at (15.658422\du,15.347056\du){p1};
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{1.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (18.376189\du,15.425610\du){p2};
+\node[anchor=west] at (18.176189\du,15.225610\du){p2};
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 1.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (20.917789\du,14.737437\du){p3};
+\node[anchor=west] at (20.917789\du,14.637437\du){p3};
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 1.000000}
 \pgfsetstrokecolor{dialinecolor}
@@ -625,11 +891,11 @@ Considering the demands of real world instances, it is clear that the computed p
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (19.566889\du,16.489251\du){6};
+\node[anchor=west] at (19.516889\du,17.539251\du){6};
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (23.194581\du,17.514555\du){7};
+\node[anchor=west] at (23.194581\du,18.664555\du){7};
 \pgfsetlinewidth{0.050000\du}
 \pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
 \pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
@@ -662,27 +928,35 @@ Considering the demands of real world instances, it is clear that the computed p
 \end{center}
 
 
-\section{Complexity}
+\section{Problem Complexity}
 
+The decision variant of VCP decides weather a graph can be colored within $k$ colors or not. For $k=2$ the answer can be computed in linear time by checking if the graph is bipartite. For all $k\geq 3$, a certificate for a decision can only be given by a valid coloring. In chapter \ref{ch:prelim} it has been stated that the decision variant of VCP belongs to the class $\mathcal{NP}$. It has been proven in the early 1970s by Cook and Levin, that any problem in $\mathcal{NP}$ can be reduced to SAT. 
 
-%
+\begin{definition}[SAT]
+Given a set of clauses $C_1, \ldots , C_k$ in CNF over a set of variables $X = \{x_1,\ldots,x_n\}$, the SAT problem asks if there exist a satisfying assignment.
+\end{definition}
 
-% -- min-RWA --
-%Erlebach and Jansen [7] showed that min-RWA
-%is NP-hard. Several authors proposed different
-%approximate algorithms for solving min-RWA.
-%Banerjee and Mukherjee [4], Hyytia
-% ̈ and Virtamo
-%[10], and Li and Simha [12] decompose the prob-
-%lem in two phases. In the first phase, one or more
-%possible routes are computed for each lightpath,
-%while in the second one route and one wavelength
-%are assigned to each lightpath. The second phase is
-%often solved as a colouring problem defined on a
-%conflict graph. Manohar et al. [13] proposed the
-%Greedy-EDP-RWA construction which was used
-%in a multi-start procedure heuristic, in which both
-%subproblems are solved simultaneously. Their
-%algorithm is much faster and finds solutions as
-%good as those found by the algorithm in [4].
+\begin{theorem}
+Any problem in $\mathcal{NP}$ can be reduced in polynomial time by a deterministic Touring machine to SAT.
+\end{theorem}
 
+Generating a $k$-coloring of a graph $G=(V,E)$ can be reduced to SAT as follows. For each potential node-color assignment, introduce a boolean variable $x_{vc}, v\in V, c\in \{1,\ldots ,k\}$. Given the following formulas:
+\begin{align}
+\bigvee_{1\leq c \leq k}p_{vc} && (v\in V)\\
+\neg (p_{vc} \wedge p_{vd}) 		&& (v\in V, 1 \leq i < j \leq k),\\
+\neg (p_{vc} \wedge p_{wc})		&& (\{v,w\}\in E, 1 \leq i \leq k).
+\end{align}
+
+Finding an assignment satisfying these formulas is a one-to-one correspondence to finding a $k$-coloring of graph $G$. SAT is probably the most prominent NPO in $\mathcal{NP}$ and it is widely assumed that there does not exist a algorithm that solves it exactly in polynomial time. This assumption is closely linked to the question $\mathcal{P} \neq \mathcal{NP}$.\\
+
+When PCP is decomposed into two phases -- the node selection- and the coloring phase -- it becomes clear that the coloring phase is equivalent to VCP, therefore $VCP \leq_P PCP$ holds. Li and Simha show in \cite{li-00} another way to reduce PCP to VCP.
+
+\begin{theorem}
+PCP is $\mathcal{NP}$-hard.
+\end{theorem}
+
+Similarly, min-RWA can be decomposed into two phases, where the assignment phase is equivalent to PCP, as shown in section \ref{sec:minrwa}. A proof of $\mathcal{NP}$-hardness has been provided by Erlebach and Jansen in \cite{erlebach-01}.
+
+\begin{theorem}
+min-RWA is $\mathcal{NP}$-hard.
+\end{theorem}
