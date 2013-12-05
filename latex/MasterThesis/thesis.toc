@@ -1,42 +1,12 @@
-\contentsline {chapter}{\chapternumberline {1}Introduction}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Guide to the Thesis}{2}{section.1.2}
-\contentsline {chapter}{\chapternumberline {2}Preliminaries}{3}{chapter.2}
-\contentsline {section}{\numberline {2.1}Optimization Problems and Complexity}{3}{section.2.1}
-\contentsline {section}{\numberline {2.2}Graph Theory Definitions}{6}{section.2.2}
-\contentsline {section}{\numberline {2.3}Metaheuristics}{8}{section.2.3}
-\contentsline {section}{\numberline {2.4}Basic Local Search}{9}{section.2.4}
-\contentsline {section}{\numberline {2.5}Tabu Search}{10}{section.2.5}
-\contentsline {section}{\numberline {2.6}Integer Linear Programming}{11}{section.2.6}
-\contentsline {chapter}{\chapternumberline {3}Problem Definition}{13}{chapter.3}
-\contentsline {section}{\numberline {3.1}Standard Vertex Coloring Problem}{13}{section.3.1}
-\contentsline {section}{\numberline {3.2}Partition Coloring Problem}{13}{section.3.2}
-\contentsline {section}{\numberline {3.3}Wavelength Routing and Assignment Problem}{15}{section.3.3}
-\contentsline {section}{\numberline {3.4}Problem Complexity}{17}{section.3.4}
-\contentsline {chapter}{\chapternumberline {4}Previous Works}{19}{chapter.4}
-\contentsline {section}{\numberline {4.1}Exact Approaches}{19}{section.4.1}
-\contentsline {section}{\numberline {4.2}Heuristical Approaches}{19}{section.4.2}
-\contentsline {chapter}{\chapternumberline {5}Problem Solving Approach}{21}{chapter.5}
-\contentsline {section}{\numberline {5.1}Constructional Heuristics}{22}{section.5.1}
-\contentsline {section}{\numberline {5.2}Recoloring}{22}{section.5.2}
-\contentsline {subsection}{Random}{22}{section*.5}
-\contentsline {subsection}{OneStepCD}{22}{section*.6}
-\contentsline {subsection}{ILP minimizing conflicts}{24}{section*.7}
-\contentsline {subsection}{ILP minimizing conflicting nodes}{24}{section*.8}
-\contentsline {section}{\numberline {5.3}Tabu Search}{24}{section.5.3}
-\contentsline {section}{\numberline {5.4}Variants}{24}{section.5.4}
-\contentsline {chapter}{\chapternumberline {6}Computational Results}{27}{chapter.6}
-\contentsline {section}{\numberline {6.1}Implementation Details and Testing Environment}{27}{section.6.1}
-\contentsline {section}{\numberline {6.2}Instances}{27}{section.6.2}
-\contentsline {section}{\numberline {6.3}Results}{28}{section.6.3}
-\contentsline {subsection}{Conflicting nodes}{28}{section*.9}
-\contentsline {subsection}{Final Results}{30}{section*.10}
-\contentsline {subsection}{Variants}{41}{section*.11}
-\contentsline {subsection}{Comparison to previous works}{51}{section*.12}
-\contentsline {chapter}{\chapternumberline {7}Critical Reflection and Outlook}{53}{chapter.7}
-\contentsline {section}{\numberline {7.1}Critical Reflection}{53}{section.7.1}
-\contentsline {section}{\numberline {7.2}Future Works}{53}{section.7.2}
-\contentsline {subsection}{On finding dense subgraphs}{53}{section*.13}
-\contentsline {subsection}{Algorithm proposal}{54}{section*.14}
-\contentsline {chapter}{\chapternumberline {8}Summary}{55}{chapter.8}
-\contentsline {chapter}{Bibliography}{57}{section*.16}
+\contentsline {chapter}{\chapternumberline {1}Problem Definition}{1}{chapter.1}
+\contentsline {chapter}{\chapternumberline {2}Problem Solving Approach}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Main Procedure}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Constructional Heuristics}{6}{section.2.2}
+\contentsline {section}{\numberline {2.3}Recoloring}{6}{section.2.3}
+\contentsline {subsection}{Random}{6}{section*.5}
+\contentsline {subsection}{OneStepCD}{6}{section*.6}
+\contentsline {subsection}{ILP minimizing conflicts}{8}{section*.7}
+\contentsline {subsection}{ILP minimizing conflicting nodes}{8}{section*.8}
+\contentsline {section}{\numberline {2.4}Tabu Search}{8}{section.2.4}
+\contentsline {section}{\numberline {2.5}Variants}{8}{section.2.5}
+\contentsline {chapter}{Bibliography}{11}{section*.10}

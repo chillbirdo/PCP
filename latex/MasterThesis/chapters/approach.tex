@@ -1,19 +1,31 @@
+In this chapter, the algorithms and models of the new hybrid approach for the PCP will be described and analysed in detail. First in section \ref{sec:mainalg}, the main procedure is explained. Section \ref{sec:construction} then analyses the two different construction heuristics used in this work, namely \textit{OneStepCD} and \textit{DANGER}. The improvement phase is split into two parts: algorithms, that assign a new, but not mandatorily feasible coloring to a chosen set of nodes, here consisting of one random-, one heuristic- and two exact approaches, are applied in the first part. Below, this thesis will refer to these algorithms to as the ``recoloring'' algorithms \ref{sec:recoloring}. In section \ref{sec:tabu}, the tabu search, which tries to find a coloring that makes the conflict-prone solution created by one of the recoloring algorithms feasible is presented. Finally, two variants, one of them consisting in a modified ILP formulation and the other one in adding lately recolored areas to the tabulist, are considered in section \ref{sec:variants}.
+
+\section{Main Procedure}
+\label{sec:mainalg}
+
+The idea of the approach in general is -- starting from a feasible solution -- to pick a color and eliminate it. For each color $c$, the set of nodes colored with $c$ is reselected as well as recolored without using color $c$. Using this strategy, it might not be possible to find a feasible solution. Therefore, infeasible solutions are accepted, i.e. solutions including at least one conflict, that is, a pair of adjacent nodes $(i,j)\in E, i \in V, j\in V$ colored with the same color. One of the two nodes is chosen and in the following refered to as the ``conflicting node''\footnote{How the node is chosen is shown in detail in \ref{sec:recoloring}}. These conflicting nodes form the starting points for the tabu-search, that tries to find an alternative color for each conflicting node. This process eliminates the conflicting node, but eventually produces further conflicts, which then again have to be eliminated. If no feasible coloring can be found withing a specified number of iterations, the next color $c+1$ is considered. If all conflicts can be eliminated, the algorithm has successfully decreased the chromatic number and repeats the whole process.\\
+This approach differs from the strategy presented in \cite{noronha-06} mainly by the effort that is investigated in the recoloring phase. There, Noronha et.al. reassign colors in a random way and therefore produce a random number of conflicts. The main innovation of the idea presented in this work is the minimization of the number of conflicts produced by an advanced recoloring algorithm, in order to increase the chance of eliminating these conflicts by the tabu search.\\
+
+\textbf{TODO: INSERT GRAPHIC!!!!}
+
+Listing \ref{algo:overall} provides an overview of the single steps that have been implemented. The algorithm takes an instance $P$ of PCP, an algorithm $INITIAL$ computing an initial solution, and a recoloring algorithm $RECOLOR$ as input. As described in \ref{ch:problem}, an instance of PCP consists of an uncolored graph $G=(V,E)$, where $V$ is divided into $k$ clusters. Parameter $INITIAL$ can be any algorithm that creates a feasible solution for PCP. Two of them have been taken into account in this work and are described in section \ref{sec:recoloring}, others are proposed e.g. in \cite{li-00}.\\
+In line $1$, the initial solution is calculated and assigned to $S$. The chromatic number of $S$ is assigned to $cmax$ in line $2$. Line $3$ initializes an empty set $X$. Line $5$ to line $9$ are preformed for each color $c \in \{1,\ldots , cmax\}$. In line $5$ all nodes in $V$ are selected that are colored with color $c$ and denoted by $V_c$. In line $6$ a copy $S'$ of $S$ is created and there all nodes in $V_c$ are recolored by the algorithm $RECOLOR$ excluding color $c$. The set of conflicting nodes is denoted by $C_c$.
+
 \begin{algorithm}[h]
-\KwIn{An uncolored Graph $G=(V,E)$, a recoloring-algorithm $RECOLOR$ }
+\KwIn{A problem instance $\mathcal{P}$, an algorithm $INITIAL$ and an algorithm $RECOLOR$ }
 \KwOut{A feasible Solution $S$}
-Set $S \gets OneStepCD(G)$\;
-Set $cmax \gets$ the chromatic number of $S$\;
+$S \gets INITIAL(\mathcal{P})$\;
+$cmax \gets$ the chromatic number of $S$\;
 Set $X \gets \emptyset $\;
 \For{$c=1,\ldots,cmax$}{
   Let $V_c$ be the set of nodes coloured by the colour $c$\;
-  Uncolor all nodes in $V_c$\;
-  $S_c \gets RECOLOR(V_c, cmax-1)$\;
-  Let $C$ be the set of all nodes involved in color conflicts of $S_c$\;
-  $X \gets X \cup (S_c,V_c,C_c)$
+  Let $S_c$ be the solution created by applying $RECOLOR(V_c, \{1,\ldots ,cmax\}\setminus c)$ on $S$\;
+  Let $C_c$ be the set of all nodes involved in color conflicts of $S_c$\;
+  $X \gets X \cup \langle S_c,V_c,C_c\rangle$
 }
-Sort $X$ ascendingly by $|C_c|$\;
-Set $reduction \gets$ false\;
-\For {$(S_c,V_c,C_c) \in X$}{
+Sort elements $X$ ascendingly by $|C_i|$\;
+$reduction \gets$ false\;
+\For {$\langle S_c,V_c,C_c\rangle \in X$}{
   $S_c' \gets TabuSearch(S_c, V_c, C_c)$\;
   \If{ $S_c'$ is free of conflicts}{
     $reduction \gets$ true\;
@@ -30,9 +42,10 @@ Set $reduction \gets$ false\;
 \label{algo:overall}
 \end{algorithm}
 
-
+\clearpage
 
 \section{Constructional Heuristics}
+\label{sec:construction}
 
 \begin{algorithm}[h]
 \KwIn{An uncolored Graph $G=(V,E)$}
@@ -55,9 +68,13 @@ Set $V' \gets \emptyset $\;
 \end{algorithm}
 
 
-\section{Recoloring}\label{sec:recoloring}
+\section{Recoloring}
+\label{sec:recoloring}
+
 
 \subsection{Random}
+
+
 \subsection{OneStepCD}
 
 \begin{algorithm}[h]
@@ -119,6 +136,7 @@ Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ t
 
 
 \section{Tabu Search}
+\label{sec:tabu}
 
 \begin{algorithm}[h]
 \KwIn{An infeasible solution $S$, the set of previously recolored nodes $R$, the set of conflicting nodes $C$}
@@ -155,5 +173,6 @@ Set $\bar{S} \gets S$\;
 \label{algo:tabusearch}
 \end{algorithm}
 
-\section{Variants}\label{sec:variants}
+\section{Variants}
+\label{sec:variants}
 

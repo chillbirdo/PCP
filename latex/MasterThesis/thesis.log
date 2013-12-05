@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  3 DEC 2013 14:54
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  5 DEC 2013 17:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1402,14 +1402,15 @@ LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 10.44997pt on input line 81.
 
-<figures/titlepage/dokumentenkopf__klein.pdf, id=135, 512.91624pt x 47.17625pt>
+<figures/titlepage/dokumentenkopf__klein.pdf, id=39, 512.91624pt x 47.17625pt>
 File: figures/titlepage/dokumentenkopf__klein.pdf Graphic file (type pdf)
+
 <use figures/titlepage/dokumentenkopf__klein.pdf>
 Package pdftex.def Info: figures/titlepage/dokumentenkopf__klein.pdf used on in
 put line 114.
 (pdftex.def)             Requested size: 509.30415pt x 46.84425pt.
 
-<figures/titlepage/INF_Logo_typo_grau.pdf, id=136, 171.64125pt x 46.1725pt>
+<figures/titlepage/INF_Logo_typo_grau.pdf, id=40, 171.64125pt x 46.1725pt>
 File: figures/titlepage/INF_Logo_typo_grau.pdf Graphic file (type pdf)
 
 <use figures/titlepage/INF_Logo_typo_grau.pdf>
@@ -1479,274 +1480,60 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--4
 ] (./thesis.toc
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 1.
- [9]) [10] (./chapters/introduction.tex
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 1.
+) [9] [10
 
-Underfull \hbox (badness 10000) in paragraph at lines 3--7
+] [1
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 3--7
-
- []
-
-) [1
-
-
-] [2] (./chapters/preliminaries.tex
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 10.
-
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
-File: omsptm.fd 
-)
-LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 10.
- [3
-
-] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 52--53
-
- []
-
-
-Overfull \hbox (18.18634pt too wide) in paragraph at lines 63--64
-[]\T1/ptm/m/it/10.95 A polynomial-time ap-prox-i-ma-tion scheme
- []
-
-[5] [6] [7]
-Overfull \hbox (0.3587pt too wide) in paragraph at lines 210--211
-[]\T1/ptm/m/it/10.95 A truth as-sign-ment is a sat-is-fy-ing as-sign-ment if it
- makes
- []
-
-[8]
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 240.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[9]
-\du=\skip211
- [10] [11]) [12] (./chapters/problem_definition.tex
-Underfull \hbox (badness 10000) in paragraph at lines 283--286
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 283--286
-
- []
-
-[13
-
-] <figures/pcp.png, id=446, 1252.68pt x 638.385pt>
-File: figures/pcp.png Graphic file (type png)
- <use figures/pcp.png>
-Package pdftex.def Info: figures/pcp.png used on input line 289.
-(pdftex.def)             Requested size: 375.8069pt x 191.51697pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 299--300
-
- []
-
-[14 <./figures/pcp.png>] <figures/rwa.png, id=456, 1317.92375pt x 1096.095pt>
-File: figures/rwa.png Graphic file (type png)
-
-<use figures/rwa.png>
-Package pdftex.def Info: figures/rwa.png used on input line 303.
-(pdftex.def)             Requested size: 263.58008pt x 219.21512pt.
- [15 <./figures/rwa.png>] [16]
-Underfull \hbox (badness 10000) in paragraph at lines 950--951
-
- []
-
-) [17] [18
-
-] (./chapters/previous.tex) [19] [20
+] [2
 
 ] (./chapters/approach.tex
-[21]
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 60.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 3.
+
+Underfull \hbox (badness 10000) in paragraph at lines 6--8
+
+ []
+
+[3]
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 17.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[22] [23]
-Overfull \hbox (45.13129pt too wide) detected at line 118
+[4] [5]
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 75.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[6
+
+] [7]
+Overfull \hbox (45.13129pt too wide) detected at line 135
 \OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 h\OT1/cmr/m/n/10.95 ][] []
  []
 
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 151.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 169.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [24
+) (./thesis.bbl [8
 
-] [25] [26
-
-] (./chapters/results.tex
-Overfull \hbox (6.48111pt too wide) in paragraph at lines 4--6
-\T1/ptm/m/n/10.95 The pro-gram has been im-ple-mented in Java and com-piled wit
-h the JDK com-piler ver-sion 1.7.0_25.
- []
-
-[27]
-Underfull \hbox (badness 10000) in paragraph at lines 14--16
-
- []
-
-[28] [29]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[30
-
-] [31] [32] [33] [34] [35] [36] [37] [38]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[39
-
-] [40]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[41
-
-] [42] [43] [44]
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[45] [46] [47] [48] [49] [50]
-Underfull \hbox (badness 10000) in paragraph at lines 1563--1564
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1565--1566
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1567--1568
-
- []
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-) [51
-
-
-] [52] (./chapters/outlook.tex [53
-
-]
-
-LaTeX Warning: Reference `sec:variations' on page 54 undefined on input line 11
-.
-
-) [54] (./chapters/summary.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 2--177
-
- []
-
-(./thesis.bbl [55
-
-] [56
+] [9] [10
 
 ]
 bibitemlist
-[57] [58])
+[11] [12])
 
 Class memoir Warning: The material used in the headers is too large
 (77.80435pt) for the given head height (13.6pt), it is recommended to
 either increase the head height or redesign the header
 (in both cases you will find help in the memoir manual). on input line 194.
 
-[59]
+[13]
 \tf@toc=\write6
 \openout6 = `thesis.toc'.
 
@@ -1756,45 +1543,36 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 194.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 194.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 194.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 186501FAD25E4B47ECC64CE13BCFC0B4;2010.
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+(rerunfilecheck)             Checksum: 63D8608BCE70A5AB92CB6C03940E9850;459.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 194.
  ) 
 Here is how much of TeX's memory you used:
- 22036 strings out of 494987
- 369238 string characters out of 3178575
- 943039 words of memory out of 3000000
- 24411 multiletter control sequences out of 15000+200000
+ 21620 strings out of 494987
+ 363355 string characters out of 3178575
+ 515743 words of memory out of 3000000
+ 24235 multiletter control sequences out of 15000+200000
  83598 words of font info for 102 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 69i,24n,57p,1579b,856s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 69i,24n,57p,1226b,832s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
-10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/sh
-are/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/t
-exmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
-imes/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (71 pages, 869546 bytes).
+ublic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fo
+nts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
+times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.p
+fb>
+Output written on thesis.pdf (25 pages, 197476 bytes).
 PDF statistics:
- 1018 PDF objects out of 1200 (max. 8388607)
- 907 compressed objects within 10 object streams
- 368 named destinations out of 1000 (max. 500000)
- 289 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 398 PDF objects out of 1000 (max. 8388607)
+ 350 compressed objects within 4 object streams
+ 155 named destinations out of 1000 (max. 500000)
+ 87 words of extra memory for PDF output out of 10000 (max. 10000000)
 
