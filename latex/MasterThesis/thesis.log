@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  5 DEC 2013 17:18
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  6 DEC 2013 15:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1549,11 +1549,11 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 194.
 Here is how much of TeX's memory you used:
  21620 strings out of 494987
  363355 string characters out of 3178575
- 515743 words of memory out of 3000000
+ 514743 words of memory out of 3000000
  24235 multiletter control sequences out of 15000+200000
  83598 words of font info for 102 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 69i,24n,57p,1226b,832s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 69i,24n,57p,1514b,832s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -1569,7 +1569,7 @@ e/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
 times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.p
 fb>
-Output written on thesis.pdf (25 pages, 197476 bytes).
+Output written on thesis.pdf (25 pages, 198764 bytes).
 PDF statistics:
  398 PDF objects out of 1000 (max. 8388607)
  350 compressed objects within 4 object streams
