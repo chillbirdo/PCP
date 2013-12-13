@@ -1,15 +1,2104 @@
-In this chapter, the algorithms and models of the new hybrid approach for the PCP will be described and analysed in detail. First in section \ref{sec:mainalg}, the main procedure is explained. Section \ref{sec:construction} then analyses the two different construction heuristics used in this work, namely \textit{OneStepCD} and \textit{DANGER}. The improvement phase is split into two parts: algorithms, that assign a new, but not mandatorily feasible coloring to a chosen set of nodes, here consisting of one random-, one heuristic- and two exact approaches, are applied in the first part. Below, this thesis will refer to these algorithms to as the ``recoloring'' algorithms \ref{sec:recoloring}. As for the second part, section \ref{sec:tabu} presents the tabu search, which tries to find a coloring that makes the conflict-prone solution created by one of the recoloring algorithms feasible. Finally, two variants, one of them consisting in a modified ILP formulation and the other one in adding lately recolored areas to the tabulist, are considered in section \ref{sec:variants}.
+In this chapter, the algorithms and models of the new hybrid approach for the PCP will be described and analysed in detail. First in section \ref{sec:mainalg}, the main procedure is explained. Section \ref{sec:construction} then analyses the two different construction heuristics used in this work, namely \textit{OneStepCD} and \textit{DANGER}. The improvement phase is split into two phases: algorithms, that assign a new, but not mandatorily feasible coloring to a chosen set of nodes, here consisting of one random-, one heuristic- and two exact approaches, are applied in the first phase. Below, this thesis will refer to these algorithms to as the ``recoloring'' algorithms \ref{sec:recoloring}. As for the second phase, section \ref{sec:tabu} presents the tabu search, which tries to find a coloring that makes the conflict-prone solution created by one of the recoloring algorithms feasible. Finally, two variants, one of them consisting in a modified ILP formulation and the other one in adding lately recolored areas to the tabulist, are considered in section \ref{sec:variants}.
 
 \section{Main Procedure}
 \label{sec:mainalg}
 
-The idea of the approach in general is -- starting from a feasible solution -- to pick a color and eliminate it. For each color $c$, the set of nodes colored with $c$ is reselected as well as recolored without using color $c$. Using this strategy, it might not be possible to find a feasible solution. Therefore, infeasible solutions are accepted, i.e. solutions including at least one conflict, that is, a pair of adjacent nodes $\{i,j\}\in E, i \in V, j\in V$ colored with the same color. One of the two nodes is chosen and in the following refered to as the ``conflicting node''\footnote{How the node is chosen is shown in detail in \ref{sec:recoloring}}. These conflicting nodes form the starting points for the tabu-search, that tries to find an alternative color for each conflicting node. This process eliminates the conflicting node, but eventually produces further conflicts, which then again have to be eliminated. If no feasible coloring can be found withing a specified number of iterations, the next color $c+1$ is considered. If all conflicts can be eliminated, the algorithm has successfully decreased the chromatic number and repeats the whole process.\\
-This approach differs from the strategy presented in \cite{noronha-06} mainly by the effort that is investigated in the recoloring phase. There, Noronha et.al. reassign colors in a random way and therefore produce a random number of conflicts. The main innovation of the idea presented in this work is the minimization of the number of conflicts produced by an advanced recoloring algorithm, in order to increase the chance of eliminating these conflicts by the tabu search.\\
+The idea of the approach in general is to start from a feasible solution, pick a color and eliminate it. For each color $c$, the set of nodes colored with $c$ is reselected as well as recolored without considering color $c$. Using this strategy, it might not be possible to find a feasible solution. Therefore, infeasible solutions are accepted, i.e. solutions including at least one conflict, that is a pair of adjacent nodes $\{i,j\}\in E, i \in V, j\in V$ colored with the same color. One of the two nodes is chosen and in the following refered to as the ``conflicting node''\footnote{How the node is chosen is shown in detail in \ref{sec:recoloring}}, its encasting cluster to as the ``conflicting cluster''. Further, a cluster is said to be of color $c$ if and only if it contains a selected node colored with color $c$. The conflicting clusters form the starting points for the tabu-search, that tries to find an alternative color for each of them. This process eventually produces further conflicts, which then again have to be eliminated. If no feasible coloring can be found withing a specified number of iterations, the next color $c+1$ is considered. If all conflicts can be eliminated, the algorithm has successfully decreased the chromatic number and repeats the whole process.\\
+This approach differs from the strategy presented in \cite{noronha-06} mainly by the effort that is investigated in the recoloring phase. There, Noronha et.al. reassign colors in a random way and therefore produce a random number of conflicts. The main innovation presented in this work is the minimization of the number of conflicts produced by an advanced recoloring algorithm, in order to increase the chance of eliminating these conflicts by the tabu search.\\
+An example of a possible sequence of steps performed by the algorithm is given in Figure \ref{fig:mainproc}. There, a feasible solution is shown in figure \ref{fig:mainproc}a). The color darkgrey is chosen to be eliminated. In the following two steps, for each darkgrey cluster, another node is chosen and colored with any color other than darkgrey. After recoloring, the resulting graph shown in \ref{fig:mainproc}c) is infeasible. Then, starting from the conflicting cluster outlined in red, the tabu search looks up the node-color pair inside that cluster, that causes the fewest conflicts. In \ref{fig:mainproc}d), a node-color pair is found, which does not produce any new conflicts. If this solution would have produced conflicts again, the local search would go on searching until a feasible solution was found or the maximum amount of iteration was reached.
+\ifx\du\undefined
+  \newlength{\du}
+\fi
+\setlength{\du}{15\unitlength}
+\begin{center}
+\begin{figure}
+\begin{tikzpicture}[scale=0.60]
+\pgftransformxscale{1.000000}
+\pgftransformyscale{-1.000000}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{13.300000\du}{3.150000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.200000\du}{3.100000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{13.350000\du}{13.125000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.165000\du}{13.075000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 1.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.145000\du}{8.075000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 1.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{13.230000\du}{8.175000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.882353, 0.882353, 0.882353}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.962500\du}{3.612500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.962500\du}{3.612500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.962500\du}{3.612500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.947500\du}{2.562500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.947500\du}{2.562500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.947500\du}{2.562500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.517647, 0.517647, 0.517647}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{3.007500\du}{8.037500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{3.007500\du}{8.037500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{3.007500\du}{8.037500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{5.092500\du}{8.037500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{5.092500\du}{8.037500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{5.092500\du}{8.037500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.242500\du}{8.137500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.242500\du}{8.137500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.242500\du}{8.137500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.517647, 0.517647, 0.517647}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.327500\du}{8.137500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.327500\du}{8.137500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.327500\du}{8.137500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.977500\du}{12.637500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.977500\du}{12.637500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.977500\du}{12.637500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{5.012500\du}{13.587500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{5.012500\du}{13.587500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{5.012500\du}{13.587500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.372500\du}{2.587500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.372500\du}{2.587500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.372500\du}{2.587500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.882353, 0.882353, 0.882353}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.307500\du}{3.837500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.307500\du}{3.837500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.307500\du}{3.837500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.312500\du}{13.587500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.312500\du}{13.587500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.312500\du}{13.587500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.247500\du}{12.687500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.247500\du}{12.687500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.247500\du}{12.687500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (2.967713\du,4.125113\du)--(3.002287\du,7.524887\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (3.004156\du,8.550171\du)--(2.980844\du,12.124829\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (3.184028\du,4.072717\du)--(4.870972\du,7.577283\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (5.459600\du,2.564224\du)--(11.860400\du,2.585776\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (3.434417\du,12.415576\du)--(11.785583\du,8.359424\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (5.502178\du,7.730804\du)--(11.962822\du,2.894196\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (5.297529\du,13.161505\du)--(12.087471\du,3.013495\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (14.309885\du,4.350330\du)--(14.325115\du,7.624670\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (14.256504\du,12.175403\du)--(14.318496\du,8.649597\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (14.040685\du,12.218170\du)--(12.449315\du,8.606830\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (14.085548\du,4.299677\du)--(12.464452\du,7.675323\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (12.249084\du,8.650101\du)--(12.305916\du,13.074899\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (5.354460\du,2.873508\du)--(11.835540\du,7.826492\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathmoveto{\pgfpoint{14.729769\du}{12.514532\du}}
+\pgfpatharc{68}{-66}{4.625925\du and 4.625925\du}
+\pgfusepath{stroke}
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathmoveto{\pgfpoint{2.487719\du}{3.805784\du}}
+\pgfpatharc{245}{116}{4.771862\du and 4.771862\du}
+\pgfusepath{stroke}
+}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{34.620200\du}{3.225000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{25.520200\du}{3.175000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{34.670200\du}{13.200000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{25.485200\du}{13.150000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{25.465200\du}{8.150000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 1.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{34.550200\du}{8.250000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.882353, 0.882353, 0.882353}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.282700\du}{3.687500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.282700\du}{3.687500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.282700\du}{3.687500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.267700\du}{2.637500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.267700\du}{2.637500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.267700\du}{2.637500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.327700\du}{8.112500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.327700\du}{8.112500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.327700\du}{8.112500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.412700\du}{8.112500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.412700\du}{8.112500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.412700\du}{8.112500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.562700\du}{8.212500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.562700\du}{8.212500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.562700\du}{8.212500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.517647, 0.517647, 0.517647}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.647700\du}{8.212500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.647700\du}{8.212500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.647700\du}{8.212500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.297700\du}{12.712500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.297700\du}{12.712500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.297700\du}{12.712500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.332700\du}{13.662500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.332700\du}{13.662500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.332700\du}{13.662500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.692700\du}{2.662500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.692700\du}{2.662500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.692700\du}{2.662500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.882353, 0.882353, 0.882353}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.627700\du}{3.912500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.627700\du}{3.912500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.627700\du}{3.912500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.632700\du}{13.662500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.632700\du}{13.662500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.632700\du}{13.662500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.567700\du}{12.762500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.567700\du}{12.762500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.567700\du}{12.762500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (24.287913\du,4.200113\du)--(24.322487\du,7.599887\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (24.324356\du,8.625171\du)--(24.301044\du,12.199829\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (24.504228\du,4.147717\du)--(26.191172\du,7.652283\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (26.779800\du,2.639224\du)--(33.180600\du,2.660776\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (24.754617\du,12.490576\du)--(33.105783\du,8.434424\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (26.822378\du,7.805804\du)--(33.283022\du,2.969196\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (26.617729\du,13.236505\du)--(33.407671\du,3.088495\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (35.630085\du,4.425330\du)--(35.645315\du,7.699670\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (35.576704\du,12.250403\du)--(35.638696\du,8.724597\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (35.360885\du,12.293170\du)--(33.769515\du,8.681830\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (35.405748\du,4.374677\du)--(33.784652\du,7.750323\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (33.569284\du,8.725101\du)--(33.626116\du,13.149899\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (26.674660\du,2.948508\du)--(33.155740\du,7.901492\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathmoveto{\pgfpoint{36.049969\du}{12.589532\du}}
+\pgfpatharc{68}{-66}{4.625925\du and 4.625925\du}
+\pgfusepath{stroke}
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathmoveto{\pgfpoint{23.807919\du}{3.880784\du}}
+\pgfpatharc{245}{116}{4.771862\du and 4.771862\du}
+\pgfusepath{stroke}
+}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{1.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{13.220400\du}{19.925000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.120410\du}{19.875000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{13.270400\du}{29.900000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.085405\du}{29.850000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.065405\du}{24.850000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{13.150400\du}{24.950000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.882353, 0.882353, 0.882353}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.882910\du}{20.387500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.882910\du}{20.387500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.882910\du}{20.387500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.867910\du}{19.337500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.867910\du}{19.337500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.867910\du}{19.337500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.927910\du}{24.812500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.927910\du}{24.812500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.927910\du}{24.812500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{5.012910\du}{24.812500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{5.012910\du}{24.812500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{5.012910\du}{24.812500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.882353, 0.882353, 0.882353}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.162900\du}{24.912500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.162900\du}{24.912500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.162900\du}{24.912500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.247900\du}{24.912500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.247900\du}{24.912500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.247900\du}{24.912500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.897910\du}{29.412500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.897910\du}{29.412500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{2.897910\du}{29.412500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.932910\du}{30.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.932910\du}{30.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.932910\du}{30.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.292900\du}{19.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.292900\du}{19.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.292900\du}{19.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.882353, 0.882353, 0.882353}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.227900\du}{20.612500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.227900\du}{20.612500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.227900\du}{20.612500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.232900\du}{30.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.232900\du}{30.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{12.232900\du}{30.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.167900\du}{29.462500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.167900\du}{29.462500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{14.167900\du}{29.462500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (2.888123\du,20.900113\du)--(2.922697\du,24.299887\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (2.924566\du,25.325171\du)--(2.901254\du,28.899829\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (3.104438\du,20.847717\du)--(4.791382\du,24.352283\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (5.380010\du,19.339224\du)--(11.780800\du,19.360776\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (3.354826\du,29.190576\du)--(11.705984\du,25.134424\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (5.422587\du,24.505804\du)--(11.883223\du,19.669196\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (5.217939\du,29.936505\du)--(12.007871\du,19.788495\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (14.230285\du,21.125330\du)--(14.245515\du,24.399670\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (14.176904\du,28.950403\du)--(14.238896\du,25.424597\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (13.961085\du,28.993170\du)--(12.369715\du,25.381830\du);
+}
+\pgfsetlinewidth{0.120000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{1.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{1.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (14.005948\du,21.074677\du)--(12.384852\du,24.450323\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (12.169484\du,25.425101\du)--(12.226316\du,29.849899\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (5.274869\du,19.648508\du)--(11.755941\du,24.601492\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathmoveto{\pgfpoint{14.650169\du}{29.289532\du}}
+\pgfpatharc{68}{-66}{4.625925\du and 4.625925\du}
+\pgfusepath{stroke}
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathmoveto{\pgfpoint{2.408129\du}{20.580784\du}}
+\pgfpatharc{245}{116}{4.771862\du and 4.771862\du}
+\pgfusepath{stroke}
+}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{34.710700\du}{19.925000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{25.610700\du}{19.875000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{34.760700\du}{29.900000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{25.575700\du}{29.850000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{25.555700\du}{24.850000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.050000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{34.640700\du}{24.950000\du}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.882353, 0.882353, 0.882353}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.373200\du}{20.387500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.373200\du}{20.387500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.373200\du}{20.387500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.358200\du}{19.337500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.358200\du}{19.337500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.358200\du}{19.337500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.418200\du}{24.812500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.418200\du}{24.812500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.418200\du}{24.812500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.503200\du}{24.812500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.503200\du}{24.812500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.503200\du}{24.812500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.882353, 0.882353, 0.882353}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.653200\du}{24.912500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.653200\du}{24.912500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.653200\du}{24.912500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.738200\du}{24.912500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.738200\du}{24.912500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.738200\du}{24.912500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.388200\du}{29.412500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.388200\du}{29.412500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{24.388200\du}{29.412500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.423200\du}{30.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.423200\du}{30.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{26.423200\du}{30.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.882353, 0.882353, 0.882353}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.783200\du}{19.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.783200\du}{19.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.783200\du}{19.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.718200\du}{20.612500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.718200\du}{20.612500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.718200\du}{20.612500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.723200\du}{30.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.723200\du}{30.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{33.723200\du}{30.362500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetlinewidth{0.100000\du}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.658200\du}{29.462500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{fill}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.658200\du}{29.462500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetbuttcap
+\pgfsetmiterjoin
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{35.658200\du}{29.462500\du}}{\pgfpoint{0.462500\du}{0\du}}{\pgfpoint{0\du}{0.462500\du}}
+\pgfusepath{stroke}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (24.378413\du,20.900113\du)--(24.412987\du,24.299887\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (24.414856\du,25.325171\du)--(24.391544\du,28.899829\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (24.594728\du,20.847717\du)--(26.281672\du,24.352283\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (26.870300\du,19.339224\du)--(33.271100\du,19.360776\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (24.845117\du,29.190576\du)--(33.196283\du,25.134424\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (26.912878\du,24.505804\du)--(33.373522\du,19.669196\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (26.708229\du,29.936505\du)--(33.498171\du,19.788495\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (35.720585\du,21.125330\du)--(35.735815\du,24.399670\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (35.667204\du,28.950403\du)--(35.729196\du,25.424597\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (35.451385\du,28.993170\du)--(33.860015\du,25.381830\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (35.496248\du,21.074677\du)--(33.875152\du,24.450323\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (33.659784\du,25.425101\du)--(33.716616\du,29.849899\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\draw (26.765160\du,19.648508\du)--(33.246240\du,24.601492\du);
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathmoveto{\pgfpoint{36.140469\du}{29.289532\du}}
+\pgfpatharc{68}{-66}{4.625925\du and 4.625925\du}
+\pgfusepath{stroke}
+}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\pgfsetbuttcap
+{
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetfillcolor{dialinecolor}
+% was here!!!
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathmoveto{\pgfpoint{23.898419\du}{20.580784\du}}
+\pgfpatharc{245}{116}{4.771862\du and 4.771862\du}
+\pgfusepath{stroke}
+}
+% setfont left to latex
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\node[anchor=west] at (8.250000\du,15.750000\du){a)};
+% setfont left to latex
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\node[anchor=west] at (30.150000\du,15.750000\du){b)};
+% setfont left to latex
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\node[anchor=west] at (8.250000\du,32.700000\du){c)};
+% setfont left to latex
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\node[anchor=west] at (30.150000\du,32.750000\du){d)};
+\end{tikzpicture}
+\label{fig:mainproc}
+\caption{a) a feasible solution with 3 colors; b,c) recoloring phase: darkgrey is intended to be eliminated. An infeasible solution with one conflict results; d) elimintation of the conflict by tabu search}
+\end{figure}
+\end{center}
 
-\textbf{TODO: INSERT GRAPHIC!!!!}\\
-
-Listing \ref{algo:overall} provides an overview of the single steps that have been implemented. The algorithm takes an instance $P$ of PCP, an algorithm $INITIAL$ computing an initial solution, and a recoloring algorithm $RECOLOR$ as input. As described in \ref{ch:problem}, an instance of PCP consists of an uncolored graph $G=(V,E)$, where $V$ is divided into $k$ clusters. Parameter $INITIAL$ can be any algorithm that creates a feasible solution for PCP. Two of them have been taken into account in this work and are described in section \ref{sec:recoloring}, others are proposed e.g. in \cite{li-00}.\\
-In line $1$, the initial solution is calculated and assigned to $S$. The chromatic number of $S$ is assigned to $cmax$ in line $2$. Line $3$ initializes an empty set $X$. Line $5$ to line $9$ are preformed for each color $c \in \{1,\ldots , cmax\}$. In line $5$ all nodes in $V$ are selected that are colored with color $c$ and denoted by $V_c$. In line $6$ a copy $S'$ of $S$ is created where all nodes in $V_c$ are recolored by the algorithm $RECOLOR$, excluding color $c$. The set of conflicting nodes is denoted by $C_c$ in line $7$. The triple consisting of a tentative solution $S_c$, the set of nodes that have been recolored $V_c$ and the set of conflicting nodes $C_c$ are added to $X$ in line $8$. The elements are sorted, such that the triples with the fewest conflicting nodes are first, since it is assumed by the author that it is more likely to eliminate a lower amount of conflicts by tabu search. In line $10$ the reduction phase starts by initializing variable \textit{reduction} with \textbf{false}. The loop in line $11$ creates a tentative solution $S_c'$ for each solution $S_c, c\in \{1,\ldots ,k\}$, applies a tabu search and breaks in case of a feasible assignment could be found. If so, the chromatic number $cmax$ is reduced and the whole process is repeated with $S_c'$ as new solution. If the tabu search could not find a feasible solution for all the solutions in $X$, the algorithm returns with the latest feasible solution $S$.
+Listing \ref{algo:overall} provides an overview of the algorithm that have been implemented. The algorithm takes an instance $P$ of PCP, an algorithm $INITIAL$ computing an initial solution, as well as a recoloring algorithm $RECOLOR$ as input. As described in \ref{ch:problem}, an instance of PCP consists of an uncolored graph $G=(V,E)$, where $V$ is divided into $k$ clusters. Parameter $INITIAL$ can be any algorithm that creates a feasible solution for PCP. Two of them have been taken into account in this work and are described in section \ref{sec:recoloring}, others are proposed e.g. in \cite{li-00}.\\
+In line $1$, the initial solution is calculated and assigned to $S$. The chromatic number of $S$ is assigned to $cmax$ in line $2$. Line $3$ initializes an empty set $X$. Line $5$ to line $9$ are preformed for each color $c \in \{1,\ldots , cmax\}$. In line $5$ all nodes in $V$ are selected that are colored with color $c$ and denoted by $V_c$. In line $6$ a copy $S'$ of $S$ is created where all nodes in $V_c$ are recolored by the algorithm $RECOLOR$, excluding color $c$. The set of conflicting nodes is denoted by $C_c$ in line $7$. The triple consisting of a tentative solution $S_c$, the set of nodes that have been recolored $V_c$ and the set of conflicting nodes $C_c$ are added to $X$ in line $8$. The elements are sorted, such that the triples with the fewest conflicting nodes are first, since it is assumed by the author that it is more likely to eliminate a lower amount of conflicts by tabu search. The loop in line $11$ creates a tentative solution $S_c'$ for each solution $S_c, c\in \{1,\ldots ,k\}$, applies a tabu search and breaks in case of a feasible assignment could be found. If so, the chromatic number $cmax$ is reduced and the whole process is repeated with $S_c'$ as new solution. If the tabu search could not find a feasible solution for all the solutions in $X$, the algorithm returns the latest feasible solution $S$.
 
 \begin{algorithm}[h]
 \KwIn{A problem instance $\mathcal{P}$, an algorithm $INITIAL$ and an algorithm $RECOLOR$ }
@@ -18,15 +2107,13 @@ $S \gets INITIAL(\mathcal{P})$\;
 $cmax \gets$ the chromatic number of $S$\;
 List $X \gets \emptyset $\;
 \For{$c=1,\ldots,cmax$}{
-  Let $V_c$ be the set of nodes coloured by the colour $c$\;
-  Let $S_c$ be the solution created by applying $RECOLOR(V_c, \{1,\ldots ,cmax\}\setminus c)$ on $S$\;
-  Let $C_c$ be the set of all nodes involved in color conflicts of $S_c$\;
-  $X \gets X \cup \langle S_c,V_c,C_c\rangle$
+  Let $\langle S_c,C_c \rangle$ be the solution and its conflicts created by applying $RECOLOR(S, c)$\;
+  $X \gets X \cup \langle S_c,C_c\rangle$
 }
 Sort elements in $X$ ascendingly by $|C_i|$\;
 $reduction \gets$ false\;
-\For {$\langle S_c,V_c,C_c\rangle \in X$}{
-  $S_c' \gets TabuSearch(S_c, V_c, C_c)$\;
+\For {$\langle S_c,C_c\rangle \in X$}{
+  $S_c' \gets TabuSearch(S_c, C_c)$\;
   \If{ $S_c'$ is free of conflicts}{
     $reduction \gets$ true\;
     break;
@@ -47,76 +2134,78 @@ $reduction \gets$ false\;
 \section{Constructional Heuristics}
 \label{sec:construction}
 
-In this section the two construction heuristics used in this work are presented. 
+Construction heuristics create a solution from scratch. In this work this solution is required to be feasible, while a construction heuristic by definition may return infeasible solutions as well. This section presents the two construction heuristics implemented by the author.
 
 \subsection{OneStepCD}
 
-OneStepCD is the best performing out of six constructional algorithms presented by Li and Simha in \cite{li-00}. It has been adapted from VCP to PCP and has linear time complexity.
+OneStepCD is the best performing out of six constructional greedy algorithms for PCP presented by Li and Simha in \cite{li-00}. The algorithms have originally been constructed for VCP by \cite{brelaz-79} and have been adapted to PCP. Listing \ref{algo:osdc} shows the algorithm.\\
+The main criterion considered for selecting and coloring the next node is the so called \textit{color degree}, which is defined as the amount of different colors of nodes adjacent to the considered node. The idea behind OneStepCD is first for each (unselected) cluster to select the node with the lowest color degree. Out of the resulting set, select the node with the highest color degree and color it with the lowest possible color. This procedure is repeated until all clusters are colored, i.e. hold one selected and colored node.\\
+Intuitivley, this approach leads to good results, since for \textit{selecting} a node it would not be efficient to choose a node out of the cluster with a high color degree, while for \textit{coloring} with each iteration it gets more and more dangerous to not color the node with highest degree.
 
 \begin{algorithm}[h]
-\KwIn{An uncolored Graph $G=(V,E)$}
-\KwOut{A feasible Coloring $V'$}
+\KwIn{A problem instance $P$}
+\KwOut{A feasible Coloring $S$}
 Remove from G all edges $(i,j) \in E$ : $i,j \in V_k$ for some $k=1,\ldots,q$\; 
-Set $V' \gets \emptyset $\;
-\While{$|V'| < q$} {
+Set $S \gets \emptyset $\;
+\While{$|S| < q$} {
   Set $X \gets \emptyset $\;
-  \For{$k=1,\ldots,q$ : $V_k \cap V'=0$}{
-    Set $X \gets X \cup argmin\{CD(i) : i \in V_k\}$\; 
+  \For{$k=1,\ldots,q$ : $V_k \cap S=\emptyset$}{
+    $X \gets X \cup argmin\{CD(i) : i \in V_k\}$\; 
   }
-  Set $x \gets argmax\{CD(i) : i \in X \}$\;
-  Set $V' \gets V' \cup \{x\}$\;
+  $x \gets argmax\{CD(i) : i \in X \}$\;
+  $S \gets S \cup \{x\}$\;
   Assign the minimum possible colour to x\;
-  Remove from G all nodes in $V_{c(x)} \setminus \{x\} $\;
 }
-\Return{$V'$}\;
+\Return{$S$}\;
 \caption{OneStepCD}
 \label{algo:osdc}
 \end{algorithm}
 
-\section{DANGER}
+\subsection{DANGER}
+
+
 
 
 \section{Recoloring}
 \label{sec:recoloring}
 
+As explained above, the process of finding a new coloring for a set of clusters of same color, ommiting the actual color is of high relevance for this work. The recoloring algorithms intend to minimize the conflicts that arise from the new coloring, in order to increase the chance for the local search to eliminate them. An adaption of the already presented construction heuristic OneStepCD and two ILP models are shown in the following. For the purpose of comparison, a method assigning random colors has been implemented, too.
 
-\subsection{Random}
+\subsection{OneStepCD Adaption}
 
+The main idea behind the algorithm is to use the same strategy as the construction heuristic but restrict the colors to the domain $\{1,\ldots,cmax\}\setminus c$, where $c$ is the color that is intended to be eliminated. If no color in the domain can establish a feasible solution, the color that produces the minimum amount of conflicts is chosen.\\
 
-\subsection{OneStepCD}
+Listing \ref{algo:osdc2} shows the algorithm in detail
 
 \begin{algorithm}[h]
-\KwIn{A partial Solution $P$, a number of maximum colours $cmax$ }
-\KwOut{A feasible Solution $S$}
-Let $U$ be the set of uncolored nodes in $P$\;
-Set $S \gets \emptyset$\;
-\While{$|U| > 0$} {
+\KwIn{A feasible solution $S$, a color $c$}
+\KwOut{A possibly infeasible solution $S'$ not using $c$}
+Let $V_{pcol(c)}$ be the set of nodes of all clusters colored with $c$ in $S$\;
+Set $S' \gets S \setminus V_c$\;
+Uncolor all nodes in $V_c$\;
+\While{uncolored clusters exist} {
   Set $X \gets \emptyset $\;
-  \For{ $u \in U$}{
-    $X \gets X \cup argmin\{CD(i) : i \in V_{c(u)}\}$\; 
+  \For{ $v \in V_c$}{
+    $X \gets X \cup argmin\{CD(i) : i \in V_{p(v)}\}$\; 
   }
-  Set $x \gets argmax\{CD(i) : i \in X \}$\;
-  Set $cmin \gets$ the minimum possible colour that can be assigned to x\;
-  \If{$cmin \geq cmax$}{
-    $cmin \gets$ the color that produces the fewest conflicts.
+  $z \gets argmax\{CD(x) : x \in X \}$\;
+  $cmin \gets$ the minimum colour that can be assigned to $z$ without producing a conflict\;
+  \If{$cmin > cmax$}{
+    $cmin \gets argmin\{conflicts(z,i):i\in \{1,\ldots,cmax\}\setminus c\}$.
   }
-  Assign $cmin$ to $x$\;
-  $S \gets S \cup \{x\}$\;
-  $U \gets U \setminus V_{c(x)}$\;
+  Color $z$ with $cmin$\;
+  $S' \gets S' \cup \{z\}$\;
 }
-\Return{$V'$}\;
+\Return{$S'$}\;
 \caption{OneStepCD Recoloring}
 \label{algo:osdc2}
 \end{algorithm}
-
 \clearpage
 
 \subsection{ILP minimizing conflicts}
 
 Let $Q = {Q_1,\ldots,Q_q}$ be the set of Clusters. Every cluster $Q_p$ consists of a set of nodes. Let $C=\{1,\ldots,cmax\}$ be the
-set of allowed colors. Let $M$ be a 3-dimensional array of constants, storing
-for every cluster $p \in Q$, the number conflicts that would occur by selecting the pair $(v \in Q_p, c \in C)$.
-$E$ denotes the set of edges and $P[v]$ the cluster of node $v$.
+set of allowed colors. Let $M$ be a 3-dimensional array of constants, storing for every cluster $p \in Q$, the number conflicts that would occur by selecting the pair $(v \in Q_p, c \in C)$. $E$ denotes the set of edges and $P[v]$ the cluster of node $v$.
 
 \begin{equation*}[h]
 \begin{aligned}

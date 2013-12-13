@@ -2,11 +2,12 @@
 \contentsline {chapter}{\chapternumberline {2}Problem Solving Approach}{3}{chapter.2}
 \contentsline {section}{\numberline {2.1}Main Procedure}{3}{section.2.1}
 \contentsline {section}{\numberline {2.2}Constructional Heuristics}{6}{section.2.2}
+\contentsline {subsection}{OneStepCD}{6}{section*.5}
+\contentsline {subsection}{DANGER}{6}{section*.6}
 \contentsline {section}{\numberline {2.3}Recoloring}{6}{section.2.3}
-\contentsline {subsection}{Random}{6}{section*.5}
-\contentsline {subsection}{OneStepCD}{6}{section*.6}
-\contentsline {subsection}{ILP minimizing conflicts}{8}{section*.7}
-\contentsline {subsection}{ILP minimizing conflicting nodes}{8}{section*.8}
+\contentsline {subsection}{OneStepCD Adaption}{7}{section*.7}
+\contentsline {subsection}{ILP minimizing conflicts}{8}{section*.8}
+\contentsline {subsection}{ILP minimizing conflicting nodes}{8}{section*.9}
 \contentsline {section}{\numberline {2.4}Tabu Search}{8}{section.2.4}
 \contentsline {section}{\numberline {2.5}Variants}{8}{section.2.5}
-\contentsline {chapter}{Bibliography}{11}{section*.10}
+\contentsline {chapter}{Bibliography}{11}{section*.11}
