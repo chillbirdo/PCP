@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  13 DEC 2013 17:37
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  16 DEC 2013 17:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1501,30 +1501,39 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 
 LaTeX Warning: Citation `brelaz-79' on page 6 undefined on input line 2141.
 
+
+LaTeX Warning: Citation `glover-96' on page 6 undefined on input line 2166.
+
 [6
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 2176--2177
+Overfull \hbox (20.37357pt too wide) detected at line 2186
+\OML/cmm/m/it/10.95 ColorDanger\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 i\OT1/cm
+r/m/n/10.95 ) = []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2195--2196
 
  []
 
-[7]
-Overfull \hbox (45.13129pt too wide) detected at line 2232
+[7] [8]
+Overfull \hbox (45.13129pt too wide) detected at line 2251
 \OT1/cmr/m/n/10.95 [\OML/cmm/m/it/10.95 h\OT1/cmr/m/n/10.95 ][] []
  []
 
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 2266.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 2285.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) (./thesis.bbl [8
+) (./thesis.bbl [9
 
-] [9] [10
-
-]
+] [10]
 bibitemlist
-[11] [12])
+[11
+
+] [12])
 
 Class memoir Warning: The material used in the headers is too large
 (77.80435pt) for the given head height (13.6pt), it is recommended to
@@ -1549,10 +1558,10 @@ LaTeX Warning: There were undefined references.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 194.
  ) 
 Here is how much of TeX's memory you used:
- 21692 strings out of 494987
- 364948 string characters out of 3178575
- 580074 words of memory out of 3000000
- 24308 multiletter control sequences out of 15000+200000
+ 21701 strings out of 494987
+ 365060 string characters out of 3178575
+ 580115 words of memory out of 3000000
+ 24310 multiletter control sequences out of 15000+200000
  83598 words of font info for 102 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  69i,24n,57p,1388b,1490s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1562,19 +1571,19 @@ f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
 ublic/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-y8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam1
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fo
-nts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
-times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.p
-fb>
-Output written on thesis.pdf (25 pages, 211897 bytes).
+msfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/ut
+mr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on thesis.pdf (25 pages, 223439 bytes).
 PDF statistics:
- 404 PDF objects out of 1000 (max. 8388607)
- 356 compressed objects within 4 object streams
- 154 named destinations out of 1000 (max. 500000)
+ 417 PDF objects out of 1000 (max. 8388607)
+ 368 compressed objects within 4 object streams
+ 161 named destinations out of 1000 (max. 500000)
  87 words of extra memory for PDF output out of 10000 (max. 10000000)
 

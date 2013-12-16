@@ -2139,7 +2139,7 @@ Construction heuristics create a solution from scratch. In this work this soluti
 \subsection{OneStepCD}
 
 OneStepCD is the best performing out of six constructional greedy algorithms for PCP presented by Li and Simha in \cite{li-00}. The algorithms have originally been constructed for VCP by \cite{brelaz-79} and have been adapted to PCP. Listing \ref{algo:osdc} shows the algorithm.\\
-The main criterion considered for selecting and coloring the next node is the so called \textit{color degree}, which is defined as the amount of different colors of nodes adjacent to the considered node. The idea behind OneStepCD is first for each (unselected) cluster to select the node with the lowest color degree. Out of the resulting set, select the node with the highest color degree and color it with the lowest possible color. This procedure is repeated until all clusters are colored, i.e. hold one selected and colored node.\\
+The main criterion considered for selecting and coloring the next node is the so called \textit{color degree} of \textit{saturation degree}, which is defined as the amount of different colors of nodes adjacent to the considered node. The idea behind OneStepCD is first for each (unselected) cluster to select the node with the lowest color degree. Out of the resulting set, select the node with the highest color degree and color it with the lowest possible color. This procedure is repeated until all clusters are colored, i.e. hold one selected and colored node.\\
 Intuitivley, this approach leads to good results, since for \textit{selecting} a node it would not be efficient to choose a node out of the cluster with a high color degree, while for \textit{coloring} with each iteration it gets more and more dangerous to not color the node with highest degree.
 
 \begin{algorithm}[h]
@@ -2163,8 +2163,27 @@ Set $S \gets \emptyset $\;
 
 \subsection{DANGER}
 
+The DANGER heuristic is a method to color a graph introduced by Parker et.al. in \cite{glover-96}. It has been constructed for VCP and therefore does not concern about the peculiarities of PCP. In this work, inquiries have been made to adapt the DANGER heuristic to PCP by slotting an algorithm in ahead, which selects one node per cluster, in order to color the resulting subgraph as usual.\\ 
+Listing \ref{algo:dangerselector} shows the preprocessing algorithm. In line 3, the node $v$ is chosen which has the minimum weighted sum of the already selected adjacent nodes $s(v)$ and the unselected but still selectable adjacent nodes $u(v)$. The weights $c_s$ and $c_u$ are constants. In line 4, the selected node is added to the set of selected nodes $V'$ and in line 5, all the nodes contained in the cluster $p(v)$ enveloping $v$ are removed from $V$. 
 
+\begin{algorithm}[h]
+\KwIn{A problem instance $P$}
+\KwOut{A subproblem $P'$ with $G'\subseteq G$}
+$V' \gets \emptyset$\;
+\While{$|V| > 0$} {
+	$v \gets v\in V : min\{ c_s s(v) + c_u u(v) \}$\;
+	$V' \gets V' \cup v$\;
+	$V \setminus V_{p(v)}$\;
+}
+\caption{Greedy Nodeselection}
+\label{algo:dangerselector}
+\end{algorithm}
 
+Once one node per cluster is selected, the remaining problem is equivalent to VCP and DANGER can be applied in its original version. In contrast to OneStepCD, DANGER requires the allowed set of colors as parameter and is only successful if the graph can be colored within the given amount of colors. This makes the algorithm less flexibile and requires it to run several times in order to explore the lowest chromatic number. DANGER is based on two formulas \textit{Node Danger} and \textit{Color Danger}.\\
+The former decides at each iteration which node shall be colored next. For every node, the algorithm evaluates how dangerous it is, NOT to color node $i$ in this iteration. The node, that maximizes the following term is chosen:
+$$ NodeDanger(i) = \frac{C}{(max\_color - different\_colored(i))^k} + k_u \cdot uncolored(i) + k_a \frac{share(i)}{avail(i)} $$
+
+$$ ColorDanger(i) = \frac{k_1}{(max\_color - diff\_neighbours(c))^{k_2} + k_3 \cdot uncolored(n_c) - k_4 \cdot num(c)} $$
 
 \section{Recoloring}
 \label{sec:recoloring}
