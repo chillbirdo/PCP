@@ -1,8 +1,7 @@
-This chapter introduces theoretical fundamentals like definitions, terms and methods, that are necessary for analysing the Partition Coloring Problem. The presented notations will be used consistently in this thesis. 
+This chapter introduces theoretical fundamentals like definitions, terms and methods, that are necessary for analysing the PCP. The presented notations will be used consistently in this thesis. 
 \section{Optimization Problems and Complexity}
-Since this thesis deals with an optimization problem and the analysis of a solution to it needs to consider some complexity theory is an important field of computer science
-Some definition and explanations of optimization problems and complexity are given in this section.
-For a more detailed insight the reader is referred to \cite{lawler-01,papadimitriou-94,garey-79}.\\
+Since this thesis deals with an optimization problem and the analysis of a solution method, it needs to consider some complexity theory, which is an important field of computer science. Some definitions and explanations of optimization problems and complexity are given in this section.
+For a more detailed insight into these topics, the reader is referred to \cite{lawler-01,papadimitriou-94,garey-79}.\\
 In general an optimization problem is the problem of finding the best solution among all feasible solutions. Depending on weather the variables are continuous or discrete, the optimization problem is said to be a continuous optimization problem or a combinatorial optimization problem (COP). Since the PCP belongs to the latter category, this thesis will not cover further explanations on continuous optimization problems. For information on that topic, the reader is referred to \cite{nocedal-00, pardalos-02}. Most of the following the definitions have been introduced in \cite{blum-05, neumann-10}.
 \begin{definition}[Combinatorial Optimization Problem]
 A Combinatorial Optimization Problem $P = (S, f)$ can be defined by: 
@@ -28,9 +27,9 @@ A decision problem is in $\mathcal{NP}$ iff any given solution of the problem ca
 \end{definition}
 The definition above states, that the solutions for problems in $\mathcal{NP}$ do not require to be calculated in polynomial time, but the solutions need to be verified in polynomial time. Therefore $\mathcal{P} \subseteq \mathcal{NP}$ holds (slightly abusing notation by restricting $\mathcal{P}$ to decision problems)\cite{neumann-10}.
 \begin{definition}[$\mathcal{NP}$-optimization Problem]
-A COP is a $\mathcal{NP}$-optimization problem (NPO) if the corresponding decision problem is in $\mathcal{NP}$.
+A COP is a $\mathcal{NP}$-optimization problem (NPOP) if the corresponding decision problem is in $\mathcal{NP}$.
 \end{definition}
-As an example the decision variant of the Standard Vertex Coloring Problem (VCP) is considered, which asks weather a graph $G$ is colorable within $k$ colors or not. An algorithm has to verify for each vertex $v$ colored with color $c_v$, if all its neighbors are colored with a color different to $c_v$ and further count the number of distinct colors to check weather the number of colors is lower or equal to $k$. This can be done in time  $\mathcal O(\left\vert{V^2}\right\vert)$, where $V$ is the set of vertices.\\
+As an example the decision variant of the standard Vertex Coloring Problem (VCP) is considered, which asks weather a graph $G$ is colorable within $k$ colors or not. An algorithm has to verify for each vertex $v$ colored with color $c_v$, if all its neighbors are colored with a color different to $c_v$ and further count the number of distinct colors to check weather the number of colors is lower or equal to $k$. This can be done in time  $\mathcal O(\left\vert{V^2}\right\vert)$, where $V$ is the set of vertices.\\
 The decision variant of VCP and many other decision problems are at least as difficult as any problem in $\mathcal{NP}$. These problems are said to be $\mathcal{NP}$-hard. Giving a polynomial-time reduction from an $\mathcal{NP}$-hard problem to a particular problem shows that this problem is $\mathcal{NP}$-hard, too. Such a reduction links the considered problem to the known $\mathcal{NP}$-hard problem in such a way that if and only if the considered problem can be solved in polynomial time also the $\mathcal{NP}$-hard problem to which it has been reduced can.\cite{neumann-10} To gain a more detailed insight into that topic, the reader is referenced to \cite{wegener-05}. 
 
 \begin{definition}[$\mathcal{NP}$-hard problems]
@@ -46,7 +45,7 @@ A problem is $\mathcal{NP}$-complete iff it is $\mathcal{NP}$-hard and in $\math
 Informally, $\mathcal{NP}$-complete problems are the hardest problems in the class $\mathcal{NP}$. If there is an algorithm that solves any $\mathcal{NP}$-complete problem in polynomial time, then every problem in $\mathcal{NP}$ can be solved in polynomial time. So far no polynomial time deterministic algorithm has been found to solve one of them. 
 
 \begin{theorem}
-If any $\mathcal{NP}$-complete problem can be solved by a polynomial-time deterministic algorithm, then $\mathcal{NP} = \mathcal{NP}$. If any problem in $\mathcal{NP}$ cannot be solved by a polynomial-time deterministic algorithm, then $\mathcal{NP}$-complete problems are not in $\mathcal{P}$.
+If any $\mathcal{NP}$-complete problem can be solved by a polynomial-time deterministic algorithm, then $\mathcal{P} = \mathcal{NP}$. If any problem in $\mathcal{NP}$ cannot be solved by a polynomial-time deterministic algorithm, then $\mathcal{NP}$-complete problems are not in $\mathcal{P}$.
 \end{theorem}
 
 Most computer scientists assume that $\mathcal{P} \neq \mathcal{NP}$, although it has not been proven yet. The question $\mathcal{P} = \mathcal{NP}$ is one of the most prominent unresolved questions in the field of complexity theory, since a proof would imply a huge impact on any other discipline in discrete mathematics and computer science.\\
@@ -65,13 +64,18 @@ A polynomial-time approximation scheme (PTAS) is a family of algorithms $\{A_{\e
 
 
 \section{Graph Theory Definitions}
+
+Graphs are mathematical structures used to model relations and processes of interconnected objects. They are one of the most important objects for the study of discrete mathemathics and can be used to model a wide range of problems that appear in physics, biology, linguistics, information technology and other disciplines. Most of the following definitions are take from \cite{fritz-11}.
+
 \begin{definition}[Graph]
 A graph is a tuple $G = (V, E)$, where $V$ denotes the set of nodes and $E \subseteq V \times V$ denotes the set of edges. An edge from node $i$ to $j$ is denoted by $\{i, j\}$. We call a graph simple, if it does not contain multiple edges, i.e. more than one edge between the same nodes, or loops, i.e. edges $\{i, i\}$.
 \end{definition}
+
 \begin{definition}[Directed graph]
 A directed graph or digraph is a tuple $D = (V, A)$, where $V$ denotes the set of nodes and $A \subseteq V \times V$ denotes the set of arcs
 or directed edges. An arc from node $i$ to $j$ is denoted by $(i, j)$. We call a directed graph simple, if it does not contain multiple arcs, i.e. more than one arc between the same nodes, or loops, i.e. arcs $(i, i)$.
 \end{definition}
+
 Unless declared explicitly, this thesis considers only simple, undirected graphs $G = (V, E)$.
 
 \begin{definition}[Subgraph]
@@ -91,7 +95,7 @@ The degree of a node $v$ in an undirected graph $G$, denoted by $d(v)$, is the n
 \end{definition}
 
 \begin{lemma}[Handshaking Lemma]
-$$\sum_{v \in V}d(v) = 2\left\vert{E}\right\vert$$
+$$\sum_{v \in V}d(v) = 2\cdot\left\vert{E}\right\vert$$
 \end{lemma}
 
 \begin{proof}
@@ -109,7 +113,7 @@ This immediately follows from the handshaking lemma.
 \end{proof}
 
 \begin{lemma}
-$$\sum_{v\in V}d^+(v)=\sum_{v\in V}d^-(v)=2\left\vert{A}\right\vert$$
+$$\sum_{v\in V}d^+(v)=\sum_{v\in V}d^-(v)=2\cdot\left\vert{A}\right\vert$$
 \end{lemma}
 
 \begin{proof}
@@ -198,7 +202,7 @@ Let $G = (V, E)$ be a graph. We state that $c$ is a (proper) $k$-coloring of $G$
 \end{definition}
 
 \begin{definition}[Truth Assigment]
-A truth assignment is a choice of $true$ or $false$ for each variable, i.e., a function $v : X \rightarrow \{true, false\}$.
+A truth assignment is a choice of $\mathit{true}$ or $\mathit{false}$ for each variable, i.e., a function $v : X \rightarrow \{true, false\}$.
 \end{definition}
 
 \begin{definition}[Conjunctive Normal Form]
@@ -221,9 +225,9 @@ A truth assignment is a satisfying assignment if it makes every clause $true$.
 
 
 \section{Metaheuristics}
-As defined before, a COP consists of a set of feasible solutions. In almost every case this is of huge size compared to the size of the instance. Solving a COP exactly means finding the optimal solution out of that set. Since for $\mathcal{NP}$-complete problems no algorithm that performs in polynomial time could be found yet, scientists try to find algorithms that approximate optimal solutions.\\
-In general there exist two classes of approximation methods: construction and improvement heuristics. As its name states, the former construct a solution from scratch by adding components until the solution is complete. Usually these algorithms perform fastest but often return a solution quality that is inferior to the ones returned by improvement heuristics. Used as initial solution for an improvement heuristic, the construction heuristic may return an infeasible solution. Afterwards an improvement heuristic iteratively tries to replace the solution by a better/feasible one that is derived from the current solution.\\
-Improvement heuristics can be be divided into two groups, population based and local search based heuristics.\cite{blum-05} The former includes -- but is not restricted to -- Ant Colony Optimization (ACO), Evolutionary Computation (EC) including Genetic Algorithms (GA) and the second group consists of Iterated Local Search (ILS), Simulated Annealing (SA) and Tabu Search (TS). TS is described in more detail in section \ref{sec:ts} and as this thesis does not deal with population based algorithms, it excludes further descriptions of this group. The reader is referred to \cite{gendreau-10}.\\
+As defined before, a COP consists of finding an optimum among a set of feasible solutions. In almost every case this is of huge size compared to the size of the instance. Solving a COP exactly means finding the optimal solution out of that set. Since for $\mathcal{NP}$-complete problems no algorithm that performs in polynomial time could be found yet, scientists try to find algorithms that approximate optimal solutions.\\
+In general there exist two classes of approximation methods: construction and improvement heuristics. As its name states, the former construct a solution from scratch by adding components until the solution is complete. Usually these algorithms perform fastest but often return a solution quality that is inferior to the ones returned by improvement heuristics. Used as initial solution for an improvement heuristic, the construction heuristic may return an infeasible solution. An improvement heuristic starts out from a feasible solution and iteratively tries to replace it by a better/feasible one that is derived from the current solution.\\
+Improvement heuristics can be be divided into two groups, population based and local search based heuristics \cite{blum-05}. Examples of the former are Ant Colony Optimization (ACO), Evolutionary Computation (EC) including Genetic Algorithms (GA) and of the latter Iterated Local Search (ILS), Simulated Annealing (SA) and Tabu Search (TS). TS is described in more detail in section \ref{sec:ts} and as this thesis does not use population based algorithms, it excludes further descriptions of that group. For a more detailed insight into the field of population based algorithms, the reader is referred to \cite{gendreau-10}.\\
 All these methods form a relatively new group of heuristics and are summed up by the term \textit{metaheuristics}, which was first introduced in \cite{glover-86}. In 1996 Osman and Laporte provided a formal definition of metaheuristics \cite{osman-96}:
 \begin{definition}[Metaheuristic]
 A metaheuristic is formally defined as an iterative generation process which guides a subordinate heuristic by combining intelligently different concepts for exploring and exploiting the search space, learning strategies are used to structure information in order to find efficiently near-optimal solutions.
@@ -232,8 +236,11 @@ Any COP can be solved by any kind of metaheuristic. The famous no free lunch the
 \begin{definition}
 Metaheuristic algorithms make no assumptions on the problem and (in theory) can be applied on any optimization problem. They define an abstract order of instructions which lead to improved or feasible solutions. In almost any case these instructions must be implemented using problem specific knowledge.
 \end{definition}
-\section{Basic Local Search}
-Basic local search (LS) is an improvement heuristic that iteratively tries to replace the solution by a better one that is located in an appropriately defined neighborhood structure of the current solution.\cite{blum-05} Algorithm \ref{alg:ls} outlines the basic local search procedure. 
+
+
+\subsection{Basic Local Search}
+Basic local search (LS) is an improvement heuristic that iteratively tries to replace the solution by a better one that is located in an appropriately defined neighborhood structure of the current solution \cite{blum-05}. Definitions \ref{def:neighborhood},\ref{def:localminimum},\ref{def:globalminimum} are taken from \cite{leitner-06}. Algorithm \ref{alg:ls} outlines the basic local search procedure. 
+
 \begin{algorithm}[h]
 \KwIn{A COP $P=(S,f)$}
 \KwOut{A feasible Solution $s$}
@@ -251,17 +258,26 @@ $s' \gets$ Improve($\mathcal{N}(s)$)\;
 \caption{Basic Local Search}
 \label{alg:ls}
 \end{algorithm}
+
 \begin{definition}[Neighborhood structure]
 A neighborhood structure is a function $\mathcal{N} : S \rightarrow 2^S$ that assigns to every $s \in S$ a set of neighbors $\mathcal{N}(s) \subseteq S$. $\mathcal{N}(s)$ is called the neighborhood of $s$.
+\label{def:neighborhood}
 \end{definition}
+
 Iteratively improving the solution by choosing the first neighbor $s_f \in \mathcal{N}(s) \mid f(s_f)<f(s)$ for a minimization problem is called \textit{First Fit} (FF), choosing the best neighbor $s_b \in \mathcal{N}(s) \mid f(s_b)<f(x), \forall x\in \mathcal{N}(s)$ is called \textit{Best Fit} (BF). In the basic version of LS, both variants stop if no better solution can be found, which is called a local minimum. As this thesis is about the PCP which is a minimization problem, optimum and minimum are used equivalently.
+
 \begin{definition}[Local minimum]
 A locally minimal solution (or local minimum) with respect to a neighborhood structure $\mathcal{N}$ is a solution $\hat{s}$ such that $\forall s \in \mathcal{N}(\hat{s}):f(\hat{s})\leq f(s)$. We call $\hat{s}$ a strict locally minimal solution if $\forall s \in \mathcal{N}(\hat{s}) : f(\hat{s})<f(s)$.
+\label{def:localminimum}
 \end{definition}
+
 \begin{definition}[Global minimum]
 A global minimum (optimum) of a minimizing combinatorial optimization problem is a solution, such that $f(\hat{s}) \leq f(s)$, $\forall x \in X$. Therefore a global optimum is a local optimum for all neighborhood structures $\mathcal{N}$.
+\label{def:globalminimum}
 \end{definition}
-Stopping at a local minimum results in quite unsatisfactory solutions, therefore methods have been developed to escape from such a local minimum in order to find the global minimum. Figure \ref{dia:localopt} intents to provide an idea of local and global minima to the reader. A simple technique is to start the LS from different initial solutions repeatedly, which is not very efficient, since the search information from preceding searches is not used. Instead of stopping at a local minimum, metaheuristic algorithms use more complex termination conditions including maximum number of iterations or CPU time.
+
+Stopping at a local minimum results in quite unsatisfactory solutions, therefore methods have been developed to escape from such a local minimum in order to find the global minimum. Figure \ref{dia:localopt} provides an idea of local and global minima to the reader. A simple technique is to start the LS from different initial solutions repeatedly, which is not very efficient, since the search information from preceding searches is not used. In order to avoid stopping at a local minima, metaheuristic algorithms use more complex search techniques and termination conditions including maximum number of iterations or CPU time.
+
 \begin{center}
 \ifx\du\undefined
   \newlength{\du}
@@ -416,12 +432,14 @@ Stopping at a local minimum results in quite unsatisfactory solutions, therefore
 \pgfsetstrokecolor{dialinecolor}
 \node[anchor=west] at (-16.235862\du,1.895833\du){};
 \end{tikzpicture}
-\caption{Local and global optima}
+\caption{Local and global optima for a minimization problem}
 \end{figure}
 \end{center}
-\section{Tabu Search}
+
+
+\subsection{Tabu Search}
 \label{sec:ts}
-The Simple Tabu Search (TS) outlined in \ref{alg:ts}, chooses the best fitting solution out of the neighborhood $\mathcal{N}(s)$, which is not held in a short term memory, the so called tabu list. It holds recently visited solutions and is used to prevent cycles. Moreover, since the tabu list causes the algorithm to accept uphill moves, it can help to escape from local minima. Each chosen solution is added to the tabu list, which is of a specified size and therefore the algorithm has to remove solutions from it, which is usually done in a FIFO order. Most implementations of TS -- like the one implemented in this thesis -- do not store whole solutions, but solution attributes like moves or differences between solutions. The size of the list is a crucial parameter in TS and has to be chosen wisely, since if it is chosen too short the algorithm may stuck in cycles of higher order more likely and if it is chosen too long, the search space is restricted too much. The algorithm terminates if a specified termination criterion is met.\\
+The simple Tabu Search (TS) outlined in listing \ref{alg:ts} chooses the best fitting solution out of the neighborhood $\mathcal{N}(s)$. In contrast to LS, uphill moves are accepted. To prevent cycles, a short term memory -- the so called tabu list -- stores recently visited solution, which are excluded from the neighbourhood of the current solution. The tabu list is of a specified size and therefore the algorithm has to remove solutions from it, which is usually done in a FIFO order. Most implementations of TS -- like the one implemented in this thesis -- do not store whole solutions, but solution attributes like moves or differences between solutions. The size of the list is a crucial parameter in TS and has to be chosen wisely, since if it is chosen too short the algorithm may stuck in cycles of higher order more likely and if it is chosen too long, the search space is restricted too much. The algorithm terminates if a specified termination criterion is met.\\
 \begin{algorithm}[h]
 \KwIn{A COP $P=(S,f)$}
 \KwOut{A feasible Solution $s$}

@@ -2179,22 +2179,43 @@ $V' \gets \emptyset$\;
 \label{algo:dangerselector}
 \end{algorithm}
 
-Once one node per cluster is selected, the remaining problem is equivalent to VCP and DANGER can be applied in its original version. In contrast to OneStepCD, DANGER requires the allowed set of colors as parameter and is only successful if the graph can be colored within the given amount of colors. This makes the algorithm less flexibile and requires it to run several times in order to explore the lowest chromatic number. DANGER is based on two formulas \textit{Node Danger} and \textit{Color Danger}.\\
-The former decides at each iteration which node shall be colored next. For every node, the algorithm evaluates how dangerous it is, NOT to color node $i$ in this iteration. The node, that maximizes the following term is chosen:
-$$ NodeDanger(i) = \frac{C}{(max\_color - different\_colored(i))^k} + k_u \cdot uncolored(i) + k_a \frac{share(i)}{avail(i)} $$
+Once one node per cluster is selected, the remaining problem is equivalent to VCP and DANGER can be applied in its original version. In contrast to OneStepCD, DANGER requires the allowed set of colors as parameter and is successful if and only if the graph can be colored within the given amount of colors. This makes the algorithm less flexibile and requires it to run several times in order to explore the lowest size of the set. DANGER is based on two formulas \textit{Node Danger} and \textit{Color Danger}.\\
+The former decides at each iteration which node shall be colored next. For every node, the algorithm evaluates how dangerous it is, \textit{not} to color node $i$ in this iteration. The node $i$ is chosen, that maximizes the following term:
 
-$$ ColorDanger(i) = \frac{k_1}{(max\_color - diff\_neighbours(c))^{k_2} + k_3 \cdot uncolored(n_c) - k_4 \cdot num(c)} $$
+$$ NodeDanger(i) =  F(different\_colored(i)) + k_u \cdot uncolored(i) + k_a \frac{share(i)}{avail(i)} $$
+
+Where $k_u, k_a$ are nonnegative constants, $different\_colored(i)$ denotes the color degree of node $i$, $uncolored(i)$ is the number of yet uncolored nodes adjacent to $i$, $avail(i)$ is the number of colors available and $share(i)$ denotes the number of available colors that is also available to all uncolored neighbors of $i$. If $F$ is the identity function and $k_u=1$ and $k_a=0$, the danger of node $i$ represents the scarcity of colors that may potentially be assigned to its neighbours. As it turned out that the ``real'' danger does not depend that much on the number of uncolored neighbors \cite{glover-96}, other values are used for the constants and $F$ is given as the following, monotonic increasing function:
+
+$$ F(y) = \frac{C}{(max\_color-y)^k} $$
+
+The boundary on the domain of usable colors is denoted as $max\_color$ and given as paramter to DANGER. As the value of $different\_colored$ grows, its influence is emphasized compared to the other parameters. The proposed values for the constants are $C=1.0, k=1.0, k_u=1, k_a=0.33$.
+
+%% $$ NodeDanger(i) = \frac{C}{avail(i)^k} + k_u \cdot uncolored(i) + k_a \frac{share(i)}{avail(i)} $$
+
+Once a node to color is chosen, the color danger is calculated by a quite similar concept. A color is dangerous to the node $i$ if it is:
+
+\begin{itemize}
+\item attractive to an uncolored node with a large value of $different\_colored$,
+\item attractive to an uncolored node with many uncolored neighbors,
+\item infrequently used (a color that is used extensively is prefered)\cite{glover-96}
+\end{itemize}
+
+Let $diff\_neighbors(c)$ be a function returning over all uncolored nodes having $c$ available, the maximum number of neighbors colored with $c$. Let the node achieving this maximum be denoted by $i_c$, then $uncolored(i_c)$ returns its amount of uncolored neighbors. A function $num(c)$ denotes the number of nodes colored with color $c$. Further, let $k_1,k_2,k_3,k_4$ be nonnegative constants with proposed values of respectively $1.0,1.0,0.5,0.025$. Then the danger of color $c$ is:
+
+$$ ColorDanger(i) = \frac{k_1}{(max\_color - diff\_neighbours(c))^{k_2}} + k_3 \cdot uncolored(n_c) - k_4 \cdot num(c) $$
+
+The concept of danger has not been intended to act as construction heuristic only. Instead, it has been used to be part of an improving heuristic, using Tabu Branch and Bound and Backtracking to reassign colors, as well as methods to prune branches from the assignment tree. While the exploration phase of this thesis, the author has considered to adapt that strategy to PCP.
 
 \section{Recoloring}
 \label{sec:recoloring}
 
-As explained above, the process of finding a new coloring for a set of clusters of same color, ommiting the actual color is of high relevance for this work. The recoloring algorithms intend to minimize the conflicts that arise from the new coloring, in order to increase the chance for the local search to eliminate them. An adaption of the already presented construction heuristic OneStepCD and two ILP models are shown in the following. For the purpose of comparison, a method assigning random colors has been implemented, too.
+As explained above, the process of finding a new coloring for a set of clusters, ommiting the actual color is of high relevance for this work. The recoloring algorithms intend to minimize the conflicts that arise from the new coloring, in order to increase the chance for the local search to eliminate them. An adaption of the already presented construction heuristic OneStepCD and two ILP models are shown in the following. For the purpose of comparison, a method assigning random colors has been implemented, too.
 
 \subsection{OneStepCD Adaption}
 
 The main idea behind the algorithm is to use the same strategy as the construction heuristic but restrict the colors to the domain $\{1,\ldots,cmax\}\setminus c$, where $c$ is the color that is intended to be eliminated. If no color in the domain can establish a feasible solution, the color that produces the minimum amount of conflicts is chosen.\\
 
-Listing \ref{algo:osdc2} shows the algorithm in detail
+Listing \ref{algo:osdc2} shows the algorithm i<n detail
 
 \begin{algorithm}[h]
 \KwIn{A feasible solution $S$, a color $c$}

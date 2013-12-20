@@ -10,6 +10,11 @@ Furthermore four larger instances with density of $0.5$ and sizes of $500$, $100
 
 \section{Results}
 In the following section preliminarily and final results as well as comparison to results of previous works are presented. There have been preceding tests performed to select the most competitive ranges of parameters for the test.
+
+\subsection{OneStepCD vs DANGER}
+
+To find out what method is more efficient to generate an initial solution, OneStepCD or DANGER combined with the prefixed node selection algorithm presented in \ref{ch:approach}, tests have been performed on all instances. As mentioned above, one major disadvantage of DANGER is that a domain of colors has to be given as parameter and the algorithm then tries to color the graph only using colors in that domain. So in order to find out the lower bound of the domain, several runs have to be performed, which multiplies the runtime. Table \ref{tab:TODO}
+
 \subsection{Conflicting nodes}
 As an intermediate result the numbers of conflicting nodes per each recoloring produced by the different recoloring algorithms have been recorded and compared to each other. Since for these experiments a constant length has been used for the tabu list, $HYBRID-PCP$ is deterministic except the case when random recoloring is used. Therefore for random recoloring the average of ten runs per instance and recoloring has been calculated.\\
 In tables \ref{tab:conflitingSize} and \ref{tab:conflitingDens} the results for sets of different size respectively density are presented. Each set contains five instances. Table \ref{tab:conflitingIn} presents the results for the four larger instances.\\
