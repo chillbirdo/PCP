@@ -264,6 +264,10 @@ A neighborhood structure is a function $\mathcal{N} : S \rightarrow 2^S$ that as
 \label{def:neighborhood}
 \end{definition}
 
+\begin{definition}[Move]
+In the context of examining a search space by using a neighborhood structure and given an actual solution $s\in S$, a move is the acceptance of a solution $s'\in\mathcal{N}(s)$ as the new actual solution.
+\end{definition}
+
 Iteratively improving the solution by choosing the first neighbor $s_f \in \mathcal{N}(s) \mid f(s_f)<f(s)$ for a minimization problem is called \textit{First Fit} (FF), choosing the best neighbor $s_b \in \mathcal{N}(s) \mid f(s_b)<f(x), \forall x\in \mathcal{N}(s)$ is called \textit{Best Fit} (BF). In the basic version of LS, both variants stop if no better solution can be found, which is called a local minimum. As this thesis is about the PCP which is a minimization problem, optimum and minimum are used equivalently.
 
 \begin{definition}[Local minimum]
@@ -440,11 +444,12 @@ Stopping at a local minimum results in quite unsatisfactory solutions, therefore
 \subsection{Tabu Search}
 \label{sec:ts}
 The simple Tabu Search (TS) outlined in listing \ref{alg:ts} chooses the best fitting solution out of the neighborhood $\mathcal{N}(s)$. In contrast to LS, uphill moves are accepted. To prevent cycles, a short term memory -- the so called tabu list -- stores recently visited solution, which are excluded from the neighbourhood of the current solution. The tabu list is of a specified size and therefore the algorithm has to remove solutions from it, which is usually done in a FIFO order. Most implementations of TS -- like the one implemented in this thesis -- do not store whole solutions, but solution attributes like moves or differences between solutions. The size of the list is a crucial parameter in TS and has to be chosen wisely, since if it is chosen too short the algorithm may stuck in cycles of higher order more likely and if it is chosen too long, the search space is restricted too much. The algorithm terminates if a specified termination criterion is met.\\
+
 \begin{algorithm}[h]
 \KwIn{A COP $P=(S,f)$}
 \KwOut{A feasible Solution $s$}
 $s \gets$ GenerateInitialSolution($S$)\;
-$TabuList \gets \emptyset$
+$TabuList \gets \emptyset$\;
 \While{NOT termination criterion}{
 $s' \gets$ ChooseBestOf($\mathcal{N}(s) \setminus TabuList$)\;
 Update($TabuList$)\;
@@ -456,7 +461,7 @@ Update($TabuList$)\;
 
 
 \section{Integer Linear Programming}
-Linear Programming (LP) or Mathematical Programming is an important field of operations research. Formulating a Linear Program (LP) is a mathematical way to define a COP and consists of defining the following inequations and equations: an objective function, a set of constraints on the variables $x$ and a set of constraints on their domain, which are all inequations.  All LPs can be written in the following form:
+Linear Programming (LP) or Mathematical Programming is an important field of operations research. Formulating a Linear Program is a mathematical way to define a COP and consists of defining the following inequations and equations: an objective function, a set of constraints on the variables $x$ and a set of constraints on their domain, which are all inequations.  All LPs can be written in the following form:
 
 \begin{equation*}
 \begin{aligned}
@@ -466,15 +471,15 @@ s.t. && Ax \leq b       \\
 \end{aligned}
 \end{equation*}
 
-For each maximization problem there exists a minimization problem and vice versa, in the way that both problems are equivalent. The following set of equations defines the dual problem to the primal maximization problem:
-
-\begin{equation*}
-\begin{aligned}
-min. && b^Ty            \\
-s.t. && A^Ty \geq c       \\
-&& y \in \mathbb{R}^n 	\\
-\end{aligned}
-\end{equation*}
+%For each maximization problem there exists a minimization problem and vice versa, in the way that both problems are equivalent. The following set of equations defines the dual problem to the primal maximization problem:
+%
+%\begin{equation*}
+%\begin{aligned}
+%min. && b^Ty            \\
+%s.t. && A^Ty \geq c       \\
+%&& y \in \mathbb{R}^n 	\\
+%\end{aligned}
+%\end{equation*}
 
 Restrictions on the domain of the variables dedicates the LP into one of the following categories. Be $x$ the set of variables:
 \begin{enumerate}
@@ -484,4 +489,4 @@ Restrictions on the domain of the variables dedicates the LP into one of the fol
 \item Mixed Integer Linear Program (MIP): variables can be restricted to different domains
 \end{enumerate}
 
-Optimizing the objective function with respect to the constraints means to solve the problem exactly and is in general $\mathcal{NP}$-hard. It has to be considered that classifying the problem into complexity classes only gives a worst case analysis of the running time any algorithm would require. State-of-the-art solvers like CPLEX \footnote{http://www-01.ibm.com/software/commerce/optimization/cplex-optimizer/}, GUROBI \footnote{http://www.gurobi.com/}, XPRESS \footnote{www.solver.com/xpress-solver-engine} use the simplex or the interior point algorithm combined with solution pruning methods as Branch and Bound or Branch and Cut, what makes them acquire relatively good average running times and makes LP a widely used method in operations research today. For example, for the TSP the optimal tour through 15112 Cities was calculated in 2001. \cite{applegate-01}
+Optimizing the objective function with respect to the constraints means to solve the problem exactly which is in general $\mathcal{NP}$-hard. It has to be considered that classifying the problem into complexity classes only gives a worst case analysis of the running time any algorithm would require. State-of-the-art solvers like CPLEX \footnote{http://www-01.ibm.com/software/commerce/optimization/cplex-optimizer/}, GUROBI \footnote{http://www.gurobi.com/}, XPRESS \footnote{www.solver.com/xpress-solver-engine} use the simplex or the interior point algorithm combined with solution pruning methods as Branch and Bound or Branch and Cut, what makes them acquire relatively good average running times and makes LP a widely used method in operations research today. For example, for the Traveling Salesman Problem the optimal tour through 15112 Cities was calculated in 2001 \cite{applegate-01}.

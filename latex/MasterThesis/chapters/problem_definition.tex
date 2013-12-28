@@ -1,9 +1,9 @@
 
-The Partition Coloring Problem is a generalization of the Standard Vertex Coloring Problem (VCP) and has initially been considered by Li and Simha in \cite{li-00}. The problem arose from considering the join problem of routing and wavelength assignment in Wavelength Division Multiplexing optical networks. It is therefore a subproblem of a variant of the Wavelength Routing and Assignment Problem (RWA), namely the min-RWA problem. This chapter aims to give formal definitions and examples of VCP, PCP and min-RWA and reasons about their computational complexities.
+The Partition Coloring Problem (PCP) is a generalization of the Standard Vertex Coloring Problem (VCP) and has initially been considered by Li and Simha in \cite{li-00}. The problem arose from considering the join problem of routing and wavelength assignment in Wavelength Division Multiplexing optical networks. It is therefore a subproblem of a variant of the Wavelength Routing and Assignment Problem (RWA), namely the min-RWA problem. This chapter aims to give formal definitions and examples of VCP, PCP and min-RWA and reasons about their computational complexities.
 
 \section{Standard Vertex Coloring Problem}
-As this thesis refers to VCP in various contexts and for the sake of completeness, this section provides a formal definition, although the problem has already been explained as an example in chapter \ref{ch:prelim} \\
-Given a non-directed graph $G=(V,E)$, the VCP consists in assigning a color to each node in $V$, such that no adjacent nodes have the same color. The aim is to minimize the chromatic number, i.e. the overall number of colors used. Figure \ref{pd:vcp} shows a simple graph colored with three colors.
+As this thesis refers to VCP in various contexts and for the sake of completeness, this section provides a formal definition, although the problem has already been explained as an example in chapter \ref{ch:prelim}. \\
+Given a non-directed graph $G=(V,E)$, the VCP consists in assigning a color to each node in $V$, such that no adjacent nodes have the same color. The aim is to minimize the chromatic number, i.e. the total number of colors used. Figure \ref{pd:vcp} shows a simple graph colored with three colors.
 
 \begin{figure}
 \begin{center}
@@ -12,7 +12,7 @@ Given a non-directed graph $G=(V,E)$, the VCP consists in assigning a color to e
   \newlength{\du}
 \fi
 \setlength{\du}{15\unitlength}
-\begin{tikzpicture}[scale=1]
+\begin{tikzpicture}[scale=0.6]
 \pgftransformxscale{1.000000}
 \pgftransformyscale{-1.000000}
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
@@ -250,7 +250,7 @@ Given a non-directed graph $G=(V,E)$, the VCP consists in assigning a color to e
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (2.850000\du,0.650000\du){1};
+\node[anchor=west] at (2.600000\du,0.450000\du){1};
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
@@ -262,7 +262,7 @@ Given a non-directed graph $G=(V,E)$, the VCP consists in assigning a color to e
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (1.600000\du,6.950000\du){4};
+\node[anchor=west] at (1.250000\du,6.650000\du){4};
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
@@ -270,7 +270,7 @@ Given a non-directed graph $G=(V,E)$, the VCP consists in assigning a color to e
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (6.800000\du,10.550000\du){6};
+\node[anchor=west] at (6.850000\du,10.650000\du){6};
 \end{tikzpicture}
 
 \caption{A graph with 6 nodes, colored optimally with 3 colors}
@@ -280,14 +280,17 @@ Given a non-directed graph $G=(V,E)$, the VCP consists in assigning a color to e
 
 \section{Partition Coloring Problem}
 
-As many Network Design Problems (NDPs), the VCP can be generalized by partitioning the vertex set $V$ into clusters $V_k, k \in K$, and expressing feasibility constraints in terms of the clusters instead of individual nodes. \cite{feremans-03} One resulting Generalized Network Design Problem (GNDP) is the PCP, which is due to Fereman's definition an ``Exactly'' GNDP, since it requires the solution to select exactly one vertex per each cluster. In contrast, ``At Least'' and ``At Most'' generalizations aim to select at least, respectively at most a given number of vertices per each cluster. A formal definition of PCP follows: \\\\
-Let $G = (V, E)$ be a non-directed graph and $V$ partitioned into $q$ mutually exclusive, nonempty subsets $V_1, V_2,\ldots, V_q$, where $V_i \cap V_j = \emptyset, \forall i, j = 1, \ldots , q$, $i \neq j$. We refer to $V_1, V_2, \ldots , V_q$ as the components of the partition. The PCP consists in finding a subset $V' \subset V$ such that $|V' \cap V_i| = 1, \forall i = 1, \ldots , q$ (i.e., $V'$ contains one node of each component $V_i$), and the chromatic number of the graph induced in $G$ by $V'$ is minimum.\\\\
+As many Network Design Problems (NDPs), the VCP can be generalized by partitioning the vertex set $V$ into clusters $V_k, k \in K$, and expressing feasibility constraints in terms of the clusters instead of individual nodes \cite{feremans-03}. One resulting Generalized Network Design Problem (GNDP) is the PCP\footnote{Due to Fereman's definition the PCP is an ``Exactly'' GNDP, since it requires the solution to select exactly one vertex per each cluster.}.
+%which is due to Fereman's definition an ``Exactly'' GNDP, since it requires the solution to select exactly one vertex per each cluster. In contrast, ``At Least'' and ``At Most'' generalizations aim to select at least, respectively at most a given number of vertices per each cluster.
+A formal definition of PCP follows: \\\\
+
+Let $G = (V, E)$ be a non-directed graph and $V$ partitioned into $q$ mutually exclusive, nonempty subsets $V_1, V_2,\ldots, V_q$, where $V_i \cap V_j = \emptyset, \forall i, j = 1, \ldots , q$, $i \neq j$. We refer to $V_1, V_2, \ldots , V_q$ as the components of the partition. The PCP consists in finding a subset $V' \subset V$ such that $|V' \cap V_i| = 1, \forall i = 1, \ldots , q$ (i.e., $V'$ contains one node of each component $V_i$), and the chromatic number of the graph $G'$ induced by $V'$ is minimum.\\\\
 Figure \ref{pd:pcpExample} shows an example of an instance with 5 clusters, each holding 2 nodes and its solution with a chromatic number of 2.
 
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.3]{figures/pcp.png}
-\caption{a) Shows a problem instance and b) its optimal solution with two colors.}
+\includegraphics[scale=0.25]{figures/pcp.png}
+\caption{a) Shows a problem instance and b) a solution with two colors.}
 \label{pd:pcpExample}
 \end{center}
 \end{figure}
@@ -301,19 +304,19 @@ Wavelength Division Multiplexing is a technique that allows a single optical lin
 \begin{figure}
 \begin{center}
 \includegraphics[scale=0.2]{figures/rwa.png}
-\caption{Instance of an optical network with 57 vertices and 85 edges. Extracted from the European optical transport network. \cite{belgacem-13}}
+\caption{Instance of an optical network with 57 vertices and 85 edges. Extracted from the European optical transport network \cite{belgacem-13}.}
 \label{pd:opticalNetwork}
 \end{center}
 \end{figure}
   
-In general, the Wavelength Routing and Assignment Problem (RWA) consists of an undirected network Graph $N=(V,E)$, where nodes represent network routing devices and edges represent full duplex (optical) links, i.e. links supporting data transmission in both directions. Further, a set of source-destination pairs (or connection requests) $C=\{(s_1,d_2),\ldots , (s_k, d_k) : s_i,d_i \in V\}$ and a set of wavelengths $\Lambda = \{\alpha_1 , \ldots, \alpha_m \}$ is given. If all connection requests are known in advance, the RWA is said to be static, otherwise dynamic. \cite{murthy-02} The static RWA can further be distinguished by characteristics of its objective. In the context of this thesis, only the min-RWA problem is relevant, which is a static version of RWA aiming to select exactly one path and one wavelength for each pair $(s,d) \in C$, in the way that the number of wavelength $\left\vert{\Lambda}\right\vert$ is minimized under the continuity constraint and its consequences, i.e. if any two paths have at least one edge in common, distinct wavelengths have to be assigned to them. The problem can be decomposed into two subproblems:
+In general, the Wavelength Routing and Assignment Problem (RWA) consists of an undirected network Graph $N=(V,E)$, where nodes represent network routing devices and edges represent full duplex (optical) links, i.e. links supporting data transmission in both directions. Further, a set of source-destination pairs (or connection requests) $C=\{(s_1,d_2),\ldots , (s_k, d_k) \mid s_i,d_i \in V\}$ and a set of wavelengths $\Lambda = \{\alpha_1 , \ldots, \alpha_m \}$ is given. If all connection requests are known in advance, the RWA is said to be static, otherwise dynamic\cite{murthy-02}. The static RWA can further be distinguished by characteristics of its objective. In the context of this thesis, only the min-RWA problem is relevant, which is a static version of RWA aiming to select exactly one path and one wavelength for each pair $(s,d) \in C$, in the way that the number of wavelength $\left\vert{\Lambda}\right\vert$ is minimized under the continuity constraint and its consequences, i.e. if any two paths have at least one edge in common, distinct wavelengths have to be assigned to them. The problem can be decomposed into two subproblems:
 
 \begin{enumerate}
 \item routing: finding a set of paths $P_{s,d}$ for each source-destination pair $(s,d) \in C$
 \item wavelength assignment: selecting exactly one path in $P_{s,d}$ and one wavelength $\alpha_i$ for each pair $(s,d) \in C$, in the way that the number of wavelength is minimized under the continuity constraint.
 \end{enumerate}
 
-Considering the demands of real world instances, it is clear that the computed paths should be relatively short. The first subproblem can be solved in polynomial time by any single source shortest path algorithm like Dijkstra's- or the B*-algorithm. If $\left\vert{P_{s,d}}\right\vert = 1, \forall (s,d)\in C$, i.e. there is exactly one path considered for each source-destination pair, the second subproblem can be transformed into VCP, in any other case $\exists (s,d)\in C : \left\vert{P_{s,d}}\right\vert > 1$ into PCP. The transformation consists in considering each source-destination pair $(s,d)$ as a cluster and and each path in $P_{s,d}$ as a node. In the case that two paths share at least one edge, the corresponding nodes are adjacent. Selecting a node-color pair out of a cluster in PCP is equivalent to selecting a path for a source-destination pair and assign a wavelength to it. Figure \ref{pd:transformation} demonstrates the transformation by example.
+Considering the demands of real world instances, it is clear that the computed paths should be relatively short. The first subproblem can be solved in polynomial time by any single source shortest path algorithm like Dijkstra's or the B*-algorithm. If $\left\vert{P_{s,d}}\right\vert = 1, \forall (s,d)\in C$, i.e. there is exactly one path considered for each source-destination pair, the second subproblem can be transformed into VCP, in any other case $\exists (s,d)\in C : \left\vert{P_{s,d}}\right\vert > 1$ into PCP. The transformation consists in considering each source-destination pair $(s,d)$ as a cluster and and each path in $P_{s,d}$ as a node. In the case that two paths share at least one edge, the corresponding nodes are adjacent. Selecting a node-color pair out of a cluster in PCP is equivalent to selecting a path for a source-destination pair and assign a wavelength to it. Figure \ref{pd:transformation} demonstrates the transformation by example.
 
 
 \begin{center}
@@ -930,7 +933,7 @@ Considering the demands of real world instances, it is clear that the computed p
 
 \section{Problem Complexity}
 
-The decision variant of VCP decides weather a graph can be colored within $k$ colors or not. For $k=2$ the answer can be computed in linear time by checking if the graph is bipartite. For all $k\geq 3$, a certificate for a decision can only be given by a valid coloring. In chapter \ref{ch:prelim} it has been stated that the decision variant of VCP belongs to the class $\mathcal{NP}$. It has been proven in the early 1970s by Cook and Levin, that any problem in $\mathcal{NP}$ can be reduced to SAT. In complexity theory, SAT is one the most prominent NPOs in $\mathcal{NP}$ and it is widely assumed that there does not exist an algorithm that solves it exactly in polynomial time. This assumption is closely linked to the question $\mathcal{P} \neq \mathcal{NP}$.
+The decision variant of VCP asks for whether a graph can be colored within $k$ colors or not. For $k=2$ the answer can be computed in linear time by checking if the graph is bipartite. For $k\geq 3$, a certificate for a decision can only be given by a valid coloring. In chapter \ref{ch:prelim} it has been stated that the decision variant of VCP belongs to the class $\mathcal{NP}$. It has been proven in the early 1970s by Cook and Levin, that any problem in $\mathcal{NP}$ can be reduced to SAT. In complexity theory, SAT is one the most prominent NPOs in $\mathcal{NP}$ and it is widely assumed that there does not exist an algorithm that solves it exactly in polynomial time. This assumption is closely linked to the question $\mathcal{P} \neq \mathcal{NP}$.
 
 \begin{definition}[SAT]
 Given a set of clauses $C_1, \ldots , C_k$ in CNF over a set of variables $X = \{x_1,\ldots,x_n\}$, the SAT problem asks if there exist a satisfying assignment.
@@ -940,7 +943,7 @@ Given a set of clauses $C_1, \ldots , C_k$ in CNF over a set of variables $X = \
 Any problem in $\mathcal{NP}$ can be reduced in polynomial time by a deterministic Touring machine to SAT.
 \end{theorem}
 
-Generating a $k$-coloring of a graph $G=(V,E)$ can be reduced to SAT as follows. For each possible node-color assignment, introduce a boolean variable $x_{vc}, v\in V, c\in \{1,\ldots ,k\}$. Considering the following formulas:
+Generating a $k$-coloring of a graph $G=(V,E)$ can be reduced to SAT as follows: For each possible node-color assignment, introduce a boolean variable $x_{vc}, v\in V, c\in \{1,\ldots ,k\}$. Considering the following formulas:
 \begin{align}
 \bigvee_{1\leq c \leq k}p_{vc} && (v\in V)\\
 \neg (p_{vc} \wedge p_{vd}) 		&& (v\in V, 1 \leq i < j \leq k),\\

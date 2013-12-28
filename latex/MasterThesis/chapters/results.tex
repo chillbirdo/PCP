@@ -1,11 +1,11 @@
-This chapter provides information about the implementation, testing environment, instances used for evaluation and the computational results. Different methods which have been presented in chapter \ref{ch:approach} and various parameters are compared to each other and to results of~\cite{li-00, noronha-06, frota-07}. 
+This chapter provides information about the implementation, testing environment, instances used for evaluation and the computational results. Different methods which have been presented in chapter \ref{ch:approach} and various parameters are compared to each other and to results of previous works \cite{li-00, noronha-06, frota-07}. 
 
 \section{Implementation Details and Testing Environment}
-The program has been implemented in Java and compiled with the JDK compiler version 1.7.0\_25. For reasons of runtime comparability it has been designed to execute on a single thread, although the recoloring for each set of clusters of same color makes the program highly suitable to be processed in a parallel way. For the implementation of abstract data structures no other libraries than the ones provides by the JDK have been used. For solving the ILPs described in \ref{sec:variants}, ILOG CPLEX version 12.5 has been used, which is by now one of the fastest CP solvers available \cite{Meindl-12}. It is written in C++, provides facades to Java, Python, .NET, Matlab, Excel and supports comfortable usage of integer variables and a wide set of constraints and solving strategies.\\
+The program has been implemented in Java and compiled with the JDK compiler version 1.7.025. For reasons of runtime comparability it has been designed to execute on a single thread, although the recoloring for each set of clusters of same color makes the program highly suitable to be processed in a parallel way. For the implementation of abstract data structures no other libraries than the ones provides by the JDK have been used. For solving the ILPs described in \ref{sec:variants}, ILOG CPLEX version 12.5 has been used, which is by now one of the fastest CP solvers available \cite{Meindl-12}. It is written in C++, provides facades to Java, Python, .NET, Matlab, Excel and supports comfortable usage of integer variables and a wide set of constraints and solving strategies.\\
 All tests have been performed on a Pentium i5 DualCore, 2.5 GHz, 8GB RAM, with Linux Mint 14 and OpenJDK Runtime Environment (IcedTea 2.3.9) installed.
 
 \section{Instances}
-Instances of different size, nodes per cluster ratio and density have been evaluated. The instances have been generated randomly by the authors of \cite{frota-07} and evaluated in \cite{frota-07}, \cite{pop-13} and \cite{volko-13}. For reasons of better comparability to previous works, instances have been pooled to sets of same size respectively density. All of them contain $2$ nodes per cluster.\\ 
+Instances of different size, nodes per cluster ratio and density have been evaluated. The instances have been generated randomly by the authors of \cite{frota-07} and evaluated in \cite{frota-07}, \cite{pop-13} and \cite{volko-13}. For reasons of better comparability to previous works, instances have been pooled to sets of same size and density, respectively. All of them contain $2$ nodes per cluster.\\ 
 Furthermore four larger instances with density of $0.5$ and sizes of $500$, $1000$, $1500$ and $2000$ nodes provided by the authors of \cite{noronha-06} have been evaluated and compared. In all of the instances, the nodeset is divided into $500$ clusters, holding $1$,$2$,$3$ and $4$ nodes, respectively. Note that the instance with $1$ node per cluster is identical to VCP. 
 
 \section{Results}
@@ -13,14 +13,14 @@ In the following section preliminarily and final results as well as comparison t
 
 \subsection{OneStepCD vs DANGER}
 
-To find out what method is more efficient to generate an initial solution, OneStepCD or DANGER combined with the prefixed node selection algorithm presented in \ref{ch:approach}, tests have been performed on all instances. As mentioned above, one major disadvantage of DANGER is that a domain of colors has to be given as parameter and the algorithm then tries to color the graph only using colors in that domain. So in order to find out the lower bound of the domain, several runs have to be performed, which multiplies the runtime. Table \ref{tab:TODO}
+To find out what method is more efficient to generate an initial solution, OneStepCD or DANGER combined with the prefixed node selection algorithm presented in chapter \ref{ch:approach}, tests have been performed on all instances. As mentioned above, one major disadvantage of DANGER is that a domain of colors has to be given as parameter and the algorithm then tries to color the graph only using colors in that domain. So in order to find out the lower bound of the domain, several runs have to be performed, which multiplies the runtime. Table \ref{tab:TODO}
 
 \subsection{Conflicting nodes}
-As an intermediate result the numbers of conflicting nodes per each recoloring produced by the different recoloring algorithms have been recorded and compared to each other. Since for these experiments a constant length has been used for the tabu list, $HYBRID-PCP$ is deterministic except the case when random recoloring is used. Therefore for random recoloring the average of ten runs per instance and recoloring has been calculated.\\
-In tables \ref{tab:conflitingSize} and \ref{tab:conflitingDens} the results for sets of different size respectively density are presented. Each set contains five instances. Table \ref{tab:conflitingIn} presents the results for the four larger instances.\\
+As an intermediate result the numbers of conflicting nodes per each recoloring produced by the different recoloring algorithms have been recorded and compared to each other. In tables \ref{tab:conflitingSize} and \ref{tab:conflitingDens} the results for sets of different size respectively density are presented. Each set contains five instances. Table \ref{tab:conflitingIn} presents the results for the four larger instances. Each of the following tables uses the same notation, where $\mathit{cnodes/recoloring}$ denotes the average amount of conflicting nodes per recoloring. Each column presents results for one of the four main recoloring methods discussed in section \ref{sec:recoloring} namely $\mathit{Random}$,$\mathit{OneStepCD}$, the ILP model minimizing the amount of conflicts $\mathit{ILP1}$ and the one minimizing the amount of conflicting nodes $\mathit{ILP2}$. Since for these experiments a constant size for the tabu list has been used, $\mathit{HYBRID}$-$\mathit{PCP}$ is deterministic except the case when random recoloring is used. Therefore for random recoloring the average of ten runs per instance and recoloring has been calculated.\\
 
-It can be seen that a large number of nodes and as well as a low density lead to a high amount of conflicts per recoloring. The differences between the results for $RANDOM$ and $ILP2$ grow to a factor of over $7$ for the larger instances.
+It can be seen that a large number of nodes and as well as a low density lead to a high amount of conflicts per recoloring. The differences between the results for $\mathit{Random}$ and $\mathit{ILP2}$ grow to a factor of over $7$ for the larger instances.
 \begin{table}[h]
+\caption{Sets of different size containing five instances each.}
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{|l|l||l||l||l||l|}
 \hline
@@ -39,10 +39,11 @@ It can be seen that a large number of nodes and as well as a low density lead to
 \hline
 \end{tabular}
 }
-\caption{Sets of different size containing five instances each. $cnodes/recoloring$ denotes the average amount of conflicting nodes per recoloring.}
 \label{tab:conflitingSize}
 \end{table}
+
 \begin{table}[h]
+\caption{Sets of different density containing five instances each.}
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{|l|l||l||l||l||l|}
 \hline
@@ -62,10 +63,10 @@ It can be seen that a large number of nodes and as well as a low density lead to
 \hline
 \end{tabular}
 }
-\caption{Sets of different density containing five instances each.}
 \label{tab:conflitingDens}
 \end{table}
 \begin{table}[h]
+\caption{Evaluation of the four larger instances. $ILP2$ produces over $7$ times less conflicting nodes than $RANDOM$.}
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{|l|l||l||l||l||l|}
 \hline
@@ -80,16 +81,19 @@ It can be seen that a large number of nodes and as well as a low density lead to
 \hline
 \end{tabular}
 }
-\caption{Evaluation of the four larger instances. $ILP2$ produces over $7$ times less conflicting nodes than $RANDOM$.}
 \label{tab:conflitingIn}
 \end{table}
 \clearpage
-\subsection{Final Results}
-For each set of instances experiments with various ranges of tabu list lengths as well as various boundaries for the maximum number of iterations have been performed. The size of the tabu list for each insertion is a random number between the lower and upper bound given as $TabuTenure$, where $C'$ is the tentative number of colors. Because of that indeterminism $10$ runs per instance have been performed. The maximum number of iterations used as stopping criterion is set as $q*(C')*ItMax$, where $q$ is the amount of clusters. Tables \ref{tab:pcpn90p1} to \ref{tab:pcpn120} show the results of the instances provided in \cite{frota-07}. In tables \ref{tab:in1} to \ref{tab:in4} results of the large instances are shown, where the values of the parameters $TabuTenure$ and $ItMax$ have been chosen similar to the ones used in \cite{noronha-06}.\\
-The final results do not exhibit an improvement similar to the preliminary results or any significant improvement at all. The differences of runtimes between heuristical and exact recoloring methods become visible especially on larger instances. For most instances except the four large ones a $TabuTenure$ of $U[1.0C',4.0C']$ and $U[0.0C',5.0C']$ has shown to lead to best results. For the larger instances, a $TabuTenure$ of $U[0.0C',0.5C']$ fits best, which approves the results in \cite{noronha-06}.
+\subsection{Parameter Tests}
+After performing tests for the recoloring algorithms, tests on the whole $\mathit{HYBRID}$-$\mathit{PCP}$ algorithm have been performed. Here, different parameters have been compared by terms of the final result: the chromatic number. For each set of instances experiments with different recoloring algorithms, various ranges of tabu list lengths as well as various boundaries for the maximum number of iterations have been performed. 
+
+Tables \ref{tab:pcpn90p1} to \ref{tab:pcpn120} show the results of the instances provided in \cite{frota-07}. In tables \ref{tab:in1} to \ref{tab:in4} results of the large instances are shown. Again, the four main recoloring strategies are denoted by $\mathit{Random}$,$\mathit{OneStepCD}$, $\mathit{ILP1}$ and $\mathit{ILP2}$. The size of the tabu list for each iteration is a random number between the lower and upper bound given as $TabuTenure$, where $C'$ is number of colors allowed for the actual solution. Because of that indeterminism $5$ runs per each configuration have been performed. The maximum number of iterations used as stopping criterion is set as $q\cdot (C')\cdot ItMax$, where $q$ is the amount of clusters. In tables \ref{tab:in1} to \ref{tab:in4} the values of the parameters $TabuTenure$ and $ItMax$ have been chosen similar to the ones used in \cite{noronha-06}.\\
+
+When comparing the different recoloring algorithms in terms of the chromatic numbers resulting from the whole $\mathit{HYBRID}$-$\mathit{PCP}$ process, it can be seen that these results neither exhibit an improvement similar to the preliminary ones, nor any significant improvement at all. The differences of runtimes between heuristical and exact recoloring methods become visible especially on larger instances. For most instances except the four large ones a $TabuTenure$ of $U[1.0C',4.0C']$ and $U[0.0C',5.0C']$ has shown to lead to best results. For the larger instances, a $TabuTenure$ of $U[0.0C',0.5C']$ fits best, which approves the results in \cite{noronha-06}. Moreover it can be observed over all instances that $ItMax > 20$ does not lead to significant improvements.
 
 %\begin{sidewaystable}
       \begin{table}[h]      
+      \caption{Results for a set of 5 instances of size $90$ and density $0.1$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -126,12 +130,12 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $90$ and density $0.1$}
       \label{tab:pcpn90p1}
 	  \end{table}
 %\end{sidewaystable}
       
       \begin{table}[h]      
+      \caption{Results for a set of 5 instances of size $90$ and density $0.2$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -168,11 +172,11 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $90$ and density $0.2$}
       \label{tab:pcpn90p2}\end{table}
       
-      \begin{table}[h]
       
+      \begin{table}[h]
+      \caption{Results for a set of 5 instances of size $90$ and density $0.3$}      
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -209,11 +213,11 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $90$ and density $0.3$}
       \label{tab:pcpn90p3}\end{table}
       
 
       \begin{table}[h]
+      \caption{Results for a set of 5 instances of size $90$ and density $0.4$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -250,10 +254,10 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $90$ and density $0.4$}
       \label{tab:pcpn90p4}\end{table}
       
       \begin{table}[h]
+      \caption{Results for a set of 5 instances of size $90$ and density $0.5$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -290,11 +294,11 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $90$ and density $0.5$}
       \label{tab:pcpn90p5}\end{table}
 
 
       \begin{table}[h]
+      \caption{Results for a set of 5 instances of size $90$ and density $0.6$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -331,10 +335,10 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $90$ and density $0.6$}
       \label{tab:pcpn90p6}\end{table}
 
       \begin{table}[h]
+      \caption{Results for a set of 5 instances of size $90$ and density $0.7$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -371,11 +375,11 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $90$ and density $0.7$}
       \label{tab:pcpn90p7}\end{table}
 
 
       \begin{table}[h]
+      \caption{Results for a set of 5 instances of size $90$ and density $0.8$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -412,11 +416,11 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $90$ and density $0.8$}
       \label{tab:pcpn90p8}\end{table}
 
 
       \begin{table}[h]
+      \caption{Results for a set of 5 instances of size $90$ and density $0.9$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -453,11 +457,11 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $90$ and density $0.9$}
       \label{tab:pcpn90p9}\end{table}
 
 
       \begin{table}[h]
+      \caption{Results for a set of 5 instances of size $20$ and density $0.5$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -494,11 +498,11 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $20$ and density $0.5$}
       \label{tab:pcpn20}\end{table}
 
 
       \begin{table}[h]
+      \caption{Results for a set of 5 instances of size $40$ and density $0.5$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -535,11 +539,11 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $40$ and density $0.5$}
       \label{tab:pcpn40}\end{table}
 
 
       \begin{table}[h]
+      \caption{Results for a set of 5 instances of size $60$ and density $0.5$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -576,11 +580,11 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $60$ and density $0.5$}
       \label{tab:pcpn60}\end{table}
 
 
       \begin{table}[h]
+      \caption{Results for a set of 5 instances of size $70$ and density $0.5$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -617,11 +621,11 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $70$ and density $0.5$}
       \label{tab:pcpn70}\end{table}
 
 
       \begin{table}[h]
+      \caption{Results for a set of 5 instances of size $80$ and density $0.5$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -658,11 +662,11 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $80$ and density $0.5$}
       \label{tab:pcpn80}\end{table}
 
 
       \begin{table}[h]
+      \caption{Results for a set of 5 instances of size $90$ and density $0.5$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -699,11 +703,11 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $90$ and density $0.5$}
       \label{tab:pcpn90}\end{table}
 
 
       \begin{table}[h]
+      \caption{Results for a set of 5 instances of size $100$ and density $0.5$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -740,11 +744,11 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $100$ and density $0.5$}
       \label{tab:pcpn100}\end{table}
 
 
       \begin{table}[h]
+      \caption{Results for a set of 5 instances of size $120$ and density $0.5$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -781,13 +785,13 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for a set of 5 instances of size $120$ and density $0.5$}
       \label{tab:pcpn120}\end{table}
 	
 \clearpage	
 	
 %TODO insert IN tables
       \begin{table}[h]
+      \caption{Results for the instance \textit{dsjc500.5-1}, $500$ nodes, density $0.5$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -820,11 +824,11 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for the instance \textit{dsjc500.5-1}, $500$ nodes, density $0.5$}
       \label{tab:in1}\end{table}
 
 
       \begin{table}[h]
+      \caption{Results for the instance \textit{dsjc500.5-2}, $1000$ nodes, density $0.5$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l|}{OneStepCD}&\multicolumn{3}{|l|}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -857,12 +861,12 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for the instance \textit{dsjc500.5-2}, $1000$ nodes, density $0.5$}
       \label{tab:in2}
       \end{table}
 
 
       \begin{table}[h]
+      \caption{Results for the instance \textit{dsjc500.5-3}, $1500$ nodes, density $0.5$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l|}{OneStepCD}&\multicolumn{3}{|l|}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -895,12 +899,12 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for the instance \textit{dsjc500.5-3}, $1500$ nodes, density $0.5$}
       \label{tab:in3}\end{table}
 
 
       
       \begin{table}[h]
+      \caption{Results for the instance \textit{dsjc500.5-4}, $2000$ nodes, density $0.5$}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l|}{OneStepCD}&\multicolumn{3}{|l|}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -933,17 +937,18 @@ The final results do not exhibit an improvement similar to the preliminary resul
       \hline
       \end{tabular}
       }
-      \caption{Results for the instance \textit{dsjc500.5-4}, $2000$ nodes, density $0.5$}
       \label{tab:in4}\end{table}
-
 
 \clearpage
 
 \subsection{Variants}
 As discussed in section \ref{sec:variants}, variants for both ILPs have been created by removing the inequation that restricts conflicts inside the recolored set of clusters. In tables \ref{tab:pcpn90p7ILPVariant} to \ref{tab:pcpn120ILPVariant} the standard ILPs marked as $ILP1$ and $ILP2$ are compared to their variants $ILP1*$ and $ILP2*$ by evaluating three instances of different size as well as three instances of different density. It can be seen that removing the aforementioned constraint does not increase the solution quality.\\
-Furthermore experiments have been performed, placing the recently recolored set of clusters on the tabu list for a specified number of iterations (see \ref{sec:variants}). In tables \ref{tab:pcpn90p7RecoloredTT} to \ref{tab:pcpn120RecoloredTT} sets diversing in size and density have been evaluated fixing $ItMax=5$. The parameter $TTRecolored$ sets the number of iterations as $Tabusize=TTRecolored*C'$ for the set of node-color pairs of the recolored set of clusters to remain on the tabu list. Again, no significant impacts on the final results can be observed by applying this kind of variation.
+
+
+Furthermore experiments have been performed, placing the recently recolored set of clusters on the tabu list for a specified number of iterations (see \ref{sec:variants}). In tables \ref{tab:pcpn90p7RecoloredTT} to \ref{tab:pcpn120RecoloredTT} sets diversing in size and density have been evaluated fixing $ItMax=5$. The parameter $TTRecolored$ sets the number of iterations as $Tabusize=TTRecolored\cdot C'$ for the set of node-color pairs of the recolored set of clusters to remain on the tabu list. Again, no significant impacts on the final results can be observed by applying this kind of variation.
 
       \begin{table}[h]
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.7$ each.}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l||}{ILP1*}&\multicolumn{3}{|l||}{ILP2}&\multicolumn{3}{|l|}{ILP2*}\\
@@ -980,10 +985,10 @@ Furthermore experiments have been performed, placing the recently recolored set 
       \hline
       \end{tabular}
       }
-      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.7$ each.}
       \label{tab:pcpn90p7ILPVariant}\end{table}
       
       \begin{table}[h]
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.8$ each.}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l||}{ILP1*}&\multicolumn{3}{|l||}{ILP2}&\multicolumn{3}{|l|}{ILP2*}\\
@@ -1020,10 +1025,10 @@ Furthermore experiments have been performed, placing the recently recolored set 
       \hline
       \end{tabular}
       }
-      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.8$ each.}
       \label{tab:pcpn90p8ILPVariant}\end{table}
       
       \begin{table}[h]
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.9$ each.}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l||}{ILP1*}&\multicolumn{3}{|l||}{ILP2}&\multicolumn{3}{|l|}{ILP2*}\\
@@ -1060,10 +1065,10 @@ Furthermore experiments have been performed, placing the recently recolored set 
       \hline
       \end{tabular}
       }
-      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.9$ each.}
       \label{tab:pcpn90p9ILPVariant}\end{table}
       
       \begin{table}[h]
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.5$ each.}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l||}{ILP1*}&\multicolumn{3}{|l||}{ILP2}&\multicolumn{3}{|l|}{ILP2*}\\
@@ -1100,11 +1105,11 @@ Furthermore experiments have been performed, placing the recently recolored set 
       \hline
       \end{tabular}
       }
-      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.5$ each.}
       \label{tab:pcpn90ILPVariant}
       \end{table}
       
       \begin{table}[h]
+      \caption{ILP variants compared on a set of 5 instances with $100$ nodes and a density of $0.5$ each.}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l||}{ILP1*}&\multicolumn{3}{|l||}{ILP2}&\multicolumn{3}{|l|}{ILP2*}\\
@@ -1141,10 +1146,10 @@ Furthermore experiments have been performed, placing the recently recolored set 
       \hline
       \end{tabular}
       }
-      \caption{ILP variants compared on a set of 5 instances with $100$ nodes and a density of $0.5$ each.}
       \label{tab:pcpn100ILPVariant}\end{table}
       
       \begin{table}[h]
+      \caption{ILP variants compared on a set of 5 instances with $120$ nodes and a density of $0.5$ each.}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l||}{ILP1*}&\multicolumn{3}{|l||}{ILP2}&\multicolumn{3}{|l|}{ILP2*}\\
@@ -1181,7 +1186,6 @@ Furthermore experiments have been performed, placing the recently recolored set 
       \hline
       \end{tabular}
       }
-      \caption{ILP variants compared on a set of 5 instances with $120$ nodes and a density of $0.5$ each.}
       \label{tab:pcpn120ILPVariant}\end{table}
 
 \clearpage
@@ -1190,6 +1194,7 @@ Furthermore experiments have been performed, placing the recently recolored set 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
       
       \begin{table}[h]
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.7$ each.}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -1247,12 +1252,12 @@ Furthermore experiments have been performed, placing the recently recolored set 
       \hline
       \end{tabular}
       }
-      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.7$ each.}
       \label{tab:pcpn90p7RecoloredTT}
       \end{table}
 
       
       \begin{table}[h]
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.8$ each.}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -1310,12 +1315,12 @@ Furthermore experiments have been performed, placing the recently recolored set 
       \hline
       \end{tabular}
       }
-      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.8$ each.}
       \label{tab:pcpn90p8RecoloredTT}
       \end{table}
       
 
       \begin{table}[h]
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.9$ each.}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -1373,11 +1378,11 @@ Furthermore experiments have been performed, placing the recently recolored set 
       \hline
       \end{tabular}
       }
-      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.9$ each.}
       \label{tab:pcpn90p9RecoloredTT}\end{table}
 
       
       \begin{table}[h]
+      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.5$ each.}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -1435,11 +1440,11 @@ Furthermore experiments have been performed, placing the recently recolored set 
       \hline
       \end{tabular}
       }
-      \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.5$ each.}
       \label{tab:pcpn90RecoloredTT}\end{table}
  
       
       \begin{table}[h]
+      \caption{ILP variants compared on a set of 5 instances with $100$ nodes and a density of $0.5$ each.}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -1497,11 +1502,11 @@ Furthermore experiments have been performed, placing the recently recolored set 
       \hline
       \end{tabular}
       }
-      \caption{ILP variants compared on a set of 5 instances with $100$ nodes and a density of $0.5$ each.}
       \label{tab:pcpn100RecoloredTT}\end{table}
 
 
       \begin{table}[h]
+      \caption{ILP variants compared on a set of 5 instances with $120$ nodes and a density of $0.5$ each.}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
@@ -1559,7 +1564,6 @@ Furthermore experiments have been performed, placing the recently recolored set 
       \hline
       \end{tabular}
       }
-      \caption{ILP variants compared on a set of 5 instances with $120$ nodes and a density of $0.5$ each.}
       \label{tab:pcpn120RecoloredTT}\end{table}
 
 \clearpage
@@ -1569,9 +1573,8 @@ Since $RANDOM$ performs best in terms of runtime and is not significantly inferi
 
 In \ref{tab:inCompared} results are compared to results presented in \cite{noronha-06}. The table shows, that for instances of smaller size and for a smaller local search iteration limit the strategy of this theses is superior. The largest instance with $2000$ nodes is solved better by the strategy of Noronha et.al. \\
 
-\textit{[TODO: Was sollen wir mit diesen komischen LBs und UBs machen, die über ganze sets evaluiert wurden?]}\\
-
 \begin{table}[h]
+\caption{Instances of different node size evaluated with $RANDOM$ recoloring and compared to the results presented in \cite{pop-13}.}
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{|l|l||l|l||l|l|l||l|l|l|}
 \hline
@@ -1590,13 +1593,13 @@ In \ref{tab:inCompared} results are compared to results presented in \cite{noron
 \hline
 \end{tabular}
 }
-\caption{Instances of different node size evaluated with $RANDOM$ recoloring and compared to the results presented in \cite{pop-13}.}
 \label{tab:pcpSizeCompared}
 \end{table}
 
 
 \begin{table}[h]
-\resizebox{\columnwidth}{!}{%
+\caption{Instances with 90 nodes and of different density evaluated with $RANDOM$ recoloring and compared to the results presented in \cite{pop-13}.}
+ \resizebox{\columnwidth}{!}{%
 \begin{tabular}{|l|l||l|l||l|l|l||l|l|l|}
 \hline
 \multicolumn{2}{|l||}{Instance set}&\multicolumn{2}{l||}{B \& C}&\multicolumn{3}{l||}{Random (10 runs/inst)}&\multicolumn{3}{|l|}{MA2}\\
@@ -1613,14 +1616,15 @@ In \ref{tab:inCompared} results are compared to results presented in \cite{noron
 90 & 0.8  & 12 & 12  & \textbf{12.05} & 0.14 & 0.80   & 15.18 & 0.80 & 20.98 \\
 90 & 0.9  & 16 & 16  & \textbf{15.80} & 0.15 & 1.23   & 17.27 & 0.98 & 45.75 \\
 \hline
+
 \end{tabular}
 }
-\caption{Instances with 90 nodes and of different density evaluated with $RANDOM$ recoloring and compared to the results presented in \cite{pop-13}.}
 \label{tab:pcpDensCompared}
 \end{table}
 
 
       \begin{table}[h]
+      \caption{The four large instances evaluated with $RANDOM$ recoloring and compared to the results presented in \cite{noronha-06}.}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l||l|l||l|l||l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{2}{|l||}{DSJC500.5-1}&\multicolumn{2}{|l||}{DSJC500.5-2}&\multicolumn{2}{|l||}{DSJC500.5-3}&\multicolumn{2}{|l|}{DSJC500.5-4}\\
@@ -1653,5 +1657,4 @@ In \ref{tab:inCompared} results are compared to results presented in \cite{noron
       \hline
       \end{tabular}
       }
-      \caption{The four large instances evaluated with $RANDOM$ recoloring and compared to the results presented in \cite{noronha-06}.}
       \label{tab:inCompared}\end{table}
