@@ -17,17 +17,18 @@
 \contentsline {subsection}{DANGER}{20}{section*.8}
 \contentsline {section}{\numberline {3.3}Recoloring}{22}{section.3.3}
 \contentsline {subsection}{OneStepCD Adaption}{22}{section*.9}
-\contentsline {subsection}{ILP minimizing conflicts}{23}{section*.10}
-\contentsline {subsection}{ILP minimizing conflicting nodes}{24}{section*.11}
+\contentsline {subsection}{ILP1: minimizing conflicts}{23}{section*.10}
+\contentsline {subsection}{ILP2: minimizing conflicting nodes}{24}{section*.11}
+\contentsline {subsection}{ILP variant}{24}{section*.12}
 \contentsline {section}{\numberline {3.4}Tabu Search}{24}{section.3.4}
-\contentsline {section}{\numberline {3.5}Variants}{24}{section.3.5}
+\contentsline {section}{\numberline {3.5}Variants}{25}{section.3.5}
 \contentsline {chapter}{\chapternumberline {4}Computational Results}{27}{chapter.4}
 \contentsline {section}{\numberline {4.1}Implementation Details and Testing Environment}{27}{section.4.1}
 \contentsline {section}{\numberline {4.2}Instances}{27}{section.4.2}
 \contentsline {section}{\numberline {4.3}Results}{28}{section.4.3}
-\contentsline {subsection}{OneStepCD vs DANGER}{28}{section*.12}
-\contentsline {subsection}{Conflicting nodes}{28}{section*.13}
-\contentsline {subsection}{Parameter Tests}{30}{section*.14}
-\contentsline {subsection}{Variants}{42}{section*.15}
-\contentsline {subsection}{Comparison to previous works}{52}{section*.16}
-\contentsline {chapter}{Bibliography}{55}{section*.18}
+\contentsline {subsection}{OneStepCD vs DANGER}{28}{section*.13}
+\contentsline {subsection}{Conflicting nodes}{28}{section*.14}
+\contentsline {subsection}{Parameter Tests}{30}{section*.15}
+\contentsline {subsection}{Variants}{42}{section*.16}
+\contentsline {subsection}{Comparison to previous works}{52}{section*.17}
+\contentsline {chapter}{Bibliography}{55}{section*.19}

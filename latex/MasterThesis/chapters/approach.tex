@@ -2215,7 +2215,7 @@ As explained above, the process of finding a new coloring for a set of clusters,
 \subsection{OneStepCD Adaption}
 
 The main idea behind the algorithm is to use the same strategy as the construction heuristic but restrict the colors to the domain $\{1,\ldots,cmax\}\setminus c$, where $c$ is the color that is intended to be eliminated. If no color in the domain can establish a feasible solution, the color that produces the minimum amount of conflicts is chosen.\\
-Listing \ref{algo:osdc2} shows the algorithm in detail. A feasible solution $S$ and the color that has to be eliminated $c$ is given as input. Lines 1-3 create a duplicate $S'$ of $S$ and uncolor all clusters of color $c$. Then, for all uncolored clusters, the same procedure as for the standard \textit{OneStepCD} is applied, with the only difference that if no feasible color can be found for a node, the color that produces the fewest conflicts is chosen. The potentially infeasible solution $S'$ is returned.
+Listing \ref{algo:osdc2} shows the algorithm in detail. A feasible solution $S$ and the color $c$ that has to be eliminated is given as input. Lines 1-3 create a duplicate $S'$ of $S$ and uncolor all clusters of color $c$. Then, for all uncolored clusters, the same procedure as for the standard \textit{OneStepCD} is applied, with the only difference that if no feasible color can be found for a node, the color that produces the fewest conflicts is chosen. The potentially infeasible solution $S'$ is returned.
 
 \begin{algorithm}[h]
 \KwIn{A feasible solution $S$, a color $c$}
@@ -2243,7 +2243,7 @@ Uncolor all nodes in $V'_{col(c)}$\;
 
 \subsection{ILP1: minimizing conflicts}
 
-The following ILP model solves the problem of recoloring exactly in terms of minimizing the number of produced conflicts. Let $Q = {Q_1,\ldots,Q_q}$ be the set of uncolored Clusters and let $C=\{1,\ldots,cmax\}$ be the set of allowed colors. The set of binary variables $X$ denote for each cluster $p \in Q$, if the pair $(v \in Q_p, c \in C)$ is selected. Let $M$ be a 3-dimensional array of constants, storing for each cluster $p \in Q$ the number conflicts that would occur by selecting the pair $(v \in Q_p, c \in C)$. $E$ denotes the set of edges and $P[v]$ the cluster of node $v$.
+The following ILP model solves the problem of recoloring exactly in terms of minimizing the number of produced conflicts. Let $Q = {Q_1,\ldots,Q_q}$ be the set of uncolored clusters and let $C=\{1,\ldots,cmax\}$ be the set of allowed colors. The 3-dimensional array of binary variables $X$ denote for each cluster $p \in Q$, if the node-color pair $(v \in Q_p, c \in C)$ is selected. Let $M$ be a 3-dimensional array of constants, storing for each cluster $p \in Q$ the number conflicts that would occur by selecting the pair $(v \in Q_p, c \in C)$. $E$ denotes the set of edges.
 
 \begin{equation*}
 \begin{aligned}
@@ -2254,26 +2254,26 @@ The following ILP model solves the problem of recoloring exactly in terms of min
 \end{aligned}
 \end{equation*}
 
-In (1), the objective function is declared as the sum of the conflicts of all selected node-color pairs. The first set of constraints (2) demand, that for each cluster there has to be one node-color pair selected. Further, inequations (3) prevent conflicts between recolored clusters.\\
+In (1), the objective function is declared as the sum of the conflicts of all selected node-color pairs. The first set of constraints (2) demand, that for each cluster there has to be one node-color pair selected. Further, inequations (3) prevent conflicts between clusters in $Q$.\\
 An advantage of this model is that the matrix $M$ does not have to be created each time the ILP is initialized. By updating it each time a node is colored, it can in fact be made constantly available.
 
 \subsection{ILP2: minimizing conflicting nodes}
 
-[TODOO: HIER BIN ICH]
-
-Since the optimization of the recoloring process aims to increase the possibility for the local search to eliminate 
-
-Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ the color of the node $v$ in partition $p$.
+After recoloring, the tabu search starts eliminating the set of ``conflicting clusters'', i.e. the clusters involved in conflicts, that have \textit{not} been recolored by the latest recoloring process\footnote{This is true in case of recoloring algorithms that do restrict conflicts between recolored clusters. For more information see section \ref{sec:tabu}.}, i.e. is not in $Q$. Let this set be denoted by $R$. 
+   Testing the effect of minimizing $\left\vert{R}\right\vert$ is an important part of this work. In this context, figure \ref{fig:ilp1vsilp2} shows a case where \textit{ILP1} would not decide optimally in terms of minimizing the number of conflicting clusters. The circles represent clusters, inside and outside of set $Q$ and $R$, respectively. The connections between the clusters denote conflicts. Assuming that there exists a coloring that produces $2$ conflicts and $\left\vert{R}\right\vert=2$ \ref{fig:ilp1vsilp2}a and a coloring that produces $3$ conflicts, but $\left\vert{R}\right\vert=1$ \ref{fig:ilp1vsilp2}b, \textit{ILP1} would decide on the first. Therefore a second ILP model has been designed, which minimizes the number of conflicting clusters $\left\vert{R}\right\vert$. Let $color[(p,v)]$ be a function returning the color of the node $v$ in partition $p$.
 
 \begin{equation*}
 \begin{aligned}
-& \underset{Z}{\text{minimize}} && \sum_{p \in Q}\sum_{v \in Q_p}\sum_{c \in C} Z_{pvc}                                              &&&(1)\\
-& \text{subject to} && Z_{pvc} \geq X_{quc}, && \forall ((p,v),(q,u))\in E : (p,v) \notin U, (q,u) \in U, c=color[(p,v)]                                                            &(2)\\
+& \underset{Z}{\text{minimize}} && \sum_{p \in V\setminus Q}\sum_{v \in V_p}\sum_{c \in C} Z_{pvc}                                              &&&(1)\\
+& \text{subject to} && Z_{pvc} \geq X_{quc}, && \forall ((p,v),(q,u))\in E : (p,v) \notin Q, (q,u) \in Q, c=color[(p,v)]                                                            &(2)\\
 &&& \sum_{v \in Q_p}\sum_{c \in C} X_{pvc}=1, && \forall p \in Q   &(3)\\
 &&& X_{pvc}+X_{quc} \leq 1, && \forall ((p,v),(q,u)) \in E, \forall c \in C     &(4)\\
 &&& X_{pvc} \in \{0,1\}, && \forall p \in Q, \forall v \in Q_p, \forall c \in C        &(5)
 \end{aligned}
 \end{equation*}
+
+The array of binary variables $Z$ holds one variable for each cluster connected to any cluster in $Q$. The objective function (1) minimizes the sum of all variables $Z$. The variable $Z_{pvc}$ is set to one, if and only if the variable $X_{quc}$ is set to one and the node $u\in Q$ has a connection to node $v \in V\setminus Q$ (2). Constraints (3) and (4) are the same as in \textit{ILP1}, forcing one selected node-color pair to be selected per cluster and preventing conflicts inside $Q$.  
+
 
 \ifx\du\undefined
   \newlength{\du}
@@ -2288,10 +2288,36 @@ Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ t
 \pgfsetstrokecolor{dialinecolor}
 \definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
 \pgfsetfillcolor{dialinecolor}
+\definecolor{dialinecolor}{rgb}{0.823529, 0.823529, 0.823529}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{25.700000\du}{8.825000\du}}{\pgfpoint{1.750000\du}{0\du}}{\pgfpoint{0\du}{1.125000\du}}
+\pgfusepath{fill}
 \pgfsetlinewidth{0.100000\du}
-\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
-\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
-\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{25.700000\du}{8.825000\du}}{\pgfpoint{1.750000\du}{0\du}}{\pgfpoint{0\du}{1.125000\du}}
+\pgfusepath{stroke}
+\definecolor{dialinecolor}{rgb}{0.823529, 0.823529, 0.823529}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{3.975000\du}{10.675000\du}}{\pgfpoint{3.025000\du}{0\du}}{\pgfpoint{0\du}{1.425000\du}}
+\pgfusepath{fill}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
+\pgfsetstrokecolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{3.975000\du}{10.675000\du}}{\pgfpoint{3.025000\du}{0\du}}{\pgfpoint{0\du}{1.425000\du}}
+\pgfusepath{stroke}
+\definecolor{dialinecolor}{rgb}{0.823529, 0.823529, 0.823529}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{4.710000\du}{4.225000\du}}{\pgfpoint{4.225000\du}{0\du}}{\pgfpoint{0\du}{3.775000\du}}
+\pgfusepath{fill}
+\pgfsetlinewidth{0.100000\du}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
 \pgfsetstrokecolor{dialinecolor}
 \pgfpathellipse{\pgfpoint{4.710000\du}{4.225000\du}}{\pgfpoint{4.225000\du}{0\du}}{\pgfpoint{0\du}{3.775000\du}}
 \pgfusepath{stroke}
@@ -2474,55 +2500,19 @@ Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ t
 \pgfsetdash{}{0pt}
 \definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
 \pgfsetfillcolor{dialinecolor}
-\pgfpathellipse{\pgfpoint{10.397500\du}{8.087500\du}}{\pgfpoint{0.637500\du}{0\du}}{\pgfpoint{0\du}{0.637500\du}}
+\pgfpathellipse{\pgfpoint{8.897500\du}{8.837500\du}}{\pgfpoint{0.637500\du}{0\du}}{\pgfpoint{0\du}{0.637500\du}}
 \pgfusepath{fill}
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\pgfpathellipse{\pgfpoint{10.397500\du}{8.087500\du}}{\pgfpoint{0.637500\du}{0\du}}{\pgfpoint{0\du}{0.637500\du}}
+\pgfpathellipse{\pgfpoint{8.897500\du}{8.837500\du}}{\pgfpoint{0.637500\du}{0\du}}{\pgfpoint{0\du}{0.637500\du}}
 \pgfusepath{stroke}
 \pgfsetbuttcap
 \pgfsetmiterjoin
 \pgfsetdash{}{0pt}
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\pgfpathellipse{\pgfpoint{10.397500\du}{8.087500\du}}{\pgfpoint{0.637500\du}{0\du}}{\pgfpoint{0\du}{0.637500\du}}
+\pgfpathellipse{\pgfpoint{8.897500\du}{8.837500\du}}{\pgfpoint{0.637500\du}{0\du}}{\pgfpoint{0\du}{0.637500\du}}
 \pgfusepath{stroke}
-\pgfsetlinewidth{0.050000\du}
-\pgfsetdash{}{0pt}
-\pgfsetdash{}{0pt}
-\pgfsetbuttcap
-{
-\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
-\pgfsetfillcolor{dialinecolor}
-% was here!!!
-\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
-\pgfsetstrokecolor{dialinecolor}
-\draw (8.048781\du,4.107361\du)--(10.061219\du,7.517639\du);
-}
-\pgfsetlinewidth{0.050000\du}
-\pgfsetdash{}{0pt}
-\pgfsetdash{}{0pt}
-\pgfsetbuttcap
-{
-\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
-\pgfsetfillcolor{dialinecolor}
-% was here!!!
-\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
-\pgfsetstrokecolor{dialinecolor}
-\draw (5.204014\du,3.808905\du)--(9.885986\du,7.666095\du);
-}
-\pgfsetlinewidth{0.050000\du}
-\pgfsetdash{}{0pt}
-\pgfsetdash{}{0pt}
-\pgfsetbuttcap
-{
-\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
-\pgfsetfillcolor{dialinecolor}
-% was here!!!
-\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
-\pgfsetstrokecolor{dialinecolor}
-\draw (6.098506\du,6.514697\du)--(9.776494\du,7.860303\du);
-}
 \pgfsetlinewidth{0.100000\du}
 \pgfsetdash{}{0pt}
 \pgfsetdash{}{0pt}
@@ -2547,10 +2537,14 @@ Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ t
 \pgfsetstrokecolor{dialinecolor}
 \draw (2.716480\du,3.003223\du)--(5.398520\du,9.771777\du);
 }
+\definecolor{dialinecolor}{rgb}{0.823529, 0.823529, 0.823529}
+\pgfsetfillcolor{dialinecolor}
+\pgfpathellipse{\pgfpoint{20.810000\du}{4.225000\du}}{\pgfpoint{4.225000\du}{0\du}}{\pgfpoint{0\du}{3.775000\du}}
+\pgfusepath{fill}
 \pgfsetlinewidth{0.100000\du}
-\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
-\pgfsetdash{{\pgflinewidth}{0.200000\du}}{0cm}
-\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetdash{}{0pt}
+\pgfsetdash{}{0pt}
+\definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
 \pgfsetstrokecolor{dialinecolor}
 \pgfpathellipse{\pgfpoint{20.810000\du}{4.225000\du}}{\pgfpoint{4.225000\du}{0\du}}{\pgfpoint{0\du}{3.775000\du}}
 \pgfusepath{stroke}
@@ -2733,18 +2727,18 @@ Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ t
 \pgfsetdash{}{0pt}
 \definecolor{dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
 \pgfsetfillcolor{dialinecolor}
-\pgfpathellipse{\pgfpoint{26.497500\du}{8.087500\du}}{\pgfpoint{0.637500\du}{0\du}}{\pgfpoint{0\du}{0.637500\du}}
+\pgfpathellipse{\pgfpoint{24.997500\du}{8.837500\du}}{\pgfpoint{0.637500\du}{0\du}}{\pgfpoint{0\du}{0.637500\du}}
 \pgfusepath{fill}
 \definecolor{dialinecolor}{rgb}{1.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\pgfpathellipse{\pgfpoint{26.497500\du}{8.087500\du}}{\pgfpoint{0.637500\du}{0\du}}{\pgfpoint{0\du}{0.637500\du}}
+\pgfpathellipse{\pgfpoint{24.997500\du}{8.837500\du}}{\pgfpoint{0.637500\du}{0\du}}{\pgfpoint{0\du}{0.637500\du}}
 \pgfusepath{stroke}
 \pgfsetbuttcap
 \pgfsetmiterjoin
 \pgfsetdash{}{0pt}
 \definecolor{dialinecolor}{rgb}{1.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\pgfpathellipse{\pgfpoint{26.497500\du}{8.087500\du}}{\pgfpoint{0.637500\du}{0\du}}{\pgfpoint{0\du}{0.637500\du}}
+\pgfpathellipse{\pgfpoint{24.997500\du}{8.837500\du}}{\pgfpoint{0.637500\du}{0\du}}{\pgfpoint{0\du}{0.637500\du}}
 \pgfusepath{stroke}
 \pgfsetlinewidth{0.050000\du}
 \pgfsetdash{}{0pt}
@@ -2756,7 +2750,7 @@ Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ t
 % was here!!!
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\draw (24.148781\du,4.107361\du)--(26.147945\du,7.495145\du);
+\draw (23.956575\du,4.181885\du)--(24.847495\du,8.166589\du);
 }
 \pgfsetlinewidth{0.050000\du}
 \pgfsetdash{}{0pt}
@@ -2768,7 +2762,7 @@ Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ t
 % was here!!!
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\draw (21.304014\du,3.808905\du)--(25.967531\du,7.650891\du);
+\draw (21.197242\du,3.912076\du)--(24.577359\du,8.292966\du);
 }
 \pgfsetlinewidth{0.050000\du}
 \pgfsetdash{}{0pt}
@@ -2780,40 +2774,16 @@ Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ t
 % was here!!!
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\draw (22.198506\du,6.514697\du)--(25.852471\du,7.851514\du);
-}
-\pgfsetlinewidth{0.050000\du}
-\pgfsetdash{}{0pt}
-\pgfsetdash{}{0pt}
-\pgfsetbuttcap
-{
-\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
-\pgfsetfillcolor{dialinecolor}
-% was here!!!
-\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
-\pgfsetstrokecolor{dialinecolor}
-\draw (18.365083\du,6.549347\du)--(18.189917\du,10.125653\du);
-}
-\pgfsetlinewidth{0.050000\du}
-\pgfsetdash{}{0pt}
-\pgfsetdash{}{0pt}
-\pgfsetbuttcap
-{
-\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
-\pgfsetfillcolor{dialinecolor}
-% was here!!!
-\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
-\pgfsetstrokecolor{dialinecolor}
-\draw (18.816480\du,3.003223\du)--(21.498520\du,9.771777\du);
+\draw (22.108953\du,6.683759\du)--(24.446008\du,8.426300\du);
 }
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (4.350000\du,13.300000\du){a)};
+\node[anchor=west] at (4.350000\du,13.800000\du){a)};
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
-\node[anchor=west] at (20.650000\du,13.350000\du){b)};
+\node[anchor=west] at (20.650000\du,13.850000\du){b)};
 % setfont left to latex
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
@@ -2822,15 +2792,45 @@ Let $U$ be the set of uncolored nodes in uncolored clusters and $color[(p,v)]$ t
 \definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 \pgfsetstrokecolor{dialinecolor}
 \node[anchor=west] at (4.700000\du,-1.200000\du){};
+% setfont left to latex
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\node[anchor=west] at (5.710000\du,1.625000\du){Q};
+% setfont left to latex
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\node[anchor=west] at (21.810000\du,1.625000\du){Q};
+% setfont left to latex
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\node[anchor=west] at (4.075000\du,11.425000\du){R};
+% setfont left to latex
+\definecolor{dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
+\pgfsetstrokecolor{dialinecolor}
+\node[anchor=west] at (26.235000\du,8.895000\du){R};
 \end{tikzpicture}
-\label{fig:mainproc}
-\caption{The dotted area contains clusters that have been recolored recently. A connection between two clusters denote a conflict. ILP1 would choose a solution with 2 conflicts (a) over a solution with 3 conflicts, which produces fewer conflicting clusters (b).}
+\label{fig:ilp1vsilp2}
+\caption{Circles denote clusters and a connection between them denote a conflict. ILP1 would choose a solution with 2 conflicts (a) over a solution with 3 conflicts, which produces fewer conflicting clusters (b).}
 \end{center}
 \end{figure}
 
+\subsection{ILP variants}
+
+Furthermore, variants of both ILP models have been considered, that omit the constraints ensuring the absence of conflicts between clusters inside $Q$. The intention here is to reduce the pruning of the solution space in order to allow a larger set of possibly good solutions. The variants will in the following be denoted as \textit{ILP1*} and \textit{ILP2*}, respectively. 
 
 \section{Tabu Search}
 \label{sec:tabu}
+
+As stated above, the purpose of the tabu search is to eliminate the set of ``conflicting clusters'' $R$.
+
+- wie kommt R zustande bei recoloring algorithms die conflicte innerhalb Q zulassen?
+- wie funktioniert die suche? was ist die nachbarschaft?
+- was wird gewählt? (BF)
+- tabulänge, aspiration kriterion
+- abbruchsbedinung
+ 
+- algo überdenken
+- algo kurz beschreiben
 
 \begin{algorithm}[h]
 \KwIn{An infeasible solution $S$, the set of previously recolored nodes $R$, the set of conflicting nodes $C$}
@@ -2870,3 +2870,4 @@ Set $\bar{S} \gets S$\;
 \section{Variants}
 \label{sec:variants}
 
+Furthermore, a variant blablabla
