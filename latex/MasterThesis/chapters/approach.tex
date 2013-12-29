@@ -2259,8 +2259,8 @@ An advantage of this model is that the matrix $M$ does not have to be created ea
 
 \subsection{ILP2: minimizing conflicting nodes}
 
-After recoloring, the tabu search starts eliminating the set of ``conflicting clusters'', i.e. the clusters involved in conflicts, that have \textit{not} been recolored by the latest recoloring process\footnote{This is true in case of recoloring algorithms that do restrict conflicts between recolored clusters. For more information see section \ref{sec:tabu}.}, i.e. is not in $Q$. Let this set be denoted by $R$. 
-   Testing the effect of minimizing $\left\vert{R}\right\vert$ is an important part of this work. In this context, figure \ref{fig:ilp1vsilp2} shows a case where \textit{ILP1} would not decide optimally in terms of minimizing the number of conflicting clusters. The circles represent clusters, inside and outside of set $Q$ and $R$, respectively. The connections between the clusters denote conflicts. Assuming that there exists a coloring that produces $2$ conflicts and $\left\vert{R}\right\vert=2$ \ref{fig:ilp1vsilp2}a and a coloring that produces $3$ conflicts, but $\left\vert{R}\right\vert=1$ \ref{fig:ilp1vsilp2}b, \textit{ILP1} would decide on the first. Therefore a second ILP model has been designed, which minimizes the number of conflicting clusters $\left\vert{R}\right\vert$. Let $color[(p,v)]$ be a function returning the color of the node $v$ in partition $p$.
+After recoloring, the tabu search starts eliminating the set of ``conflicting clusters'', i.e. the clusters involved in conflicts, that have \textit{not} been recolored by the latest recoloring process\footnote{In case of recoloring algorithms that allow conflicts between recolored clusters, additionaly one cluster per conflict is added to $R$.}, i.e. is not in $Q$. Let this set be denoted by $R$. 
+   Testing the effect of minimizing $\left\vert{R}\right\vert$ as a part of the whole algorithm is an important concerns of this work. In this context, figure \ref{fig:ilp1vsilp2} shows a case where \textit{ILP1} would not decide optimally in terms of minimizing the number of conflicting clusters. The circles represent clusters, inside of set $Q$ and $R$, respectively. The connections between the clusters denote conflicts. Assuming that there exists a coloring that produces $2$ conflicts and $\left\vert{R}\right\vert=2$ \ref{fig:ilp1vsilp2}a and a coloring that produces $3$ conflicts, but $\left\vert{R}\right\vert=1$ \ref{fig:ilp1vsilp2}b, \textit{ILP1} would decide on the first. Therefore a second ILP model has been designed, which minimizes the number of conflicting clusters $\left\vert{R}\right\vert$. Let $color[(p,v)]$ be a function returning the color of the node $v$ in partition $p$.
 
 \begin{equation*}
 \begin{aligned}
@@ -2821,16 +2821,8 @@ Furthermore, variants of both ILP models have been considered, that omit the con
 \section{Tabu Search}
 \label{sec:tabu}
 
-As stated above, the purpose of the tabu search is to eliminate the set of ``conflicting clusters'' $R$.
-
-- wie kommt R zustande bei recoloring algorithms die conflicte innerhalb Q zulassen?
-- wie funktioniert die suche? was ist die nachbarschaft?
-- was wird gewählt? (BF)
-- tabulänge, aspiration kriterion
-- abbruchsbedinung
- 
-- algo überdenken
-- algo kurz beschreiben
+As stated above, the purpose of the tabu search is to eliminate the set of ``conflicting clusters'' $R$. Given the infeasible solution $s$, its neighborhood $\mathcal{N}(s)$ constists of the set of all solutions established by exchanging the selected node and/or color of the conflicting clusters. The node-color pair that produces the fewest conflicts is chosen, the resulting solution is accepted and the set $R$ is updated. Therefore it is said to be a best-first strategy. The chosen move is put on the tabu list for a random number of iterations in a specified interval. An aspiration criterion has been used, which means in this context that if the tabued move is allowed if it would lead to a feasbile solution. The search terminates if either a feasible solution could have been established or a specified limit of iteration has been reached.
+Listing \ref{algo:tabusearch} 
 
 \begin{algorithm}[h]
 \KwIn{An infeasible solution $S$, the set of previously recolored nodes $R$, the set of conflicting nodes $C$}
@@ -2846,9 +2838,9 @@ Set $\bar{S} \gets S$\;
       Obtain a tentative solution $S'$ by selecting and coloring node v with color c in $\bar{S}$\; 
       \If{$conflicts(S') = 0$}{
           $\bar{S} \gets S', \bar{v} \gets v, \bar{c} \gets c$\;
-          goto line 16\;
+          goto line 17\;
       }
-      \ElseIf{the pair $v,c$ is not in the tabu list}{
+      \ElseIf{the pair $(v,c)$ is not in the tabu list}{
         \If{$conflicts(S') < minConflicts$}{
           $minConflicts \gets conflicts(S')$\;
           $\bar{S} \gets S', \bar{v} \gets v, \bar{c} \gets c$\;
@@ -2856,7 +2848,7 @@ Set $\bar{S} \gets S$\;
       }
     }
   }
-    insert pair $\bar{v}$, $\bar{c}$ in the tabu list for TabuTenure iterations\;
+    insert pair $(\bar{v}$, $\bar{c})$ in the tabu list for TabuTenure iterations\;
     $C \gets C \setminus u$\;
     Let $C_{\bar{v}}$ be the set of nodes conflicting with $\bar{v}$\;
     $C \gets C \cup C_{\bar{v}}$\;
@@ -2867,7 +2859,6 @@ Set $\bar{S} \gets S$\;
 \label{algo:tabusearch}
 \end{algorithm}
 
-\section{Variants}
-\label{sec:variants}
+\subsection{Variant: protect recolored area}
 
 Furthermore, a variant blablabla
