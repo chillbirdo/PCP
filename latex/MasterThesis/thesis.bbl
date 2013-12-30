@@ -25,8 +25,13 @@ Lucile Belgacem, Irène Charon, and Olivier Hudry.
 \bibitem{blum-05}
 C.~Blum and A.~Roli.
 \newblock {\em Metaheuristics in combinatorial optimization: Overview and
-  conceptual comparision}.
+  conceptual comparison}.
 \newblock ACM Computing Surveys, 2003.
+
+\bibitem{brelaz-79}
+Daniel Br{\'e}laz.
+\newblock New methods to color the vertices of a graph.
+\newblock {\em Communication of ACM}, 22(4):251--256, 1979.
 
 \bibitem{murthy-02}
 M.Gurusamy C.~S. Ram~Murthy.
@@ -86,6 +91,12 @@ F.~Glover.
 \newblock Future paths for integer programming and links to artificial
   intelligence.
 \newblock {\em Cambridge University Press}, 13(533–549), 1986.
+
+\bibitem{glover-96}
+F.~Glover, M.~Parker, and J.~Ryan.
+\newblock Coloring by tabu branch and bound.
+\newblock {\em DIMACS Series on Discrete Mathematics and Theoretical Computer
+  Science}, 26:285--308, 1996.
 
 \bibitem{nocedal-00}
 S.~Wright J.~Nocedal.

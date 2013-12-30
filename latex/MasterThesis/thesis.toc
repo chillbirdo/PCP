@@ -1,34 +1,44 @@
-\contentsline {chapter}{\chapternumberline {1}Preliminaries}{1}{chapter.1}
-\contentsline {section}{\numberline {1.1}Optimization Problems and Complexity}{1}{section.1.1}
-\contentsline {section}{\numberline {1.2}Graph Theory Definitions}{4}{section.1.2}
-\contentsline {section}{\numberline {1.3}Metaheuristics}{7}{section.1.3}
-\contentsline {subsection}{Basic Local Search}{8}{section*.5}
-\contentsline {subsection}{Tabu Search}{9}{section*.6}
-\contentsline {section}{\numberline {1.4}Integer Linear Programming}{10}{section.1.4}
-\contentsline {chapter}{\chapternumberline {2}Problem Definition}{11}{chapter.2}
-\contentsline {section}{\numberline {2.1}Standard Vertex Coloring Problem}{11}{section.2.1}
-\contentsline {section}{\numberline {2.2}Partition Coloring Problem}{11}{section.2.2}
-\contentsline {section}{\numberline {2.3}Wavelength Routing and Assignment Problem}{12}{section.2.3}
-\contentsline {section}{\numberline {2.4}Problem Complexity}{14}{section.2.4}
-\contentsline {chapter}{\chapternumberline {3}Problem Solving Approach}{17}{chapter.3}
-\contentsline {section}{\numberline {3.1}Main Procedure}{17}{section.3.1}
-\contentsline {section}{\numberline {3.2}Constructional Heuristics}{20}{section.3.2}
-\contentsline {subsection}{OneStepCD}{20}{section*.7}
-\contentsline {subsection}{DANGER}{20}{section*.8}
-\contentsline {section}{\numberline {3.3}Recoloring}{22}{section.3.3}
-\contentsline {subsection}{OneStepCD Adaption}{22}{section*.9}
-\contentsline {subsection}{ILP1: minimizing conflicts}{23}{section*.10}
-\contentsline {subsection}{ILP2: minimizing conflicting nodes}{24}{section*.11}
-\contentsline {subsection}{ILP variants}{24}{section*.12}
-\contentsline {section}{\numberline {3.4}Tabu Search}{24}{section.3.4}
-\contentsline {subsection}{Variant: protect recolored area}{25}{section*.13}
-\contentsline {chapter}{\chapternumberline {4}Computational Results}{27}{chapter.4}
-\contentsline {section}{\numberline {4.1}Implementation Details and Testing Environment}{27}{section.4.1}
-\contentsline {section}{\numberline {4.2}Instances}{27}{section.4.2}
-\contentsline {section}{\numberline {4.3}Results}{28}{section.4.3}
-\contentsline {subsection}{OneStepCD vs DANGER}{28}{section*.14}
-\contentsline {subsection}{Conflicting nodes}{28}{section*.15}
-\contentsline {subsection}{Parameter Tests}{30}{section*.16}
-\contentsline {subsection}{Variants}{42}{section*.17}
-\contentsline {subsection}{Comparison to previous works}{52}{section*.18}
-\contentsline {chapter}{Bibliography}{55}{section*.20}
+\contentsline {chapter}{\chapternumberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Motivation}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Guide to the Thesis}{2}{section.1.2}
+\contentsline {chapter}{\chapternumberline {2}Preliminaries}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Optimization Problems and Complexity}{3}{section.2.1}
+\contentsline {section}{\numberline {2.2}Graph Theory Definitions}{6}{section.2.2}
+\contentsline {section}{\numberline {2.3}Metaheuristics}{9}{section.2.3}
+\contentsline {subsection}{Basic Local Search}{10}{section*.5}
+\contentsline {subsection}{Tabu Search}{11}{section*.6}
+\contentsline {section}{\numberline {2.4}Integer Linear Programming}{12}{section.2.4}
+\contentsline {chapter}{\chapternumberline {3}Problem Definition}{13}{chapter.3}
+\contentsline {section}{\numberline {3.1}Standard Vertex Coloring Problem}{13}{section.3.1}
+\contentsline {section}{\numberline {3.2}Partition Coloring Problem}{13}{section.3.2}
+\contentsline {section}{\numberline {3.3}Wavelength Routing and Assignment Problem}{14}{section.3.3}
+\contentsline {section}{\numberline {3.4}Problem Complexity}{16}{section.3.4}
+\contentsline {chapter}{\chapternumberline {4}Previous Works}{19}{chapter.4}
+\contentsline {chapter}{\chapternumberline {5}Problem Solving Approach}{21}{chapter.5}
+\contentsline {section}{\numberline {5.1}Main Procedure}{21}{section.5.1}
+\contentsline {section}{\numberline {5.2}Constructional Heuristics}{24}{section.5.2}
+\contentsline {subsection}{OneStepCD}{24}{section*.7}
+\contentsline {subsection}{DANGER}{24}{section*.8}
+\contentsline {section}{\numberline {5.3}Recoloring}{26}{section.5.3}
+\contentsline {subsection}{OneStepCD Adaption}{26}{section*.9}
+\contentsline {subsection}{ILP1: minimizing conflicts}{28}{section*.10}
+\contentsline {subsection}{ILP2: minimizing conflicting nodes}{28}{section*.11}
+\contentsline {subsection}{ILP variants}{29}{section*.12}
+\contentsline {section}{\numberline {5.4}Tabu Search}{30}{section.5.4}
+\contentsline {subsection}{Variant: protected recolored area}{31}{section*.13}
+\contentsline {chapter}{\chapternumberline {6}Computational Results}{33}{chapter.6}
+\contentsline {section}{\numberline {6.1}Implementation Details and Testing Environment}{33}{section.6.1}
+\contentsline {section}{\numberline {6.2}Instances}{33}{section.6.2}
+\contentsline {section}{\numberline {6.3}Results}{34}{section.6.3}
+\contentsline {subsection}{OneStepCD vs DANGER}{34}{section*.14}
+\contentsline {subsection}{Conflicting nodes}{34}{section*.15}
+\contentsline {subsection}{Parameter Tests}{36}{section*.16}
+\contentsline {subsection}{Variants}{48}{section*.17}
+\contentsline {subsection}{Comparison to previous works}{58}{section*.18}
+\contentsline {chapter}{\chapternumberline {7}Critical Reflection and Outlook}{61}{chapter.7}
+\contentsline {section}{\numberline {7.1}Critical Reflection}{61}{section.7.1}
+\contentsline {section}{\numberline {7.2}Future Works}{61}{section.7.2}
+\contentsline {subsection}{On finding dense subgraphs}{61}{section*.19}
+\contentsline {subsection}{Algorithm proposal}{62}{section*.20}
+\contentsline {chapter}{\chapternumberline {8}Summary}{63}{chapter.8}
+\contentsline {chapter}{Bibliography}{65}{section*.22}

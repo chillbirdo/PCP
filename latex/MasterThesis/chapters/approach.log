@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  28 DEC 2013 20:56
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  30 DEC 2013 16:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -16,7 +16,7 @@ Type  H <return>  for immediate help.
  ...                                              
                                                   
 l.1 I
-     n this chapter, the algorithms and models of the new hybrid approach fo...
+     n this chapter, the algorithms and models of the hybrid approach for th...
 
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -62,9 +62,6 @@ Missing character: There is no f in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no e in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no w in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no y in font nullfont!
 Missing character: There is no b in font nullfont!
@@ -111,7 +108,7 @@ Missing character: There is no n in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no l in font nullfont!
 Missing character: There is no y in font nullfont!
-Missing character: There is no s in font nullfont!
+Missing character: There is no z in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no i in font nullfont!
@@ -482,16 +479,20 @@ Missing character: There is no a in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no . in font nullfont!
-Missing character: There is no A in font nullfont!
-Missing character: There is no f in font nullfont!
+Missing character: There is no I in font nullfont!
+Missing character: There is no n in font nullfont!
 Missing character: There is no t in font nullfont!
+Missing character: There is no h in font nullfont!
 Missing character: There is no e in font nullfont!
-Missing character: There is no r in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no o in font nullfont!
 Missing character: There is no w in font nullfont!
-Missing character: There is no a in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no d in font nullfont!
-Missing character: There is no s in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no g in font nullfont!
 Missing character: There is no , in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no h in font nullfont!
@@ -743,8 +744,13 @@ Missing character: There is no h in font nullfont!
 Missing character: There is no m in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
-Missing character: There is no F in font nullfont!
+Missing character: There is no A in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no d in font nullfont!
 Missing character: There is no i in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no l in font nullfont!
@@ -879,16 +885,39 @@ Missing character: There is no d in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no s in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no s in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no c in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no f in font nullfont!
 ! Undefined control sequence.
-<write> ...erence `sec:variants' on page \thepage 
+<write> ...ence `sec:recoloring' on page \thepage 
                                                   \space undefined\on@line .
-l.1 ...re considered in section \ref{sec:variants}
+l.1 ...ered in subsections of \ref{sec:recoloring}
+                                                   and \ref{sec:tabu}.
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+LaTeX Warning: Reference `sec:recoloring' on page  undefined on input line 1.
+
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no d in font nullfont!
+! Undefined control sequence.
+<write> ... Reference `sec:tabu' on page \thepage 
+                                                  \space undefined\on@line .
+l.1 ... of \ref{sec:recoloring} and \ref{sec:tabu}
                                                   .
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -897,7 +926,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-LaTeX Warning: Reference `sec:variants' on page  undefined on input line 1.
+LaTeX Warning: Reference `sec:tabu' on page  undefined on input line 1.
 
 Missing character: There is no . in font nullfont!
 
@@ -933,6 +962,11 @@ Overfull \hbox (25.7387pt too wide) in paragraph at lines 1--2
 
 Overfull \hbox (21.81377pt too wide) in paragraph at lines 1--2
 \OT1/cmr/m/it/10 GER
+ []
+
+
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 1--2
+[]
  []
 
 
@@ -984,24 +1018,6 @@ Missing character: There is no d in font nullfont!
 Missing character: There is no u in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no e in font nullfont!
-
-Overfull \hbox (20.0pt too wide) in paragraph at lines 3--5
-[]
- []
-
-
-! LaTeX Error: Missing \begin{document}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.6 T
-     he idea of the approach in general is to start from a feasible solution...
-
-You're in trouble here.  Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
 Missing character: There is no T in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no e in font nullfont!
@@ -1100,9 +1116,9 @@ Missing character: There is no l in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no r in font nullfont!
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 6.
+(Font)              <7> on input line 5.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 6.
+(Font)              <5> on input line 5.
 Missing character: There is no , in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no h in font nullfont!
@@ -1130,16 +1146,52 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no s in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no x in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no e in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no l in font nullfont!
+Missing character: There is no p in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no c in font nullfont!
 Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no t in font nullfont!
 Missing character: There is no e in font nullfont!
-Missing character: There is no d in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no s in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no w in font nullfont!
@@ -1421,6 +1473,7 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no f in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no r in font nullfont!
+Missing character: There is no r in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no t in font nullfont!
@@ -1452,8 +1505,8 @@ Missing character: There is no ' in font nullfont!
 ! Undefined control sequence.
 \@footnotetext ...tins {\reset@font \footnotesize 
                                                   \interlinepenalty \interfo...
-l.6 ...is shown in detail in \ref{sec:recoloring}}
-                                                  , its encasting cluster to...
+l.5 ...is shown in detail in \ref{sec:recoloring}}
+                                                  , its encasing cluster to ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -1463,8 +1516,8 @@ and I'll forget about whatever was undefined.
 ! Undefined control sequence.
 \@footnotetext ...}\color@begingroup \@makefntext 
                                                   {\rule \z@ \footnotesep \i...
-l.6 ...is shown in detail in \ref{sec:recoloring}}
-                                                  , its encasting cluster to...
+l.5 ...is shown in detail in \ref{sec:recoloring}}
+                                                  , its encasing cluster to ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -1474,8 +1527,8 @@ and I'll forget about whatever was undefined.
 ! Undefined control sequence.
 <write> ...ence `sec:recoloring' on page \thepage 
                                                   \space undefined\on@line .
-l.6 ...is shown in detail in \ref{sec:recoloring}}
-                                                  , its encasting cluster to...
+l.5 ...is shown in detail in \ref{sec:recoloring}}
+                                                  , its encasing cluster to ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -1483,70 +1536,70 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-LaTeX Warning: Reference `sec:recoloring' on page  undefined on input line 6.
+LaTeX Warning: Reference `sec:recoloring' on page  undefined on input line 5.
 
 
-Overfull \hbox (19.44447pt too wide) in paragraph at lines 6--6
+Overfull \hbox (19.44447pt too wide) in paragraph at lines 5--5
 [][]\OT1/cmr/m/n/10 How
  []
 
 
-Overfull \hbox (13.88892pt too wide) in paragraph at lines 6--6
+Overfull \hbox (13.88892pt too wide) in paragraph at lines 5--5
 \OT1/cmr/m/n/10 the
  []
 
 
-Overfull \hbox (20.83339pt too wide) in paragraph at lines 6--6
+Overfull \hbox (20.83339pt too wide) in paragraph at lines 5--5
 \OT1/cmr/m/n/10 node
  []
 
 
-Overfull \hbox (6.72223pt too wide) in paragraph at lines 6--6
+Overfull \hbox (6.72223pt too wide) in paragraph at lines 5--5
 \OT1/cmr/m/n/10 is
  []
 
 
-Overfull \hbox (18.05557pt too wide) in paragraph at lines 6--6
+Overfull \hbox (18.05557pt too wide) in paragraph at lines 5--5
 \OT1/cmr/m/n/10 cho-
  []
 
 
-Overfull \hbox (13.94446pt too wide) in paragraph at lines 6--6
+Overfull \hbox (13.94446pt too wide) in paragraph at lines 5--5
 \OT1/cmr/m/n/10 sen
  []
 
 
-Overfull \hbox (6.72223pt too wide) in paragraph at lines 6--6
+Overfull \hbox (6.72223pt too wide) in paragraph at lines 5--5
 \OT1/cmr/m/n/10 is
  []
 
 
-Overfull \hbox (27.00005pt too wide) in paragraph at lines 6--6
+Overfull \hbox (27.00005pt too wide) in paragraph at lines 5--5
 \OT1/cmr/m/n/10 shown
  []
 
 
-Overfull \hbox (8.33336pt too wide) in paragraph at lines 6--6
+Overfull \hbox (8.33336pt too wide) in paragraph at lines 5--5
 \OT1/cmr/m/n/10 in
  []
 
 
-Overfull \hbox (13.33334pt too wide) in paragraph at lines 6--6
+Overfull \hbox (13.33334pt too wide) in paragraph at lines 5--5
 \OT1/cmr/m/n/10 de-
  []
 
 
-Overfull \hbox (14.44449pt too wide) in paragraph at lines 6--6
+Overfull \hbox (14.44449pt too wide) in paragraph at lines 5--5
 \OT1/cmr/m/n/10 tail
  []
 
 
-Overfull \hbox (8.33336pt too wide) in paragraph at lines 6--6
+Overfull \hbox (8.33336pt too wide) in paragraph at lines 5--5
 \OT1/cmr/m/n/10 in
  []
 
 
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 6--6
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 5--5
 []| 
  []
 
@@ -1559,7 +1612,6 @@ Missing character: There is no n in font nullfont!
 Missing character: There is no c in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no s in font nullfont!
-Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
@@ -1737,7 +1789,6 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no b in font nullfont!
 Missing character: There is no u in font nullfont!
-Missing character: There is no - in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no a in font nullfont!
@@ -1753,6 +1804,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no f in font nullfont!
@@ -1906,7 +1958,6 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
-Missing character: There is no g in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no p in font nullfont!
@@ -2121,7 +2172,7 @@ Missing character: There is no [ in font nullfont!
 ! Undefined control sequence.
 <write> ...: Citation `\@citeb ' on page \thepage 
                                                   \space undefined\on@line .
-l.7 ...the strategy presented in \cite{noronha-06}
+l.6 ...the strategy presented in \cite{noronha-06}
                                                    mainly by the effort that...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2130,7 +2181,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-LaTeX Warning: Citation `noronha-06' on page  undefined on input line 7.
+LaTeX Warning: Citation `noronha-06' on page  undefined on input line 6.
 
 Missing character: There is no ] in font nullfont!
 Missing character: There is no m in font nullfont!
@@ -2393,13 +2444,22 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no m in font nullfont!
 Missing character: There is no , in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no e in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
-Missing character: There is no o in font nullfont!
-Missing character: There is no r in font nullfont!
-Missing character: There is no d in font nullfont!
+Missing character: There is no t in font nullfont!
 Missing character: There is no e in font nullfont!
-Missing character: There is no r in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no n in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no i in font nullfont!
@@ -2448,9 +2508,6 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no b in font nullfont!
 Missing character: There is no y in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no h in font nullfont!
-Missing character: There is no e in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no b in font nullfont!
@@ -2538,7 +2595,7 @@ Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
 <write> ...erence `fig:mainproc' on page \thepage 
                                                   \space undefined\on@line .
-l.8 ...rithm is given in Figure \ref{fig:mainproc}
+l.7 ...rithm is given in Figure \ref{fig:mainproc}
                                                   . There, a feasible soluti...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2547,7 +2604,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-LaTeX Warning: Reference `fig:mainproc' on page  undefined on input line 8.
+LaTeX Warning: Reference `fig:mainproc' on page  undefined on input line 7.
 
 Missing character: There is no . in font nullfont!
 Missing character: There is no T in font nullfont!
@@ -2591,8 +2648,8 @@ Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
 <write> ...erence `fig:mainproc' on page \thepage 
                                                   \space undefined\on@line .
-l.8 ...ution is shown in figure \ref{fig:mainproc}
-                                                  a). The color darkgrey is ...
+l.7 ...ution is shown in figure \ref{fig:mainproc}
+                                                  a). The color dark grey is...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -2600,7 +2657,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-LaTeX Warning: Reference `fig:mainproc' on page  undefined on input line 8.
+LaTeX Warning: Reference `fig:mainproc' on page  undefined on input line 7.
 
 Missing character: There is no a in font nullfont!
 Missing character: There is no ) in font nullfont!
@@ -2792,7 +2849,7 @@ Missing character: There is no n in font nullfont!
 ! Undefined control sequence.
 <write> ...erence `fig:mainproc' on page \thepage 
                                                   \space undefined\on@line .
-l.8 ...resulting graph shown in \ref{fig:mainproc}
+l.7 ...resulting graph shown in \ref{fig:mainproc}
                                                   c) is infeasible. Then, st...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2801,7 +2858,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-LaTeX Warning: Reference `fig:mainproc' on page  undefined on input line 8.
+LaTeX Warning: Reference `fig:mainproc' on page  undefined on input line 7.
 
 Missing character: There is no c in font nullfont!
 Missing character: There is no ) in font nullfont!
@@ -2959,7 +3016,7 @@ Missing character: There is no n in font nullfont!
 ! Undefined control sequence.
 <write> ...erence `fig:mainproc' on page \thepage 
                                                   \space undefined\on@line .
-l.8 ...the fewest conflicts. In \ref{fig:mainproc}
+l.7 ...the fewest conflicts. In \ref{fig:mainproc}
                                                   d), a node-color pair is f...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -2968,7 +3025,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-LaTeX Warning: Reference `fig:mainproc' on page  undefined on input line 8.
+LaTeX Warning: Reference `fig:mainproc' on page  undefined on input line 7.
 
 Missing character: There is no d in font nullfont!
 Missing character: There is no ) in font nullfont!
@@ -3187,99 +3244,99 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.13 \begin{figure}
+l.12 \begin{figure}
                    
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 6--14
+Overfull \hbox (20.0pt too wide) in paragraph at lines 3--13
 []
  []
 
 
-Overfull \hbox (4.32756pt too wide) in paragraph at lines 6--14
+Overfull \hbox (4.32756pt too wide) in paragraph at lines 3--13
 \OML/cmm/m/it/10 c$
  []
 
 
-Overfull \hbox (4.32756pt too wide) in paragraph at lines 6--14
+Overfull \hbox (4.32756pt too wide) in paragraph at lines 3--13
 \OML/cmm/m/it/10 c$
  []
 
 
-Overfull \hbox (4.32756pt too wide) in paragraph at lines 6--14
+Overfull \hbox (4.32756pt too wide) in paragraph at lines 3--13
 \OML/cmm/m/it/10 c$
  []
 
 
-Overfull \hbox (32.02446pt too wide) in paragraph at lines 6--14
+Overfull \hbox (32.02446pt too wide) in paragraph at lines 3--13
 \OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 i; j\OMS/cmsy/m/n/10 g 2
  []
 
 
-Overfull \hbox (13.51381pt too wide) in paragraph at lines 6--14
+Overfull \hbox (13.51381pt too wide) in paragraph at lines 3--13
 \OML/cmm/m/it/10 E \OT1/cmr/m/n/10 :
  []
 
 
-Overfull \hbox (22.02443pt too wide) in paragraph at lines 6--14
+Overfull \hbox (22.02443pt too wide) in paragraph at lines 3--13
 \OML/cmm/m/it/10 i; j \OMS/cmsy/m/n/10 2
  []
 
 
-Overfull \hbox (8.05556pt too wide) in paragraph at lines 6--14
+Overfull \hbox (8.05556pt too wide) in paragraph at lines 3--13
 \OML/cmm/m/it/10 V$
  []
 
 
-Overfull \hbox (4.48613pt too wide) in paragraph at lines 6--14
+Overfull \hbox (4.48613pt too wide) in paragraph at lines 3--13
 []
  []
 
 
-Overfull \hbox (4.32756pt too wide) in paragraph at lines 6--14
+Overfull \hbox (4.32756pt too wide) in paragraph at lines 3--13
 \OML/cmm/m/it/10 c$
  []
 
 
-Overfull \hbox (4.32756pt too wide) in paragraph at lines 6--14
+Overfull \hbox (4.32756pt too wide) in paragraph at lines 3--13
 \OML/cmm/m/it/10 c$
  []
 
 
-Overfull \hbox (12.10536pt too wide) in paragraph at lines 6--14
+Overfull \hbox (12.10536pt too wide) in paragraph at lines 3--13
 \OML/cmm/m/it/10 c \OT1/cmr/m/n/10 +
  []
 
 
-Overfull \hbox (5.00002pt too wide) in paragraph at lines 6--14
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 3--13
 \OT1/cmr/m/n/10 1$
  []
 
 
-Overfull \hbox (5.43053pt too wide) in paragraph at lines 6--14
+Overfull \hbox (5.43053pt too wide) in paragraph at lines 3--13
 []
  []
 
 
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 6--14
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 3--13
 []
  []
 
 
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 6--14
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 3--13
 []
  []
 
 
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 6--14
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 3--13
 []
  []
 
 
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 6--14
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 3--13
 []
  []
 
@@ -3290,7 +3347,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.15 \begin{tikzpicture}
+l.14 \begin{tikzpicture}
                         [scale=0.60]
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
@@ -3309,7 +3366,7 @@ Missing character: There is no 6 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no ] in font nullfont!
 ! Undefined control sequence.
-l.16 \pgftransformxscale
+l.15 \pgftransformxscale
                         {1.000000}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3326,7 +3383,7 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 ! Undefined control sequence.
-l.17 \pgftransformyscale
+l.16 \pgftransformyscale
                         {-1.000000}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3344,7 +3401,7 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 ! Undefined control sequence.
-l.18 \definecolor
+l.17 \definecolor
                  {dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3394,7 +3451,7 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 ! Undefined control sequence.
-l.19 \pgfsetstrokecolor
+l.18 \pgfsetstrokecolor
                        {dialinecolor}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3415,7 +3472,7 @@ Missing character: There is no l in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no r in font nullfont!
 ! Undefined control sequence.
-l.20 \definecolor
+l.19 \definecolor
                  {dialinecolor}{rgb}{1.000000, 1.000000, 1.000000}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3465,7 +3522,7 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 ! Undefined control sequence.
-l.21 \pgfsetfillcolor
+l.20 \pgfsetfillcolor
                      {dialinecolor}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3486,7 +3543,7 @@ Missing character: There is no l in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no r in font nullfont!
 ! Undefined control sequence.
-l.22 \pgfsetlinewidth
+l.21 \pgfsetlinewidth
                      {0.050000\du}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3505,7 +3562,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.22 \pgfsetlinewidth{0.050000\du}
+l.21 \pgfsetlinewidth{0.050000\du}
                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3514,7 +3571,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.22 \pgfsetlinewidth{0.050000\du}
+l.21 \pgfsetlinewidth{0.050000\du}
                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3523,6 +3580,18 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
+! Undefined control sequence.
+l.22 \pgfsetdash
+                {}{0pt}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no t in font nullfont!
 ! Undefined control sequence.
 l.23 \pgfsetdash
                 {}{0pt}
@@ -3536,19 +3605,7 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no t in font nullfont!
 ! Undefined control sequence.
-l.24 \pgfsetdash
-                {}{0pt}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-Missing character: There is no 0 in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no t in font nullfont!
-! Undefined control sequence.
-l.25 \definecolor
+l.24 \definecolor
                  {dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3598,7 +3655,7 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 ! Undefined control sequence.
-l.26 \pgfsetstrokecolor
+l.25 \pgfsetstrokecolor
                        {dialinecolor}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3619,7 +3676,7 @@ Missing character: There is no l in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no r in font nullfont!
 ! Undefined control sequence.
-l.27 \pgfpathellipse
+l.26 \pgfpathellipse
                     {\pgfpoint{13.300000\du}{3.150000\du}}{\pgfpoint{3.10000...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3628,7 +3685,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.27 \pgfpathellipse{\pgfpoint
+l.26 \pgfpathellipse{\pgfpoint
                               {13.300000\du}{3.150000\du}}{\pgfpoint{3.10000...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3648,7 +3705,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.27 \pgfpathellipse{\pgfpoint{13.300000\du}
+l.26 \pgfpathellipse{\pgfpoint{13.300000\du}
                                             {3.150000\du}}{\pgfpoint{3.10000...
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3657,7 +3714,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.27 \pgfpathellipse{\pgfpoint{13.300000\du}
+l.26 \pgfpathellipse{\pgfpoint{13.300000\du}
                                             {3.150000\du}}{\pgfpoint{3.10000...
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3677,7 +3734,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.27 ...lipse{\pgfpoint{13.300000\du}{3.150000\du}
+l.26 ...lipse{\pgfpoint{13.300000\du}{3.150000\du}
                                                   }{\pgfpoint{3.100000\du}{0...
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3686,7 +3743,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.27 ...lipse{\pgfpoint{13.300000\du}{3.150000\du}
+l.26 ...lipse{\pgfpoint{13.300000\du}{3.150000\du}
                                                   }{\pgfpoint{3.100000\du}{0...
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3696,7 +3753,7 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 ! Undefined control sequence.
-l.27 ...oint{13.300000\du}{3.150000\du}}{\pgfpoint
+l.26 ...oint{13.300000\du}{3.150000\du}}{\pgfpoint
                                                   {3.100000\du}{0\du}}{\pgfp...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3715,7 +3772,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.27 ...0\du}{3.150000\du}}{\pgfpoint{3.100000\du}
+l.26 ...0\du}{3.150000\du}}{\pgfpoint{3.100000\du}
                                                   {0\du}}{\pgfpoint{0\du}{1....
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3724,7 +3781,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.27 ...0\du}{3.150000\du}}{\pgfpoint{3.100000\du}
+l.26 ...0\du}{3.150000\du}}{\pgfpoint{3.100000\du}
                                                   {0\du}}{\pgfpoint{0\du}{1....
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3737,7 +3794,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.27 ...3.150000\du}}{\pgfpoint{3.100000\du}{0\du}
+l.26 ...3.150000\du}}{\pgfpoint{3.100000\du}{0\du}
                                                   }{\pgfpoint{0\du}{1.800000...
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3746,7 +3803,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.27 ...3.150000\du}}{\pgfpoint{3.100000\du}{0\du}
+l.26 ...3.150000\du}}{\pgfpoint{3.100000\du}{0\du}
                                                   }{\pgfpoint{0\du}{1.800000...
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3756,7 +3813,7 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 ! Undefined control sequence.
-l.27 ...}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint
+l.26 ...}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint
                                                   {0\du}{1.800000\du}}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3768,7 +3825,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.27 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
+l.26 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
                                                   {1.800000\du}}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3777,7 +3834,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.27 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
+l.26 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
                                                   {1.800000\du}}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3797,7 +3854,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.27 ...00\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}
+l.26 ...00\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}
                                                   }
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3806,7 +3863,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.27 ...00\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}
+l.26 ...00\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}
                                                   }
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3816,7 +3873,7 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 ! Undefined control sequence.
-l.28 \pgfusepath
+l.27 \pgfusepath
                 {stroke}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3831,7 +3888,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no k in font nullfont!
 Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
-l.29 \pgfsetlinewidth
+l.28 \pgfsetlinewidth
                      {0.050000\du}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3850,7 +3907,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.29 \pgfsetlinewidth{0.050000\du}
+l.28 \pgfsetlinewidth{0.050000\du}
                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -3859,7 +3916,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.29 \pgfsetlinewidth{0.050000\du}
+l.28 \pgfsetlinewidth{0.050000\du}
                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -3868,6 +3925,18 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
+! Undefined control sequence.
+l.29 \pgfsetdash
+                {}{0pt}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no t in font nullfont!
 ! Undefined control sequence.
 l.30 \pgfsetdash
                 {}{0pt}
@@ -3881,19 +3950,7 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no t in font nullfont!
 ! Undefined control sequence.
-l.31 \pgfsetdash
-                {}{0pt}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-Missing character: There is no 0 in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no t in font nullfont!
-! Undefined control sequence.
-l.32 \definecolor
+l.31 \definecolor
                  {dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3943,7 +4000,7 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 ! Undefined control sequence.
-l.33 \pgfsetstrokecolor
+l.32 \pgfsetstrokecolor
                        {dialinecolor}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3964,7 +4021,7 @@ Missing character: There is no l in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no r in font nullfont!
 ! Undefined control sequence.
-l.34 \pgfpathellipse
+l.33 \pgfpathellipse
                     {\pgfpoint{4.200000\du}{3.100000\du}}{\pgfpoint{3.100000...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3973,7 +4030,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.34 \pgfpathellipse{\pgfpoint
+l.33 \pgfpathellipse{\pgfpoint
                               {4.200000\du}{3.100000\du}}{\pgfpoint{3.100000...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -3992,7 +4049,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.34 \pgfpathellipse{\pgfpoint{4.200000\du}
+l.33 \pgfpathellipse{\pgfpoint{4.200000\du}
                                            {3.100000\du}}{\pgfpoint{3.100000...
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4001,7 +4058,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.34 \pgfpathellipse{\pgfpoint{4.200000\du}
+l.33 \pgfpathellipse{\pgfpoint{4.200000\du}
                                            {3.100000\du}}{\pgfpoint{3.100000...
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4021,7 +4078,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.34 ...llipse{\pgfpoint{4.200000\du}{3.100000\du}
+l.33 ...llipse{\pgfpoint{4.200000\du}{3.100000\du}
                                                   }{\pgfpoint{3.100000\du}{0...
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4030,7 +4087,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.34 ...llipse{\pgfpoint{4.200000\du}{3.100000\du}
+l.33 ...llipse{\pgfpoint{4.200000\du}{3.100000\du}
                                                   }{\pgfpoint{3.100000\du}{0...
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4040,7 +4097,7 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 ! Undefined control sequence.
-l.34 ...point{4.200000\du}{3.100000\du}}{\pgfpoint
+l.33 ...point{4.200000\du}{3.100000\du}}{\pgfpoint
                                                   {3.100000\du}{0\du}}{\pgfp...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4059,7 +4116,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.34 ...0\du}{3.100000\du}}{\pgfpoint{3.100000\du}
+l.33 ...0\du}{3.100000\du}}{\pgfpoint{3.100000\du}
                                                   {0\du}}{\pgfpoint{0\du}{1....
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4068,7 +4125,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.34 ...0\du}{3.100000\du}}{\pgfpoint{3.100000\du}
+l.33 ...0\du}{3.100000\du}}{\pgfpoint{3.100000\du}
                                                   {0\du}}{\pgfpoint{0\du}{1....
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4081,7 +4138,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.34 ...3.100000\du}}{\pgfpoint{3.100000\du}{0\du}
+l.33 ...3.100000\du}}{\pgfpoint{3.100000\du}{0\du}
                                                   }{\pgfpoint{0\du}{1.800000...
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4090,7 +4147,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.34 ...3.100000\du}}{\pgfpoint{3.100000\du}{0\du}
+l.33 ...3.100000\du}}{\pgfpoint{3.100000\du}{0\du}
                                                   }{\pgfpoint{0\du}{1.800000...
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4100,7 +4157,7 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 ! Undefined control sequence.
-l.34 ...}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint
+l.33 ...}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint
                                                   {0\du}{1.800000\du}}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4112,7 +4169,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.34 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
+l.33 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
                                                   {1.800000\du}}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4121,7 +4178,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.34 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
+l.33 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
                                                   {1.800000\du}}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4141,7 +4198,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.34 ...00\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}
+l.33 ...00\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}
                                                   }
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4150,7 +4207,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.34 ...00\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}
+l.33 ...00\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}
                                                   }
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4160,7 +4217,7 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 ! Undefined control sequence.
-l.35 \pgfusepath
+l.34 \pgfusepath
                 {stroke}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4175,7 +4232,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no k in font nullfont!
 Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
-l.36 \pgfsetlinewidth
+l.35 \pgfsetlinewidth
                      {0.050000\du}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4194,7 +4251,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.36 \pgfsetlinewidth{0.050000\du}
+l.35 \pgfsetlinewidth{0.050000\du}
                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4203,7 +4260,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.36 \pgfsetlinewidth{0.050000\du}
+l.35 \pgfsetlinewidth{0.050000\du}
                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4212,6 +4269,18 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
+! Undefined control sequence.
+l.36 \pgfsetdash
+                {}{0pt}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no t in font nullfont!
 ! Undefined control sequence.
 l.37 \pgfsetdash
                 {}{0pt}
@@ -4225,19 +4294,7 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no t in font nullfont!
 ! Undefined control sequence.
-l.38 \pgfsetdash
-                {}{0pt}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-Missing character: There is no 0 in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no t in font nullfont!
-! Undefined control sequence.
-l.39 \definecolor
+l.38 \definecolor
                  {dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4287,7 +4344,7 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 ! Undefined control sequence.
-l.40 \pgfsetstrokecolor
+l.39 \pgfsetstrokecolor
                        {dialinecolor}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4308,7 +4365,7 @@ Missing character: There is no l in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no r in font nullfont!
 ! Undefined control sequence.
-l.41 \pgfpathellipse
+l.40 \pgfpathellipse
                     {\pgfpoint{13.350000\du}{13.125000\du}}{\pgfpoint{3.1000...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4317,7 +4374,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.41 \pgfpathellipse{\pgfpoint
+l.40 \pgfpathellipse{\pgfpoint
                               {13.350000\du}{13.125000\du}}{\pgfpoint{3.1000...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4337,7 +4394,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.41 \pgfpathellipse{\pgfpoint{13.350000\du}
+l.40 \pgfpathellipse{\pgfpoint{13.350000\du}
                                             {13.125000\du}}{\pgfpoint{3.1000...
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4346,7 +4403,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.41 \pgfpathellipse{\pgfpoint{13.350000\du}
+l.40 \pgfpathellipse{\pgfpoint{13.350000\du}
                                             {13.125000\du}}{\pgfpoint{3.1000...
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4367,7 +4424,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.41 ...ipse{\pgfpoint{13.350000\du}{13.125000\du}
+l.40 ...ipse{\pgfpoint{13.350000\du}{13.125000\du}
                                                   }{\pgfpoint{3.100000\du}{0...
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4376,7 +4433,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.41 ...ipse{\pgfpoint{13.350000\du}{13.125000\du}
+l.40 ...ipse{\pgfpoint{13.350000\du}{13.125000\du}
                                                   }{\pgfpoint{3.100000\du}{0...
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4386,7 +4443,7 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 ! Undefined control sequence.
-l.41 ...int{13.350000\du}{13.125000\du}}{\pgfpoint
+l.40 ...int{13.350000\du}{13.125000\du}}{\pgfpoint
                                                   {3.100000\du}{0\du}}{\pgfp...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4405,7 +4462,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.41 ...\du}{13.125000\du}}{\pgfpoint{3.100000\du}
+l.40 ...\du}{13.125000\du}}{\pgfpoint{3.100000\du}
                                                   {0\du}}{\pgfpoint{0\du}{1....
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4414,7 +4471,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.41 ...\du}{13.125000\du}}{\pgfpoint{3.100000\du}
+l.40 ...\du}{13.125000\du}}{\pgfpoint{3.100000\du}
                                                   {0\du}}{\pgfpoint{0\du}{1....
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4427,7 +4484,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.41 ...3.125000\du}}{\pgfpoint{3.100000\du}{0\du}
+l.40 ...3.125000\du}}{\pgfpoint{3.100000\du}{0\du}
                                                   }{\pgfpoint{0\du}{1.800000...
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4436,7 +4493,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.41 ...3.125000\du}}{\pgfpoint{3.100000\du}{0\du}
+l.40 ...3.125000\du}}{\pgfpoint{3.100000\du}{0\du}
                                                   }{\pgfpoint{0\du}{1.800000...
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4446,7 +4503,7 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 ! Undefined control sequence.
-l.41 ...}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint
+l.40 ...}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint
                                                   {0\du}{1.800000\du}}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4458,7 +4515,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.41 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
+l.40 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
                                                   {1.800000\du}}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4467,7 +4524,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.41 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
+l.40 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
                                                   {1.800000\du}}
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4487,7 +4544,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.41 ...00\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}
+l.40 ...00\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}
                                                   }
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4496,7 +4553,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.41 ...00\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}
+l.40 ...00\du}{0\du}}{\pgfpoint{0\du}{1.800000\du}
                                                   }
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4506,7 +4563,7 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 ! Undefined control sequence.
-l.42 \pgfusepath
+l.41 \pgfusepath
                 {stroke}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4521,7 +4578,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no k in font nullfont!
 Missing character: There is no e in font nullfont!
 ! Undefined control sequence.
-l.43 \pgfsetlinewidth
+l.42 \pgfsetlinewidth
                      {0.050000\du}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4540,7 +4597,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.43 \pgfsetlinewidth{0.050000\du}
+l.42 \pgfsetlinewidth{0.050000\du}
                                   
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4549,7 +4606,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.43 \pgfsetlinewidth{0.050000\du}
+l.42 \pgfsetlinewidth{0.050000\du}
                                   
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4558,6 +4615,18 @@ To recover gracefully from this error, it's best to
 delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
+! Undefined control sequence.
+l.43 \pgfsetdash
+                {}{0pt}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no 0 in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no t in font nullfont!
 ! Undefined control sequence.
 l.44 \pgfsetdash
                 {}{0pt}
@@ -4571,19 +4640,7 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no p in font nullfont!
 Missing character: There is no t in font nullfont!
 ! Undefined control sequence.
-l.45 \pgfsetdash
-                {}{0pt}
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-Missing character: There is no 0 in font nullfont!
-Missing character: There is no p in font nullfont!
-Missing character: There is no t in font nullfont!
-! Undefined control sequence.
-l.46 \definecolor
+l.45 \definecolor
                  {dialinecolor}{rgb}{0.000000, 0.000000, 0.000000}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4633,7 +4690,7 @@ Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 ! Undefined control sequence.
-l.47 \pgfsetstrokecolor
+l.46 \pgfsetstrokecolor
                        {dialinecolor}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4654,7 +4711,7 @@ Missing character: There is no l in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no r in font nullfont!
 ! Undefined control sequence.
-l.48 \pgfpathellipse
+l.47 \pgfpathellipse
                     {\pgfpoint{4.165000\du}{13.075000\du}}{\pgfpoint{3.10000...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4663,7 +4720,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 ! Undefined control sequence.
-l.48 \pgfpathellipse{\pgfpoint
+l.47 \pgfpathellipse{\pgfpoint
                               {4.165000\du}{13.075000\du}}{\pgfpoint{3.10000...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4682,7 +4739,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.48 \pgfpathellipse{\pgfpoint{4.165000\du}
+l.47 \pgfpathellipse{\pgfpoint{4.165000\du}
                                            {13.075000\du}}{\pgfpoint{3.10000...
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4691,7 +4748,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.48 \pgfpathellipse{\pgfpoint{4.165000\du}
+l.47 \pgfpathellipse{\pgfpoint{4.165000\du}
                                            {13.075000\du}}{\pgfpoint{3.10000...
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4712,7 +4769,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.48 ...lipse{\pgfpoint{4.165000\du}{13.075000\du}
+l.47 ...lipse{\pgfpoint{4.165000\du}{13.075000\du}
                                                   }{\pgfpoint{3.100000\du}{0...
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4721,7 +4778,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.48 ...lipse{\pgfpoint{4.165000\du}{13.075000\du}
+l.47 ...lipse{\pgfpoint{4.165000\du}{13.075000\du}
                                                   }{\pgfpoint{3.100000\du}{0...
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4731,7 +4788,7 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 ! Undefined control sequence.
-l.48 ...oint{4.165000\du}{13.075000\du}}{\pgfpoint
+l.47 ...oint{4.165000\du}{13.075000\du}}{\pgfpoint
                                                   {3.100000\du}{0\du}}{\pgfp...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4750,7 +4807,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.48 ...\du}{13.075000\du}}{\pgfpoint{3.100000\du}
+l.47 ...\du}{13.075000\du}}{\pgfpoint{3.100000\du}
                                                   {0\du}}{\pgfpoint{0\du}{1....
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4759,7 +4816,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.48 ...\du}{13.075000\du}}{\pgfpoint{3.100000\du}
+l.47 ...\du}{13.075000\du}}{\pgfpoint{3.100000\du}
                                                   {0\du}}{\pgfpoint{0\du}{1....
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4772,7 +4829,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.48 ...3.075000\du}}{\pgfpoint{3.100000\du}{0\du}
+l.47 ...3.075000\du}}{\pgfpoint{3.100000\du}{0\du}
                                                   }{\pgfpoint{0\du}{1.800000...
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4781,7 +4838,7 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.48 ...3.075000\du}}{\pgfpoint{3.100000\du}{0\du}
+l.47 ...3.075000\du}}{\pgfpoint{3.100000\du}{0\du}
                                                   }{\pgfpoint{0\du}{1.800000...
 Dimensions can be in units of em, ex, in, pt, pc,
 cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
@@ -4791,7 +4848,7 @@ delete the erroneous units; e.g., type `2' to delete
 two letters. (See Chapter 27 of The TeXbook.)
 
 ! Undefined control sequence.
-l.48 ...}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint
+l.47 ...}}{\pgfpoint{3.100000\du}{0\du}}{\pgfpoint
                                                   {0\du}{1.800000\du}}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -4803,7 +4860,7 @@ Missing character: There is no 0 in font nullfont!
 ! Missing number, treated as zero.
 <to be read again> 
                    }
-l.48 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
+l.47 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
                                                   {1.800000\du}}
 A number should have been here; I inserted `0'.
 (If you can't figure out why I needed to see a number,
@@ -4812,16 +4869,16 @@ look up `weird error' in the index to The TeXbook.)
 ! Illegal unit of measure (pt inserted).
 <to be read again> 
                    }
-l.48 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
+l.47 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
                                                   {1.800000\du}}
 (That makes 100 errors; please try again.) 
 Here is how much of TeX's memory you used:
- 22 strings out of 494987
- 327 string characters out of 3178575
+ 21 strings out of 494987
+ 313 string characters out of 3178575
  48253 words of memory out of 3000000
- 3321 multiletter control sequences out of 15000+200000
+ 3320 multiletter control sequences out of 15000+200000
  4294 words of font info for 16 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 19i,5n,21p,1318b,112s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 19i,5n,21p,1361b,112s stack positions out of 5000i,500n,10000p,200000b,50000s
 
 !  ==> Fatal error occurred, no output PDF file produced!

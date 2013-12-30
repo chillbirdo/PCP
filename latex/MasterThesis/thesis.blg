@@ -12,6 +12,10 @@ Repeated entry---line 582 of file pcp.bib
  : @article{murthy-02
  :                   ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 615 of file pcp.bib
+ : @article{brelaz-79
+ :                   ,
+I'm skipping whatever remains of this entry
 Too many commas in name 1 of "Y. Asahiroa, K. Iwamab, H. Tamakic, T. Tokuyamad" for entry asahiroa-00
 while executing---line 1049 of file plain.bst
 Name 1 in "U. Feige, G. Kortsarz, and D. Peleg" has a comma at the end for entry feige-97
@@ -32,45 +36,45 @@ Name 1 in "U. Feige, G. Kortsarz, and D. Peleg" has a comma at the end for entry
 while executing---line 1090 of file plain.bst
 Too many commas in name 1 of "Y. Asahiroa, K. Iwamab, H. Tamakic, T. Tokuyamad" for entry asahiroa-00
 while executing---line 1090 of file plain.bst
-You've used 37 entries,
+You've used 39 entries,
             2118 wiz_defined-function locations,
-            672 strings with 8215 characters,
-and the built_in function-call counts, 8841 in all, are:
-= -- 848
-> -- 373
+            684 strings with 8472 characters,
+and the built_in function-call counts, 9497 in all, are:
+= -- 917
+> -- 398
 < -- 1
-+ -- 159
-- -- 114
-* -- 464
-:= -- 1615
-add.period$ -- 112
-call.type$ -- 37
-change.case$ -- 165
++ -- 169
+- -- 122
+* -- 514
+:= -- 1725
+add.period$ -- 118
+call.type$ -- 39
+change.case$ -- 175
 chr.to.int$ -- 0
-cite$ -- 49
-duplicate$ -- 395
-empty$ -- 706
-format.name$ -- 114
-if$ -- 1785
+cite$ -- 51
+duplicate$ -- 417
+empty$ -- 759
+format.name$ -- 122
+if$ -- 1918
 int.to.chr$ -- 0
-int.to.str$ -- 37
-missing$ -- 40
-newline$ -- 189
-num.names$ -- 74
-pop$ -- 175
+int.to.str$ -- 39
+missing$ -- 42
+newline$ -- 199
+num.names$ -- 78
+pop$ -- 181
 preamble$ -- 1
-purify$ -- 131
+purify$ -- 139
 quote$ -- 0
-skip$ -- 289
+skip$ -- 303
 stack$ -- 0
-substring$ -- 275
-swap$ -- 36
+substring$ -- 335
+swap$ -- 38
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 142
+type$ -- 150
 warning$ -- 12
-while$ -- 81
-width$ -- 39
-write$ -- 382
-(There were 6 error messages)
+while$ -- 89
+width$ -- 41
+write$ -- 404
+(There were 7 error messages)
