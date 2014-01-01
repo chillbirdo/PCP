@@ -4,15 +4,12 @@ The top-level auxiliary file: thesis.aux
 A level-1 auxiliary file: titlepage.aux
 The style file: plain.bst
 Database file #1: pcp.bib
-Repeated entry---line 458 of file pcp.bib
- : @article{garey-79
- :                  ,
+I was expecting a `,' or a `}'---line 569 of file pcp.bib
+ : 
+ : @article{belgacem-13,
+(Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Repeated entry---line 582 of file pcp.bib
- : @article{murthy-02
- :                   ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 615 of file pcp.bib
+Repeated entry---line 591 of file pcp.bib
  : @article{brelaz-79
  :                   ,
 I'm skipping whatever remains of this entry
@@ -21,13 +18,13 @@ while executing---line 1049 of file plain.bst
 Name 1 in "U. Feige, G. Kortsarz, and D. Peleg" has a comma at the end for entry feige-97
 while executing---line 1049 of file plain.bst
 Warning--empty journal in Meindl-12
-Warning--there's a number but no volume in charikar-00
 Warning--empty journal in volko-13
 Warning--empty journal in fritz-11
 Warning--empty journal in nocedal-00
 Warning--empty journal in lawler-01
 Warning--empty journal in lawler-76
 Warning--empty journal in leitner-06
+Warning--empty year in murthy-02
 Warning--empty journal in pardalos-02
 Warning--empty journal in papadimitriou-94
 Warning--empty journal in gebhard-12
@@ -36,45 +33,45 @@ Name 1 in "U. Feige, G. Kortsarz, and D. Peleg" has a comma at the end for entry
 while executing---line 1090 of file plain.bst
 Too many commas in name 1 of "Y. Asahiroa, K. Iwamab, H. Tamakic, T. Tokuyamad" for entry asahiroa-00
 while executing---line 1090 of file plain.bst
-You've used 39 entries,
+You've used 44 entries,
             2118 wiz_defined-function locations,
-            684 strings with 8472 characters,
-and the built_in function-call counts, 9497 in all, are:
-= -- 917
-> -- 398
-< -- 1
-+ -- 169
-- -- 122
-* -- 514
-:= -- 1725
-add.period$ -- 118
-call.type$ -- 39
-change.case$ -- 175
+            712 strings with 9351 characters,
+and the built_in function-call counts, 11710 in all, are:
+= -- 1147
+> -- 478
+< -- 3
++ -- 202
+- -- 148
+* -- 663
+:= -- 2061
+add.period$ -- 133
+call.type$ -- 44
+change.case$ -- 203
 chr.to.int$ -- 0
-cite$ -- 51
-duplicate$ -- 417
-empty$ -- 759
-format.name$ -- 122
-if$ -- 1918
+cite$ -- 56
+duplicate$ -- 500
+empty$ -- 937
+format.name$ -- 148
+if$ -- 2408
 int.to.chr$ -- 0
-int.to.str$ -- 39
-missing$ -- 42
-newline$ -- 199
-num.names$ -- 78
-pop$ -- 181
+int.to.str$ -- 44
+missing$ -- 47
+newline$ -- 224
+num.names$ -- 88
+pop$ -- 205
 preamble$ -- 1
-purify$ -- 139
+purify$ -- 162
 quote$ -- 0
-skip$ -- 303
+skip$ -- 365
 stack$ -- 0
-substring$ -- 335
-swap$ -- 38
-text.length$ -- 1
+substring$ -- 577
+swap$ -- 65
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 150
+type$ -- 170
 warning$ -- 12
-while$ -- 89
-width$ -- 41
-write$ -- 404
-(There were 7 error messages)
+while$ -- 112
+width$ -- 46
+write$ -- 458
+(There were 6 error messages)

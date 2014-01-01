@@ -1,16 +1,33 @@
-This chapter provides an overview on the related works dealing with the Partition Coloring Problem. First the exact approaches, i.e. approaches which find optimal solutions, will be reviewed. Then the previous works on heuristical algorithms are described. 
+This chapter provides an overview on previous works dealing with the Partition Coloring Problem. While the VCP has been studied extensively, only a few papers have been published on the PCP. So far, two exact approaches and three heuristics have been presented.
 
 \section{Exact Approaches}
 
-1. Frota, Ribiero (2010): Branch-And-Cut
-
-
-2. Hoshino, Souza, Frota (2011): Branch-And-Price
-
+In 2010, Frota and Ribeiro presented a Branch-and-Cut algorithm for the PCP in \cite{frota-07}, which is based on a generalization of the 0-1 formulation for the VCP proposed in \cite{campelo-05,campelo-04}, called formulation of representatives. The branching strategy to decompose the problem into two subproblems is based on Mehrotra and Trick's branching rule \cite{trick-96}, that branches on two non-adjacent vertices. Improvements of linear relaxation bounds have been achieved by generalizing the original family of valid inequalites\cite{campelo-05,campelo-04}, based on \textit{External cuts} and \textit{Internal cuts}. For their experiments they used an AMD-Atlon machine with a 1.8 GHz clock and one Gbyte of RAM memory. Within 2 hours, each instance with up to 80 nodes and density of 0.5 could be solved to optimality. For instances with 90 nodes, only the ones with density $\geq 0.5$ could be solved to optimality in the same time. It is remarkable, that the algorithm performs worst on instances with a density between $0.3$ and $0.5$.\\
+One year later, Hoshino et al. published a paper describing a Branch-and-Price algorithm, that performs ``far superior to the branch-and-cut algorithm in all instance classes tested''\cite{hoshino-11}. It uses a new formulation that combines the main ingredients of the formulation of representatives used in \cite{frota-07} and the classical independent set formulation presented in \cite{trick-96}. Campelo et al. previously proposed a combination of these formulations for the VCP in \cite{campelo-052}. For solving the pricing problem, which is equivalent to the classical maximum weighted independent set problem (MWIS), two different algorithms are used depending on the density of the graph. On a Pentium Core2 Quad 2.83 GHz with 8 Gb of RAM, an instance with 706 vertices and $101.600$ edges could have been solved, but the authors did not provide a hint on the time required.
 
 \section{Heuristical Approaches}
 
-1. Li, Simha (2000): Group of heuristics based on extensions of
-classical methods for the vertex coloring problem
-2. Noronha, Ribiero (2006): Tabusearch
+Li and Simha introduced the PCP in \cite{li-00} as a subproblem of the min-RWA problem, proofed that it is as hard as VCP (which is $\mathcal{NP}$-complete \cite{karp-72}) and presented adaptions of the coloring heuristics \textit{Largest-First (LF)} by Welsh and Powell \cite{welsh-67}, \textit{Smallest-Last (SL)} by Matula et al. \cite{matula-72} and \textit{Color-Degree (CD)} by Brelaz \cite{brelaz-79} designed for VCP. Their results have shown, that \textit{CD} performed best, particularly the algorithm \textit{OneStepCD}. Therefore this heuristic is used in this work to create the initial solution and with a slight variation it is also used to improve it. It is worth to mention that in their paper, Li and Simha cite many papers dealing with theoretical aspects of graph coloring as well as min-RWA.\\
+
+In their publication in 2006, Noronha et al. proposed a heuristic based on tabu search \cite{noronha-06}. Quite similar to the approach presented in this work, their strategy is to improve an existing solution by choosing a color $c$, assign an alternative coloring randomly to all clusters colored with $c$ and try to make the resulting solution feasible by using tabu search. In contrast, this work uses sophisticated algorithms to find alternative colorings. Their algorithm outperform the best previously known heuristic for partition coloring, and shows that it can improve the solution found by \textit{OneStepCD} by approximately 20\% in average. Beside PCP, the paper proposes advanced strategies for solving the min-RWA problem.
+
 3. Hu, Raidl, Pop (2013): Memetic algorithm
+
+We proposed a memetic algorithm (MA) for the partition graph coloring problem
+that uses two distinct solution representations. For maintaining a diverse popula-
+tion and to keep the computational effort for genetic operators low, we use a full
+solution representation for crossover and mutation. In contrast, we use a more
+compact and incomplete solution representation during local search. Both repre-
+sentations work well in combination in the MA. During local search, we observed
+that minimizing the number of colors results in many solutions of equal quality.
+Therefore, we use a second evaluation criterion based on the number of conflicts
+when using one color less. Computational experiments on common benchmark
+instances sets show that although the MA is not always able to find the optimal
+solutions, it produces solid results with very low run-times and therefore has
+excellent scalability when it comes to large instances.
+For future work, we want to consider a further incomplete solution represen-
+tation which is based on characterizing the colors of the clusters. The challenge
+will be to develop efficient algorithms for choosing the nodes in the clusters that
+are compatible with the color assignments. We also want to consider further eval-
+uation criteria besides color and conflicts so that more fine-tuned measurements
+depending on specific situations are possible.

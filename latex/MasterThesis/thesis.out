@@ -12,17 +12,19 @@
 \BOOKMARK [1][-]{section.3.3}{Wavelength Routing and Assignment Problem}{chapter.3}% 12
 \BOOKMARK [1][-]{section.3.4}{Problem Complexity}{chapter.3}% 13
 \BOOKMARK [0][-]{chapter.4}{Previous Works}{}% 14
-\BOOKMARK [0][-]{chapter.5}{Problem Solving Approach}{}% 15
-\BOOKMARK [1][-]{section.5.1}{Main Procedure}{chapter.5}% 16
-\BOOKMARK [1][-]{section.5.2}{Constructional Heuristics}{chapter.5}% 17
-\BOOKMARK [1][-]{section.5.3}{Recoloring}{chapter.5}% 18
-\BOOKMARK [1][-]{section.5.4}{Tabu Search}{chapter.5}% 19
-\BOOKMARK [0][-]{chapter.6}{Computational Results}{}% 20
-\BOOKMARK [1][-]{section.6.1}{Implementation Details and Testing Environment}{chapter.6}% 21
-\BOOKMARK [1][-]{section.6.2}{Instances}{chapter.6}% 22
-\BOOKMARK [1][-]{section.6.3}{Results}{chapter.6}% 23
-\BOOKMARK [0][-]{chapter.7}{Critical Reflection and Outlook}{}% 24
-\BOOKMARK [1][-]{section.7.1}{Critical Reflection}{chapter.7}% 25
-\BOOKMARK [1][-]{section.7.2}{Future Works}{chapter.7}% 26
-\BOOKMARK [0][-]{chapter.8}{Summary}{}% 27
-\BOOKMARK [0][-]{section*.22}{Bibliography}{}% 28
+\BOOKMARK [1][-]{section.4.1}{Exact Approaches}{chapter.4}% 15
+\BOOKMARK [1][-]{section.4.2}{Heuristical Approaches}{chapter.4}% 16
+\BOOKMARK [0][-]{chapter.5}{Problem Solving Approach}{}% 17
+\BOOKMARK [1][-]{section.5.1}{Main Procedure}{chapter.5}% 18
+\BOOKMARK [1][-]{section.5.2}{Constructional Heuristics}{chapter.5}% 19
+\BOOKMARK [1][-]{section.5.3}{Recoloring}{chapter.5}% 20
+\BOOKMARK [1][-]{section.5.4}{Tabu Search}{chapter.5}% 21
+\BOOKMARK [0][-]{chapter.6}{Computational Results}{}% 22
+\BOOKMARK [1][-]{section.6.1}{Implementation Details and Testing Environment}{chapter.6}% 23
+\BOOKMARK [1][-]{section.6.2}{Instances}{chapter.6}% 24
+\BOOKMARK [1][-]{section.6.3}{Results}{chapter.6}% 25
+\BOOKMARK [0][-]{chapter.7}{Critical Reflection and Outlook}{}% 26
+\BOOKMARK [1][-]{section.7.1}{Critical Reflection}{chapter.7}% 27
+\BOOKMARK [1][-]{section.7.2}{Future Works}{chapter.7}% 28
+\BOOKMARK [0][-]{chapter.8}{Summary}{}% 29
+\BOOKMARK [0][-]{section*.22}{Bibliography}{}% 30
