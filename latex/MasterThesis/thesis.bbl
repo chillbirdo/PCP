@@ -115,6 +115,11 @@ S.~Wright J.~Nocedal.
 \newblock Numerical optimization.
 \newblock 2000.
 
+\bibitem{karp-72}
+R.~Karp.
+\newblock Reducibility amound combinatorial problems.
+\newblock {\em Complexity of computer computations}, pages 84--105.
+
 \bibitem{krishnaswamy-01}
 R.~M. Krishnaswamy and K.~N. Sivarajan.
 \newblock Algorithms for routing and wavelength assignment based on solutions
@@ -147,6 +152,11 @@ V.~Campos M.~Campelo and R.~Correa.
 Goran~Z. Marković and Vladanka~S. Aćimović-Raspopović.
 \newblock Generalized network design problems.
 \newblock {\em Telfor Journal}, 2010.
+
+\bibitem{matula-72}
+D.~Matula, G.~Marble, and J.~Isaacson.
+\newblock Graph coloring algorithms.
+\newblock {\em Graph Theory and Computing}, 10, 1972.
 
 \bibitem{leitner-06}
 B.Hu M.Leitner, G.Raidl.
@@ -187,6 +197,12 @@ S.Pirkwieser P.Gebhard, G.Raidl.
   lp-relaxations.
 \newblock 2012.
 
+\bibitem{pop-12}
+Petrica~C.\ Pop.
+\newblock {\em Generalized network design problems. Modeling and Optimization}.
+\newblock De Gruyter Series in Discrete Mathematics and Applications, Germany,
+  2012.
+
 \bibitem{pop-13}
 Petrica~C.\ Pop, Bin Hu, and G\"unther~R.\ Raidl.
 \newblock A memetic algorithm for the partition graph coloring problem.
@@ -215,6 +231,12 @@ Ingo Wegener.
 \newblock Springer, 2005.
 \newblock Reflects recent developments in its emphasis on randomized and
   approximation algorithms and communication models.
+
+\bibitem{welsh-67}
+D.~Welsh and M.Powell.
+\newblock An upper bound to the chromatic number of a graph and its application
+  to time-table problems.
+\newblock {\em Comp.J.}, 10:85,86, 1967.
 
 \bibitem{williamson-10}
 David~P. Williamson and David~B. Shmoys.

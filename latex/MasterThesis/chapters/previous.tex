@@ -8,26 +8,5 @@ One year later, Hoshino et al. published a paper describing a Branch-and-Price a
 \section{Heuristical Approaches}
 
 Li and Simha introduced the PCP in \cite{li-00} as a subproblem of the min-RWA problem, proofed that it is as hard as VCP (which is $\mathcal{NP}$-complete \cite{karp-72}) and presented adaptions of the coloring heuristics \textit{Largest-First (LF)} by Welsh and Powell \cite{welsh-67}, \textit{Smallest-Last (SL)} by Matula et al. \cite{matula-72} and \textit{Color-Degree (CD)} by Brelaz \cite{brelaz-79} designed for VCP. Their results have shown, that \textit{CD} performed best, particularly the algorithm \textit{OneStepCD}. Therefore this heuristic is used in this work to create the initial solution and with a slight variation it is also used to improve it. It is worth to mention that in their paper, Li and Simha cite many papers dealing with theoretical aspects of graph coloring as well as min-RWA.\\
-
-In their publication in 2006, Noronha et al. proposed a heuristic based on tabu search \cite{noronha-06}. Quite similar to the approach presented in this work, their strategy is to improve an existing solution by choosing a color $c$, assign an alternative coloring randomly to all clusters colored with $c$ and try to make the resulting solution feasible by using tabu search. In contrast, this work uses sophisticated algorithms to find alternative colorings. Their algorithm outperform the best previously known heuristic for partition coloring, and shows that it can improve the solution found by \textit{OneStepCD} by approximately 20\% in average. Beside PCP, the paper proposes advanced strategies for solving the min-RWA problem.
-
-3. Hu, Raidl, Pop (2013): Memetic algorithm
-
-We proposed a memetic algorithm (MA) for the partition graph coloring problem
-that uses two distinct solution representations. For maintaining a diverse popula-
-tion and to keep the computational effort for genetic operators low, we use a full
-solution representation for crossover and mutation. In contrast, we use a more
-compact and incomplete solution representation during local search. Both repre-
-sentations work well in combination in the MA. During local search, we observed
-that minimizing the number of colors results in many solutions of equal quality.
-Therefore, we use a second evaluation criterion based on the number of conflicts
-when using one color less. Computational experiments on common benchmark
-instances sets show that although the MA is not always able to find the optimal
-solutions, it produces solid results with very low run-times and therefore has
-excellent scalability when it comes to large instances.
-For future work, we want to consider a further incomplete solution represen-
-tation which is based on characterizing the colors of the clusters. The challenge
-will be to develop efficient algorithms for choosing the nodes in the clusters that
-are compatible with the color assignments. We also want to consider further eval-
-uation criteria besides color and conflicts so that more fine-tuned measurements
-depending on specific situations are possible.
+In their publication in 2006, Noronha et al. proposed a heuristic based on tabu search \cite{noronha-06}. Quite similar to the approach presented in this work, their strategy is to improve an existing solution by choosing a color $c$, assigning an alternative coloring randomly to all clusters colored with $c$ and trying to make the resulting solution feasible by using tabu search. In contrast, this work uses sophisticated algorithms to find alternative colorings. Their algorithm outperform the best previously known heuristics for partition coloring, and shows that it can improve the solution found by \textit{OneStepCD} by approximately 20\% in average. Beside PCP, the paper proposes  strategies for solving the min-RWA problem.\\
+A memetic algorithm (MA) is proposed by Hu, Raidl, Pop in 2013 \cite{pop-12}. They algorithm uses two distinct solution representations; a full one for crossover and mutations, and a more compact one during local search. Although it produces solid results with low run-time, the solution quality can not compete with the ones gained by the tabu search.

@@ -21,6 +21,7 @@ Warning--empty journal in Meindl-12
 Warning--empty journal in volko-13
 Warning--empty journal in fritz-11
 Warning--empty journal in nocedal-00
+Warning--empty year in karp-72
 Warning--empty journal in lawler-01
 Warning--empty journal in lawler-76
 Warning--empty journal in leitner-06
@@ -33,45 +34,45 @@ Name 1 in "U. Feige, G. Kortsarz, and D. Peleg" has a comma at the end for entry
 while executing---line 1090 of file plain.bst
 Too many commas in name 1 of "Y. Asahiroa, K. Iwamab, H. Tamakic, T. Tokuyamad" for entry asahiroa-00
 while executing---line 1090 of file plain.bst
-You've used 44 entries,
+You've used 48 entries,
             2118 wiz_defined-function locations,
-            712 strings with 9351 characters,
-and the built_in function-call counts, 11710 in all, are:
-= -- 1147
-> -- 478
-< -- 3
-+ -- 202
-- -- 148
-* -- 663
-:= -- 2061
-add.period$ -- 133
-call.type$ -- 44
-change.case$ -- 203
+            733 strings with 9836 characters,
+and the built_in function-call counts, 12853 in all, are:
+= -- 1258
+> -- 523
+< -- 4
++ -- 221
+- -- 162
+* -- 729
+:= -- 2255
+add.period$ -- 145
+call.type$ -- 48
+change.case$ -- 221
 chr.to.int$ -- 0
-cite$ -- 56
-duplicate$ -- 500
-empty$ -- 937
-format.name$ -- 148
-if$ -- 2408
+cite$ -- 61
+duplicate$ -- 551
+empty$ -- 1030
+format.name$ -- 162
+if$ -- 2651
 int.to.chr$ -- 0
-int.to.str$ -- 44
-missing$ -- 47
-newline$ -- 224
-num.names$ -- 88
-pop$ -- 205
+int.to.str$ -- 48
+missing$ -- 52
+newline$ -- 244
+num.names$ -- 96
+pop$ -- 225
 preamble$ -- 1
-purify$ -- 162
+purify$ -- 177
 quote$ -- 0
-skip$ -- 365
+skip$ -- 402
 stack$ -- 0
-substring$ -- 577
-swap$ -- 65
-text.length$ -- 3
+substring$ -- 636
+swap$ -- 76
+text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 170
-warning$ -- 12
-while$ -- 112
-width$ -- 46
-write$ -- 458
+type$ -- 184
+warning$ -- 13
+while$ -- 123
+width$ -- 50
+write$ -- 501
 (There were 6 error messages)
