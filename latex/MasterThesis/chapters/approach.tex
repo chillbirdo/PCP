@@ -2797,8 +2797,10 @@ The array of binary variables $Z$ holds one variable for each cluster connected 
 \caption{Circles denote clusters and a connection between them denote a conflict. $\mathit{ILP1}$ would choose a solution with 2 conflicts (a) over a solution with 3 conflicts, which produces fewer conflicting clusters (b).}
 \end{center}
 \end{figure}
+
 \subsection{ILP variants}
 Furthermore, variants of both ILP models have been considered, that omit the constraints ensuring the absence of conflicts between clusters inside $Q$. The intention here is to reduce the pruning of the solution space in order to allow a larger set of possibly good solutions. These variants will in the following be denoted as \textit{ILP1*} and \textit{ILP2*}, respectively. 
+
 \section{Tabu Search}
 \label{sec:tabu}
 As stated above, the purpose of the tabu search is to eliminate the set of ``conflicting clusters'' $R$. Given the infeasible solution $s$, its neighborhood $\mathcal{N}(s)$ consists of the set of all solutions established by exchanging the selected node and/or color of the conflicting clusters. The node-color pair that produces the fewest conflicts is chosen, the resulting solution is accepted and the set $R$ is updated. Therefore it is said to be a best first (BF) strategy. The chosen move is put on the tabu list for a random number of iterations in a specified interval. An aspiration criterion has been used, which means in this context that if the tabued move is allowed if it would lead to zero conflicts. The search terminates if either a feasible solution could have been established or a specified limit of iteration has been reached.
