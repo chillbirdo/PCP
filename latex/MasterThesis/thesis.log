@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  3 JAN 2014 18:32
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  4 JAN 2014 00:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1476,15 +1476,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--4
 
 ) [5] [6
 
-] (./chapters/abstract_de.tex) [7
+] (./chapters/abstract_de.tex
+Underfull \hbox (badness 10000) in paragraph at lines 3--4
+
+ []
+
+) [7
 
 ] [8
 
 ] (./thesis.toc
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 1.
- [9]) [10]
-(./chapters/introduction.tex
+ [9]) [10] (./chapters/introduction.tex
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 1.
 
@@ -1879,7 +1883,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 194.
 Here is how much of TeX's memory you used:
  22145 strings out of 494987
  371010 string characters out of 3178575
- 994528 words of memory out of 3000000
+ 994526 words of memory out of 3000000
  24483 multiletter control sequences out of 15000+200000
  85339 words of font info for 107 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -1903,7 +1907,7 @@ s/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
 times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (79 pages, 938329 bytes).
+Output written on thesis.pdf (79 pages, 940036 bytes).
 PDF statistics:
  1142 PDF objects out of 1200 (max. 8388607)
  1020 compressed objects within 11 object streams
