@@ -42,4 +42,8 @@ public interface ColoringIF {
     public Set<NodeColorInfoIF> getConflictingNCIs();
 
     public boolean isPartitionSelected(int partition);
+
+    public void setRecentlyRecoloredNCIs( Set<NodeColorInfoIF> set);
+    
+    public Set<NodeColorInfoIF> getRecentlyRecoloredNCIs();
 }

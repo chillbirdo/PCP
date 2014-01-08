@@ -41,6 +41,7 @@ public class Recolorer {
 //            ColoringIF test = new Coloring(cc);
 
             NodeSelector.unselectAllNcisOfColor(cc, color);
+            cc.setRecentlyRecoloredNCIs(cc.getUnselectedNCIs());
 //            NodeSelector.unselectAllNcisOfColor(test, color);
 
             cc.reduceColor(color);

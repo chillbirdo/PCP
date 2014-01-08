@@ -12,14 +12,13 @@ import pcp.model.Coloring;
  */
 public class ColoringDoubleDouble {
     
+    public Coloring coloring;
+    public double conflictingNodes;
+    public double recolorings;
+
     public ColoringDoubleDouble( Coloring coloring, double conflictingNodes, double recolorings){
         this.coloring = coloring;
         this.conflictingNodes = conflictingNodes;
         this.recolorings = recolorings;
     }
-    
-    public Coloring coloring;
-    public double conflictingNodes;
-    public double recolorings;
-    
 }

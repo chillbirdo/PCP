@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.logging.Logger;
+import pcp.model.ColoringDanger;
 //import pcp.model.ColoringDanger;
 import pcp.model.ColoringIF;
 import pcp.model.Graph;
@@ -14,50 +15,50 @@ import pcp.model.NodeColorInfoIF;
 public class NodeSelector {
 
     private static final Logger logger = Logger.getLogger(NodeSelector.class.getName());
-    private static final double ks = 1.4;
-    private static final double ku = 0.8;
+    private static final double ks = 2.5;
+    private static final double ku = 1;
 
     /*
      * implementation of own algorithm to select one node for each cluster
      */
-//    public static void greedyMinDegree(ColoringDanger c, Double pks, Double pku) {
-//        double ks = NodeSelector.ks;
-//        double ku = NodeSelector.ku;
-//        if (pks != null) {
-//            ks = pks;
-//        }
-//        if (pku != null) {
-//            ku = pku;
-//        }
-//        logger.finest("Selecting nodes by greedyMinDegree");
-//        while (!c.getUnselectedNCIs().isEmpty()) {
-//            logger.finest("\n");
-//            NodeColorInfoIF selectNci = null;
-//            double minEval = Double.MAX_VALUE;
-//            for (NodeColorInfoIF nci : c.getUnselectedNCIs()) {
-//                //calc sum adjacent selected and considerable nodes
-//                //(i.e.: unselected nodes from unselected Cluster) 
-//                double sumOfAdjacentSelected = 0.0;
-//                double sumOfAdjacentConsiderable = 0.0;
-//                for (Node neigh : nci.getNode().getNeighbours()) {
-//                    NodeColorInfoDanger neighNci = c.getNciById(neigh.getId());
-//                    if (neighNci.isSelected()) {
-//                        sumOfAdjacentSelected += 1.0;
-//                    } else if (c.getUnselectedNCIs().contains(neighNci)) {
-//                        sumOfAdjacentConsiderable += 1.0;
-//                    }
-//                }
-//                double eval = ks * sumOfAdjacentSelected + ku * sumOfAdjacentConsiderable;
-//                logger.finest("Node " + nci.getNode().getId() + " : " + eval);
-//                if (eval < minEval) {
-//                    selectNci = nci;
-//                    minEval = eval;
-//                }
-//            }
-//            logger.finest("chose node " + selectNci.getNode().getId());
-//            c.selectNci(selectNci);
-//        }
-//    }
+    public static void greedyMinDegree(ColoringDanger c, Double pks, Double pku) {
+        double ks = NodeSelector.ks;
+        double ku = NodeSelector.ku;
+        if (pks != null) {
+            ks = pks;
+        }
+        if (pku != null) {
+            ku = pku;
+        }
+        logger.finest("Selecting nodes by greedyMinDegree");
+        while (!c.getUnselectedNCIs().isEmpty()) {
+            logger.finest("\n");
+            NodeColorInfoIF selectNci = null;
+            double minEval = Double.MAX_VALUE;
+            for (NodeColorInfoIF nci : c.getUnselectedNCIs()) {
+                //calc sum adjacent selected and considerable nodes
+                //(i.e.: unselected nodes from unselected Cluster) 
+                double sumOfAdjacentSelected = 0.0;
+                double sumOfAdjacentConsiderable = 0.0;
+                for (Node neigh : nci.getNode().getNeighbours()) {
+                    NodeColorInfoDanger neighNci = c.getNciById(neigh.getId());
+                    if (neighNci.isSelected()) {
+                        sumOfAdjacentSelected += 1.0;
+                    } else if (c.getUnselectedNCIs().contains(neighNci)) {
+                        sumOfAdjacentConsiderable += 1.0;
+                    }
+                }
+                double eval = ks * sumOfAdjacentSelected + ku * sumOfAdjacentConsiderable;
+                logger.finest("Node " + nci.getNode().getId() + " : " + eval);
+                if (eval < minEval) {
+                    selectNci = nci;
+                    minEval = eval;
+                }
+            }
+            logger.finest("chose node " + selectNci.getNode().getId());
+            c.selectNci(selectNci);
+        }
+    }
 
     public static void unselectAllNcisOfColor( ColoringIF c, int color) {
         logger.finest("unselecting all nodes of color " + color);

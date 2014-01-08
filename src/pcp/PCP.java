@@ -7,13 +7,15 @@ import java.util.Collections;
 import java.util.List;
 import pcp.model.Graph;
 import java.util.logging.Logger;
+import pcp.alg.Danger;
 import pcp.alg.ILPSolverExact;
 //import pcp.alg.Danger;
-import pcp.alg.LocalSearch;
+import pcp.alg.TabuSearch;
 import pcp.alg.OneStepCD;
 import pcp.alg.Recolorer;
 import pcp.model.Coloring;
 import pcp.instancereader.InstanceReader;
+import pcp.model.ColoringDanger;
 import pcp.tools.ColoringDoubleDouble;
 import pcp.tools.LatexPrinter;
 //import pcp.model.ColoringDanger;
@@ -30,56 +32,111 @@ public class PCP {
     public static final int RECOLOR_WITH_ILP2_NOCOLORINGCONTRAINT = 4;
     public static final int RECOLOR_WITH_RANDOM = 5;
 
-    public static void main(String[] args) {
-        int[] algs = {RECOLOR_WITH_ILP, RECOLOR_WITH_ILP_NOCOLORINGCONSTRAINT, RECOLOR_WITH_ILP2, RECOLOR_WITH_ILP2_NOCOLORINGCONTRAINT};
-//        int[] algs = {RECOLOR_WITH_RANDOM, RECOLOR_WITH_ONESTEPCD, RECOLOR_WITH_ILP, RECOLOR_WITH_ILP2};
-        algComparisonTable1("pcp_instances/pcpn90p1/", algs, 10);
-        algComparisonTable1("pcp_instances/pcpn90p2/", algs, 10);
-        algComparisonTable1("pcp_instances/pcpn90p3/", algs, 10);
-        algComparisonTable1("pcp_instances/pcpn90p4/", algs, 10);
-        algComparisonTable1("pcp_instances/pcpn90p5/", algs, 10);
-        algComparisonTable1("pcp_instances/pcpn90p6/", algs, 10);
-        algComparisonTable1("pcp_instances/pcpn90p7/", algs, 10);
-        algComparisonTable1("pcp_instances/pcpn90p8/", algs, 10);
-        algComparisonTable1("pcp_instances/pcpn90p9/", algs, 10);
-        algComparisonTable1("pcp_instances/pcp20/", algs, 10);
-        algComparisonTable1("pcp_instances/pcp40/", algs, 10);
-        algComparisonTable1("pcp_instances/pcp60/", algs, 10);
-        algComparisonTable1("pcp_instances/pcp70/", algs, 10);
-        algComparisonTable1("pcp_instances/pcp80/", algs, 10);
-        algComparisonTable1("pcp_instances/pcp90/", algs, 10);
-        algComparisonTable1("pcp_instances/pcp100/", algs, 10);
-        algComparisonTable1("pcp_instances/pcp120/", algs, 10);
-
-
-//        double[][] tabuIntervalsIn = {{0.25, 0.75},
-//            {0.0, 1.0},
-//            {0.0, 0.5},
-//            {0.5, 1.0},
-//            {0.25, 1.0},
-//            {0.0, 0.75},
-//            {1.0, 2.0},
-//            {1.5, 2.5},
-//            {2.0, 3.0},
-//            {3.0, 5.0}};
-//        tabuSizeTable("pcp_instances/in1/", tabuIntervalsIn, 5.0);
-//        tabuSizeTable("pcp_instances/in2/", tabuIntervalsIn, 5.0);
-//        tabuSizeTable("pcp_instances/in3/", tabuIntervalsIn, 5.0);
-//        tabuSizeTable("pcp_instances/in4/", tabuIntervalsIn, 5.0);
-    
+    public static void main(String[] a) {
+//        testSelectorParameters();
+        testDangerVsOneStepCD("pcp_instances/pcp");
+//        testDangerVsOneStepCD("pcp_instances/pcp20");
+//        testDangerVsOneStepCD("pcp_instances/pcp40");
+//        testDangerVsOneStepCD("pcp_instances/pcp60");
+//        testDangerVsOneStepCD("pcp_instances/pcp70");
+//        testDangerVsOneStepCD("pcp_instances/pcp80");
+//        testDangerVsOneStepCD("pcp_instances/pcp90");
+//        testDangerVsOneStepCD("pcp_instances/pcp100");
+//        testDangerVsOneStepCD("pcp_instances/pcp120");
+//        
+//        testDangerVsOneStepCD("pcp_instances/pcpn90p1");
+//        testDangerVsOneStepCD("pcp_instances/pcpn90p2");
+//        testDangerVsOneStepCD("pcp_instances/pcpn90p3");
+//        testDangerVsOneStepCD("pcp_instances/pcpn90p4");
+//        testDangerVsOneStepCD("pcp_instances/pcpn90p5");
+//        testDangerVsOneStepCD("pcp_instances/pcpn90p6");
+//        testDangerVsOneStepCD("pcp_instances/pcpn90p7");
+//        testDangerVsOneStepCD("pcp_instances/pcpn90p8");
+//        testDangerVsOneStepCD("pcp_instances/pcpn90p9");
     }
 
-    public static void algComparisonTable1(String instSet, int[] algs, int rep) {
-        int iterationsFactor = 10;
+//    public static void main(String[] args) {
+////        int[] algs = {RECOLOR_WITH_ILP, RECOLOR_WITH_ILP_NOCOLORINGCONSTRAINT, RECOLOR_WITH_ILP2, RECOLOR_WITH_ILP2_NOCOLORINGCONTRAINT};
+//        int[] algs = {RECOLOR_WITH_RANDOM, RECOLOR_WITH_ONESTEPCD, RECOLOR_WITH_ILP, RECOLOR_WITH_ILP2};
+////        int[] algs = {RECOLOR_WITH_RANDOM};
+////        int[] algs = {RECOLOR_WITH_ILP, RECOLOR_WITH_ILP2};
+//        double recoloredTabuSize = 0;
+//        double[][] tabuIntervalsPCP = {{0, 0.5},
+//            {0.5, 1},
+//            {1, 4},
+//            {0, 5},
+//            {5, 10},
+//            {10, 20}};
+//        int[] iterationFactorsPCP = {1, 10, 20, 50};
+//        int repPCP = 5;
+//
+//        algComparisonTable1("pcp_instances/pcpn90p1/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//        algComparisonTable1("pcp_instances/pcpn90p2/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//        algComparisonTable1("pcp_instances/pcpn90p3/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//        algComparisonTable1("pcp_instances/pcpn90p4/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//        algComparisonTable1("pcp_instances/pcpn90p5/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//        algComparisonTable1("pcp_instances/pcpn90p6/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//        algComparisonTable1("pcp_instances/pcpn90p7/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//        algComparisonTable1("pcp_instances/pcpn90p8/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//        algComparisonTable1("pcp_instances/pcpn90p9/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//
+//        algComparisonTable1("pcp_instances/pcp20/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//        algComparisonTable1("pcp_instances/pcp40/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//        algComparisonTable1("pcp_instances/pcp60/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//        algComparisonTable1("pcp_instances/pcp70/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//        algComparisonTable1("pcp_instances/pcp80/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//        algComparisonTable1("pcp_instances/pcp90i5/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//        algComparisonTable1("pcp_instances/pcp100/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//        algComparisonTable1("pcp_instances/pcp120/", algs, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+//
+//
+////        logger.severe("EXACT ONES:");
+////        
+////         //EXACT TESTS
+////        int[] algsEXACT = {RECOLOR_WITH_ILP, RECOLOR_WITH_ILP_NOCOLORINGCONSTRAINT, RECOLOR_WITH_ILP2, RECOLOR_WITH_ILP2_NOCOLORINGCONTRAINT};
+////        algComparisonTable1("pcp_instances/pcpn90p7/", algsEXACT, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+////        algComparisonTable1("pcp_instances/pcpn90p8/", algsEXACT, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+////        algComparisonTable1("pcp_instances/pcpn90p9/", algsEXACT, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+////        algComparisonTable1("pcp_instances/pcp90i5/", algsEXACT, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+////        algComparisonTable1("pcp_instances/pcp100/", algsEXACT, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+////        algComparisonTable1("pcp_instances/pcp120/", algsEXACT, repPCP, tabuIntervalsPCP, iterationFactorsPCP);
+////
+////        logger.severe("RECOLOR ON TABULIST:");
+////        
+////        
+//////    RECOLORED TABULIST TESTS
+////        int[] algsNoRandom = {RECOLOR_WITH_ONESTEPCD, RECOLOR_WITH_ILP, RECOLOR_WITH_ILP2};
+////        double[] recoloredTabuSizeFactors = {0.0, 0.3, 0.5, 1.0, 2.0, 5.0, 10.0};
+////        algComparisonTable2("pcp_instances/pcpn90p5/", algsNoRandom, repPCP, tabuIntervalsPCP, recoloredTabuSizeFactors);
+////        algComparisonTable2("pcp_instances/pcpn90p7/", algsNoRandom, repPCP, tabuIntervalsPCP, recoloredTabuSizeFactors);
+////        algComparisonTable2("pcp_instances/pcpn90p9/", algsNoRandom, repPCP, tabuIntervalsPCP, recoloredTabuSizeFactors);
+////        algComparisonTable2("pcp_instances/pcp90i5/", algsNoRandom, repPCP, tabuIntervalsPCP, recoloredTabuSizeFactors);
+////        algComparisonTable2("pcp_instances/pcp100/", algsNoRandom, repPCP, tabuIntervalsPCP, recoloredTabuSizeFactors);
+////        algComparisonTable2("pcp_instances/pcp120/", algsNoRandom, repPCP, tabuIntervalsPCP, recoloredTabuSizeFactors);
+////    IN !!!
+//    logger.severe (
+//    "--- !!! IN !!! ---");
+//        double[][] tabuIntervalsIN = {
+//        {0.25, 0.75},
+//        {0.0, 1},
+//        {0.0, 0.5},
+//        {0.5, 1.0},
+//        {0.25, 1},
+//        {0.0, 0.75}
+//    };
+//    int[] iterationFactorsIN = {10};
+//    int repIN = 1;
+//    int[] algsIn = {RECOLOR_WITH_ILP};
+//
+////        algComparisonTable1("pcp_instances/in1/", algsIn, repIN, tabuIntervalsIN, iterationFactorsIN);
+////    algComparisonTable1("pcp_instances/in2/", algsIn, repIN, tabuIntervalsIN, iterationFactorsIN);
+////        algComparisonTable1("pcp_instances/in3/", algsIn, repIN, tabuIntervalsIN, iterationFactorsIN);
+////        algComparisonTable1("pcp_instances/in4/", algsIn, repIN, tabuIntervalsIN, iterationFactorsIN);
+//    }
+    public static void algComparisonTable1(String instSet, int[] algs, int rep, double[][] tabuIntervals, int[] iterationFactors) {
 
 //        int[] algs = {RECOLOR_WITH_RANDOM};
         List<String> algLabelList = new ArrayList<String>(10);
-        double[][] tabuIntervalsPCP = {//{{0.25, 0.75},
-            {1.0, 2.5},
-            {2.5, 5.0},
-            {2.0, 4.0},
-            {1.0, 5.0}};
-
         List<String> entryLabelList = new ArrayList<String>(100);
         List<List<List<Double>>> methodList = new ArrayList<List<List<Double>>>(10);
         for (int method : algs) {
@@ -88,24 +145,28 @@ public class PCP {
 
             //fill entries
             List<List<Double>> entryList = new ArrayList<List<Double>>();
-            for (double[] tabuInterval : tabuIntervalsPCP) {
-                entryList.add(allFiles(instSet, method, rep, tabuInterval[0], tabuInterval[1], iterationsFactor));
+            for (int iterationFactor : iterationFactors) {
+                logger.severe("iterationFactor: " + iterationFactor);
+                for (double[] tabuInterval : tabuIntervals) {
+//                    logger.severe("\ttabuInterval: " + tabuInterval[0] + " - " + tabuInterval[1]);
+                    entryList.add(allFiles(instSet, method, rep, tabuInterval[0], tabuInterval[1], iterationFactor, 0.0));
+                }
             }
             methodList.add(entryList);
         }
 
         String[] pathSplit = instSet.split("/");
-        String tableName = pathSplit[pathSplit.length-1];
-        String tableStr = LatexPrinter.toLatexTableStr(tableName, algLabelList, tabuIntervalsPCP, methodList);
+        String tableName = pathSplit[pathSplit.length - 1];
+        String tableStr = LatexPrinter.toLatexTableStr(tableName, algLabelList, tabuIntervals, iterationFactors, methodList);
         logger.severe("\n\n" + tableStr);
     }
 
-    public static void tabuSizeTable(String instSet, double[][] tabuIntervals, double iterationsFactor) {
-        int rep = 10;
+    public static void algComparisonTable2(String instSet, int[] algs, int rep, double[][] tabuIntervals, double[] recoloredTabuSizeFactors) {
 
-        int[] algs = {RECOLOR_WITH_RANDOM};
+        int iterationFactor = 5;
+
+//        int[] algs = {RECOLOR_WITH_RANDOM};
         List<String> algLabelList = new ArrayList<String>(10);
-
         List<String> entryLabelList = new ArrayList<String>(100);
         List<List<List<Double>>> methodList = new ArrayList<List<List<Double>>>(10);
         for (int method : algs) {
@@ -114,25 +175,23 @@ public class PCP {
 
             //fill entries
             List<List<Double>> entryList = new ArrayList<List<Double>>();
-            for (double[] tabuInterval : tabuIntervals) {
-                entryList.add(allFiles(instSet, method, rep, tabuInterval[0], tabuInterval[1], iterationsFactor));
+            for (double recoloredTabuSizeFactor : recoloredTabuSizeFactors) {
+                logger.severe("iterationFactor: " + iterationFactor);
+                for (double[] tabuInterval : tabuIntervals) {
+                    logger.severe("\ttabuInterval: " + tabuInterval[0] + " - " + tabuInterval[1]);
+                    entryList.add(allFiles(instSet, method, rep, tabuInterval[0], tabuInterval[1], iterationFactor, recoloredTabuSizeFactor));
+                }
             }
             methodList.add(entryList);
         }
 
-        String tableStr = LatexPrinter.toLatexTableStr(instSet, algLabelList, tabuIntervals, methodList);
+        String[] pathSplit = instSet.split("/");
+        String tableName = pathSplit[pathSplit.length - 1];
+        String tableStr = LatexPrinter.toLatexTable2Str(tableName, algLabelList, tabuIntervals, methodList, recoloredTabuSizeFactors);
         logger.severe("\n\n" + tableStr);
     }
 
-//            entryList.add( allFiles("pcp_instances/pcpn90p1/", method, tabuSizeMin, tabuSizeMax, rep));
-//            entryList.add( allFiles("pcp_instances/pcpn90p2/", method, tabuSizeMin, tabuSizeMax, rep));
-//            entryList.add( allFiles("pcp_instances/pcpn90p4/", method, tabuSizeMin, tabuSizeMax, rep));
-//            entryList.add( allFiles("pcp_instances/pcpn90p5/", method, tabuSizeMin, tabuSizeMax, rep));
-//            entryList.add( allFiles("pcp_instances/pcpn90p6/", method, tabuSizeMin, tabuSizeMax, rep));
-//            entryList.add( allFiles("pcp_instances/pcpn90p7/", method, tabuSizeMin, tabuSizeMax, rep));
-//            entryList.add( allFiles("pcp_instances/pcpn90p8/", method, tabuSizeMin, tabuSizeMax, rep));
-//            entryList.add( allFiles("pcp_instances/pcpn90p9/", method, tabuSizeMin, tabuSizeMax, rep));
-    public static List<Double> allFiles(String path, int recolorAlg, int repetitions, double tabuSizeMinFactor, double tabuSizeMaxFactor, double iterationsFactor) {
+    public static List<Double> allFiles(String path, int recolorAlg, int repetitions, double tabuSizeMinFactor, double tabuSizeMaxFactor, double iterationsFactor, double recoloredTabuSizeFactor) {
 //        logger.severe(path);
 
         List<Double> ret = new ArrayList<Double>(3);
@@ -165,7 +224,7 @@ public class PCP {
 //                    double conflictingNodesAmount = 0.0;
 //                    double recoloringAmount = 0.0;
                     for (int i = 0; i < repetitions; i++) {
-                        ColoringDoubleDouble cdp = optimized(fileEntry, recolorAlg, tabuSizeMinFactor, tabuSizeMaxFactor, iterationsFactor);
+                        ColoringDoubleDouble cdp = optimized(fileEntry, recolorAlg, tabuSizeMinFactor, tabuSizeMaxFactor, iterationsFactor, recoloredTabuSizeFactor);
                         Coloring c = cdp.coloring;
                         int chromatic = c.getChromatic();
                         repSum += chromatic;
@@ -208,7 +267,7 @@ public class PCP {
             double variance = varianceInstSum / fileList.size();
             double avgTime = avgTimeInstSum / fileList.size();
 
-//             logger.severe("\n FINISHED!\n" + "\\textbf{" + mean + "} & " + variance + " & " + avgTime);
+//            logger.severe("\n FINISHED!\n" + "\\textbf{" + mean + "} & " + variance + " & " + avgTime);
 //            logger.severe(conflictingNodesAmountAvg + " & " + recoloringAvg + "\n\n");
 
             ret.add(mean);
@@ -221,7 +280,7 @@ public class PCP {
         return ret;
     }
 
-    private static ColoringDoubleDouble optimized(File instanceFile, int recolorAlg, double tabuSizeMinFactor, double tabuSizeMaxFactor, double iterationsFactor) {
+    private static ColoringDoubleDouble optimized(File instanceFile, int recolorAlg, double tabuSizeMinFactor, double tabuSizeMaxFactor, double iterationsFactor, double recoloredTabuSizeFactor) {
         Graph g = null;
         Coloring c = null;
         try {
@@ -230,7 +289,7 @@ public class PCP {
             ex.printStackTrace();
         }
 
-        c = OneStepCD.calcInitialColoring(g);
+        c = new Coloring(Danger.calcInitialColoringHybrid(g, 2.5, 1.0));
 
         boolean couldReduceColors;
         int maxIterations = (int) Math.round((double) c.getGraph().getPartitionAmount() * ((double) c.getChromatic() - 1) * iterationsFactor);
@@ -242,8 +301,6 @@ public class PCP {
 //                logger.severe("TERMINATING: NOT ALL TESTS SUCCEDED!");
 //                return null;
 //            }
-            int tabusizeMin = (int) Math.round(((double) c.getChromatic() - 1) * tabuSizeMinFactor);
-            int tabusizeMax = (int) Math.round(((double) c.getChromatic() - 1) * tabuSizeMaxFactor);
 
             couldReduceColors = false;
             ArrayList<Coloring> cL = Recolorer.recolorAllColors(c, recolorAlg);
@@ -261,7 +318,7 @@ public class PCP {
                     couldReduceColors = true;
                     break;
                 }
-                if (LocalSearch.start(cc, tabusizeMin, tabusizeMax, maxIterations)) {
+                if (TabuSearch.start2(cc, tabuSizeMinFactor, tabuSizeMaxFactor, maxIterations, recoloredTabuSizeFactor)) {
                     c = cc;
                     couldReduceColors = true;
                     break;
@@ -340,71 +397,79 @@ public class PCP {
 //            ex.printStackTrace();
 //        }
 //    }
-//    public static void initialColoringTest() {
-//        try {
-////            File folder = new File("pcp_instances/test/test1.pcp");
-//            File file = new File("pcp_instances/pcp/n100p5t2s1.pcp");
-//            Graph g = InstanceReader.readInstance(file.getAbsolutePath());
-//            //OneStepCD.calcInitialColoring(g);
-//            ColoringDanger d = Danger.calcInitialColoring(g);
-//            ColoringTest.performAllDanger(d);
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//    }
-//    private static void testSelectorParameters() {
-//        Graph g = null;
-//        ColoringDanger c = null;
-//
-//        int bestresult = Integer.MAX_VALUE;
-//        String bestresultStr = "";
-//        for (double ks = 0.1; ks <= 2.0; ks += 0.1) {
+//     
+
+    /*
+     * best params pcp/in: ks 2.5, ku 1.0
+     */
+    private static void testSelectorParameters() {
+        Graph g = null;
+        ColoringDanger c = null;
+
+        int bestresult = Integer.MAX_VALUE;
+        String bestresultStr = "";
+        for (double ks = 0.2; ks <= 10; ks += 0.2) {
 //            for (double ku = 0.1; ku <= 2.0; ku += 0.1) {
-//                int sumChromatic = 0;
-//                try {
-//                    File folder = new File("pcp_instances/pcp/");
-//                    for (final File fileEntry : folder.listFiles()) {
-//                        if (fileEntry.isFile()) {
-//                            g = InstanceReader.readInstance(fileEntry.getAbsolutePath());
-//                            c = Danger.calcInitialColoring(g);
-//                            sumChromatic += c.getChromatic();
-//                        }
-//                    }
-//                } catch (Exception ex) {
-//                    ex.printStackTrace();
-//                }
-//                String out = "--- result: " + sumChromatic + " ks=" + ks + "; ku=" + ku + ";";
-//                if (sumChromatic < bestresult) {
-//                    bestresult = sumChromatic;
-//                    bestresultStr = out;
-//                }
-//                logger.severe(out);
+            int sumChromatic = 0;
+            try {
+                File folder = new File("pcp_instances/in2/");
+                for (final File fileEntry : folder.listFiles()) {
+                    if (fileEntry.isFile()) {
+                        g = InstanceReader.readInstance(fileEntry.getAbsolutePath());
+                        c = Danger.calcInitialColoring(g, ks, 1);
+                        sumChromatic += c.getChromatic();
+                    }
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            String out = "--- result: " + sumChromatic + " ks=" + ks + "; ku=" + 1.0 + ";";
+            if (sumChromatic < bestresult) {
+                bestresult = sumChromatic;
+                bestresultStr = out;
+            }
+            logger.severe(out);
 //            }
-//        }
-//        logger.severe("\n\n best result: " + bestresultStr);
-//    }
-//    private static void testDangerVsOneStepCD() {
-//
-//        int bestresult = Integer.MAX_VALUE;
-//        String bestresultStr = "";
-//        int sumDanger = 0;
-//        int sumOneStepCD = 0;
-//        try {
-//            File folder = new File("pcp_instances/in/");
-//            for (final File fileEntry : folder.listFiles()) {
-//                if (fileEntry.isFile()) {
-//                    Graph g = InstanceReader.readInstance(fileEntry.getAbsolutePath());
-//                    ColoringDanger cDanger = Danger.calcInitialColoring(g);
-//                    Coloring cOneStepCD = OneStepCD.calcInitialColoring(g);
-//                    sumDanger += cDanger.getChromatic();
-//                    sumOneStepCD += cOneStepCD.getChromatic();
-//
-//                    logger.severe("--- DANGER: " + cDanger.getChromatic() + "; OneStepCD: " + cOneStepCD.getChromatic() + ";");
-//                }
-//            }
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//        logger.severe("\n\n RESULT: DANGER: " + sumDanger + "; OneStepCD: " + sumOneStepCD + ";");
-//    }
+        }
+        logger.severe("\n\n best result: " + bestresultStr);
+    }
+
+    private static void testDangerVsOneStepCD(String filepath) {
+
+        int bestresult = Integer.MAX_VALUE;
+        String bestresultStr = "";
+        int sumDanger = 0;
+        int sumOneStepCD = 0;
+        int sumHybrid = 0;
+        try {
+            File folder = new File(filepath);
+            for (final File fileEntry : folder.listFiles()) {
+                if (fileEntry.isFile()) {
+                    Graph g = InstanceReader.readInstance(fileEntry.getAbsolutePath());
+
+                    long starttime = System.currentTimeMillis();
+                    ColoringDanger cDanger = Danger.calcInitialColoring(g, 2.5, 1.0);
+                    long dangertime = System.currentTimeMillis() - starttime;
+
+                    starttime = System.currentTimeMillis();
+                    Coloring cOneStepCD = OneStepCD.calcInitialColoring(g);
+                    long oscdtime = System.currentTimeMillis() - starttime;
+
+                    starttime = System.currentTimeMillis();
+                    Coloring cHybrid = new Coloring(Danger.calcInitialColoringHybrid(g, 2.5, 1.0));
+                    long hybridtime = System.currentTimeMillis() - starttime;
+
+                    sumDanger += cDanger.getChromatic();
+                    sumOneStepCD += cOneStepCD.getChromatic();
+
+                    logger.severe(fileEntry.getName() + " -- DANGER: " + cDanger.getChromatic() + "; " + dangertime + "; "
+                            + "-- OneStepCD: " + cOneStepCD.getChromatic() + "; " + oscdtime + "; "
+                            + "-- Hybrid: " + cHybrid.getChromatic() + "; " + hybridtime + ";");
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        logger.severe("\n\n RESULT: DANGER: " + sumDanger + "; OneStepCD: " + sumOneStepCD + ";");
+    }
 }
