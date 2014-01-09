@@ -2126,9 +2126,12 @@ $reduction \gets$ false\;
 \label{algo:overall}
 \end{algorithm}
 \clearpage
+
+
+
 \section{Constructional Heuristics}
 \label{sec:construction}
-Construction heuristics create a solution from scratch. This section presents the two construction heuristics implemented by the author.
+Construction heuristics create a solution from scratch. This section presents the two construction heuristics and an algorithm that combines them in order to benefit from the advantages of both.
 \subsection{OneStepCD}
 \textit{OneStepCD} is the best performing out of six constructional greedy algorithms for PCP presented by Li and Simha in \cite{li-00}. The algorithms have originally been constructed for VCP by \cite{brelaz-79} and have been adapted to PCP. Listing \ref{algo:osdc} shows the algorithm.\\
 The main criterion considered for selecting and coloring the next node is the so called \textit{color degree} or \textit{saturation degree}, which is defined as the amount of different colors of nodes adjacent to the considered node. The idea behind \textit{OneStepCD} is first for each (unselected) cluster to select the node with the lowest color degree. Out of the resulting set, select the node with the highest color degree and color it with the lowest possible color. This procedure is repeated until all clusters are colored, i.e. hold one selected and colored node.\\
@@ -2155,16 +2158,19 @@ Set $s \gets \emptyset $\;
 
 \subsection{DANGER}
 The \textit{DANGER} heuristic is a method to color a graph introduced by Parker et.al. in \cite{glover-96}. It has originaly also been constructed for VCP and therefore does not concern about the peculiarities of PCP. In this work, inquiries have been made to adapt the \textit{DANGER} heuristic to PCP by slotting an algorithm in ahead, which selects one node per cluster, in order to color the resulting subgraph as usual.\\ 
-Listing \ref{algo:dangerselector} shows the preprocessing algorithm. In line 3, the node $v$ is chosen which has the minimum weighted sum of the already selected adjacent nodes $s(v)$ and the unselected but still selectable adjacent nodes $u(v)$. The weights $c_s$ and $c_u$ are constants. In line 4, the selected node is added to the set of selected nodes $V'$ and in line 5, all the nodes contained in the cluster $p(v)$ enveloping $v$ are removed from $V$. 
+Listing \ref{algo:dangerselector} shows the preprocessing algorithm. In line 3, the node $v$ is chosen which has the minimum weighted sum of the already selected adjacent nodes $s(v)$ and the unselected but still selectable adjacent nodes $u(v)$. The weights $c_s$ and $c_u$ are constants, where it turned out that best results can be achieved with values of $2.5$ and $1.0$, respectively. In line 4, the selected node is added to the set of selected nodes $V'$ and in line 5, all the nodes contained in the cluster $p(v)$ enveloping $v$ are removed from $V$. 
+
 \begin{algorithm}[h]
-\KwIn{A problem instance $P$}
-\KwOut{A subproblem $P'$ with $G'\subseteq G$}
+\KwIn{A graph $G$}
+\KwOut{A subgraph $G'\subseteq G$}
 $V' \gets \emptyset$\;
 \While{$|V| > 0$} {
         $v \gets v\in V : min\{ c_s s(v) + c_u u(v) \}$\;
         $V' \gets V' \cup v$\;
         $V \setminus V_{p(v)}$\;
 }
+Let $E'\subset E$ be the set of edges induced by $V'$\;
+\Return{$G'=(V',E')$}
 \caption{Greedy Nodeselection}
 \label{algo:dangerselector}
 \end{algorithm}
@@ -2198,6 +2204,28 @@ Let $\mathit{diff\_neighbors}(c)$ be a function returning over all uncolored nod
 $$ \mathit{ColorDanger}(i) = \frac{k_1}{(\mathit{max\_color} - \mathit{diff\_neighbours}(c))^{k_2}} + k_3 \cdot \mathit{uncolored}(n_c) - k_4 \cdot num(c) $$
 
 The concept of danger has not been intended to act as construction heuristic only. Instead, it has been used to be part of an improving heuristic, using tabu branch and bound and backtracking to reassign colors, as well as methods to prune branches from the assignment tree \footnote{While the exploration phase of this thesis, the author has considered to adapt a similar strategy to PCP.}.
+
+
+\subsection{Hybrid Construction Algorithm}
+
+Since the results \ref{sec:constructionheuristics} have shown that \textit{DANGER} performs better in some but not all instances and \textit{OneStepCD} suits well to calculate an upper bound, the algorithm listed in \ref{algo:hybridConstruction} has been implemented. Note that for reasons of comprehensibility the call of the node-selecting algorithm \ref{algo:dangerselector} preceding to \textit{DANGER} has been omitted. Simply explained, the algorithm applies \textit{OneStepCD} in order to get an upper bound for \textit{DANGER}, which is then applied repeatedly, each time decreasing the number of allowed colors until no feasbile coloring can be achieved.
+
+\begin{algorithm}[h]
+\KwIn{A graph $G$}
+\KwOut{A feasible coloring $s$}
+
+$s = \mathit{OneStepCD(G)}$\;
+Let $c$ be the chromatic number of $s$\;
+$c \gets c-1$\; 
+\While{$\mathit{DANGER(G)}$ can find a solution $s'$ using $c$ colors} {
+	$c \gets c-1$\;
+	$s \gets s'$\;
+}
+\Return{$s$}
+\caption{Hybrid Construction}
+\label{algo:hybridConstruction}
+\end{algorithm}
+
 
 \section{Recoloring}
 \label{sec:recoloring}
@@ -2233,6 +2261,7 @@ Uncolor all nodes in $V'_{col(c)}$\;
 \clearpage
 
 \subsection{ILP1: minimizing conflicts}
+\label{sec:ilp1}
 The following ILP model solves the problem of recoloring exactly in terms of minimizing the number of produced conflicts. Let $Q = {Q_1,\ldots,Q_q}$ be the set of uncolored clusters and let $C=\{1,\ldots,cmax\}$ be the set of allowed colors. The 3-dimensional array of binary variables $X$ denote for each cluster $p \in Q$, if the node-color pair $(v \in Q_p, c \in C)$ is selected. Let $M$ be a 3-dimensional array of constants, storing for each cluster $p \in Q$ the number conflicts that would occur by selecting the pair $(v \in Q_p, c \in C)$. $E$ denotes the set of edges.
 \begin{equation*}
 \begin{aligned}
@@ -2247,6 +2276,7 @@ An advantage of this model is that the matrix $M$ does not have to be created ea
 
 
 \subsection{ILP2: minimizing conflicting nodes}
+\label{sec:ilp2}
 After recoloring, the tabu search starts eliminating the set of ``conflicting clusters'', i.e. the clusters involved in conflicts, that have \textit{not} been recolored by the latest recoloring process\footnote{In case of recoloring algorithms that allow conflicts between recolored clusters, additionally one cluster per conflict is added to $R$.}, i.e. is not in $Q$. Let this set be denoted by $R$. 
    Testing the effect of minimizing $\left\vert{R}\right\vert$ as a part of the whole algorithm is an important concerns of this work. In this context, figure \ref{fig:ilp1vsilp2} shows a case where \textit{ILP1} would not decide optimally in terms of minimizing the number of conflicting clusters. The circles represent clusters inside of set $Q$ and $R$, respectively. The connections between the clusters denote conflicts. Assuming that there exists a coloring that produces $2$ conflicts and $\left\vert{R}\right\vert=2$ \ref{fig:ilp1vsilp2}a and a coloring that produces $3$ conflicts, but $\left\vert{R}\right\vert=1$ \ref{fig:ilp1vsilp2}b, \textit{ILP1} would decide on the first. Therefore a second ILP model has been designed, which minimizes the number of conflicting clusters $\left\vert{R}\right\vert$. Let $color[(p,v)]$ be a function returning the color of the node $v$ in partition $p$.
 \begin{equation*}
