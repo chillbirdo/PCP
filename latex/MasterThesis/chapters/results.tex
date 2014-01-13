@@ -14,9 +14,61 @@ In the following section preliminarily and final results as well as comparison t
 \subsection{Construction Heuristics}
 \label{sec:constructionheuristics}
 
-Tests have been performed comparing the construction heuristics \textit{OneStepCD} and \textit{DANGER}, as well as the combining algorithm presented in \ref{sec:construction} to each other. As mentioned before, one major disadvantage of DANGER is that a domain of colors has to be given as parameter and the algorithm then tries to color the graph only using colors in that domain. So in order to find out the lower bound of the domain, several runs have to be performed, which of course multiply the runtime. 
+Tests have been performed comparing the construction heuristics \textit{OneStepCD} and \textit{DANGER}, as well as the combining algorithm presented in \ref{sec:construction} to each other. As mentioned before, one major disadvantage of DANGER is that a domain of colors has to be given as parameter and the algorithm then tries to color the graph only using colors in that domain. So in order to find out the lower bound of the domain, several runs have to be performed, which of course multiply the runtime. Tables \ref{tab:constructionComparePCP} and \ref{tab:constructionCompareIN} show the results of evaluating \textit{OneStepCD} as well as the hybrid approach, named \textit{Hybrid-Construction}. The average chromatic number is represented as $\overline{obj}$ and the average time in milliseconds as $\overline{time}(ms)$. Note that for the \textit{DANGER} algorithm the time is given per run, since it depends on the strategy used how often a run has to be performed until the coloring with lowest possible chromatic number can be found. In table \ref{tab:constructionComparePCP} sets of five instances, each varying in terms of size and density and in table \ref{tab:constructionCompareIN} the four large instances have been used.\\
 
-To find out what method is more efficient to generate an initial solution, OneStepCD or DANGER combined with the prefixed node selection algorithm presented in chapter \ref{ch:approach}, tests have been performed on all instances.  Table \ref{tab:TODO}
+It turns out that \textit{Hybrid-Construction} outperforms \textit{OneStepCD} on instances sized $\leq 120$ nodes in terms of solution quality and with acceptable runtime. In contrast, on the four large instances, \textit{DANGER} can not compete with \textit{OneStepCD} in both, quality and runtime. The latter increases dramatically with the size of the instance.  
+ 
+      \begin{table}[h]
+      \caption{Results and time of construction heuristics solving instance sets of different size and density, with 5 instances per set.}
+\begin{center}
+      \begin{tabular}{|l|l||l|l||l|l||l|l||}\hline
+      \multicolumn{2}{|l||}{Instances}&\multicolumn{2}{|l||}{OneStepCD}&\multicolumn{2}{|l||}{DANGER}&\multicolumn{2}{|l|}{Hybrid-Construction}\\
+      \cline{1-8}
+      nodes & density & $\overline{obj}$ & $\overline{time}(ms)$ & $\overline{obj}$ & $\frac{\overline{time}(ms)}{run}$ & $\overline{obj}$ & $\overline{time}(ms)$\\
+      \hline
+	  20 & 0.5 		& 3.6 & 0.2 		 	& \textbf{3.4} & 0.5  	& \textbf{3.4} & 1.0\\
+	  40 & 0.5 		& 5.6 & 0.2 		 	& \textbf{5.0} & 0.5  	& \textbf{5.0} & 2.0\\
+	  60 & 0.5 		& 7.4 & 0.2 		 	& \textbf{6.0} & 0.9  	& \textbf{6.6} & 4.6\\
+	  70 & 0.5 		& 7.6 & 0.6 		 	& \textbf{7.0} & 0.8  	& \textbf{7.0} & 4.0\\
+	  80 & 0.5 		& 8.6 & 0.2 		 	& \textbf{8.0} & 1.1  	& \textbf{8.0} & 4.6\\
+	  90 & 0.5 		& \textbf{9.4} & 5.2  	& \textbf{9.4} & 42.2  	& \textbf{9.4} & 47.4\\
+	  100 & 0.5 	& 10.2 & 0.4 		 	& \textbf{10.0} & 3.0  	& \textbf{10.0} & 6.4\\
+	  120 & 0.5 	& 12.0 & 0.6 		 	& \textbf{11.0} & 2.7  	& \textbf{11.0} & 16.8\\
+	  	  
+	  90 & 0.1 		& \textbf{3.0} & 0.2 		 	& \textbf{3.0} & 1.0  	& \textbf{3.0} & 1.2\\
+	  90 & 0.2 		& 5.0 & 0.2 		  			& \textbf{4.2} & 0.7  	& \textbf{4.2} & 3.6\\
+	  90 & 0.3 		& 6.2 & 0.2 		 			& \textbf{5.8} & 1.3  	& \textbf{5.8} & 4.0\\
+	  90 & 0.4 		& 7.8 & 0.4 		 			& \textbf{7.6} & 1.8  	& \textbf{7.6} & 4.0\\
+	  90 & 0.5 		& \textbf{9.4} & 0.8 		 	& \textbf{9.4} & 4.6  	& \textbf{9.4} & 5.4\\
+	  90 & 0.6 		& 11.2 & 0.2 		 			& \textbf{10.4} & 1.6  	& \textbf{10.4} & 8.0\\
+	  90 & 0.7 		& 13.6 & 0.6 		 			& \textbf{12.6} & 1.4  	& \textbf{12.6} & 8.8\\
+	  90 & 0.8 		& 16.4 & 0.2 		 			& \textbf{15.6} & 1.8  	& \textbf{15.6} & 8.8\\
+	  90 & 0.9 		& 20.0 & 1.0 		 			& \textbf{19.8} & 2.7  	& \textbf{19.8} & 6.4\\
+	  \hline
+	  \end{tabular}
+\end{center}
+      \label{tab:constructionComparePCP}
+      \end{table}
+
+
+      \begin{table}[h]
+      \caption{Results and time of construction heuristics solving the four large instances.}
+\begin{center}
+      \begin{tabular}{|l|l||l|l||l|l||l|l|}\hline
+      \multicolumn{2}{|l||}{Instances}&\multicolumn{2}{|l||}{OneStepCD}&\multicolumn{2}{|l||}{DANGER}&\multicolumn{2}{|l|}{Hybrid-Construction}\\
+      \cline{1-8}
+      nodes & density & $\overline{obj}$ & $\overline{time}(ms)$ & $\overline{obj}$ & $\frac{\overline{time}(ms)}{run}$ & $\overline{obj}$ & $\overline{time}(ms)$\\
+      \hline
+	  500 & 0.5 		& \textbf{65} & 88 		 	& 72	& 1897  	& \textbf{65} & 1985\\
+	  1000 & 0.5 		& \textbf{63} & 47 		 	& 68	& 9800  	& \textbf{63} & 9847\\
+	  1500 & 0.5 		& \textbf{59} & 67 		 	& 65	& 24068  	& \textbf{59} & 24135\\
+	  2000 & 0.5 		& \textbf{58} & 94 		 	& 63	& 43923  	& \textbf{58} & 44017\\
+	  \hline
+	  \end{tabular}
+\end{center}
+      \label{tab:constructionCompareIN}
+      \end{table}
+
 
 \subsection{Conflicting nodes}
 As an intermediate result the numbers of conflicting nodes per each recoloring produced by the different recoloring algorithms have been recorded and compared to each other. In tables \ref{tab:conflitingSize} and \ref{tab:conflitingDens} the results for sets of different size respectively density are presented. Each set contains five instances. Table \ref{tab:conflitingIn} presents the results for the four larger instances. Each of the following tables uses the same notation, where $\mathit{cnodes/recoloring}$ denotes the average amount of conflicting nodes per recoloring. Each column presents results for one of the four main recoloring methods discussed in section \ref{sec:recoloring} namely $\mathit{Random}$,$\mathit{OneStepCD}$, the ILP model minimizing the amount of conflicts $\mathit{ILP1}$ and the one minimizing the amount of conflicting nodes $\mathit{ILP2}$. Since for these experiments a constant size for the tabu list has been used, $\mathit{HYBRID}$-$\mathit{PCP}$ is deterministic except the case when random recoloring is used. Therefore for random recoloring the average of ten runs per instance and recoloring has been calculated.\\
@@ -101,35 +153,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{3.0} & 0.000 & 0.047 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.040 & \textbf{3.0} & 0.000 & 0.224 \\
-       & $U[0.5C',1.0C']$ & \textbf{3.0} & 0.000 & 0.016 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.029 & \textbf{3.0} & 0.000 & 0.211 \\
-       & $U[1.0C',4.0C']$ & \textbf{3.0} & 0.000 & 0.010 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.033 & \textbf{3.0} & 0.000 & 0.197 \\
-       & $U[0.0C',5.0C']$ & \textbf{3.0} & 0.000 & 0.006 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.028 & \textbf{3.0} & 0.000 & 0.204 \\
-       & $U[5.0C',10.0C']$ & \textbf{3.0} & 0.000 & 0.005 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.023 & \textbf{3.0} & 0.000 & 0.224 \\
-       & $U[10.0C',20.0C']$ & \textbf{3.0} & 0.000 & 0.004 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.025 & \textbf{3.0} & 0.000 & 0.188 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{3.00} & 0.000 & 0.032 & \textbf{3.00} & 0.000 & 0.003 & \textbf{3.00} & 0.000 & 0.034 & \textbf{3.00} & 0.000 & 0.208 \\
+       & $U[0.5C',1.0C']$ & \textbf{3.00} & 0.000 & 0.008 & \textbf{3.00} & 0.000 & 0.003 & \textbf{3.00} & 0.000 & 0.027 & \textbf{3.00} & 0.000 & 0.210 \\
+       & $U[1.0C',4.0C']$ & \textbf{3.00} & 0.000 & 0.004 & \textbf{3.00} & 0.000 & 0.002 & \textbf{3.00} & 0.000 & 0.024 & \textbf{3.00} & 0.000 & 0.204 \\
+       & $U[0.0C',5.0C']$ & \textbf{3.00} & 0.000 & 0.003 & \textbf{3.00} & 0.000 & 0.002 & \textbf{3.00} & 0.000 & 0.024 & \textbf{3.00} & 0.000 & 0.210 \\
+       & $U[5.0C',10.0C']$ & \textbf{3.00} & 0.000 & 0.003 & \textbf{3.00} & 0.000 & 0.003 & \textbf{3.00} & 0.000 & 0.024 & \textbf{3.00} & 0.000 & 0.209 \\
+       & $U[10.0C',20.0C']$ & \textbf{3.00} & 0.000 & 0.003 & \textbf{3.00} & 0.000 & 0.002 & \textbf{3.00} & 0.000 & 0.023 & \textbf{3.00} & 0.000 & 0.202 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{2.9} & 0.050 & 0.010 & 3.0 & 0.000 & 0.004 & 3.0 & 0.000 & 0.029 & 3.0 & 0.000 & 0.204 \\
-       & $U[0.5C',1.0C']$ & \textbf{2.9} & 0.050 & 0.007 & \textbf{2.9} & 0.050 & 0.005 & 3.0 & 0.000 & 0.030 & \textbf{2.9} & 0.050 & 0.186 \\
-       & $U[1.0C',4.0C']$ & \textbf{2.9} & 0.050 & 0.005 & \textbf{2.9} & 0.050 & 0.005 & 3.0 & 0.000 & 0.030 & 3.0 & 0.000 & 0.198 \\
-       & $U[0.0C',5.0C']$ & 3.0 & 0.000 & 0.005 & 2.9 & 0.050 & 0.005 & 3.0 & 0.000 & 0.029 & \textbf{2.8} & 0.000 & 0.183 \\
-       & $U[5.0C',10.0C']$ & 3.0 & 0.000 & 0.006 & \textbf{2.9} & 0.050 & 0.005 & 3.0 & 0.000 & 0.030 & \textbf{2.9} & 0.050 & 0.198 \\
-       & $U[10.0C',20.0C']$ & 3.0 & 0.000 & 0.005 & \textbf{2.9} & 0.050 & 0.005 & 3.0 & 0.000 & 0.027 & 3.0 & 0.000 & 0.209 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{3.00} & 0.000 & 0.007 & \textbf{3.00} & 0.000 & 0.006 & \textbf{3.00} & 0.000 & 0.023 & \textbf{3.00} & 0.000 & 0.215 \\
+       & $U[0.5C',1.0C']$ & \textbf{3.00} & 0.000 & 0.006 & \textbf{3.00} & 0.000 & 0.006 & \textbf{3.00} & 0.000 & 0.028 & \textbf{3.00} & 0.000 & 0.206 \\
+       & $U[1.0C',4.0C']$ & \textbf{3.00} & 0.000 & 0.006 & \textbf{3.00} & 0.000 & 0.006 & \textbf{3.00} & 0.000 & 0.028 & \textbf{3.00} & 0.000 & 0.204 \\
+       & $U[0.0C',5.0C']$ & \textbf{3.00} & 0.000 & 0.006 & \textbf{3.00} & 0.000 & 0.006 & \textbf{3.00} & 0.000 & 0.026 & \textbf{3.00} & 0.000 & 0.207 \\
+       & $U[5.0C',10.0C']$ & 3.00 & 0.000 & 0.006 & \textbf{2.96} & 0.031 & 0.006 & 3.00 & 0.000 & 0.026 & 3.00 & 0.000 & 0.222 \\
+       & $U[10.0C',20.0C']$ & \textbf{2.96} & 0.031 & 0.006 & 3.00 & 0.000 & 0.006 & 3.00 & 0.000 & 0.029 & \textbf{2.96} & 0.031 & 0.208 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 3.0 & 0.000 & 0.008 & \textbf{2.9} & 0.050 & 0.009 & \textbf{2.9} & 0.050 & 0.034 & 3.0 & 0.000 & 0.213 \\
-       & $U[0.5C',1.0C']$ & 3.0 & 0.000 & 0.008 & \textbf{2.9} & 0.050 & 0.008 & 3.0 & 0.000 & 0.031 & 3.0 & 0.000 & 0.194 \\
-       & $U[1.0C',4.0C']$ & \textbf{3.0} & 0.000 & 0.008 & \textbf{3.0} & 0.000 & 0.009 & \textbf{3.0} & 0.000 & 0.030 & \textbf{3.0} & 0.000 & 0.240 \\
-       & $U[0.0C',5.0C']$ & 3.0 & 0.000 & 0.008 & 3.0 & 0.000 & 0.008 & \textbf{2.9} & 0.050 & 0.030 & 3.0 & 0.000 & 0.215 \\
-       & $U[5.0C',10.0C']$ & 3.0 & 0.000 & 0.008 & \textbf{2.8} & 0.000 & 0.009 & 3.0 & 0.000 & 0.032 & 2.9 & 0.050 & 0.214 \\
-       & $U[10.0C',20.0C']$ & \textbf{2.9} & 0.050 & 0.009 & 3.0 & 0.000 & 0.008 & 3.0 & 0.000 & 0.031 & 3.0 & 0.000 & 0.202 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & \textbf{3.00} & 0.000 & 0.009 & \textbf{3.00} & 0.000 & 0.009 & \textbf{3.00} & 0.000 & 0.030 & \textbf{3.00} & 0.000 & 0.205 \\
+       & $U[0.5C',1.0C']$ & \textbf{2.96} & 0.031 & 0.010 & 3.00 & 0.000 & 0.010 & \textbf{2.96} & 0.031 & 0.028 & 3.00 & 0.000 & 0.192 \\
+       & $U[1.0C',4.0C']$ & \textbf{3.00} & 0.000 & 0.010 & \textbf{3.00} & 0.000 & 0.010 & \textbf{3.00} & 0.000 & 0.030 & \textbf{3.00} & 0.000 & 0.211 \\
+       & $U[0.0C',5.0C']$ & \textbf{3.00} & 0.000 & 0.010 & \textbf{3.00} & 0.000 & 0.010 & \textbf{3.00} & 0.000 & 0.028 & \textbf{3.00} & 0.000 & 0.217 \\
+       & $U[5.0C',10.0C']$ & \textbf{3.00} & 0.000 & 0.010 & \textbf{3.00} & 0.000 & 0.010 & \textbf{3.00} & 0.000 & 0.029 & \textbf{3.00} & 0.000 & 0.207 \\
+       & $U[10.0C',20.0C']$ & 3.00 & 0.000 & 0.010 & 3.00 & 0.000 & 0.010 & 3.00 & 0.000 & 0.029 & \textbf{2.96} & 0.031 & 0.220 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{3.0} & 0.000 & 0.017 & \textbf{3.0} & 0.000 & 0.018 & \textbf{3.0} & 0.000 & 0.040 & \textbf{3.0} & 0.000 & 0.200 \\
-       & $U[0.5C',1.0C']$ & 3.0 & 0.000 & 0.021 & 3.0 & 0.000 & 0.018 & \textbf{2.9} & 0.050 & 0.042 & 3.0 & 0.000 & 0.213 \\
-       & $U[1.0C',4.0C']$ & 3.0 & 0.000 & 0.018 & 3.0 & 0.000 & 0.018 & 3.0 & 0.000 & 0.038 & \textbf{2.9} & 0.050 & 0.225 \\
-       & $U[0.0C',5.0C']$ & \textbf{2.9} & 0.050 & 0.019 & 3.0 & 0.000 & 0.018 & \textbf{2.9} & 0.050 & 0.041 & 3.0 & 0.000 & 0.235 \\
-       & $U[5.0C',10.0C']$ & 3.0 & 0.000 & 0.017 & 3.0 & 0.000 & 0.017 & \textbf{2.9} & 0.050 & 0.040 & 3.0 & 0.000 & 0.201 \\
-       & $U[10.0C',20.0C']$ & \textbf{2.8} & 0.000 & 0.021 & 2.9 & 0.050 & 0.020 & 2.9 & 0.050 & 0.041 & 2.9 & 0.050 & 0.223 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{3.00} & 0.000 & 0.020 & \textbf{3.00} & 0.000 & 0.020 & \textbf{3.00} & 0.000 & 0.038 & \textbf{3.00} & 0.000 & 0.234 \\
+       & $U[0.5C',1.0C']$ & 3.00 & 0.000 & 0.020 & 3.00 & 0.000 & 0.019 & \textbf{2.96} & 0.031 & 0.039 & 3.00 & 0.000 & 0.209 \\
+       & $U[1.0C',4.0C']$ & \textbf{3.00} & 0.000 & 0.020 & \textbf{3.00} & 0.000 & 0.019 & \textbf{3.00} & 0.000 & 0.037 & \textbf{3.00} & 0.000 & 0.244 \\
+       & $U[0.0C',5.0C']$ & \textbf{2.96} & 0.031 & 0.020 & 3.00 & 0.000 & 0.019 & 3.00 & 0.000 & 0.040 & 3.00 & 0.000 & 0.229 \\
+       & $U[5.0C',10.0C']$ & \textbf{2.96} & 0.031 & 0.022 & 3.00 & 0.000 & 0.020 & 3.00 & 0.000 & 0.037 & 3.00 & 0.000 & 0.222 \\
+       & $U[10.0C',20.0C']$ & \textbf{3.00} & 0.000 & 0.023 & \textbf{3.00} & 0.000 & 0.023 & \textbf{3.00} & 0.000 & 0.040 & \textbf{3.00} & 0.000 & 0.222 \\
       \hline
       \end{tabular}
       }
@@ -143,35 +195,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & 4.0 & 0.000 & 0.007 & 3.9 & 0.050 & 0.004 & \textbf{3.8} & 0.000 & 0.070 & 4.0 & 0.000 & 0.377 \\
-       & $U[0.5C',1.0C']$ & 4.0 & 0.000 & 0.004 & 3.9 & 0.050 & 0.004 & \textbf{3.6} & 0.800 & 0.062 & 4.0 & 0.000 & 0.354 \\
-       & $U[1.0C',4.0C']$ & 4.0 & 0.000 & 0.003 & \textbf{3.9} & 0.050 & 0.004 & \textbf{3.9} & 0.050 & 0.064 & 4.0 & 0.000 & 0.357 \\
-       & $U[0.0C',5.0C']$ & \textbf{3.9} & 0.050 & 0.003 & 4.0 & 0.000 & 0.003 & 4.0 & 0.000 & 0.064 & \textbf{3.9} & 0.050 & 0.373 \\
-       & $U[5.0C',10.0C']$ & 4.0 & 0.000 & 0.003 & \textbf{3.9} & 0.050 & 0.004 & 4.0 & 0.000 & 0.067 & 4.0 & 0.000 & 0.354 \\
-       & $U[10.0C',20.0C']$ & \textbf{3.9} & 0.050 & 0.003 & 4.0 & 0.000 & 0.003 & \textbf{3.9} & 0.050 & 0.064 & 4.0 & 0.000 & 0.349 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{4.00} & 0.000 & 0.007 & \textbf{4.00} & 0.000 & 0.007 & \textbf{4.00} & 0.000 & 0.043 & \textbf{4.00} & 0.000 & 0.250 \\
+       & $U[0.5C',1.0C']$ & \textbf{4.00} & 0.000 & 0.006 & \textbf{4.00} & 0.000 & 0.007 & \textbf{4.00} & 0.000 & 0.043 & \textbf{4.00} & 0.000 & 0.274 \\
+       & $U[1.0C',4.0C']$ & \textbf{4.00} & 0.000 & 0.006 & \textbf{4.00} & 0.000 & 0.006 & \textbf{4.00} & 0.000 & 0.040 & \textbf{4.00} & 0.000 & 0.292 \\
+       & $U[0.0C',5.0C']$ & \textbf{4.00} & 0.000 & 0.007 & \textbf{4.00} & 0.000 & 0.006 & \textbf{4.00} & 0.000 & 0.041 & \textbf{4.00} & 0.000 & 0.265 \\
+       & $U[5.0C',10.0C']$ & \textbf{4.00} & 0.000 & 0.006 & \textbf{4.00} & 0.000 & 0.006 & \textbf{4.00} & 0.000 & 0.038 & \textbf{4.00} & 0.000 & 0.243 \\
+       & $U[10.0C',20.0C']$ & \textbf{4.00} & 0.000 & 0.006 & \textbf{4.00} & 0.000 & 0.006 & \textbf{4.00} & 0.000 & 0.037 & \textbf{4.00} & 0.000 & 0.261 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 3.9 & 0.050 & 0.015 & \textbf{3.8} & 0.000 & 0.016 & 3.9 & 0.050 & 0.075 & 3.9 & 0.050 & 0.364 \\
-       & $U[0.5C',1.0C']$ & 3.9 & 0.050 & 0.014 & 3.9 & 0.050 & 0.015 & \textbf{3.8} & 0.000 & 0.079 & 4.0 & 0.000 & 0.373 \\
-       & $U[1.0C',4.0C']$ & 3.9 & 0.050 & 0.014 & 3.9 & 0.050 & 0.014 & \textbf{3.8} & 0.000 & 0.078 & \textbf{3.8} & 0.000 & 0.445 \\
-       & $U[0.0C',5.0C']$ & 3.9 & 0.050 & 0.015 & \textbf{3.8} & 0.000 & 0.015 & \textbf{3.8} & 0.000 & 0.080 & \textbf{3.8} & 0.000 & 0.439 \\
-       & $U[5.0C',10.0C']$ & 3.9 & 0.050 & 0.015 & \textbf{3.8} & 0.000 & 0.015 & \textbf{3.8} & 0.000 & 0.080 & \textbf{3.8} & 0.000 & 0.446 \\
-       & $U[10.0C',20.0C']$ & \textbf{3.8} & 0.000 & 0.017 & 3.9 & 0.050 & 0.016 & \textbf{3.8} & 0.000 & 0.079 & \textbf{3.8} & 0.000 & 0.455 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{3.96} & 0.031 & 0.016 & 4.00 & 0.000 & 0.015 & \textbf{3.96} & 0.031 & 0.045 & 4.00 & 0.000 & 0.251 \\
+       & $U[0.5C',1.0C']$ & 3.96 & 0.031 & 0.017 & \textbf{3.92} & 0.048 & 0.016 & 4.00 & 0.000 & 0.046 & \textbf{3.92} & 0.048 & 0.294 \\
+       & $U[1.0C',4.0C']$ & 4.00 & 0.000 & 0.016 & 4.00 & 0.000 & 0.016 & 4.00 & 0.000 & 0.045 & \textbf{3.96} & 0.031 & 0.301 \\
+       & $U[0.0C',5.0C']$ & \textbf{3.92} & 0.048 & 0.018 & \textbf{3.92} & 0.048 & 0.016 & 3.96 & 0.031 & 0.049 & 4.00 & 0.000 & 0.280 \\
+       & $U[5.0C',10.0C']$ & 3.96 & 0.031 & 0.018 & 4.00 & 0.000 & 0.016 & \textbf{3.88} & 0.048 & 0.051 & 3.96 & 0.031 & 0.312 \\
+       & $U[10.0C',20.0C']$ & \textbf{3.88} & 0.048 & 0.019 & 4.00 & 0.000 & 0.016 & 3.96 & 0.031 & 0.051 & 4.00 & 0.000 & 0.306 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 4.0 & 0.000 & 0.025 & \textbf{3.8} & 0.000 & 0.028 & 3.9 & 0.050 & 0.091 & \textbf{3.8} & 0.000 & 0.436 \\
-       & $U[0.5C',1.0C']$ & \textbf{3.8} & 0.000 & 0.028 & \textbf{3.8} & 0.000 & 0.027 & 3.9 & 0.050 & 0.088 & 3.9 & 0.050 & 0.412 \\
-       & $U[1.0C',4.0C']$ & 3.9 & 0.050 & 0.028 & 3.9 & 0.050 & 0.027 & \textbf{3.8} & 0.000 & 0.091 & \textbf{3.8} & 0.000 & 0.417 \\
-       & $U[0.0C',5.0C']$ & \textbf{3.8} & 0.000 & 0.029 & 3.9 & 0.050 & 0.027 & \textbf{3.8} & 0.000 & 0.087 & 3.9 & 0.050 & 0.438 \\
-       & $U[5.0C',10.0C']$ & \textbf{3.8} & 0.000 & 0.028 & \textbf{3.8} & 0.000 & 0.028 & \textbf{3.8} & 0.000 & 0.090 & \textbf{3.8} & 0.000 & 0.460 \\
-       & $U[10.0C',20.0C']$ & \textbf{3.8} & 0.000 & 0.028 & \textbf{3.8} & 0.000 & 0.028 & \textbf{3.8} & 0.000 & 0.091 & \textbf{3.8} & 0.000 & 0.477 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 4.00 & 0.000 & 0.027 & 4.00 & 0.000 & 0.025 & \textbf{3.96} & 0.031 & 0.059 & \textbf{3.96} & 0.031 & 0.343 \\
+       & $U[0.5C',1.0C']$ & \textbf{3.96} & 0.031 & 0.029 & 4.00 & 0.000 & 0.025 & 4.00 & 0.000 & 0.059 & 4.00 & 0.000 & 0.281 \\
+       & $U[1.0C',4.0C']$ & \textbf{3.96} & 0.031 & 0.030 & 4.00 & 0.000 & 0.027 & \textbf{3.96} & 0.031 & 0.061 & \textbf{3.96} & 0.031 & 0.346 \\
+       & $U[0.0C',5.0C']$ & 3.96 & 0.031 & 0.030 & \textbf{3.92} & 0.048 & 0.028 & \textbf{3.92} & 0.048 & 0.062 & \textbf{3.92} & 0.048 & 0.310 \\
+       & $U[5.0C',10.0C']$ & 4.00 & 0.000 & 0.028 & \textbf{3.88} & 0.048 & 0.029 & \textbf{3.88} & 0.048 & 0.064 & 3.92 & 0.048 & 0.345 \\
+       & $U[10.0C',20.0C']$ & 3.96 & 0.031 & 0.031 & \textbf{3.84} & 0.031 & 0.031 & 4.00 & 0.000 & 0.059 & 3.92 & 0.048 & 0.306 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{3.8} & 0.000 & 0.062 & 4.0 & 0.000 & 0.058 & \textbf{3.8} & 0.000 & 0.130 & 3.9 & 0.050 & 0.438 \\
-       & $U[0.5C',1.0C']$ & \textbf{3.8} & 0.000 & 0.066 & 3.9 & 0.050 & 0.059 & 3.9 & 0.050 & 0.117 & 3.9 & 0.050 & 0.459 \\
-       & $U[1.0C',4.0C']$ & \textbf{3.8} & 0.000 & 0.064 & 3.9 & 0.050 & 0.059 & 3.9 & 0.050 & 0.123 & 3.9 & 0.050 & 0.439 \\
-       & $U[0.0C',5.0C']$ & 3.9 & 0.050 & 0.063 & \textbf{3.8} & 0.000 & 0.068 & \textbf{3.8} & 0.000 & 0.123 & \textbf{3.8} & 0.000 & 0.459 \\
-       & $U[5.0C',10.0C']$ & \textbf{3.8} & 0.000 & 0.066 & \textbf{3.8} & 0.000 & 0.065 & \textbf{3.8} & 0.000 & 0.132 & \textbf{3.8} & 0.000 & 0.431 \\
-       & $U[10.0C',20.0C']$ & \textbf{3.8} & 0.000 & 0.071 & \textbf{3.8} & 0.000 & 0.067 & \textbf{3.8} & 0.000 & 0.128 & \textbf{3.8} & 0.000 & 0.445 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 4.00 & 0.000 & 0.054 & 4.00 & 0.000 & 0.052 & \textbf{3.96} & 0.031 & 0.089 & 4.00 & 0.000 & 0.332 \\
+       & $U[0.5C',1.0C']$ & \textbf{3.96} & 0.031 & 0.056 & \textbf{3.96} & 0.031 & 0.056 & 4.00 & 0.000 & 0.084 & \textbf{3.96} & 0.031 & 0.319 \\
+       & $U[1.0C',4.0C']$ & \textbf{3.92} & 0.048 & 0.058 & 3.96 & 0.031 & 0.055 & \textbf{3.92} & 0.048 & 0.093 & 3.96 & 0.031 & 0.323 \\
+       & $U[0.0C',5.0C']$ & 3.96 & 0.031 & 0.058 & 4.00 & 0.000 & 0.056 & 3.96 & 0.031 & 0.084 & \textbf{3.88} & 0.048 & 0.332 \\
+       & $U[5.0C',10.0C']$ & 3.84 & 0.031 & 0.068 & 3.92 & 0.048 & 0.064 & \textbf{3.80} & 0.000 & 0.100 & 3.92 & 0.048 & 0.338 \\
+       & $U[10.0C',20.0C']$ & \textbf{3.88} & 0.048 & 0.065 & \textbf{3.88} & 0.048 & 0.066 & 3.96 & 0.031 & 0.092 & 3.92 & 0.048 & 0.338 \\
       \hline
       \end{tabular}
       }
@@ -184,35 +236,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{5.0} & 0.000 & 0.007 & \textbf{5.0} & 0.000 & 0.005 & \textbf{5.0} & 0.000 & 0.105 & \textbf{5.0} & 0.000 & 0.424 \\
-       & $U[0.5C',1.0C']$ & \textbf{5.0} & 0.000 & 0.005 & \textbf{5.0} & 0.000 & 0.006 & \textbf{5.0} & 0.000 & 0.098 & \textbf{5.0} & 0.000 & 0.430 \\
-       & $U[1.0C',4.0C']$ & \textbf{5.0} & 0.000 & 0.005 & \textbf{5.0} & 0.000 & 0.005 & \textbf{5.0} & 0.000 & 0.099 & \textbf{5.0} & 0.000 & 0.426 \\
-       & $U[0.0C',5.0C']$ & \textbf{5.0} & 0.000 & 0.006 & \textbf{5.0} & 0.000 & 0.007 & \textbf{5.0} & 0.000 & 0.095 & \textbf{5.0} & 0.000 & 0.417 \\
-       & $U[5.0C',10.0C']$ & \textbf{5.0} & 0.000 & 0.005 & \textbf{5.0} & 0.000 & 0.005 & \textbf{5.0} & 0.000 & 0.097 & \textbf{5.0} & 0.000 & 0.430 \\
-       & $U[10.0C',20.0C']$ & \textbf{5.0} & 0.000 & 0.005 & \textbf{5.0} & 0.000 & 0.005 & \textbf{5.0} & 0.000 & 0.091 & \textbf{5.0} & 0.000 & 0.373 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{5.00} & 0.000 & 0.010 & \textbf{5.00} & 0.000 & 0.010 & \textbf{5.00} & 0.000 & 0.075 & \textbf{5.00} & 0.000 & 0.453 \\
+       & $U[0.5C',1.0C']$ & \textbf{5.00} & 0.000 & 0.009 & \textbf{5.00} & 0.000 & 0.009 & \textbf{5.00} & 0.000 & 0.076 & \textbf{5.00} & 0.000 & 0.453 \\
+       & $U[1.0C',4.0C']$ & \textbf{5.00} & 0.000 & 0.009 & \textbf{5.00} & 0.000 & 0.009 & \textbf{5.00} & 0.000 & 0.075 & \textbf{5.00} & 0.000 & 0.533 \\
+       & $U[0.0C',5.0C']$ & \textbf{5.00} & 0.000 & 0.010 & \textbf{5.00} & 0.000 & 0.009 & \textbf{5.00} & 0.000 & 0.071 & \textbf{5.00} & 0.000 & 0.544 \\
+       & $U[5.0C',10.0C']$ & \textbf{5.00} & 0.000 & 0.009 & \textbf{5.00} & 0.000 & 0.009 & \textbf{5.00} & 0.000 & 0.070 & \textbf{5.00} & 0.000 & 0.501 \\
+       & $U[10.0C',20.0C']$ & 5.04 & 0.031 & 0.009 & \textbf{5.00} & 0.000 & 0.009 & \textbf{5.00} & 0.000 & 0.073 & \textbf{5.00} & 0.000 & 0.530 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{5.0} & 0.000 & 0.028 & \textbf{5.0} & 0.000 & 0.029 & \textbf{5.0} & 0.000 & 0.115 & \textbf{5.0} & 0.000 & 0.436 \\
-       & $U[0.5C',1.0C']$ & \textbf{5.0} & 0.000 & 0.029 & \textbf{5.0} & 0.000 & 0.030 & \textbf{5.0} & 0.000 & 0.119 & \textbf{5.0} & 0.000 & 0.465 \\
-       & $U[1.0C',4.0C']$ & \textbf{5.0} & 0.000 & 0.029 & \textbf{5.0} & 0.000 & 0.029 & \textbf{5.0} & 0.000 & 0.115 & \textbf{5.0} & 0.000 & 0.436 \\
-       & $U[0.0C',5.0C']$ & \textbf{5.0} & 0.000 & 0.029 & \textbf{5.0} & 0.000 & 0.029 & \textbf{5.0} & 0.000 & 0.115 & \textbf{5.0} & 0.000 & 0.449 \\
-       & $U[5.0C',10.0C']$ & \textbf{5.0} & 0.000 & 0.029 & \textbf{5.0} & 0.000 & 0.029 & \textbf{5.0} & 0.000 & 0.126 & \textbf{5.0} & 0.000 & 0.400 \\
-       & $U[10.0C',20.0C']$ & \textbf{5.0} & 0.000 & 0.030 & \textbf{5.0} & 0.000 & 0.030 & \textbf{5.0} & 0.000 & 0.118 & \textbf{5.0} & 0.000 & 0.378 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{5.00} & 0.000 & 0.031 & \textbf{5.00} & 0.000 & 0.032 & \textbf{5.00} & 0.000 & 0.092 & \textbf{5.00} & 0.000 & 0.547 \\
+       & $U[0.5C',1.0C']$ & \textbf{5.00} & 0.000 & 0.032 & \textbf{5.00} & 0.000 & 0.032 & \textbf{5.00} & 0.000 & 0.094 & \textbf{5.00} & 0.000 & 0.565 \\
+       & $U[1.0C',4.0C']$ & \textbf{5.00} & 0.000 & 0.032 & \textbf{5.00} & 0.000 & 0.033 & \textbf{5.00} & 0.000 & 0.094 & \textbf{5.00} & 0.000 & 0.534 \\
+       & $U[0.0C',5.0C']$ & \textbf{5.00} & 0.000 & 0.033 & \textbf{5.00} & 0.000 & 0.032 & \textbf{5.00} & 0.000 & 0.096 & \textbf{5.00} & 0.000 & 0.559 \\
+       & $U[5.0C',10.0C']$ & \textbf{5.00} & 0.000 & 0.033 & \textbf{5.00} & 0.000 & 0.034 & \textbf{5.00} & 0.000 & 0.092 & \textbf{5.00} & 0.000 & 0.531 \\
+       & $U[10.0C',20.0C']$ & \textbf{5.00} & 0.000 & 0.034 & \textbf{5.00} & 0.000 & 0.034 & \textbf{5.00} & 0.000 & 0.096 & \textbf{5.00} & 0.000 & 0.576 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & \textbf{5.0} & 0.000 & 0.052 & \textbf{5.0} & 0.000 & 0.055 & \textbf{5.0} & 0.000 & 0.138 & \textbf{5.0} & 0.000 & 0.436 \\
-       & $U[0.5C',1.0C']$ & \textbf{5.0} & 0.000 & 0.052 & \textbf{5.0} & 0.000 & 0.053 & \textbf{5.0} & 0.000 & 0.141 & \textbf{5.0} & 0.000 & 0.431 \\
-       & $U[1.0C',4.0C']$ & \textbf{5.0} & 0.000 & 0.055 & \textbf{5.0} & 0.000 & 0.055 & \textbf{5.0} & 0.000 & 0.137 & \textbf{5.0} & 0.000 & 0.439 \\
-       & $U[0.0C',5.0C']$ & \textbf{5.0} & 0.000 & 0.055 & \textbf{5.0} & 0.000 & 0.055 & \textbf{5.0} & 0.000 & 0.149 & \textbf{5.0} & 0.000 & 0.435 \\
-       & $U[5.0C',10.0C']$ & \textbf{5.0} & 0.000 & 0.055 & \textbf{5.0} & 0.000 & 0.055 & \textbf{5.0} & 0.000 & 0.143 & \textbf{5.0} & 0.000 & 0.515 \\
-       & $U[10.0C',20.0C']$ & \textbf{5.0} & 0.000 & 0.056 & \textbf{5.0} & 0.000 & 0.059 & \textbf{5.0} & 0.000 & 0.150 & \textbf{5.0} & 0.000 & 0.447 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & \textbf{5.00} & 0.000 & 0.056 & \textbf{5.00} & 0.000 & 0.055 & \textbf{5.00} & 0.000 & 0.116 & \textbf{5.00} & 0.000 & 0.580 \\
+       & $U[0.5C',1.0C']$ & \textbf{5.00} & 0.000 & 0.056 & \textbf{5.00} & 0.000 & 0.058 & \textbf{5.00} & 0.000 & 0.117 & \textbf{5.00} & 0.000 & 0.617 \\
+       & $U[1.0C',4.0C']$ & \textbf{5.00} & 0.000 & 0.059 & \textbf{5.00} & 0.000 & 0.058 & \textbf{5.00} & 0.000 & 0.122 & \textbf{5.00} & 0.000 & 0.646 \\
+       & $U[0.0C',5.0C']$ & \textbf{5.00} & 0.000 & 0.058 & \textbf{5.00} & 0.000 & 0.059 & \textbf{5.00} & 0.000 & 0.123 & \textbf{5.00} & 0.000 & 0.595 \\
+       & $U[5.0C',10.0C']$ & \textbf{5.00} & 0.000 & 0.059 & \textbf{5.00} & 0.000 & 0.059 & \textbf{5.00} & 0.000 & 0.121 & \textbf{5.00} & 0.000 & 0.616 \\
+       & $U[10.0C',20.0C']$ & \textbf{5.00} & 0.000 & 0.061 & \textbf{5.00} & 0.000 & 0.061 & \textbf{5.00} & 0.000 & 0.125 & \textbf{5.00} & 0.000 & 0.647 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{5.0} & 0.000 & 0.127 & \textbf{5.0} & 0.000 & 0.126 & \textbf{5.0} & 0.000 & 0.205 & \textbf{5.0} & 0.000 & 0.513 \\
-       & $U[0.5C',1.0C']$ & \textbf{5.0} & 0.000 & 0.125 & \textbf{5.0} &  0.000 & 0.128 & \textbf{5.0} & 0.000 & 0.212 & \textbf{5.0} & 0.000 & 0.525 \\
-       & $U[1.0C',4.0C']$ & \textbf{5.0} & 0.000 & 0.128 & \textbf{5.0} & 0.000 & 0.129 & \textbf{5.0} & 0.000 & 0.217 & \textbf{5.0} & 0.000 & 0.526 \\
-       & $U[0.0C',5.0C']$ & \textbf{5.0} & 0.000 & 0.128 & \textbf{5.0} & 0.000 & 0.133 & \textbf{5.0} & 0.000 & 0.215 & \textbf{5.0} & 0.000 & 0.481 \\
-       & $U[5.0C',10.0C']$ & \textbf{5.0} & 0.000 & 0.136 & \textbf{5.0} & 0.000 & 0.131 & \textbf{5.0} & 0.000 & 0.223 & \textbf{5.0} & 0.000 & 0.538 \\
-       & $U[10.0C',20.0C']$ & \textbf{5.0} & 0.000 & 0.139 & \textbf{5.0} & 0.000 & 0.139 & \textbf{5.0} & 0.000 & 0.223 & \textbf{5.0} & 0.000 & 0.532 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{5.00} & 0.000 & 0.126 & \textbf{5.00} & 0.000 & 0.122 & \textbf{5.00} & 0.000 & 0.187 & \textbf{5.00} & 0.000 & 0.718 \\
+       & $U[0.5C',1.0C']$ & \textbf{5.00} & 0.000 & 0.125 & \textbf{5.00} & 0.000 & 0.123 & \textbf{5.00} & 0.000 & 0.189 & \textbf{5.00} & 0.000 & 0.704 \\
+       & $U[1.0C',4.0C']$ & \textbf{5.00} & 0.000 & 0.136 & \textbf{5.00} & 0.000 & 0.136 & \textbf{5.00} & 0.000 & 0.198 & \textbf{5.00} & 0.000 & 0.644 \\
+       & $U[0.0C',5.0C']$ & \textbf{5.00} & 0.000 & 0.136 & \textbf{5.00} & 0.000 & 0.134 & \textbf{5.00} & 0.000 & 0.198 & \textbf{5.00} & 0.000 & 0.731 \\
+       & $U[5.0C',10.0C']$ & \textbf{5.00} & 0.000 & 0.139 & \textbf{5.00} & 0.000 & 0.138 & \textbf{5.00} & 0.000 & 0.201 & \textbf{5.00} & 0.000 & 0.725 \\
+       & $U[10.0C',20.0C']$ & \textbf{5.00} & 0.000 & 0.143 & \textbf{5.00} & 0.000 & 0.141 & \textbf{5.00} & 0.000 & 0.210 & \textbf{5.00} & 0.000 & 0.662 \\
       \hline
       \end{tabular}
       }
@@ -225,35 +277,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{6.0} & 0.000 & 0.009 & \textbf{6.0} & 0.000 & 0.008 & \textbf{6.0} & 0.000 & 0.169 & \textbf{6.0} & 0.000 & 0.474 \\
-       & $U[0.5C',1.0C']$ & \textbf{6.0} & 0.000 & 0.010 & \textbf{6.0} & 0.000 & 0.009 & \textbf{6.0} & 0.000 & 0.167 & \textbf{6.0} & 0.000 & 0.492 \\
-       & $U[1.0C',4.0C']$ & \textbf{6.0} & 0.000 & 0.009 & \textbf{6.0} & 0.000 & 0.008 & \textbf{6.0} & 0.000 & 0.168 & \textbf{6.0} & 0.000 & 0.484 \\
-       & $U[0.0C',5.0C']$ & \textbf{6.0} & 0.000 & 0.008 & \textbf{6.0} & 0.000 & 0.008 & \textbf{6.0} & 0.000 & 0.164 & \textbf{6.0} & 0.000 & 0.467 \\
-       & $U[5.0C',10.0C']$ & \textbf{6.0} & 0.000 & 0.009 & \textbf{6.0} & 0.000 & 0.009 & 6.1 & 0.050 & 0.147 & \textbf{6.0} & 0.000 & 0.503 \\
-       & $U[10.0C',20.0C']$ & \textbf{6.0} & 0.000 & 0.009 & \textbf{6.0} & 0.000 & 0.009 & \textbf{6.0} & 0.000 & 0.159 & \textbf{6.0} & 0.000 & 0.474 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & 6.04 & 0.031 & 0.018 & \textbf{6.00} & 0.000 & 0.018 & 6.08 & 0.048 & 0.149 & 6.08 & 0.048 & 0.443 \\
+       & $U[0.5C',1.0C']$ & 6.04 & 0.031 & 0.018 & 6.04 & 0.031 & 0.018 & \textbf{6.00} & 0.000 & 0.147 & 6.04 & 0.031 & 0.463 \\
+       & $U[1.0C',4.0C']$ & \textbf{6.00} & 0.000 & 0.017 & 6.08 & 0.048 & 0.018 & \textbf{6.00} & 0.000 & 0.147 & 6.08 & 0.048 & 0.460 \\
+       & $U[0.0C',5.0C']$ & \textbf{6.00} & 0.000 & 0.017 & \textbf{6.00} & 0.000 & 0.017 & \textbf{6.00} & 0.000 & 0.131 & \textbf{6.00} & 0.000 & 0.463 \\
+       & $U[5.0C',10.0C']$ & 6.08 & 0.048 & 0.017 & 6.08 & 0.048 & 0.017 & \textbf{6.04} & 0.031 & 0.127 & 6.08 & 0.048 & 0.444 \\
+       & $U[10.0C',20.0C']$ & 6.31 & 0.112 & 0.018 & 6.27 & 0.112 & 0.018 & 6.27 & 0.063 & 0.114 & \textbf{6.12} & 0.080 & 0.428 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{6.0} & 0.000 & 0.054 & \textbf{6.0} & 0.000 & 0.054 & \textbf{6.0} & 0.000 & 0.200 & \textbf{6.0} & 0.000 & 0.536 \\
-       & $U[0.5C',1.0C']$ & \textbf{6.0} & 0.000 & 0.052 & \textbf{6.0} & 0.000 & 0.050 & \textbf{6.0} & 0.000 & 0.196 & \textbf{6.0} & 0.000 & 0.512 \\
-       & $U[1.0C',4.0C']$ & \textbf{6.0} & 0.000 & 0.052 & \textbf{6.0} & 0.000 & 0.052 & \textbf{6.0} & 0.000 & 0.204 & \textbf{6.0} & 0.000 & 0.534 \\
-       & $U[0.0C',5.0C']$ & \textbf{6.0} & 0.000 & 0.053 & \textbf{6.0} & 0.000 & 0.052 & \textbf{6.0} & 0.000 & 0.196 & \textbf{6.0} & 0.000 & 0.523 \\
-       & $U[5.0C',10.0C']$ & \textbf{6.0} & 0.000 & 0.053 & \textbf{6.0} & 0.000 & 0.055 & \textbf{6.0} & 0.000 & 0.185 & \textbf{6.0} & 0.000 & 0.526 \\
-       & $U[10.0C',20.0C']$ & \textbf{6.0} & 0.000 & 0.055 & \textbf{6.0} & 0.000 & 0.054 & \textbf{6.0} & 0.000 & 0.193 & \textbf{6.0} & 0.000 & 0.519 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{6.00} & 0.000 & 0.077 & \textbf{6.00} & 0.000 & 0.077 & \textbf{6.00} & 0.000 & 0.173 & \textbf{6.00} & 0.000 & 0.504 \\
+       & $U[0.5C',1.0C']$ & \textbf{6.00} & 0.000 & 0.074 & \textbf{6.00} & 0.000 & 0.077 & \textbf{6.00} & 0.000 & 0.173 & \textbf{6.00} & 0.000 & 0.497 \\
+       & $U[1.0C',4.0C']$ & \textbf{6.00} & 0.000 & 0.076 & \textbf{6.00} & 0.000 & 0.077 & \textbf{6.00} & 0.000 & 0.171 & \textbf{6.00} & 0.000 & 0.505 \\
+       & $U[0.0C',5.0C']$ & \textbf{6.00} & 0.000 & 0.075 & \textbf{6.00} & 0.000 & 0.077 & \textbf{6.00} & 0.000 & 0.172 & \textbf{6.00} & 0.000 & 0.518 \\
+       & $U[5.0C',10.0C']$ & \textbf{6.00} & 0.000 & 0.077 & \textbf{6.00} & 0.000 & 0.079 & \textbf{6.00} & 0.000 & 0.175 & \textbf{6.00} & 0.000 & 0.498 \\
+       & $U[10.0C',20.0C']$ & \textbf{6.00} & 0.000 & 0.088 & \textbf{6.00} & 0.000 & 0.083 & 6.04 & 0.031 & 0.180 & \textbf{6.00} & 0.000 & 0.513 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & \textbf{6.0} & 0.000 & 0.099 & \textbf{6.0} & 0.000 & 0.098 & \textbf{6.0} & 0.000 & 0.247 & \textbf{6.0} & 0.000 & 0.546 \\
-       & $U[0.5C',1.0C']$ & \textbf{6.0} & 0.000 & 0.097 & \textbf{6.0} & 0.000 & 0.095 & \textbf{6.0} & 0.000 & 0.243 & \textbf{6.0} & 0.000 & 0.562 \\
-       & $U[1.0C',4.0C']$ & \textbf{6.0} & 0.000 & 0.100 & \textbf{6.0} & 0.000 & 0.102 & \textbf{6.0} & 0.000 & 0.243 & \textbf{6.0} & 0.000 & 0.578 \\
-       & $U[0.0C',5.0C']$ & \textbf{6.0} & 0.000 & 0.100 & \textbf{6.0} & 0.000 & 0.101 & \textbf{6.0} & 0.000 & 0.247 & \textbf{6.0} & 0.000 & 0.567 \\
-       & $U[5.0C',10.0C']$ & \textbf{6.0} & 0.000 & 0.101 & \textbf{6.0} & 0.000 & 0.101 & \textbf{6.0} & 0.000 & 0.250 & \textbf{6.0} & 0.000 & 0.578 \\
-       & $U[10.0C',20.0C']$ & \textbf{6.0} & 0.000 & 0.103 & \textbf{6.0} & 0.000 & 0.103 & \textbf{6.0} & 0.000 & 0.252 & \textbf{6.0} & 0.000 & 0.605 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & \textbf{6.00} & 0.000 & 0.142 & \textbf{6.00} & 0.000 & 0.137 & \textbf{6.00} & 0.000 & 0.228 & \textbf{6.00} & 0.000 & 0.543 \\
+       & $U[0.5C',1.0C']$ & \textbf{6.00} & 0.000 & 0.136 & \textbf{6.00} & 0.000 & 0.135 & \textbf{6.00} & 0.000 & 0.225 & \textbf{6.00} & 0.000 & 0.563 \\
+       & $U[1.0C',4.0C']$ & \textbf{6.00} & 0.000 & 0.142 & \textbf{6.00} & 0.000 & 0.144 & \textbf{6.00} & 0.000 & 0.225 & \textbf{6.00} & 0.000 & 0.575 \\
+       & $U[0.0C',5.0C']$ & \textbf{6.00} & 0.000 & 0.142 & \textbf{6.00} & 0.000 & 0.143 & \textbf{6.00} & 0.000 & 0.229 & \textbf{6.00} & 0.000 & 0.567 \\
+       & $U[5.0C',10.0C']$ & \textbf{6.00} & 0.000 & 0.144 & \textbf{6.00} & 0.000 & 0.144 & \textbf{6.00} & 0.000 & 0.231 & \textbf{6.00} & 0.000 & 0.565 \\
+       & $U[10.0C',20.0C']$ & 6.04 & 0.031 & 0.153 & \textbf{6.00} & 0.000 & 0.154 & \textbf{6.00} & 0.000 & 0.233 & \textbf{6.00} & 0.000 & 0.573 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{6.0} & 0.000 & 0.233 & \textbf{6.0} & 0.000 & 0.233 & \textbf{6.0} & 0.000 & 0.396 & \textbf{6.0} & 0.000 & 0.722 \\
-       & $U[0.5C',1.0C']$ & \textbf{6.0} & 0.000 & 0.238 & \textbf{6.0} & 0.000 & 0.230 & \textbf{6.0} & 0.000 & 0.384 & \textbf{6.0} & 0.000 & 0.706 \\
-       & $U[1.0C',4.0C']$ & \textbf{6.0} & 0.000 & 0.240 & \textbf{6.0} & 0.000 & 0.237 & \textbf{6.0} & 0.000 & 0.384 & \textbf{6.0} & 0.000 & 0.714 \\
-       & $U[0.0C',5.0C']$ & \textbf{6.0} & 0.000 & 0.244 & \textbf{6.0} & 0.000 & 0.243 & \textbf{6.0} & 0.000 & 0.384 & \textbf{6.0} & 0.000 & 0.725 \\
-       & $U[5.0C',10.0C']$ & \textbf{6.0} & 0.000 & 0.247 & \textbf{6.0} & 0.000 & 0.245 & \textbf{6.0} & 0.000 & 0.393 & \textbf{6.0} & 0.000 & 0.689 \\
-       & $U[10.0C',20.0C']$ & \textbf{6.0} & 0.000 & 0.256 & \textbf{6.0} & 0.000 & 0.254 & \textbf{6.0} & 0.000 & 0.395 & \textbf{6.0} & 0.000 & 0.721 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{6.00} & 0.000 & 0.321 & 6.04 & 0.031 & 0.310 & \textbf{6.00} & 0.000 & 0.375 & \textbf{6.00} & 0.000 & 0.727 \\
+       & $U[0.5C',1.0C']$ & \textbf{6.00} & 0.000 & 0.327 & \textbf{6.00} & 0.000 & 0.310 & \textbf{6.00} & 0.000 & 0.371 & \textbf{6.00} & 0.000 & 0.701 \\
+       & $U[1.0C',4.0C']$ & \textbf{6.00} & 0.000 & 0.332 & \textbf{6.00} & 0.000 & 0.341 & \textbf{6.00} & 0.000 & 0.385 & \textbf{6.00} & 0.000 & 0.706 \\
+       & $U[0.0C',5.0C']$ & \textbf{6.00} & 0.000 & 0.341 & \textbf{6.00} & 0.000 & 0.336 & \textbf{6.00} & 0.000 & 0.384 & \textbf{6.00} & 0.000 & 0.713 \\
+       & $U[5.0C',10.0C']$ & \textbf{6.00} & 0.000 & 0.350 & \textbf{6.00} & 0.000 & 0.343 & \textbf{6.00} & 0.000 & 0.390 & \textbf{6.00} & 0.000 & 0.705 \\
+       & $U[10.0C',20.0C']$ & \textbf{6.00} & 0.000 & 0.363 & \textbf{6.00} & 0.000 & 0.362 & \textbf{6.00} & 0.000 & 0.406 & \textbf{6.00} & 0.000 & 0.742 \\
       \hline
       \end{tabular}
       }
@@ -265,35 +317,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & 7.2 & 0.000 & 0.015 & 7.2 & 0.000 & 0.014 & \textbf{7.1} & 0.050 & 0.216 & 7.2 & 0.000 & 0.617 \\
-       & $U[0.5C',1.0C']$ & \textbf{7.2} & 0.000 & 0.017 & \textbf{7.2} & 0.100 & 0.014 & \textbf{7.2} & 0.000 & 0.204 & 7.4 & 0.000 & 0.560 \\
-       & $U[1.0C',4.0C']$ & \textbf{7.0} & 0.000 & 0.014 & 7.1 & 0.050 & 0.015 & 7.2 & 0.100 & 0.199 & 7.1 & 0.050 & 0.632 \\
-       & $U[0.0C',5.0C']$ & \textbf{7.1} & 0.050 & 0.014 & 7.2 & 0.000 & 0.014 & \textbf{7.1} & 0.050 & 0.211 & \textbf{7.1} & 0.050 & 0.606 \\
-       & $U[5.0C',10.0C']$ & 7.3 & 0.050 & 0.014 & \textbf{7.0} & 0.000 & 0.016 & 7.2 & 0.100 & 0.194 & 7.2 & 0.000 & 0.583 \\
-       & $U[10.0C',20.0C']$ & \textbf{7.2} & 0.100 & 0.015 & 7.5 & 0.050 & 0.014 & 7.4 & 0.100 & 0.193 & 7.4 & 0.100 & 0.567 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & 7.60 & 0.111 & 0.019 & 7.44 & 0.080 & 0.019 & 7.60 & 0.111 & 0.161 & \textbf{7.40} & 0.096 & 0.571 \\
+       & $U[0.5C',1.0C']$ & 7.47 & 0.111 & 0.019 & 7.56 & 0.128 & 0.018 & \textbf{7.44} & 0.128 & 0.173 & \textbf{7.44} & 0.128 & 0.560 \\
+       & $U[1.0C',4.0C']$ & 7.52 & 0.079 & 0.018 & \textbf{7.35} & 0.128 & 0.019 & 7.47 & 0.144 & 0.172 & 7.43 & 0.128 & 0.555 \\
+       & $U[0.0C',5.0C']$ & 7.56 & 0.080 & 0.019 & 7.47 & 0.128 & 0.019 & 7.56 & 0.095 & 0.165 & \textbf{7.40} & 0.127 & 0.564 \\
+       & $U[5.0C',10.0C']$ & 7.64 & 0.111 & 0.019 & 7.72 & 0.063 & 0.018 & \textbf{7.56} & 0.096 & 0.167 & 7.64 & 0.096 & 0.516 \\
+       & $U[10.0C',20.0C']$ & 7.88 & 0.048 & 0.018 & \textbf{7.80} & 0.063 & 0.018 & 7.84 & 0.031 & 0.148 & 7.84 & 0.080 & 0.483 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{7.0} & 0.000 & 0.098 & \textbf{7.0} & 0.000 & 0.095 & 7.1 & 0.050 & 0.285 & 7.1 & 0.050 & 0.700 \\
-       & $U[0.5C',1.0C']$ & \textbf{7.0} & 0.000 & 0.108 & 7.2 & 0.000 & 0.086 & \textbf{7.0} & 0.000 & 0.278 & 7.1 & 0.050 & 0.709 \\
-       & $U[1.0C',4.0C']$ & \textbf{7.0} & 0.000 & 0.089 & \textbf{7.0} & 0.000 & 0.090 & \textbf{7.0} & 0.000 & 0.288 & \textbf{7.0} & 0.000 & 0.719 \\
-       & $U[0.0C',5.0C']$ & \textbf{7.0} & 0.000 & 0.088 & \textbf{7.0} & 0.000 & 0.089 & \textbf{7.0} & 0.000 & 0.300 & \textbf{7.0} & 0.000 & 0.716 \\
-       & $U[5.0C',10.0C']$ & \textbf{7.0} & 0.000 & 0.096 & \textbf{7.0} & 0.000 & 0.094 & \textbf{7.0} & 0.000 & 0.299 & \textbf{7.0} & 0.000 & 0.719 \\
-       & $U[10.0C',20.0C']$ & 7.1 & 0.050 & 0.097 & 7.1 & 0.050 & 0.097 & \textbf{7.0} & 0.000 & 0.313 & \textbf{7.0} & 0.000 & 0.709 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 7.35 & 0.080 & 0.104 & 7.27 & 0.063 & 0.108 & \textbf{7.24} & 0.031 & 0.263 & 7.27 & 0.112 & 0.670 \\
+       & $U[0.5C',1.0C']$ & 7.40 & 0.128 & 0.105 & \textbf{7.20} & 0.063 & 0.107 & 7.31 & 0.128 & 0.267 & 7.44 & 0.080 & 0.638 \\
+       & $U[1.0C',4.0C']$ & \textbf{7.08} & 0.048 & 0.110 & 7.15 & 0.031 & 0.105 & 7.12 & 0.048 & 0.281 & 7.12 & 0.048 & 0.719 \\
+       & $U[0.0C',5.0C']$ & 7.15 & 0.031 & 0.106 & \textbf{7.04} & 0.031 & 0.111 & 7.12 & 0.048 & 0.280 & 7.08 & 0.048 & 0.705 \\
+       & $U[5.0C',10.0C']$ & 7.20 & 0.063 & 0.113 & 7.24 & 0.031 & 0.111 & 7.20 & 0.063 & 0.277 & \textbf{7.15} & 0.031 & 0.692 \\
+       & $U[10.0C',20.0C']$ & 7.51 & 0.111 & 0.121 & \textbf{7.44} & 0.096 & 0.125 & 7.68 & 0.080 & 0.254 & 7.48 & 0.112 & 0.648 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 7.1 & 0.050 & 0.191 & 7.1 & 0.050 & 0.185 & \textbf{7.0} & 0.000 & 0.375 & 7.2 & 0.000 & 0.755 \\
-       & $U[0.5C',1.0C']$ & 7.1 & 0.050 & 0.193 & \textbf{7.0} & 0.000 & 0.178 & 7.1 & 0.050 & 0.363 & 7.1 & 0.050 & 0.789 \\
-       & $U[1.0C',4.0C']$ & \textbf{7.0} & 0.000 & 0.172 & \textbf{7.0} & 0.000 & 0.173 & \textbf{7.0} & 0.000 & 0.367 & \textbf{7.0} & 0.000 & 0.763 \\
-       & $U[0.0C',5.0C']$ & \textbf{7.0} & 0.000 & 0.172 & \textbf{7.0} & 0.000 & 0.174 & \textbf{7.0} & 0.000 & 0.369 & \textbf{7.0} & 0.000 & 0.787 \\
-       & $U[5.0C',10.0C']$ & \textbf{7.0} & 0.000 & 0.178 & \textbf{7.0} & 0.000 & 0.182 & \textbf{7.0} & 0.000 & 0.379 & \textbf{7.0} & 0.000 & 0.796 \\
-       & $U[10.0C',20.0C']$ & \textbf{7.0} & 0.000 & 0.205 & 7.1 & 0.050 & 0.185 & 7.1 & 0.050 & 0.386 & 7.1 & 0.050 & 0.792 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 7.35 & 0.080 & 0.195 & \textbf{7.32} & 0.080 & 0.199 & \textbf{7.32} & 0.144 & 0.343 & 7.35 & 0.112 & 0.749 \\
+       & $U[0.5C',1.0C']$ & \textbf{7.27} & 0.112 & 0.196 & 7.40 & 0.112 & 0.181 & \textbf{7.27} & 0.063 & 0.354 & 7.32 & 0.080 & 0.750 \\
+       & $U[1.0C',4.0C']$ & 7.04 & 0.031 & 0.208 & 7.04 & 0.031 & 0.204 & 7.08 & 0.048 & 0.377 & \textbf{7.00} & 0.000 & 0.829 \\
+       & $U[0.0C',5.0C']$ & \textbf{7.00} & 0.000 & 0.213 & 7.08 & 0.048 & 0.208 & 7.08 & 0.048 & 0.376 & 7.08 & 0.048 & 0.806 \\
+       & $U[5.0C',10.0C']$ & 7.15 & 0.031 & 0.215 & 7.20 & 0.000 & 0.211 & \textbf{7.08} & 0.048 & 0.388 & 7.20 & 0.000 & 0.783 \\
+       & $U[10.0C',20.0C']$ & \textbf{7.35} & 0.080 & 0.233 & 7.44 & 0.031 & 0.231 & \textbf{7.35} & 0.031 & 0.380 & 7.40 & 0.128 & 0.793 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{7.0} & 0.000 & 0.433 & 7.1 & 0.050 & 0.409 & 7.1 & 0.050 & 0.617 & \textbf{7.0} & 0.000 & 1.071 \\
-       & $U[0.5C',1.0C']$ & 7.2 & 0.000 & 0.436 & \textbf{7.0} & 0.000 & 0.459 & 7.2 & 0.000 & 0.577 & \textbf{7.0} & 0.000 & 1.073 \\
-       & $U[1.0C',4.0C']$ & \textbf{7.0} & 0.000 & 0.412 & \textbf{7.0} & 0.000 & 0.418 & \textbf{7.0} & 0.000 & 0.597 & \textbf{7.0} & 0.000 & 1.015 \\
-       & $U[0.0C',5.0C']$ & \textbf{7.0} & 0.000 & 0.408 & \textbf{7.0} & 0.000 & 0.419 & \textbf{7.0} & 0.000 & 0.600 & \textbf{7.0} & 0.000 & 1.018 \\
-       & $U[5.0C',10.0C']$ & \textbf{7.0} & 0.000 & 0.426 & \textbf{7.0} & 0.000 & 0.428 & \textbf{7.0} & 0.000 & 0.618 & \textbf{7.0} & 0.000 & 1.023 \\
-       & $U[10.0C',20.0C']$ & \textbf{7.0} & 0.000 & 0.478 & \textbf{7.0} & 0.000 & 0.442 & \textbf{7.0} & 0.000 & 0.681 & \textbf{7.0} & 0.000 & 1.039 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{7.24} & 0.031 & 0.513 & 7.40 & 0.128 & 0.472 & 7.27 & 0.112 & 0.638 & 7.27 & 0.111 & 1.053 \\
+       & $U[0.5C',1.0C']$ & 7.27 & 0.048 & 0.463 & \textbf{7.12} & 0.080 & 0.510 & 7.24 & 0.031 & 0.623 & 7.35 & 0.128 & 1.007 \\
+       & $U[1.0C',4.0C']$ & \textbf{7.00} & 0.000 & 0.508 & \textbf{7.00} & 0.000 & 0.499 & \textbf{7.00} & 0.000 & 0.666 & \textbf{7.00} & 0.000 & 1.107 \\
+       & $U[0.0C',5.0C']$ & \textbf{7.00} & 0.000 & 0.497 & \textbf{7.00} & 0.000 & 0.509 & \textbf{7.00} & 0.000 & 0.687 & \textbf{7.00} & 0.000 & 1.120 \\
+       & $U[5.0C',10.0C']$ & 7.15 & 0.031 & 0.509 & 7.15 & 0.031 & 0.505 & \textbf{7.12} & 0.048 & 0.684 & 7.15 & 0.031 & 1.078 \\
+       & $U[10.0C',20.0C']$ & \textbf{7.20} & 0.000 & 0.563 & 7.24 & 0.031 & 0.570 & 7.24 & 0.031 & 0.750 & 7.32 & 0.079 & 1.104 \\
       \hline
       \end{tabular}
       }
@@ -306,35 +358,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{8.8} & 0.100 & 0.022 & 9.0 & 0.000 & 0.021 & \textbf{8.8} & 0.100 & 0.264 & \textbf{8.8} & 0.100 & 0.729 \\
-       & $U[0.5C',1.0C']$ & \textbf{8.7} & 0.050 & 0.021 & \textbf{8.7} & 0.050 & 0.021 & 8.8 & 0.100 & 0.253 & \textbf{8.7} & 0.050 & 0.739 \\
-       & $U[1.0C',4.0C']$ & 8.7 & 0.050 & 0.020 & 8.6 & 0.100 & 0.022 & 8.7 & 0.050 & 0.268 & \textbf{8.5} & 0.150 & 0.774 \\
-       & $U[0.0C',5.0C']$ & \textbf{8.6} & 0.200 & 0.022 & 8.7 & 0.050 & 0.020 & 8.7 & 0.150 & 0.272 & 8.9 & 0.050 & 0.697 \\
-       & $U[5.0C',10.0C']$ & 8.8 & 0.100 & 0.021 & 8.8 & 0.100 & 0.021 & \textbf{8.7} & 0.050 & 0.256 & 8.9 & 0.050 & 0.708 \\
-       & $U[10.0C',20.0C']$ & \textbf{8.9} & 0.050 & 0.022 & 9.0 & 0.000 & 0.020 & \textbf{8.9} & 0.050 & 0.245 & 9.0 & 0.000 & 0.679 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{8.92} & 0.048 & 0.027 & 8.95 & 0.080 & 0.029 & 9.04 & 0.128 & 0.178 & 8.95 & 0.080 & 0.578 \\
+       & $U[0.5C',1.0C']$ & 9.00 & 0.064 & 0.028 & \textbf{8.80} & 0.063 & 0.028 & 8.95 & 0.079 & 0.179 & 9.00 & 0.096 & 0.558 \\
+       & $U[1.0C',4.0C']$ & 9.00 & 0.063 & 0.027 & \textbf{8.87} & 0.048 & 0.028 & \textbf{8.87} & 0.048 & 0.182 & \textbf{8.87} & 0.048 & 0.585 \\
+       & $U[0.0C',5.0C']$ & 9.00 & 0.096 & 0.027 & 8.88 & 0.063 & 0.027 & 9.00 & 0.000 & 0.169 & \textbf{8.84} & 0.031 & 0.588 \\
+       & $U[5.0C',10.0C']$ & 9.12 & 0.048 & 0.029 & 9.12 & 0.063 & 0.029 & \textbf{9.00} & 0.000 & 0.174 & 9.04 & 0.096 & 0.561 \\
+       & $U[10.0C',20.0C']$ & 9.40 & 0.128 & 0.028 & \textbf{9.16} & 0.079 & 0.029 & 9.24 & 0.096 & 0.162 & 9.24 & 0.031 & 0.511 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 8.6 & 0.100 & 0.160 & 8.8 & 0.100 & 0.146 & 8.6 & 0.100 & 0.392 & \textbf{8.5} & 0.050 & 0.943 \\
-       & $U[0.5C',1.0C']$ & 8.7 & 0.050 & 0.144 & \textbf{8.4} & 0.100 & 0.157 & 8.5 & 0.150 & 0.422 & 8.6 & 0.100 & 0.891 \\
-       & $U[1.0C',4.0C']$ & \textbf{8.2} & 0.000 & 0.162 & 8.3 & 0.050 & 0.169 & \textbf{8.2} & 0.000 & 0.429 & 8.3 & 0.050 & 0.972 \\
-       & $U[0.0C',5.0C']$ & \textbf{8.2} & 0.000 & 0.171 & \textbf{8.2} & 0.000 & 0.148 & \textbf{8.2} & 0.000 & 0.445 & 8.3 & 0.050 & 0.955 \\
-       & $U[5.0C',10.0C']$ & \textbf{8.4} & 0.100 & 0.187 & \textbf{8.4} & 0.100 & 0.169 & 8.5 & 0.050 & 0.422 & 8.6 & 0.100 & 0.916 \\
-       & $U[10.0C',20.0C']$ & 8.8 & 0.000 & 0.158 & 8.8 & 0.000 & 0.159 & 8.7 & 0.050 & 0.400 & \textbf{8.5} & 0.050 & 0.928 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 9.00 & 0.096 & 0.153 & 8.91 & 0.080 & 0.156 & \textbf{8.88} & 0.063 & 0.297 & 8.91 & 0.080 & 0.704 \\
+       & $U[0.5C',1.0C']$ & 8.92 & 0.063 & 0.154 & 8.88 & 0.080 & 0.150 & \textbf{8.84} & 0.112 & 0.297 & \textbf{8.84} & 0.032 & 0.713 \\
+       & $U[1.0C',4.0C']$ & 8.76 & 0.031 & 0.157 & \textbf{8.72} & 0.048 & 0.158 & \textbf{8.72} & 0.048 & 0.314 & \textbf{8.72} & 0.048 & 0.761 \\
+       & $U[0.0C',5.0C']$ & 8.72 & 0.063 & 0.160 & 8.76 & 0.031 & 0.156 & 8.76 & 0.031 & 0.310 & \textbf{8.64} & 0.079 & 0.763 \\
+       & $U[5.0C',10.0C']$ & 8.92 & 0.063 & 0.163 & \textbf{8.84} & 0.031 & 0.166 & \textbf{8.84} & 0.032 & 0.316 & \textbf{8.84} & 0.031 & 0.724 \\
+       & $U[10.0C',20.0C']$ & 9.04 & 0.031 & 0.180 & \textbf{9.00} & 0.063 & 0.173 & \textbf{9.00} & 0.000 & 0.325 & 9.04 & 0.031 & 0.707 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 8.8 & 0.100 & 0.297 & 8.8 & 0.100 & 0.287 & \textbf{8.6} & 0.100 & 0.552 & \textbf{8.6} & 0.000 & 1.053 \\
-       & $U[0.5C',1.0C']$ & 8.6 & 0.000 & 0.302 & \textbf{8.5} & 0.050 & 0.297 & \textbf{8.5} & 0.050 & 0.556 & 8.8 & 0.100 & 0.954 \\
-       & $U[1.0C',4.0C']$ & \textbf{8.2} & 0.000 & 0.306 & \textbf{8.2} & 0.000 & 0.307 & \textbf{8.2} & 0.000 & 0.567 & \textbf{8.2} & 0.000 & 1.137 \\
-       & $U[0.0C',5.0C']$ & \textbf{8.2} & 0.000 & 0.305 & 8.3 & 0.050 & 0.300 & \textbf{8.2} & 0.000 & 0.559 & \textbf{8.2} & 0.000 & 1.115 \\
-       & $U[5.0C',10.0C']$ & 8.3 & 0.050 & 0.325 & 8.3 & 0.050 & 0.326 & \textbf{8.2} & 0.000 & 0.600 & 8.4 & 0.100 & 1.110 \\
-       & $U[10.0C',20.0C']$ & 8.6 & 0.000 & 0.313 & 8.5 & 0.050 & 0.324 & \textbf{8.4} & 0.000 & 0.588 & 8.7 & 0.050 & 1.046 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & \textbf{8.95} & 0.079 & 0.307 & 9.00 & 0.063 & 0.271 & 9.00 & 0.063 & 0.435 & 9.00 & 0.096 & 0.833 \\
+       & $U[0.5C',1.0C']$ & 8.88 & 0.112 & 0.291 & 8.87 & 0.048 & 0.278 & \textbf{8.76} & 0.080 & 0.436 & 8.80 & 0.063 & 0.852 \\
+       & $U[1.0C',4.0C']$ & \textbf{8.52} & 0.112 & 0.323 & 8.68 & 0.080 & 0.316 & 8.56 & 0.144 & 0.505 & \textbf{8.52} & 0.112 & 0.944 \\
+       & $U[0.0C',5.0C']$ & 8.72 & 0.048 & 0.291 & 8.68 & 0.079 & 0.300 & 8.68 & 0.079 & 0.457 & \textbf{8.60} & 0.096 & 0.927 \\
+       & $U[5.0C',10.0C']$ & 8.84 & 0.031 & 0.316 & \textbf{8.80} & 0.063 & 0.311 & \textbf{8.80} & 0.063 & 0.476 & 8.84 & 0.031 & 0.863 \\
+       & $U[10.0C',20.0C']$ & 9.00 & 0.063 & 0.316 & \textbf{8.95} & 0.032 & 0.321 & 9.00 & 0.000 & 0.467 & 9.00 & 0.000 & 0.853 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 8.8 & 0.000 & 0.728 & 8.8 & 0.100 & 0.682 & \textbf{8.7} & 0.050 & 0.980 & 8.8 & 0.100 & 1.377 \\
-       & $U[0.5C',1.0C']$ & \textbf{8.6} & 0.100 & 0.768 & \textbf{8.6} & 0.100 & 0.684 & 8.7 & 0.050 & 0.892 & \textbf{8.6} & 0.100 & 1.436 \\
-       & $U[1.0C',4.0C']$ & \textbf{8.2} & 0.000 & 0.690 & \textbf{8.2} & 0.000 & 0.710 & \textbf{8.2} & 0.000 & 0.951 & \textbf{8.2} & 0.000 & 1.507 \\
-       & $U[0.0C',5.0C']$ & \textbf{8.2} & 0.000 & 0.716 & \textbf{8.2} & 0.000 & 0.757 & \textbf{8.2} & 0.000 & 0.984 & \textbf{8.2} & 0.000 & 1.526 \\
-       & $U[5.0C',10.0C']$ & 8.3 & 0.050 & 0.745 & \textbf{8.2} & 0.000 & 0.833 & \textbf{8.2} & 0.000 & 1.056 & \textbf{8.2} & 0.000 & 1.630 \\
-       & $U[10.0C',20.0C']$ & 8.4 & 0.100 & 0.860 & 8.4 & 0.100 & 0.797 & \textbf{8.3} & 0.050 & 1.102 & 8.5 & 0.050 & 1.560 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 8.87 & 0.048 & 0.699 & \textbf{8.84} & 0.095 & 0.708 & 8.92 & 0.048 & 0.829 & 9.08 & 0.080 & 1.173 \\
+       & $U[0.5C',1.0C']$ & \textbf{8.80} & 0.000 & 0.698 & \textbf{8.80} & 0.000 & 0.671 & 8.87 & 0.048 & 0.842 & 8.84 & 0.031 & 1.257 \\
+       & $U[1.0C',4.0C']$ & 8.56 & 0.128 & 0.768 & \textbf{8.40} & 0.063 & 0.861 & 8.44 & 0.096 & 0.983 & 8.55 & 0.031 & 1.349 \\
+       & $U[0.0C',5.0C']$ & \textbf{8.36} & 0.080 & 0.841 & 8.55 & 0.080 & 0.767 & 8.44 & 0.080 & 0.972 & 8.52 & 0.048 & 1.388 \\
+       & $U[5.0C',10.0C']$ & 8.72 & 0.048 & 0.782 & \textbf{8.68} & 0.080 & 0.779 & 8.72 & 0.080 & 0.934 & 8.76 & 0.031 & 1.346 \\
+       & $U[10.0C',20.0C']$ & \textbf{8.87} & 0.048 & 0.812 & 8.92 & 0.048 & 0.791 & 8.95 & 0.031 & 0.912 & 8.88 & 0.080 & 1.375 \\
       \hline
       \end{tabular}
       }
@@ -346,35 +398,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & 10.6 & 0.100 & 0.037 & \textbf{10.2} & 0.100 & 0.034 & 10.5 & 0.050 & 0.301 & 10.4 & 0.200 & 0.865 \\
-       & $U[0.5C',1.0C']$ & \textbf{10.2} & 0.100 & 0.037 & 10.5 & 0.050 & 0.032 & 10.4 & 0.100 & 0.310 & \textbf{10.2} & 0.000 & 0.906 \\
-       & $U[1.0C',4.0C']$ & \textbf{10.1} & 0.050 & 0.038 & \textbf{10.1} & 0.050 & 0.034 & 10.3 & 0.050 & 0.340 & \textbf{10.1} & 0.050 & 0.927 \\
-       & $U[0.0C',5.0C']$ & \textbf{10.0} & 0.000 & 0.037 & 10.1 & 0.050 & 0.031 & 10.4 & 0.100 & 0.317 & 10.1 & 0.050 & 0.904 \\
-       & $U[5.0C',10.0C']$ & 10.4 & 0.100 & 0.034 & 10.5 & 0.150 & 0.034 & \textbf{10.2} & 0.100 & 0.328 & \textbf{10.2} & 0.100 & 0.921 \\
-       & $U[10.0C',20.0C']$ & 10.6 & 0.100 & 0.035 & \textbf{10.5} & 0.050 & 0.034 & 10.8 & 0.100 & 0.287 & \textbf{10.5} & 0.050 & 0.809 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{10.88} & 0.095 & 0.041 & 10.95 & 0.128 & 0.041 & 10.95 & 0.031 & 0.228 & \textbf{10.88} & 0.144 & 0.686 \\
+       & $U[0.5C',1.0C']$ & 10.80 & 0.144 & 0.041 & 10.76 & 0.031 & 0.039 & \textbf{10.68} & 0.112 & 0.246 & 10.80 & 0.063 & 0.701 \\
+       & $U[1.0C',4.0C']$ & 10.84 & 0.079 & 0.040 & 10.76 & 0.128 & 0.039 & 10.76 & 0.095 & 0.242 & \textbf{10.71} & 0.176 & 0.720 \\
+       & $U[0.0C',5.0C']$ & 10.80 & 0.096 & 0.040 & 10.84 & 0.112 & 0.039 & 10.84 & 0.112 & 0.237 & \textbf{10.76} & 0.144 & 0.707 \\
+       & $U[5.0C',10.0C']$ & 10.95 & 0.031 & 0.041 & 10.95 & 0.031 & 0.039 & \textbf{10.92} & 0.063 & 0.229 & \textbf{10.92} & 0.063 & 0.678 \\
+       & $U[10.0C',20.0C']$ & 11.12 & 0.095 & 0.044 & \textbf{11.04} & 0.032 & 0.044 & \textbf{11.04} & 0.031 & 0.221 & \textbf{11.04} & 0.095 & 0.644 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{10.4} & 0.100 & 0.270 & \textbf{10.4} & 0.200 & 0.265 & 10.8 & 0.100 & 0.462 & 10.5 & 0.150 & 1.070 \\
-       & $U[0.5C',1.0C']$ & \textbf{10.0} & 0.000 & 0.309 & \textbf{10.0} & 0.000 & 0.264 & 10.2 & 0.000 & 0.556 & 10.2 & 0.100 & 1.113 \\
-       & $U[1.0C',4.0C']$ & \textbf{10.0} & 0.000 & 0.233 & \textbf{10.0} & 0.000 & 0.231 & \textbf{10.0} & 0.000 & 0.523 & \textbf{10.0} & 0.000 & 1.120 \\
-       & $U[0.0C',5.0C']$ & \textbf{10.0} & 0.000 & 0.229 & \textbf{10.0} & 0.000 & 0.230 & \textbf{10.0} & 0.000 & 0.536 & \textbf{10.0} & 0.000 & 1.129 \\
-       & $U[5.0C',10.0C']$ & \textbf{10.0} & 0.000 & 0.248 & \textbf{10.0} & 0.000 & 0.241 & \textbf{10.0} & 0.000 & 0.528 & \textbf{10.0} & 0.000 & 1.139 \\
-       & $U[10.0C',20.0C']$ & \textbf{10.0} & 0.000 & 0.311 & \textbf{10.0} & 0.000 & 0.300 & \textbf{10.0} & 0.000 & 0.588 & \textbf{10.0} & 0.000 & 1.230 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 10.87 & 0.080 & 0.262 & \textbf{10.76} & 0.128 & 0.269 & 10.91 & 0.063 & 0.436 & 10.80 & 0.112 & 0.897 \\
+       & $U[0.5C',1.0C']$ & \textbf{10.47} & 0.112 & 0.273 & 10.60 & 0.160 & 0.253 & 10.55 & 0.144 & 0.460 & 10.52 & 0.160 & 0.967 \\
+       & $U[1.0C',4.0C']$ & 10.12 & 0.080 & 0.273 & 10.20 & 0.096 & 0.262 & 10.12 & 0.080 & 0.512 & \textbf{10.08} & 0.048 & 1.081 \\
+       & $U[0.0C',5.0C']$ & 10.20 & 0.128 & 0.275 & 10.16 & 0.096 & 0.277 & 10.20 & 0.063 & 0.499 & \textbf{10.12} & 0.079 & 1.082 \\
+       & $U[5.0C',10.0C']$ & 10.60 & 0.128 & 0.297 & \textbf{10.48} & 0.128 & 0.310 & 10.55 & 0.080 & 0.489 & 10.52 & 0.176 & 1.013 \\
+       & $U[10.0C',20.0C']$ & 10.92 & 0.063 & 0.267 & 10.87 & 0.080 & 0.270 & 10.95 & 0.032 & 0.444 & \textbf{10.84} & 0.080 & 0.911 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 10.5 & 0.050 & 0.502 & \textbf{10.4} & 0.100 & 0.527 & 10.5 & 0.250 & 0.821 & 10.6 & 0.100 & 1.237 \\
-       & $U[0.5C',1.0C']$ & \textbf{10.0} & 0.000 & 0.462 & 10.1 & 0.050 & 0.517 & 10.2 & 0.100 & 0.805 & \textbf{10.0} & 0.000 & 1.464 \\
-       & $U[1.0C',4.0C']$ & \textbf{10.0} & 0.000 & 0.445 & \textbf{10.0} & 0.000 & 0.446 & \textbf{10.0} & 0.000 & 0.726 & \textbf{10.0} & 0.000 & 1.336 \\
-       & $U[0.0C',5.0C']$ & \textbf{10.0} & 0.000 & 0.446 & \textbf{10.0} & 0.000 & 0.443 & \textbf{10.0} & 0.000 & 0.741 & \textbf{10.0} & 0.000 & 1.338 \\
-       & $U[5.0C',10.0C']$ & \textbf{10.0} & 0.000 & 0.471 & \textbf{10.0} & 0.000 & 0.467 & \textbf{10.0} & 0.000 & 0.782 & \textbf{10.0} & 0.000 & 1.357 \\
-       & $U[10.0C',20.0C']$ & \textbf{10.0} & 0.000 & 0.493 & \textbf{10.0} & 0.000 & 0.532 & \textbf{10.0} & 0.000 & 0.824 & \textbf{10.0} & 0.000 & 1.432 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 11.00 & 0.000 & 0.460 & 11.00 & 0.063 & 0.470 & \textbf{10.88} & 0.095 & 0.640 & \textbf{10.88} & 0.144 & 1.127 \\
+       & $U[0.5C',1.0C']$ & 10.48 & 0.128 & 0.506 & \textbf{10.36} & 0.176 & 0.502 & 10.48 & 0.176 & 0.680 & 10.60 & 0.160 & 1.195 \\
+       & $U[1.0C',4.0C']$ & \textbf{10.00} & 0.000 & 0.503 & \textbf{10.00} & 0.000 & 0.521 & 10.04 & 0.031 & 0.769 & \textbf{10.00} & 0.000 & 1.347 \\
+       & $U[0.0C',5.0C']$ & \textbf{10.00} & 0.000 & 0.518 & \textbf{10.00} & 0.000 & 0.521 & 10.08 & 0.063 & 0.727 & 10.04 & 0.031 & 1.351 \\
+       & $U[5.0C',10.0C']$ & 10.40 & 0.159 & 0.577 & 10.32 & 0.127 & 0.554 & \textbf{10.31} & 0.128 & 0.791 & 10.36 & 0.127 & 1.326 \\
+       & $U[10.0C',20.0C']$ & 10.88 & 0.080 & 0.504 & \textbf{10.84} & 0.112 & 0.517 & 10.88 & 0.095 & 0.699 & \textbf{10.84} & 0.112 & 1.160 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{10.4} & 0.100 & 1.183 & 10.6 & 0.100 & 1.099 & 10.5 & 0.050 & 1.501 & 10.5 & 0.150 & 2.083 \\
-       & $U[0.5C',1.0C']$ & 10.1 & 0.050 & 1.215 & 10.1 & 0.050 & 1.338 & 10.2 & 0.000 & 1.554 & \textbf{10.0} & 0.000 & 2.200 \\
-       & $U[1.0C',4.0C']$ & \textbf{10.0} & 0.000 & 1.077 & \textbf{10.0} & 0.000 & 1.098 & \textbf{10.0} & 0.000 & 1.377 & \textbf{10.0} & 0.000 & 1.973 \\
-       & $U[0.0C',5.0C']$ & \textbf{10.0} & 0.000 & 1.078 & \textbf{10.0} & 0.000 & 1.086 & \textbf{10.0} & 0.000 & 1.403 & \textbf{10.0} & 0.000 & 1.990 \\
-       & $U[5.0C',10.0C']$ & \textbf{10.0} & 0.000 & 1.135 & \textbf{10.0} & 0.000 & 1.135 & \textbf{10.0} & 0.000 & 1.428 & \textbf{10.0} & 0.000 & 2.022 \\
-       & $U[10.0C',20.0C']$ & \textbf{10.0} & 0.000 & 1.197 & \textbf{10.0} & 0.000 & 1.193 & \textbf{10.0} & 0.000 & 1.471 & \textbf{10.0} & 0.000 & 2.066 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 11.08 & 0.048 & 1.164 & 10.95 & 0.095 & 1.127 & \textbf{10.80} & 0.112 & 1.323 & 10.84 & 0.176 & 1.735 \\
+       & $U[0.5C',1.0C']$ & \textbf{10.44} & 0.080 & 1.230 & \textbf{10.44} & 0.192 & 1.250 & 10.60 & 0.160 & 1.386 & 10.48 & 0.112 & 1.846 \\
+       & $U[1.0C',4.0C']$ & \textbf{10.00} & 0.000 & 1.202 & \textbf{10.00} & 0.000 & 1.202 & \textbf{10.00} & 0.000 & 1.448 & \textbf{10.00} & 0.000 & 2.026 \\
+       & $U[0.0C',5.0C']$ & \textbf{10.00} & 0.000 & 1.172 & \textbf{10.00} & 0.000 & 1.198 & \textbf{10.00} & 0.000 & 1.458 & \textbf{10.00} & 0.000 & 2.006 \\
+       & $U[5.0C',10.0C']$ & 10.12 & 0.080 & 1.360 & 10.20 & 0.063 & 1.373 & 10.20 & 0.063 & 1.555 & \textbf{10.08} & 0.063 & 2.146 \\
+       & $U[10.0C',20.0C']$ & 10.71 & 0.079 & 1.345 & 10.71 & 0.111 & 1.421 & 10.76 & 0.095 & 1.425 & \textbf{10.67} & 0.192 & 2.026 \\
       \hline
       \end{tabular}
       }
@@ -387,35 +439,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{12.6} & 0.100 & 0.058 & 12.8 & 0.000 & 0.056 & 13.0 & 0.000 & 0.464 & 13.1 & 0.150 & 1.040 \\
-       & $U[0.5C',1.0C']$ & 12.7 & 0.050 & 0.046 & \textbf{12.6} & 0.000 & 0.052 & 12.9 & 0.050 & 0.442 & 12.8 & 0.000 & 1.106 \\
-       & $U[1.0C',4.0C']$ & 12.6 & 0.100 & 0.049 & \textbf{12.5} & 0.050 & 0.048 & 12.7 & 0.050 & 0.467 & 12.7 & 0.050 & 1.109 \\
-       & $U[0.0C',5.0C']$ & \textbf{12.5} & 0.150 & 0.051 & 12.8 & 0.000 & 0.046 & 12.7 & 0.050 & 0.449 & 12.6 & 0.100 & 1.144 \\
-       & $U[5.0C',10.0C']$ & 12.7 & 0.050 & 0.051 & \textbf{12.5} & 0.050 & 0.058 & 12.6 & 0.100 & 0.457 & 12.8 & 0.000 & 1.100 \\
-       & $U[10.0C',20.0C']$ & 12.8 & 0.000 & 0.050 & 12.8 & 0.000 & 0.051 & 12.8 & 0.000 & 0.429 & \textbf{12.7} & 0.050 & 1.119 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & 13.48 & 0.112 & 0.062 & 13.32 & 0.208 & 0.062 & \textbf{13.16} & 0.192 & 0.324 & 13.48 & 0.192 & 0.771 \\
+       & $U[0.5C',1.0C']$ & 12.95 & 0.080 & 0.059 & 12.91 & 0.112 & 0.063 & \textbf{12.72} & 0.048 & 0.356 & 13.00 & 0.111 & 0.885 \\
+       & $U[1.0C',4.0C']$ & 12.91 & 0.080 & 0.058 & \textbf{12.84} & 0.031 & 0.058 & \textbf{12.84} & 0.032 & 0.335 & 12.91 & 0.048 & 0.889 \\
+       & $U[0.0C',5.0C']$ & 12.95 & 0.079 & 0.061 & \textbf{12.80} & 0.063 & 0.063 & 12.91 & 0.080 & 0.339 & 12.91 & 0.048 & 0.901 \\
+       & $U[5.0C',10.0C']$ & 13.12 & 0.128 & 0.061 & 13.12 & 0.080 & 0.061 & 13.16 & 0.095 & 0.311 & \textbf{13.00} & 0.112 & 0.869 \\
+       & $U[10.0C',20.0C']$ & 13.55 & 0.128 & 0.060 & \textbf{13.20} & 0.240 & 0.066 & 13.32 & 0.192 & 0.313 & 13.28 & 0.224 & 0.816 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{12.7} & 0.150 & 0.491 & 12.9 & 0.050 & 0.443 & 13.1 & 0.050 & 0.752 & 12.9 & 0.250 & 1.450 \\
-       & $U[0.5C',1.0C']$ & 12.6 & 0.100 & 0.410 & \textbf{12.4} & 0.100 & 0.440 & 12.5 & 0.050 & 0.819 & 12.6 & 0.100 & 1.490 \\
-       & $U[1.0C',4.0C']$ & 12.2 & 0.000 & 0.408 & \textbf{12.0} & 0.000 & 0.426 & \textbf{12.0} & 0.000 & 0.893 & 12.3 & 0.050 & 1.543 \\
-       & $U[0.0C',5.0C']$ & 12.1 & 0.050 & 0.390 & 12.1 & 0.050 & 0.429 & \textbf{12.0} & 0.000 & 0.903 & 12.1 & 0.050 & 1.600 \\
-       & $U[5.0C',10.0C']$ & \textbf{12.2} & 0.000 & 0.451 & 12.3 & 0.050 & 0.452 & 12.3 & 0.050 & 0.862 & 12.3 & 0.050 & 1.549 \\
-       & $U[10.0C',20.0C']$ & 12.5 & 0.050 & 0.437 & \textbf{12.4} & 0.100 & 0.459 & 12.5 & 0.150 & 0.852 & 12.5 & 0.050 & 1.546 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 13.64 & 0.208 & 0.422 & 13.40 & 0.128 & 0.413 & \textbf{13.28} & 0.192 & 0.671 & \textbf{13.28} & 0.144 & 1.216 \\
+       & $U[0.5C',1.0C']$ & 12.80 & 0.063 & 0.417 & \textbf{12.68} & 0.112 & 0.418 & 12.88 & 0.048 & 0.650 & 12.76 & 0.095 & 1.278 \\
+       & $U[1.0C',4.0C']$ & 12.64 & 0.031 & 0.393 & \textbf{12.55} & 0.095 & 0.418 & \textbf{12.55} & 0.079 & 0.703 & 12.60 & 0.000 & 1.299 \\
+       & $U[0.0C',5.0C']$ & 12.60 & 0.096 & 0.408 & 12.63 & 0.080 & 0.396 & \textbf{12.55} & 0.128 & 0.727 & \textbf{12.55} & 0.080 & 1.323 \\
+       & $U[5.0C',10.0C']$ & \textbf{12.80} & 0.000 & 0.419 & \textbf{12.80} & 0.000 & 0.428 & \textbf{12.80} & 0.000 & 0.694 & \textbf{12.80} & 0.000 & 1.294 \\
+       & $U[10.0C',20.0C']$ & 13.04 & 0.111 & 0.486 & \textbf{12.91} & 0.080 & 0.478 & 13.04 & 0.111 & 0.715 & 12.95 & 0.128 & 1.281 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 12.9 & 0.050 & 0.750 & 12.9 & 0.050 & 0.907 & \textbf{12.8} & 0.100 & 1.173 & 12.9 & 0.050 & 1.885 \\
-       & $U[0.5C',1.0C']$ & \textbf{12.4} & 0.100 & 0.817 & 12.5 & 0.050 & 0.769 & 12.5 & 0.150 & 1.242 & 12.5 & 0.050 & 1.935 \\
-       & $U[1.0C',4.0C']$ & \textbf{12.0} & 0.000 & 0.770 & \textbf{12.0} & 0.000 & 0.918 & \textbf{12.0} & 0.000 & 1.271 & \textbf{12.0} & 0.000 & 2.063 \\
-       & $U[0.0C',5.0C']$ & \textbf{12.0} & 0.000 & 0.826 & 12.1 & 0.050 & 0.838 & \textbf{12.0} & 0.000 & 1.211 & 12.1 & 0.050 & 1.979 \\
-       & $U[5.0C',10.0C']$ & \textbf{12.1} & 0.050 & 0.828 & 12.2 & 0.100 & 0.820 & \textbf{12.1} & 0.050 & 1.344 & 12.2 & 0.000 & 2.034 \\
-       & $U[10.0C',20.0C']$ & 12.4 & 0.100 & 0.931 & 12.5 & 0.050 & 0.795 & 12.4 & 0.200 & 1.318 & \textbf{12.3} & 0.050 & 2.066 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 13.55 & 0.111 & 0.859 & \textbf{13.48} & 0.144 & 0.779 & 13.52 & 0.256 & 0.999 & 13.52 & 0.160 & 1.541 \\
+       & $U[0.5C',1.0C']$ & 12.84 & 0.112 & 0.710 & 12.84 & 0.080 & 0.755 & 12.91 & 0.048 & 0.989 & \textbf{12.76} & 0.144 & 1.613 \\
+       & $U[1.0C',4.0C']$ & \textbf{12.40} & 0.063 & 0.837 & 12.55 & 0.080 & 0.818 & 12.55 & 0.095 & 1.082 & 12.55 & 0.031 & 1.689 \\
+       & $U[0.0C',5.0C']$ & \textbf{12.32} & 0.112 & 0.901 & 12.55 & 0.127 & 0.797 & 12.52 & 0.080 & 1.090 & 12.44 & 0.080 & 1.778 \\
+       & $U[5.0C',10.0C']$ & \textbf{12.68} & 0.080 & 0.835 & 12.76 & 0.031 & 0.821 & 12.76 & 0.032 & 1.110 & 12.76 & 0.031 & 1.640 \\
+       & $U[10.0C',20.0C']$ & \textbf{12.84} & 0.031 & 0.941 & \textbf{12.84} & 0.031 & 0.957 & 12.88 & 0.063 & 1.176 & 12.91 & 0.080 & 1.720 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 13.0 & 0.100 & 2.108 & 13.0 & 0.100 & 2.076 & \textbf{12.7} & 0.050 & 2.560 & 13.0 & 0.100 & 2.841 \\
-       & $U[0.5C',1.0C']$ & \textbf{12.5} & 0.050 & 1.994 & 12.6 & 0.100 & 2.112 & \textbf{12.5} & 0.050 & 2.412 & 12.6 & 0.100 & 2.883 \\
-       & $U[1.0C',4.0C']$ & \textbf{12.0} & 0.000 & 1.869 & \textbf{12.0} & 0.000 & 1.872 & \textbf{12.0} & 0.000 & 2.291 & \textbf{12.0} & 0.000 & 3.119 \\
-       & $U[0.0C',5.0C']$ & \textbf{12.0} & 0.000 & 1.833 & \textbf{12.0} & 0.000 & 1.858 & \textbf{12.0} & 0.000 & 2.284 & \textbf{12.0} & 0.000 & 3.065 \\
-       & $U[5.0C',10.0C']$ & 12.1 & 0.050 & 2.030 & 12.1 & 0.050 & 2.243 & 12.1 & 0.050 & 2.536 & \textbf{12.0} & 0.000 & 3.217 \\
-       & $U[10.0C',20.0C']$ & 12.2 & 0.100 & 2.106 & 12.3 & 0.050 & 2.166 & \textbf{12.0} & 0.000 & 3.000 & 12.1 & 0.050 & 3.505 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 13.44 & 0.144 & 2.161 & 13.47 & 0.144 & 2.012 & \textbf{13.31} & 0.224 & 2.228 & 13.55 & 0.096 & 2.696 \\
+       & $U[0.5C',1.0C']$ & 12.76 & 0.096 & 1.942 & 12.80 & 0.096 & 1.838 & \textbf{12.68} & 0.048 & 2.222 & 12.76 & 0.128 & 2.657 \\
+       & $U[1.0C',4.0C']$ & 12.32 & 0.048 & 2.083 & \textbf{12.24} & 0.031 & 2.243 & \textbf{12.24} & 0.032 & 2.439 & \textbf{12.24} & 0.079 & 3.138 \\
+       & $U[0.0C',5.0C']$ & 12.36 & 0.080 & 2.083 & 12.44 & 0.096 & 2.018 & 12.40 & 0.096 & 2.374 & \textbf{12.31} & 0.079 & 3.009 \\
+       & $U[5.0C',10.0C']$ & \textbf{12.64} & 0.096 & 2.129 & 12.76 & 0.031 & 1.976 & 12.76 & 0.031 & 2.246 & 12.76 & 0.031 & 2.762 \\
+       & $U[10.0C',20.0C']$ & \textbf{12.80} & 0.000 & 2.192 & \textbf{12.80} & 0.000 & 2.173 & \textbf{12.80} & 0.000 & 2.450 & \textbf{12.80} & 0.000 & 3.130 \\
       \hline
       \end{tabular}
       }
@@ -428,35 +480,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & 17.1 & 0.050 & 0.089 & 16.9 & 0.150 & 0.091 & \textbf{16.8} & 0.200 & 0.493 & 16.9 & 0.150 & 1.026 \\
-       & $U[0.5C',1.0C']$ & 16.4 & 0.100 & 0.084 & \textbf{16.2} & 0.100 & 0.076 & 16.4 & 0.000 & 0.505 & \textbf{16.2} & 0.000 & 1.179 \\
-       & $U[1.0C',4.0C']$ & 16.1 & 0.050 & 0.081 & \textbf{16.0} & 0.100 & 0.078 & 16.1 & 0.050 & 0.523 & 16.3 & 0.050 & 1.141 \\
-       & $U[0.0C',5.0C']$ & 16.3 & 0.050 & 0.077 & 16.1 & 0.050 & 0.078 & 16.3 & 0.150 & 0.493 & \textbf{16.0} & 0.100 & 1.218 \\
-       & $U[5.0C',10.0C']$ & \textbf{16.1} & 0.050 & 0.083 & 16.4 & 0.000 & 0.080 & 16.3 & 0.050 & 0.489 & 16.2 & 0.000 & 1.153 \\
-       & $U[10.0C',20.0C']$ & \textbf{16.1} & 0.050 & 0.085 & 16.2 & 0.100 & 0.085 & \textbf{16.1} & 0.050 & 0.536 & 16.3 & 0.050 & 1.179 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & 18.72 & 0.288 & 0.089 & 18.24 & 0.288 & 0.081 & \textbf{17.83} & 0.496 & 0.333 & 18.11 & 0.768 & 0.687 \\
+       & $U[0.5C',1.0C']$ & 16.60 & 0.192 & 0.102 & 16.68 & 0.416 & 0.099 & \textbf{16.52} & 0.160 & 0.445 & 16.60 & 0.239 & 1.023 \\
+       & $U[1.0C',4.0C']$ & 16.40 & 0.063 & 0.096 & \textbf{16.36} & 0.079 & 0.096 & 16.60 & 0.111 & 0.418 & 16.60 & 0.159 & 1.022 \\
+       & $U[0.0C',5.0C']$ & 16.52 & 0.223 & 0.093 & 16.48 & 0.064 & 0.088 & 16.48 & 0.063 & 0.437 & \textbf{16.44} & 0.031 & 1.047 \\
+       & $U[5.0C',10.0C']$ & 16.84 & 0.127 & 0.095 & 16.63 & 0.207 & 0.098 & \textbf{16.60} & 0.112 & 0.436 & 16.68 & 0.240 & 1.016 \\
+       & $U[10.0C',20.0C']$ & 17.08 & 0.144 & 0.099 & 16.91 & 0.192 & 0.104 & \textbf{16.88} & 0.240 & 0.413 & 17.04 & 0.208 & 0.932 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{16.6} & 0.100 & 0.895 & 17.0 & 0.100 & 0.766 & 16.7 & 0.150 & 1.072 & 17.2 & 0.100 & 1.597 \\
-       & $U[0.5C',1.0C']$ & \textbf{16.1} & 0.050 & 0.656 & 16.3 & 0.350 & 0.648 & 16.2 & 0.000 & 1.119 & 16.2 & 0.100 & 1.723 \\
-       & $U[1.0C',4.0C']$ & 15.9 & 0.050 & 0.682 & \textbf{15.8} & 0.000 & 0.696 & \textbf{15.8} & 0.000 & 1.122 & \textbf{15.8} & 0.000 & 1.848 \\
-       & $U[0.0C',5.0C']$ & \textbf{15.8} & 0.000 & 0.679 & \textbf{15.8} & 0.000 & 0.652 & \textbf{15.8} & 0.000 & 1.083 & \textbf{15.8} & 0.000 & 1.867 \\
-       & $U[5.0C',10.0C']$ & 15.9 & 0.050 & 0.699 & \textbf{15.8} & 0.000 & 0.740 & \textbf{15.8} & 0.000 & 1.197 & \textbf{15.8} & 0.000 & 1.925 \\
-       & $U[10.0C',20.0C']$ & 16.0 & 0.100 & 0.735 & 16.0 & 0.000 & 0.737 & 16.1 & 0.050 & 1.158 & \textbf{15.9} & 0.050 & 1.852 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 18.88 & 0.720 & 0.698 & \textbf{17.83} & 0.368 & 0.710 & 17.88 & 0.176 & 0.975 & 18.11 & 0.527 & 1.322 \\
+       & $U[0.5C',1.0C']$ & \textbf{16.24} & 0.080 & 0.724 & 16.40 & 0.080 & 0.696 & 16.27 & 0.079 & 1.076 & 16.28 & 0.048 & 1.737 \\
+       & $U[1.0C',4.0C']$ & \textbf{16.04} & 0.128 & 0.749 & 16.08 & 0.111 & 0.717 & 16.20 & 0.111 & 1.082 & 16.11 & 0.112 & 1.721 \\
+       & $U[0.0C',5.0C']$ & 16.11 & 0.128 & 0.695 & \textbf{16.04} & 0.127 & 0.758 & 16.20 & 0.000 & 1.011 & \textbf{16.04} & 0.127 & 1.790 \\
+       & $U[5.0C',10.0C']$ & 16.32 & 0.048 & 0.728 & \textbf{16.20} & 0.127 & 0.727 & 16.36 & 0.031 & 1.073 & 16.32 & 0.048 & 1.687 \\
+       & $U[10.0C',20.0C']$ & \textbf{16.40} & 0.128 & 0.823 & 16.52 & 0.048 & 0.860 & 16.44 & 0.095 & 1.171 & 16.44 & 0.031 & 1.745 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 16.6 & 0.200 & 1.627 & 16.9 & 0.150 & 1.467 & \textbf{16.4} & 0.000 & 1.939 & 17.0 & 0.100 & 2.123 \\
-       & $U[0.5C',1.0C']$ & 16.4 & 0.100 & 1.283 & \textbf{16.2} & 0.100 & 1.412 & 16.3 & 0.050 & 1.643 & \textbf{16.2} & 0.100 & 2.317 \\
-       & $U[1.0C',4.0C']$ & \textbf{15.8} & 0.000 & 1.308 & 15.9 & 0.050 & 1.235 & \textbf{15.8} & 0.000 & 1.742 & \textbf{15.8} & 0.000 & 2.422 \\
-       & $U[0.0C',5.0C']$ & \textbf{15.8} & 0.000 & 1.302 & 15.9 & 0.050 & 1.378 & \textbf{15.8} & 0.000 & 1.715 & \textbf{15.8} & 0.000 & 2.406 \\
-       & $U[5.0C',10.0C']$ & 15.9 & 0.050 & 1.372 & \textbf{15.8} & 0.000 & 1.448 & \textbf{15.8} & 0.000 & 1.815 & \textbf{15.8} & 0.000 & 2.455 \\
-       & $U[10.0C',20.0C']$ & 16.0 & 0.000 & 1.413 & \textbf{15.8} & 0.000 & 1.478 & \textbf{15.8} & 0.000 & 1.880 & 15.9 & 0.050 & 2.513 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 18.80 & 0.287 & 1.327 & 18.04 & 0.288 & 1.428 & \textbf{17.91} & 0.463 & 1.822 & 18.20 & 0.384 & 1.972 \\
+       & $U[0.5C',1.0C']$ & \textbf{16.20} & 0.176 & 1.490 & \textbf{16.20} & 0.096 & 1.515 & 16.28 & 0.111 & 1.839 & 16.32 & 0.144 & 2.489 \\
+       & $U[1.0C',4.0C']$ & 15.95 & 0.031 & 1.421 & 16.04 & 0.128 & 1.455 & 15.92 & 0.095 & 1.868 & \textbf{15.91} & 0.079 & 2.503 \\
+       & $U[0.0C',5.0C']$ & 15.95 & 0.096 & 1.431 & 16.16 & 0.031 & 1.285 & 16.04 & 0.128 & 1.833 & \textbf{15.91} & 0.080 & 2.459 \\
+       & $U[5.0C',10.0C']$ & 16.28 & 0.048 & 1.382 & 16.24 & 0.079 & 1.433 & \textbf{16.20} & 0.111 & 1.789 & \textbf{16.20} & 0.063 & 2.414 \\
+       & $U[10.0C',20.0C']$ & 16.40 & 0.000 & 1.561 & 16.36 & 0.031 & 1.552 & 16.36 & 0.031 & 1.887 & \textbf{16.20} & 0.128 & 2.679 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 17.0 & 0.100 & 3.405 & \textbf{16.9} & 0.050 & 3.484 & \textbf{16.9} & 0.150 & 3.922 & 17.1 & 0.150 & 4.539 \\
-       & $U[0.5C',1.0C']$ & 16.2 & 0.100 & 3.441 & 16.4 & 0.100 & 3.133 & \textbf{16.1} & 0.050 & 3.523 & \textbf{16.1} & 0.050 & 4.228 \\
-       & $U[1.0C',4.0C']$ & \textbf{15.8} & 0.000 & 3.019 & \textbf{15.8} & 0.000 & 3.062 & \textbf{15.8} & 0.000 & 3.485 & \textbf{15.8} & 0.000 & 4.214 \\
-       & $U[0.0C',5.0C']$ & \textbf{15.8} & 0.000 & 3.173 & \textbf{15.8} & 0.000 & 3.071 & \textbf{15.8} & 0.000 & 3.459 & \textbf{15.8} & 0.000 & 4.229 \\
-       & $U[5.0C',10.0C']$ & \textbf{15.8} & 0.000 & 3.263 & \textbf{15.8} & 0.000 & 3.300 & \textbf{15.8} & 0.000 & 3.770 & \textbf{15.8} & 0.000 & 4.329 \\
-       & $U[10.0C',20.0C']$ & \textbf{15.8} & 0.000 & 3.451 & 15.9 & 0.050 & 3.436 & 15.9 & 0.050 & 3.800 & \textbf{15.8} & 0.000 & 4.562 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 18.43 & 0.448 & 3.742 & \textbf{17.80} & 0.288 & 3.664 & 17.95 & 0.592 & 3.878 & 18.32 & 0.207 & 4.099 \\
+       & $U[0.5C',1.0C']$ & 16.40 & 0.191 & 3.338 & \textbf{16.24} & 0.096 & 3.458 & \textbf{16.24} & 0.080 & 4.036 & \textbf{16.24} & 0.079 & 4.305 \\
+       & $U[1.0C',4.0C']$ & 15.91 & 0.080 & 3.478 & 15.91 & 0.048 & 3.272 & 15.95 & 0.096 & 3.865 & \textbf{15.80} & 0.000 & 4.467 \\
+       & $U[0.0C',5.0C']$ & 15.88 & 0.048 & 3.521 & 15.88 & 0.048 & 3.556 & \textbf{15.80} & 0.000 & 4.065 & 15.88 & 0.064 & 4.392 \\
+       & $U[5.0C',10.0C']$ & 16.20 & 0.096 & 3.565 & 16.11 & 0.063 & 3.619 & \textbf{16.08} & 0.048 & 4.017 & 16.20 & 0.096 & 4.733 \\
+       & $U[10.0C',20.0C']$ & 16.36 & 0.031 & 3.683 & \textbf{16.24} & 0.111 & 3.745 & 16.36 & 0.031 & 4.143 & 16.36 & 0.031 & 4.548 \\
       \hline
       \end{tabular}
       }
@@ -469,35 +521,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.023 & \textbf{3.0} & 0.000 & 0.034 \\
-       & $U[0.5C',1.0C']$ & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.021 & \textbf{3.0} & 0.000 & 0.031 \\
-       & $U[1.0C',4.0C']$ & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.021 & \textbf{3.0} & 0.000 & 0.032 \\
-       & $U[0.0C',5.0C']$ & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.018 & \textbf{3.0} & 0.000 & 0.036 \\
-       & $U[5.0C',10.0C']$ & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.029 & \textbf{3.0} & 0.000 & 0.035 \\
-       & $U[10.0C',20.0C']$ & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.021 & \textbf{3.0} & 0.000 & 0.036 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 4.800 & \textbf{3.00} & 0.000 & 0.016 & \textbf{3.00} & 0.000 & 0.026 \\
+       & $U[0.5C',1.0C']$ & \textbf{3.00} & 0.000 & 5.200 & \textbf{3.00} & 0.000 & 5.200 & \textbf{3.00} & 0.000 & 0.019 & \textbf{3.00} & 0.000 & 0.030 \\
+       & $U[1.0C',4.0C']$ & \textbf{3.00} & 0.000 & 7.199 & \textbf{3.00} & 0.000 & 5.600 & \textbf{3.00} & 0.000 & 0.015 & \textbf{3.00} & 0.000 & 0.026 \\
+       & $U[0.0C',5.0C']$ & \textbf{3.00} & 0.000 & 5.2E- & \textbf{3.00} & 0.000 & 5.2E- & \textbf{3.00} & 0.000 & 0.017 & 3.04 & 0.031 & 0.031 \\
+       & $U[5.0C',10.0C']$ & \textbf{3.00} & 0.000 & 5.2E- & \textbf{3.00} & 0.000 & 5.600 & \textbf{3.00} & 0.000 & 0.015 & \textbf{3.00} & 0.000 & 0.027 \\
+       & $U[10.0C',20.0C']$ & \textbf{3.00} & 0.000 & 5.6E- & \textbf{3.00} & 0.000 & 4.800 & \textbf{3.00} & 0.000 & 0.018 & \textbf{3.00} & 0.000 & 0.027 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.026 & \textbf{3.0} & 0.000 & 0.031 \\
-       & $U[0.5C',1.0C']$ & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.025 & \textbf{3.0} & 0.000 & 0.038 \\
-       & $U[1.0C',4.0C']$ & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.023 & \textbf{3.0} & 0.000 & 0.037 \\
-       & $U[0.0C',5.0C']$ & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.027 & \textbf{3.0} & 0.000 & 0.035 \\
-       & $U[5.0C',10.0C']$ & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.026 & \textbf{3.0} & 0.000 & 0.034 \\
-       & $U[10.0C',20.0C']$ & \textbf{3.0} & 0.000 & 0.002 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.025 & \textbf{3.0} & 0.000 & 0.033 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.014 & \textbf{3.00} & 0.000 & 0.029 \\
+       & $U[0.5C',1.0C']$ & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.018 & \textbf{3.00} & 0.000 & 0.029 \\
+       & $U[1.0C',4.0C']$ & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.016 & \textbf{3.00} & 0.000 & 0.030 \\
+       & $U[0.0C',5.0C']$ & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.020 & \textbf{3.00} & 0.000 & 0.027 \\
+       & $U[5.0C',10.0C']$ & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.017 & \textbf{3.00} & 0.000 & 0.028 \\
+       & $U[10.0C',20.0C']$ & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.019 & \textbf{3.00} & 0.000 & 0.028 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & \textbf{3.0} & 0.000 & 0.009 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.029 & \textbf{3.0} & 0.000 & 0.036 \\
-       & $U[0.5C',1.0C']$ & \textbf{3.0} & 0.000 & 0.003 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.023 & \textbf{3.0} & 0.000 & 0.037 \\
-       & $U[1.0C',4.0C']$ & \textbf{3.0} & 0.000 & 0.003 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.025 & \textbf{3.0} & 0.000 & 0.036 \\
-       & $U[0.0C',5.0C']$ & \textbf{3.0} & 0.000 & 0.003 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.024 & \textbf{3.0} & 0.000 & 0.037 \\
-       & $U[5.0C',10.0C']$ & \textbf{3.0} & 0.000 & 0.003 & \textbf{3.0} & 0.000 & 0.001 & \textbf{3.0} & 0.000 & 0.022 & \textbf{3.0} & 0.000 & 0.034 \\
-       & $U[10.0C',20.0C']$ & \textbf{3.0} & 0.000 & 0.003 & \textbf{3.0} & 0.000 & 0.002 & \textbf{3.0} & 0.000 & 0.021 & \textbf{3.0} & 0.000 & 0.035 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & \textbf{3.00} & 0.000 & 0.002 & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.017 & \textbf{3.00} & 0.000 & 0.031 \\
+       & $U[0.5C',1.0C']$ & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.019 & \textbf{3.00} & 0.000 & 0.030 \\
+       & $U[1.0C',4.0C']$ & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.015 & \textbf{3.00} & 0.000 & 0.029 \\
+       & $U[0.0C',5.0C']$ & \textbf{3.00} & 0.000 & 0.002 & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.018 & \textbf{3.00} & 0.000 & 0.029 \\
+       & $U[5.0C',10.0C']$ & \textbf{3.00} & 0.000 & 0.002 & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.019 & \textbf{3.00} & 0.000 & 0.030 \\
+       & $U[10.0C',20.0C']$ & \textbf{3.00} & 0.000 & 0.009 & \textbf{3.00} & 0.000 & 0.001 & \textbf{3.00} & 0.000 & 0.016 & \textbf{3.00} & 0.000 & 0.032 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{3.0} & 0.000 & 0.005 & \textbf{3.0} & 0.000 & 0.003 & \textbf{3.0} & 0.000 & 0.030 & \textbf{3.0} & 0.000 & 0.038 \\
-       & $U[0.5C',1.0C']$ & \textbf{3.0} & 0.000 & 0.004 & \textbf{3.0} & 0.000 & 0.003 & \textbf{3.0} & 0.000 & 0.025 & \textbf{3.0} & 0.000 & 0.034 \\
-       & $U[1.0C',4.0C']$ & \textbf{3.0} & 0.000 & 0.003 & \textbf{3.0} & 0.000 & 0.003 & \textbf{3.0} & 0.000 & 0.023 & \textbf{3.0} & 0.000 & 0.035 \\
-       & $U[0.0C',5.0C']$ & \textbf{3.0} & 0.000 & 0.004 & \textbf{3.0} & 0.000 & 0.003 & \textbf{3.0} & 0.000 & 0.022 & \textbf{3.0} & 0.000 & 0.036 \\
-       & $U[5.0C',10.0C']$ & \textbf{3.0} & 0.000 & 0.004 & \textbf{3.0} & 0.000 & 0.003 & \textbf{3.0} & 0.000 & 0.030 & \textbf{3.0} & 0.000 & 0.036 \\
-       & $U[10.0C',20.0C']$ & \textbf{3.0} & 0.000 & 0.004 & \textbf{3.0} & 0.000 & 0.004 & \textbf{3.0} & 0.000 & 0.024 & \textbf{3.0} & 0.000 & 0.036 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{3.00} & 0.000 & 0.006 & \textbf{3.00} & 0.000 & 0.003 & \textbf{3.00} & 0.000 & 0.017 & \textbf{3.00} & 0.000 & 0.029 \\
+       & $U[0.5C',1.0C']$ & \textbf{3.00} & 0.000 & 0.003 & \textbf{3.00} & 0.000 & 0.003 & \textbf{3.00} & 0.000 & 0.019 & \textbf{3.00} & 0.000 & 0.031 \\
+       & $U[1.0C',4.0C']$ & \textbf{3.00} & 0.000 & 0.003 & \textbf{3.00} & 0.000 & 0.003 & \textbf{3.00} & 0.000 & 0.019 & \textbf{3.00} & 0.000 & 0.030 \\
+       & $U[0.0C',5.0C']$ & \textbf{3.00} & 0.000 & 0.003 & \textbf{3.00} & 0.000 & 0.003 & \textbf{3.00} & 0.000 & 0.018 & \textbf{3.00} & 0.000 & 0.030 \\
+       & $U[5.0C',10.0C']$ & \textbf{3.00} & 0.000 & 0.003 & \textbf{3.00} & 0.000 & 0.003 & \textbf{3.00} & 0.000 & 0.018 & \textbf{3.00} & 0.000 & 0.031 \\
+       & $U[10.0C',20.0C']$ & \textbf{3.00} & 0.000 & 0.004 & \textbf{3.00} & 0.000 & 0.004 & \textbf{3.00} & 0.000 & 0.020 & \textbf{3.00} & 0.000 & 0.031 \\
       \hline
       \end{tabular}
       }
@@ -510,35 +562,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{4.0} & 0.000 & 0.002 & \textbf{4.0} & 0.000 & 0.001 & \textbf{4.0} & 0.000 & 0.073 & 4.1 & 0.050 & 0.119 \\
-       & $U[0.5C',1.0C']$ & \textbf{4.0} & 0.000 & 0.002 & \textbf{4.0} & 0.000 & 0.001 & \textbf{4.0} & 0.000 & 0.075 & \textbf{4.0} & 0.000 & 0.128 \\
-       & $U[1.0C',4.0C']$ & \textbf{4.0} & 0.000 & 0.001 & \textbf{4.0} & 0.000 & 0.001 & \textbf{4.0} & 0.000 & 0.076 & \textbf{4.0} & 0.000 & 0.127 \\
-       & $U[0.0C',5.0C']$ & \textbf{4.0} & 0.000 & 0.001 & \textbf{4.0} & 0.000 & 0.001 & \textbf{4.0} & 0.000 & 0.069 & \textbf{4.0} & 0.000 & 0.128 \\
-       & $U[5.0C',10.0C']$ & \textbf{4.0} & 0.000 & 0.001 & \textbf{4.0} & 0.000 & 0.001 & \textbf{4.0} & 0.000 & 0.069 & \textbf{4.0} & 0.000 & 0.127 \\
-       & $U[10.0C',20.0C']$ & \textbf{4.0} & 0.000 & 0.001 & \textbf{4.0} & 0.000 & 0.001 & \textbf{4.0} & 0.000 & 0.070 & \textbf{4.0} & 0.000 & 0.136 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & 4.27 & 0.080 & 0.003 & 4.12 & 0.079 & 0.002 & \textbf{4.08} & 0.063 & 0.043 & \textbf{4.08} & 0.063 & 0.099 \\
+       & $U[0.5C',1.0C']$ & 4.31 & 0.144 & 0.002 & 4.27 & 0.112 & 0.002 & \textbf{4.16} & 0.080 & 0.038 & \textbf{4.16} & 0.096 & 0.103 \\
+       & $U[1.0C',4.0C']$ & 4.32 & 0.176 & 0.002 & 4.24 & 0.128 & 0.002 & \textbf{4.04} & 0.031 & 0.042 & 4.12 & 0.080 & 0.099 \\
+       & $U[0.0C',5.0C']$ & 4.24 & 0.127 & 0.002 & 4.12 & 0.048 & 0.002 & 4.16 & 0.096 & 0.040 & \textbf{4.08} & 0.048 & 0.097 \\
+       & $U[5.0C',10.0C']$ & 4.24 & 0.095 & 0.002 & 4.16 & 0.080 & 0.002 & 4.12 & 0.079 & 0.044 & \textbf{4.08} & 0.048 & 0.098 \\
+       & $U[10.0C',20.0C']$ & 4.60 & 0.096 & 0.002 & 4.31 & 0.160 & 0.002 & 4.31 & 0.112 & 0.041 & \textbf{4.28} & 0.176 & 0.093 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{4.0} & 0.000 & 0.007 & \textbf{4.0} & 0.000 & 0.006 & \textbf{4.0} & 0.000 & 0.078 & 4.1 & 0.050 & 0.130 \\
-       & $U[0.5C',1.0C']$ & \textbf{4.0} & 0.000 & 0.006 & \textbf{4.0} & 0.000 & 0.007 & \textbf{4.0} & 0.000 & 0.076 & \textbf{4.0} & 0.000 & 0.136 \\
-       & $U[1.0C',4.0C']$ & \textbf{4.0} & 0.000 & 0.006 & \textbf{4.0} & 0.000 & 0.006 & \textbf{4.0} & 0.000 & 0.078 & \textbf{4.0} & 0.000 & 0.137 \\
-       & $U[0.0C',5.0C']$ & \textbf{4.0} & 0.000 & 0.006 & \textbf{4.0} & 0.000 & 0.006 & \textbf{4.0} & 0.000 & 0.077 & \textbf{4.0} & 0.000 & 0.139 \\
-       & $U[5.0C',10.0C']$ & \textbf{4.0} & 0.000 & 0.006 & \textbf{4.0} & 0.000 & 0.006 & \textbf{4.0} & 0.000 & 0.082 & \textbf{4.0} & 0.000 & 0.131 \\
-       & $U[10.0C',20.0C']$ & \textbf{4.0} & 0.000 & 0.007 & \textbf{4.0} & 0.000 & 0.007 & \textbf{4.0} & 0.000 & 0.076 & \textbf{4.0} & 0.000 & 0.133 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 4.12 & 0.080 & 0.006 & \textbf{4.00} & 0.000 & 0.007 & \textbf{4.00} & 0.000 & 0.047 & 4.04 & 0.031 & 0.107 \\
+       & $U[0.5C',1.0C']$ & 4.04 & 0.031 & 0.006 & 4.08 & 0.048 & 0.006 & \textbf{4.00} & 0.000 & 0.049 & 4.04 & 0.031 & 0.109 \\
+       & $U[1.0C',4.0C']$ & \textbf{4.00} & 0.000 & 0.006 & \textbf{4.00} & 0.000 & 0.006 & \textbf{4.00} & 0.000 & 0.047 & \textbf{4.00} & 0.000 & 0.110 \\
+       & $U[0.0C',5.0C']$ & \textbf{4.00} & 0.000 & 0.006 & \textbf{4.00} & 0.000 & 0.006 & \textbf{4.00} & 0.000 & 0.049 & \textbf{4.00} & 0.000 & 0.111 \\
+       & $U[5.0C',10.0C']$ & \textbf{4.00} & 0.000 & 0.006 & \textbf{4.00} & 0.000 & 0.007 & \textbf{4.00} & 0.000 & 0.050 & \textbf{4.00} & 0.000 & 0.107 \\
+       & $U[10.0C',20.0C']$ & \textbf{4.00} & 0.000 & 0.007 & \textbf{4.00} & 0.000 & 0.007 & \textbf{4.00} & 0.000 & 0.047 & \textbf{4.00} & 0.000 & 0.113 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & \textbf{4.0} & 0.000 & 0.011 & \textbf{4.0} & 0.000 & 0.012 & \textbf{4.0} & 0.000 & 0.078 & \textbf{4.0} & 0.000 & 0.139 \\
-       & $U[0.5C',1.0C']$ & \textbf{4.0} & 0.000 & 0.012 & \textbf{4.0} & 0.000 & 0.012 & \textbf{4.0} & 0.000 & 0.089 & \textbf{4.0} & 0.000 & 0.144 \\
-       & $U[1.0C',4.0C']$ & \textbf{4.0} & 0.000 & 0.012 & \textbf{4.0} & 0.000 & 0.013 & \textbf{4.0} & 0.000 & 0.082 & \textbf{4.0} & 0.000 & 0.138 \\
-       & $U[0.0C',5.0C']$ & \textbf{4.0} & 0.000 & 0.011 & \textbf{4.0} & 0.000 & 0.011 & \textbf{4.0} & 0.000 & 0.079 & \textbf{4.0} & 0.000 & 0.137 \\
-       & $U[5.0C',10.0C']$ & \textbf{4.0} & 0.000 & 0.012 & \textbf{4.0} & 0.000 & 0.012 & \textbf{4.0} & 0.000 & 0.081 & \textbf{4.0} & 0.000 & 0.137 \\
-       & $U[10.0C',20.0C']$ & \textbf{4.0} & 0.000 & 0.013 & \textbf{4.0} & 0.000 & 0.012 & \textbf{4.0} & 0.000 & 0.081 & \textbf{4.0} & 0.000 & 0.144 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 4.11 & 0.095 & 0.011 & 4.12 & 0.080 & 0.011 & \textbf{4.04} & 0.031 & 0.051 & 4.08 & 0.048 & 0.110 \\
+       & $U[0.5C',1.0C']$ & 4.11 & 0.095 & 0.011 & 4.12 & 0.079 & 0.011 & \textbf{4.08} & 0.063 & 0.049 & 4.12 & 0.079 & 0.107 \\
+       & $U[1.0C',4.0C']$ & \textbf{4.00} & 0.000 & 0.010 & \textbf{4.00} & 0.000 & 0.010 & \textbf{4.00} & 0.000 & 0.051 & \textbf{4.00} & 0.000 & 0.110 \\
+       & $U[0.0C',5.0C']$ & \textbf{4.00} & 0.000 & 0.010 & \textbf{4.00} & 0.000 & 0.010 & \textbf{4.00} & 0.000 & 0.055 & \textbf{4.00} & 0.000 & 0.110 \\
+       & $U[5.0C',10.0C']$ & \textbf{4.00} & 0.000 & 0.011 & \textbf{4.00} & 0.000 & 0.011 & \textbf{4.00} & 0.000 & 0.054 & \textbf{4.00} & 0.000 & 0.112 \\
+       & $U[10.0C',20.0C']$ & \textbf{4.00} & 0.000 & 0.012 & \textbf{4.00} & 0.000 & 0.012 & \textbf{4.00} & 0.000 & 0.053 & \textbf{4.00} & 0.000 & 0.118 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{4.0} & 0.000 & 0.029 & \textbf{4.0} & 0.000 & 0.027 & \textbf{4.0} & 0.000 & 0.091 & 4.1 & 0.050 & 0.148 \\
-       & $U[0.5C',1.0C']$ & \textbf{4.0} & 0.000 & 0.028 & \textbf{4.0} & 0.000 & 0.027 & \textbf{4.0} & 0.000 & 0.098 & \textbf{4.0} & 0.000 & 0.154 \\
-       & $U[1.0C',4.0C']$ & \textbf{4.0} & 0.000 & 0.026 & \textbf{4.0} & 0.000 & 0.026 & \textbf{4.0} & 0.000 & 0.088 & \textbf{4.0} & 0.000 & 0.156 \\
-       & $U[0.0C',5.0C']$ & \textbf{4.0} & 0.000 & 0.026 & \textbf{4.0} & 0.000 & 0.026 & \textbf{4.0} & 0.000 & 0.100 & \textbf{4.0} & 0.000 & 0.156 \\
-       & $U[5.0C',10.0C']$ & \textbf{4.0} & 0.000 & 0.029 & \textbf{4.0} & 0.000 & 0.028 & \textbf{4.0} & 0.000 & 0.093 & \textbf{4.0} & 0.000 & 0.154 \\
-       & $U[10.0C',20.0C']$ & \textbf{4.0} & 0.000 & 0.030 & \textbf{4.0} & 0.000 & 0.030 & \textbf{4.0} & 0.000 & 0.101 & \textbf{4.0} & 0.000 & 0.153 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 4.08 & 0.048 & 0.023 & \textbf{4.00} & 0.000 & 0.026 & 4.08 & 0.063 & 0.063 & 4.08 & 0.063 & 0.122 \\
+       & $U[0.5C',1.0C']$ & \textbf{4.04} & 0.031 & 0.024 & 4.08 & 0.063 & 0.024 & 4.08 & 0.063 & 0.062 & \textbf{4.04} & 0.031 & 0.124 \\
+       & $U[1.0C',4.0C']$ & \textbf{4.00} & 0.000 & 0.022 & \textbf{4.00} & 0.000 & 0.022 & \textbf{4.00} & 0.000 & 0.064 & \textbf{4.00} & 0.000 & 0.122 \\
+       & $U[0.0C',5.0C']$ & \textbf{4.00} & 0.000 & 0.022 & \textbf{4.00} & 0.000 & 0.021 & \textbf{4.00} & 0.000 & 0.066 & \textbf{4.00} & 0.000 & 0.126 \\
+       & $U[5.0C',10.0C']$ & \textbf{4.00} & 0.000 & 0.025 & \textbf{4.00} & 0.000 & 0.025 & \textbf{4.00} & 0.000 & 0.069 & \textbf{4.00} & 0.000 & 0.130 \\
+       & $U[10.0C',20.0C']$ & \textbf{4.00} & 0.000 & 0.027 & \textbf{4.00} & 0.000 & 0.026 & \textbf{4.00} & 0.000 & 0.066 & \textbf{4.00} & 0.000 & 0.130 \\
       \hline
       \end{tabular}
       }
@@ -551,35 +603,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & 5.6 & 0.100 & 0.005 & 5.3 & 0.050 & 0.004 & \textbf{5.2} & 0.100 & 0.128 & 5.5 & 0.050 & 0.261 \\
-       & $U[0.5C',1.0C']$ & 5.6 & 0.100 & 0.006 & \textbf{5.4} & 0.100 & 0.004 & \textbf{5.4} & 0.000 & 0.117 & \textbf{5.4} & 0.100 & 0.266 \\
-       & $U[1.0C',4.0C']$ & 5.7 & 0.050 & 0.004 & 5.3 & 0.150 & 0.004 & \textbf{5.2} & 0.100 & 0.122 & 5.4 & 0.100 & 0.265 \\
-       & $U[0.0C',5.0C']$ & 5.3 & 0.150 & 0.004 & 5.3 & 0.050 & 0.004 & \textbf{5.2} & 0.100 & 0.125 & 5.6 & 0.100 & 0.248 \\
-       & $U[5.0C',10.0C']$ & 5.7 & 0.050 & 0.004 & \textbf{5.3} & 0.150 & 0.004 & 5.4 & 0.100 & 0.114 & \textbf{5.3} & 0.050 & 0.277 \\
-       & $U[10.0C',20.0C']$ & 5.9 & 0.050 & 0.004 & 5.8 & 0.100 & 0.004 & \textbf{5.4} & 0.100 & 0.110 & 5.8 & 0.000 & 0.220 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{5.80} & 0.063 & 0.006 & 5.84 & 0.079 & 0.005 & 5.84 & 0.080 & 0.058 & \textbf{5.80} & 0.063 & 0.169 \\
+       & $U[0.5C',1.0C']$ & 5.88 & 0.080 & 0.006 & 5.88 & 0.095 & 0.005 & \textbf{5.80} & 0.112 & 0.057 & 5.96 & 0.031 & 0.151 \\
+       & $U[1.0C',4.0C']$ & 5.88 & 0.079 & 0.005 & 5.92 & 0.063 & 0.005 & 5.84 & 0.080 & 0.058 & \textbf{5.72} & 0.111 & 0.175 \\
+       & $U[0.0C',5.0C']$ & 5.88 & 0.080 & 0.005 & 5.84 & 0.079 & 0.005 & 5.92 & 0.048 & 0.054 & \textbf{5.80} & 0.096 & 0.165 \\
+       & $U[5.0C',10.0C']$ & 6.00 & 0.000 & 0.005 & \textbf{5.80} & 0.063 & 0.005 & \textbf{5.80} & 0.112 & 0.058 & 5.88 & 0.080 & 0.159 \\
+       & $U[10.0C',20.0C']$ & 5.96 & 0.031 & 0.005 & 5.96 & 0.031 & 0.005 & \textbf{5.92} & 0.048 & 0.055 & 6.00 & 0.000 & 0.151 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 5.4 & 0.100 & 0.024 & \textbf{5.1} & 0.050 & 0.026 & 5.3 & 0.050 & 0.139 & 5.2 & 0.100 & 0.298 \\
-       & $U[0.5C',1.0C']$ & \textbf{5.1} & 0.050 & 0.026 & 5.2 & 0.100 & 0.024 & \textbf{5.1} & 0.050 & 0.142 & \textbf{5.1} & 0.050 & 0.323 \\
-       & $U[1.0C',4.0C']$ & \textbf{5.0} & 0.000 & 0.024 & \textbf{5.0} & 0.000 & 0.024 & \textbf{5.0} & 0.000 & 0.148 & \textbf{5.0} & 0.000 & 0.306 \\
-       & $U[0.0C',5.0C']$ & \textbf{5.0} & 0.000 & 0.023 & \textbf{5.0} & 0.000 & 0.023 & \textbf{5.0} & 0.000 & 0.144 & \textbf{5.0} & 0.000 & 0.323 \\
-       & $U[5.0C',10.0C']$ & \textbf{5.0} & 0.000 & 0.023 & \textbf{5.0} & 0.000 & 0.024 & \textbf{5.0} & 0.000 & 0.151 & \textbf{5.0} & 0.000 & 0.323 \\
-       & $U[10.0C',20.0C']$ & \textbf{5.0} & 0.000 & 0.028 & 5.2 & 0.100 & 0.027 & \textbf{5.0} & 0.000 & 0.157 & 5.2 & 0.100 & 0.309 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 5.68 & 0.095 & 0.020 & 5.84 & 0.080 & 0.019 & 5.72 & 0.063 & 0.077 & \textbf{5.64} & 0.079 & 0.188 \\
+       & $U[0.5C',1.0C']$ & 5.64 & 0.160 & 0.020 & \textbf{5.47} & 0.192 & 0.021 & 5.60 & 0.128 & 0.078 & 5.76 & 0.144 & 0.183 \\
+       & $U[1.0C',4.0C']$ & \textbf{5.12} & 0.079 & 0.025 & 5.24 & 0.127 & 0.023 & 5.16 & 0.112 & 0.092 & 5.24 & 0.160 & 0.235 \\
+       & $U[0.0C',5.0C']$ & 5.31 & 0.160 & 0.022 & 5.20 & 0.096 & 0.025 & 5.20 & 0.063 & 0.092 & \textbf{5.16} & 0.112 & 0.234 \\
+       & $U[5.0C',10.0C']$ & 5.72 & 0.063 & 0.021 & \textbf{5.43} & 0.176 & 0.022 & 5.56 & 0.096 & 0.082 & 5.47 & 0.144 & 0.208 \\
+       & $U[10.0C',20.0C']$ & \textbf{5.72} & 0.127 & 0.023 & \textbf{5.72} & 0.079 & 0.023 & 5.76 & 0.031 & 0.076 & 5.84 & 0.031 & 0.174 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & \textbf{5.2} & 0.000 & 0.045 & 5.3 & 0.050 & 0.047 & \textbf{5.2} & 0.000 & 0.157 & 5.3 & 0.050 & 0.319 \\
-       & $U[0.5C',1.0C']$ & \textbf{5.1} & 0.050 & 0.052 & 5.3 & 0.150 & 0.042 & 5.2 & 0.100 & 0.156 & 5.3 & 0.050 & 0.324 \\
-       & $U[1.0C',4.0C']$ & \textbf{5.0} & 0.000 & 0.043 & \textbf{5.0} & 0.000 & 0.042 & \textbf{5.0} & 0.000 & 0.164 & \textbf{5.0} & 0.000 & 0.341 \\
-       & $U[0.0C',5.0C']$ & \textbf{5.0} & 0.000 & 0.044 & \textbf{5.0} & 0.000 & 0.043 & \textbf{5.0} & 0.000 & 0.167 & \textbf{5.0} & 0.000 & 0.339 \\
-       & $U[5.0C',10.0C']$ & \textbf{5.0} & 0.000 & 0.045 & \textbf{5.0} & 0.000 & 0.043 & \textbf{5.0} & 0.000 & 0.171 & \textbf{5.0} & 0.000 & 0.338 \\
-       & $U[10.0C',20.0C']$ & \textbf{5.0} & 0.000 & 0.046 & \textbf{5.0} & 0.000 & 0.051 & \textbf{5.0} & 0.000 & 0.168 & \textbf{5.0} & 0.000 & 0.358 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 5.64 & 0.096 & 0.035 & 5.64 & 0.160 & 0.035 & \textbf{5.52} & 0.160 & 0.095 & 5.72 & 0.112 & 0.201 \\
+       & $U[0.5C',1.0C']$ & 5.60 & 0.063 & 0.035 & \textbf{5.56} & 0.128 & 0.036 & 5.68 & 0.128 & 0.089 & 5.60 & 0.112 & 0.210 \\
+       & $U[1.0C',4.0C']$ & 5.16 & 0.080 & 0.043 & \textbf{5.04} & 0.031 & 0.042 & \textbf{5.04} & 0.031 & 0.115 & 5.08 & 0.063 & 0.261 \\
+       & $U[0.0C',5.0C']$ & \textbf{5.00} & 0.000 & 0.043 & \textbf{5.00} & 0.000 & 0.043 & 5.16 & 0.112 & 0.114 & 5.12 & 0.080 & 0.262 \\
+       & $U[5.0C',10.0C']$ & \textbf{5.24} & 0.095 & 0.044 & 5.31 & 0.160 & 0.046 & 5.27 & 0.160 & 0.113 & \textbf{5.24} & 0.128 & 0.253 \\
+       & $U[10.0C',20.0C']$ & \textbf{5.56} & 0.128 & 0.045 & 5.60 & 0.096 & 0.042 & 5.64 & 0.112 & 0.102 & 5.68 & 0.080 & 0.210 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{5.0} & 0.000 & 0.117 & \textbf{5.0} & 0.000 & 0.118 & 5.2 & 0.100 & 0.214 & 5.1 & 0.050 & 0.392 \\
-       & $U[0.5C',1.0C']$ & 5.2 & 0.100 & 0.115 & \textbf{5.1} & 0.050 & 0.118 & \textbf{5.1} & 0.050 & 0.228 & 5.3 & 0.050 & 0.374 \\
-       & $U[1.0C',4.0C']$ & \textbf{5.0} & 0.000 & 0.096 & \textbf{5.0} & 0.000 & 0.097 & \textbf{5.0} & 0.000 & 0.218 & \textbf{5.0} & 0.000 & 0.401 \\
-       & $U[0.0C',5.0C']$ & \textbf{5.0} & 0.000 & 0.099 & \textbf{5.0} & 0.000 & 0.101 & \textbf{5.0} & 0.000 & 0.216 & \textbf{5.0} & 0.000 & 0.394 \\
-       & $U[5.0C',10.0C']$ & \textbf{5.0} & 0.000 & 0.103 & \textbf{5.0} & 0.000 & 0.103 & \textbf{5.0} & 0.000 & 0.230 & \textbf{5.0} & 0.000 & 0.409 \\
-       & $U[10.0C',20.0C']$ & \textbf{5.0} & 0.000 & 0.119 & \textbf{5.0} & 0.000 & 0.114 & \textbf{5.0} & 0.000 & 0.229 & \textbf{5.0} & 0.000 & 0.403 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 5.76 & 0.079 & 0.078 & 5.64 & 0.160 & 0.078 & 5.68 & 0.112 & 0.135 & \textbf{5.43} & 0.112 & 0.273 \\
+       & $U[0.5C',1.0C']$ & 5.60 & 0.096 & 0.077 & \textbf{5.47} & 0.160 & 0.082 & 5.72 & 0.112 & 0.127 & 5.64 & 0.144 & 0.254 \\
+       & $U[1.0C',4.0C']$ & 5.04 & 0.031 & 0.092 & 5.04 & 0.031 & 0.089 & \textbf{5.00} & 0.000 & 0.165 & \textbf{5.00} & 0.000 & 0.319 \\
+       & $U[0.0C',5.0C']$ & \textbf{5.00} & 0.000 & 0.096 & 5.04 & 0.031 & 0.091 & \textbf{5.00} & 0.000 & 0.166 & \textbf{5.00} & 0.000 & 0.325 \\
+       & $U[5.0C',10.0C']$ & 5.04 & 0.031 & 0.103 & \textbf{5.00} & 0.000 & 0.110 & 5.15 & 0.080 & 0.168 & 5.04 & 0.031 & 0.333 \\
+       & $U[10.0C',20.0C']$ & 5.56 & 0.095 & 0.099 & 5.43 & 0.192 & 0.108 & 5.43 & 0.160 & 0.169 & \textbf{5.36} & 0.176 & 0.304 \\
       \hline
       \end{tabular}
       }
@@ -592,35 +644,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{6.0} & 0.000 & 0.006 & \textbf{6.0} & 0.000 & 0.006 & \textbf{6.0} & 0.000 & 0.132 & \textbf{6.0} & 0.000 & 0.362 \\
-       & $U[0.5C',1.0C']$ & \textbf{6.0} & 0.000 & 0.006 & \textbf{6.0} & 0.000 & 0.006 & 6.1 & 0.050 & 0.127 & 6.1 & 0.050 & 0.338 \\
-       & $U[1.0C',4.0C']$ & \textbf{6.0} & 0.000 & 0.006 & \textbf{6.0} & 0.000 & 0.006 & \textbf{6.0} & 0.000 & 0.134 & 6.1 & 0.050 & 0.347 \\
-       & $U[0.0C',5.0C']$ & \textbf{6.0} & 0.000 & 0.007 & 6.1 & 0.050 & 0.006 & \textbf{6.0} & 0.000 & 0.130 & \textbf{6.0} & 0.000 & 0.348 \\
-       & $U[5.0C',10.0C']$ & \textbf{6.0} & 0.000 & 0.006 & \textbf{6.0} & 0.000 & 0.006 & \textbf{6.0} & 0.000 & 0.132 & 6.1 & 0.050 & 0.332 \\
-       & $U[10.0C',20.0C']$ & 6.2 & 0.000 & 0.006 & \textbf{6.0} & 0.000 & 0.006 & 6.1 & 0.050 & 0.120 & \textbf{6.0} & 0.000 & 0.356 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{6.16} & 0.080 & 0.008 & \textbf{6.16} & 0.031 & 0.009 & 6.20 & 0.000 & 0.076 & 6.20 & 0.000 & 0.248 \\
+       & $U[0.5C',1.0C']$ & 6.12 & 0.048 & 0.008 & \textbf{6.08} & 0.048 & 0.008 & 6.12 & 0.048 & 0.080 & 6.12 & 0.048 & 0.268 \\
+       & $U[1.0C',4.0C']$ & 6.16 & 0.031 & 0.008 & 6.08 & 0.048 & 0.008 & \textbf{6.00} & 0.000 & 0.084 & 6.12 & 0.048 & 0.262 \\
+       & $U[0.0C',5.0C']$ & 6.20 & 0.063 & 0.008 & 6.08 & 0.048 & 0.008 & \textbf{6.04} & 0.031 & 0.083 & 6.20 & 0.000 & 0.244 \\
+       & $U[5.0C',10.0C']$ & 6.24 & 0.095 & 0.008 & \textbf{6.16} & 0.031 & 0.008 & 6.20 & 0.063 & 0.076 & \textbf{6.16} & 0.031 & 0.258 \\
+       & $U[10.0C',20.0C']$ & 6.35 & 0.080 & 0.008 & \textbf{6.24} & 0.080 & 0.008 & \textbf{6.24} & 0.031 & 0.080 & 6.27 & 0.048 & 0.239 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{6.0} & 0.000 & 0.032 & \textbf{6.0} & 0.000 & 0.032 & \textbf{6.0} & 0.000 & 0.160 & \textbf{6.0} & 0.000 & 0.372 \\
-       & $U[0.5C',1.0C']$ & \textbf{6.0} & 0.000 & 0.033 & \textbf{6.0} & 0.000 & 0.032 & \textbf{6.0} & 0.000 & 0.154 & \textbf{6.0} & 0.000 & 0.379 \\
-       & $U[1.0C',4.0C']$ & \textbf{6.0} & 0.000 & 0.032 & \textbf{6.0} & 0.000 & 0.033 & \textbf{6.0} & 0.000 & 0.150 & \textbf{6.0} & 0.000 & 0.379 \\
-       & $U[0.0C',5.0C']$ & \textbf{6.0} & 0.000 & 0.032 & \textbf{6.0} & 0.000 & 0.031 & \textbf{6.0} & 0.000 & 0.155 & \textbf{6.0} & 0.000 & 0.381 \\
-       & $U[5.0C',10.0C']$ & \textbf{6.0} & 0.000 & 0.033 & \textbf{6.0} & 0.000 & 0.032 & \textbf{6.0} & 0.000 & 0.155 & \textbf{6.0} & 0.000 & 0.378 \\
-       & $U[10.0C',20.0C']$ & \textbf{6.0} & 0.000 & 0.034 & \textbf{6.0} & 0.000 & 0.034 & \textbf{6.0} & 0.000 & 0.153 & \textbf{6.0} & 0.000 & 0.370 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{6.04} & 0.031 & 0.031 & 6.16 & 0.079 & 0.029 & \textbf{6.04} & 0.031 & 0.103 & 6.08 & 0.048 & 0.290 \\
+       & $U[0.5C',1.0C']$ & 6.08 & 0.048 & 0.030 & \textbf{6.00} & 0.000 & 0.030 & 6.08 & 0.048 & 0.101 & 6.08 & 0.048 & 0.280 \\
+       & $U[1.0C',4.0C']$ & \textbf{6.00} & 0.000 & 0.030 & \textbf{6.00} & 0.000 & 0.030 & \textbf{6.00} & 0.000 & 0.109 & \textbf{6.00} & 0.000 & 0.293 \\
+       & $U[0.0C',5.0C']$ & \textbf{6.00} & 0.000 & 0.030 & \textbf{6.00} & 0.000 & 0.032 & \textbf{6.00} & 0.000 & 0.105 & \textbf{6.00} & 0.000 & 0.299 \\
+       & $U[5.0C',10.0C']$ & \textbf{6.00} & 0.000 & 0.032 & \textbf{6.00} & 0.000 & 0.032 & \textbf{6.00} & 0.000 & 0.109 & \textbf{6.00} & 0.000 & 0.290 \\
+       & $U[10.0C',20.0C']$ & 6.12 & 0.048 & 0.033 & \textbf{6.08} & 0.048 & 0.035 & \textbf{6.08} & 0.048 & 0.107 & 6.12 & 0.048 & 0.281 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & \textbf{6.0} & 0.000 & 0.061 & \textbf{6.0} & 0.000 & 0.061 & \textbf{6.0} & 0.000 & 0.179 & \textbf{6.0} & 0.000 & 0.401 \\
-       & $U[0.5C',1.0C']$ & \textbf{6.0} & 0.000 & 0.059 & \textbf{6.0} & 0.000 & 0.058 & \textbf{6.0} & 0.000 & 0.179 & \textbf{6.0} & 0.000 & 0.400 \\
-       & $U[1.0C',4.0C']$ & \textbf{6.0} & 0.000 & 0.062 & \textbf{6.0} & 0.000 & 0.060 & \textbf{6.0} & 0.000 & 0.185 & \textbf{6.0} & 0.000 & 0.417 \\
-       & $U[0.0C',5.0C']$ & \textbf{6.0} & 0.000 & 0.060 & \textbf{6.0} & 0.000 & 0.060 & \textbf{6.0} & 0.000 & 0.187 & \textbf{6.0} & 0.000 & 0.417 \\
-       & $U[5.0C',10.0C']$ & \textbf{6.0} & 0.000 & 0.063 & \textbf{6.0} & 0.000 & 0.062 & \textbf{6.0} & 0.000 & 0.191 & \textbf{6.0} & 0.000 & 0.396 \\
-       & $U[10.0C',20.0C']$ & \textbf{6.0} & 0.000 & 0.065 & \textbf{6.0} & 0.000 & 0.065 & \textbf{6.0} & 0.000 & 0.196 & \textbf{6.0} & 0.000 & 0.412 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 6.08 & 0.048 & 0.053 & \textbf{6.04} & 0.031 & 0.057 & 6.12 & 0.048 & 0.123 & 6.08 & 0.048 & 0.306 \\
+       & $U[0.5C',1.0C']$ & 6.12 & 0.048 & 0.050 & 6.04 & 0.031 & 0.054 & \textbf{6.00} & 0.000 & 0.132 & 6.04 & 0.031 & 0.316 \\
+       & $U[1.0C',4.0C']$ & \textbf{6.00} & 0.000 & 0.055 & \textbf{6.00} & 0.000 & 0.057 & \textbf{6.00} & 0.000 & 0.130 & \textbf{6.00} & 0.000 & 0.323 \\
+       & $U[0.0C',5.0C']$ & \textbf{6.00} & 0.000 & 0.055 & \textbf{6.00} & 0.000 & 0.056 & \textbf{6.00} & 0.000 & 0.129 & \textbf{6.00} & 0.000 & 0.325 \\
+       & $U[5.0C',10.0C']$ & \textbf{6.00} & 0.000 & 0.058 & \textbf{6.00} & 0.000 & 0.057 & \textbf{6.00} & 0.000 & 0.136 & \textbf{6.00} & 0.000 & 0.322 \\
+       & $U[10.0C',20.0C']$ & \textbf{6.00} & 0.000 & 0.064 & 6.04 & 0.031 & 0.062 & \textbf{6.00} & 0.000 & 0.142 & \textbf{6.00} & 0.000 & 0.326 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{6.0} & 0.000 & 0.144 & \textbf{6.0} & 0.000 & 0.141 & \textbf{6.0} & 0.000 & 0.261 & \textbf{6.0} & 0.000 & 0.463 \\
-       & $U[0.5C',1.0C']$ & \textbf{6.0} & 0.000 & 0.139 & \textbf{6.0} & 0.000 & 0.136 & \textbf{6.0} & 0.000 & 0.267 & \textbf{6.0} & 0.000 & 0.493 \\
-       & $U[1.0C',4.0C']$ & \textbf{6.0} & 0.000 & 0.142 & \textbf{6.0} & 0.000 & 0.141 & \textbf{6.0} & 0.000 & 0.271 & \textbf{6.0} & 0.000 & 0.487 \\
-       & $U[0.0C',5.0C']$ & \textbf{6.0} & 0.000 & 0.147 & \textbf{6.0} & 0.000 & 0.144 & \textbf{6.0} & 0.000 & 0.273 & \textbf{6.0} & 0.000 & 0.476 \\
-       & $U[5.0C',10.0C']$ & \textbf{6.0} & 0.000 & 0.153 & \textbf{6.0} & 0.000 & 0.152 & \textbf{6.0} & 0.000 & 0.281 & \textbf{6.0} & 0.000 & 0.495 \\
-       & $U[10.0C',20.0C']$ & \textbf{6.0} & 0.000 & 0.157 & \textbf{6.0} & 0.000 & 0.156 & \textbf{6.0} & 0.000 & 0.282 & \textbf{6.0} & 0.000 & 0.492 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 6.08 & 0.048 & 0.118 & 6.08 & 0.048 & 0.117 & \textbf{6.04} & 0.031 & 0.193 & 6.12 & 0.048 & 0.375 \\
+       & $U[0.5C',1.0C']$ & \textbf{6.00} & 0.000 & 0.125 & 6.08 & 0.048 & 0.117 & 6.04 & 0.031 & 0.204 & 6.08 & 0.048 & 0.377 \\
+       & $U[1.0C',4.0C']$ & \textbf{6.00} & 0.000 & 0.126 & \textbf{6.00} & 0.000 & 0.126 & \textbf{6.00} & 0.000 & 0.201 & \textbf{6.00} & 0.000 & 0.393 \\
+       & $U[0.0C',5.0C']$ & \textbf{6.00} & 0.000 & 0.129 & \textbf{6.00} & 0.000 & 0.131 & \textbf{6.00} & 0.000 & 0.208 & \textbf{6.00} & 0.000 & 0.389 \\
+       & $U[5.0C',10.0C']$ & \textbf{6.00} & 0.000 & 0.134 & \textbf{6.00} & 0.000 & 0.133 & \textbf{6.00} & 0.000 & 0.207 & \textbf{6.00} & 0.000 & 0.399 \\
+       & $U[10.0C',20.0C']$ & 6.04 & 0.031 & 0.146 & \textbf{6.00} & 0.000 & 0.153 & \textbf{6.00} & 0.000 & 0.219 & \textbf{6.00} & 0.000 & 0.420 \\
       \hline
       \end{tabular}
       }
@@ -633,38 +685,38 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{6.7} & 0.050 & 0.009 & \textbf{6.7} & 0.050 & 0.009 & 7.0 & 0.000 & 0.148 & 6.8 & 0.100 & 0.423 \\
-       & $U[0.5C',1.0C']$ & 7.0 & 0.000 & 0.008 & 6.9 & 0.050 & 0.009 & 7.0 & 0.000 & 0.145 & \textbf{6.8} & 0.000 & 0.442 \\
-       & $U[1.0C',4.0C']$ & \textbf{6.8} & 0.000 & 0.008 & 6.9 & 0.050 & 0.008 & 7.0 & 0.000 & 0.147 & \textbf{6.8} & 0.100 & 0.436 \\
-       & $U[0.0C',5.0C']$ & \textbf{6.8} & 0.000 & 0.010 & 7.0 & 0.000 & 0.009 & 7.0 & 0.000 & 0.143 & 6.9 & 0.050 & 0.414 \\
-       & $U[5.0C',10.0C']$ & 6.9 & 0.050 & 0.008 & \textbf{6.7} & 0.050 & 0.009 & 6.9 & 0.050 & 0.157 & 6.8 & 0.000 & 0.443 \\
-       & $U[10.0C',20.0C']$ & 7.0 & 0.000 & 0.008 & 7.0 & 0.000 & 0.009 & \textbf{6.9} & 0.050 & 0.147 & 7.0 & 0.000 & 0.410 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & 7.00 & 0.000 & 0.012 & 7.00 & 0.000 & 0.011 & \textbf{6.95} & 0.031 & 0.103 & 7.00 & 0.000 & 0.334 \\
+       & $U[0.5C',1.0C']$ & 7.00 & 0.000 & 0.011 & 7.00 & 0.000 & 0.011 & \textbf{6.95} & 0.031 & 0.106 & 7.00 & 0.000 & 0.338 \\
+       & $U[1.0C',4.0C']$ & 7.00 & 0.000 & 0.011 & 7.00 & 0.000 & 0.011 & \textbf{6.95} & 0.031 & 0.109 & \textbf{6.95} & 0.031 & 0.345 \\
+       & $U[0.0C',5.0C']$ & 7.00 & 0.000 & 0.011 & 7.00 & 0.000 & 0.011 & 7.00 & 0.000 & 0.102 & \textbf{6.95} & 0.031 & 0.344 \\
+       & $U[5.0C',10.0C']$ & 7.00 & 0.000 & 0.011 & \textbf{6.95} & 0.031 & 0.011 & 7.00 & 0.000 & 0.107 & 7.00 & 0.000 & 0.333 \\
+       & $U[10.0C',20.0C']$ & 7.04 & 0.031 & 0.012 & \textbf{7.00} & 0.000 & 0.012 & 7.04 & 0.031 & 0.103 & \textbf{7.00} & 0.000 & 0.336 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 6.7 & 0.050 & 0.053 & 6.8 & 0.100 & 0.051 & \textbf{6.5} & 0.050 & 0.217 & 6.6 & 0.100 & 0.515 \\
-       & $U[0.5C',1.0C']$ & \textbf{6.5} & 0.050 & 0.061 & 6.8 & 0.100 & 0.050 & 6.8 & 0.100 & 0.200 & 6.6 & 0.000 & 0.515 \\
-       & $U[1.0C',4.0C']$ & 6.5 & 0.050 & 0.053 & \textbf{6.4} & 0.000 & 0.059 & \textbf{6.4} & 0.100 & 0.217 & \textbf{6.4} & 0.000 & 0.536 \\
-       & $U[0.0C',5.0C']$ & 6.5 & 0.050 & 0.053 & 6.4 & 0.000 & 0.058 & 6.5 & 0.050 & 0.202 & \textbf{6.3} & 0.050 & 0.550 \\
-       & $U[5.0C',10.0C']$ & \textbf{6.4} & 0.000 & 0.063 & 6.6 & 0.100 & 0.055 & \textbf{6.4} & 0.100 & 0.218 & \textbf{6.4} & 0.000 & 0.536 \\
-       & $U[10.0C',20.0C']$ & 6.8 & 0.100 & 0.061 & \textbf{6.6} & 0.000 & 0.061 & 7.0 & 0.000 & 0.187 & 6.7 & 0.150 & 0.500 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 6.95 & 0.031 & 0.044 & \textbf{6.84} & 0.096 & 0.049 & 6.88 & 0.095 & 0.143 & 6.95 & 0.031 & 0.371 \\
+       & $U[0.5C',1.0C']$ & 6.92 & 0.063 & 0.045 & 6.92 & 0.063 & 0.044 & 6.92 & 0.048 & 0.138 & \textbf{6.88} & 0.080 & 0.380 \\
+       & $U[1.0C',4.0C']$ & 6.80 & 0.063 & 0.051 & 6.84 & 0.096 & 0.047 & \textbf{6.76} & 0.095 & 0.154 & 6.92 & 0.048 & 0.378 \\
+       & $U[0.0C',5.0C']$ & 6.80 & 0.112 & 0.050 & \textbf{6.72} & 0.112 & 0.053 & 6.80 & 0.063 & 0.148 & 6.80 & 0.000 & 0.400 \\
+       & $U[5.0C',10.0C']$ & 6.95 & 0.031 & 0.049 & 6.95 & 0.031 & 0.050 & \textbf{6.88} & 0.048 & 0.149 & 7.00 & 0.000 & 0.376 \\
+       & $U[10.0C',20.0C']$ & 7.00 & 0.000 & 0.050 & 7.00 & 0.000 & 0.051 & \textbf{6.95} & 0.031 & 0.150 & 7.00 & 0.000 & 0.373 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 6.8 & 0.100 & 0.090 & 6.7 & 0.050 & 0.096 & \textbf{6.6} & 0.100 & 0.255 & 6.7 & 0.150 & 0.564 \\
-       & $U[0.5C',1.0C']$ & \textbf{6.7} & 0.050 & 0.100 & \textbf{6.7} & 0.150 & 0.096 & 6.9 & 0.050 & 0.230 & 7.0 & 0.000 & 0.498 \\
-       & $U[1.0C',4.0C']$ & \textbf{6.2} & 0.100 & 0.109 & 6.6 & 0.000 & 0.105 & 6.3 & 0.050 & 0.271 & 6.4 & 0.000 & 0.597 \\
-       & $U[0.0C',5.0C']$ & \textbf{6.1} & 0.050 & 0.116 & 6.3 & 0.050 & 0.111 & 6.3 & 0.050 & 0.264 & 6.3 & 0.050 & 0.620 \\
-       & $U[5.0C',10.0C']$ & 6.5 & 0.050 & 0.109 & 6.4 & 0.000 & 0.113 & 6.4 & 0.000 & 0.272 & \textbf{6.3} & 0.050 & 0.634 \\
-       & $U[10.0C',20.0C']$ & 6.8 & 0.100 & 0.114 & \textbf{6.7} & 0.050 & 0.130 & 6.8 & 0.000 & 0.249 & \textbf{6.7} & 0.050 & 0.580 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 6.95 & 0.031 & 0.078 & 6.95 & 0.031 & 0.081 & \textbf{6.92} & 0.048 & 0.171 & \textbf{6.92} & 0.063 & 0.426 \\
+       & $U[0.5C',1.0C']$ & 6.84 & 0.112 & 0.084 & 6.92 & 0.063 & 0.078 & \textbf{6.76} & 0.080 & 0.188 & 6.92 & 0.063 & 0.400 \\
+       & $U[1.0C',4.0C']$ & \textbf{6.60} & 0.127 & 0.100 & 6.76 & 0.144 & 0.094 & 6.72 & 0.112 & 0.201 & 6.68 & 0.079 & 0.470 \\
+       & $U[0.0C',5.0C']$ & 6.83 & 0.112 & 0.093 & 6.72 & 0.159 & 0.095 & \textbf{6.64} & 0.128 & 0.208 & 6.68 & 0.048 & 0.462 \\
+       & $U[5.0C',10.0C']$ & 6.92 & 0.063 & 0.092 & \textbf{6.88} & 0.079 & 0.096 & 7.00 & 0.000 & 0.182 & 6.92 & 0.048 & 0.428 \\
+       & $U[10.0C',20.0C']$ & \textbf{7.00} & 0.000 & 0.093 & \textbf{7.00} & 0.000 & 0.094 & \textbf{7.00} & 0.000 & 0.187 & \textbf{7.00} & 0.000 & 0.420 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 6.7 & 0.150 & 0.240 & 6.9 & 0.050 & 0.219 & \textbf{6.6} & 0.000 & 0.404 & \textbf{6.6} & 0.000 & 0.677 \\
-       & $U[0.5C',1.0C']$ & \textbf{6.6} & 0.000 & 0.260 & \textbf{6.6} & 0.100 & 0.251 & 6.7 & 0.150 & 0.389 & \textbf{6.6} & 0.000 & 0.711 \\
-       & $U[1.0C',4.0C']$ & 6.3 & 0.050 & 0.255 & \textbf{6.1} & 0.050 & 0.284 & \textbf{6.1} & 0.050 & 0.448 & 6.2 & 0.000 & 0.768 \\
-       & $U[0.0C',5.0C']$ & 6.2 & 0.000 & 0.263 & 6.2 & 0.000 & 0.270 & \textbf{6.1} & 0.050 & 0.475 & 6.2 & 0.000 & 0.750 \\
-       & $U[5.0C',10.0C']$ & 6.3 & 0.050 & 0.270 & 6.3 & 0.050 & 0.279 & 6.4 & 0.000 & 0.414 & \textbf{6.2} & 0.000 & 0.795 \\
-       & $U[10.0C',20.0C']$ & 6.4 & 0.000 & 0.303 & \textbf{6.3} & 0.150 & 0.329 & 6.6 & 0.100 & 0.426 & \textbf{6.3} & 0.050 & 0.844 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 6.95 & 0.031 & 0.182 & \textbf{6.88} & 0.080 & 0.186 & 6.95 & 0.031 & 0.276 & 6.95 & 0.031 & 0.521 \\
+       & $U[0.5C',1.0C']$ & 6.95 & 0.031 & 0.182 & 6.95 & 0.031 & 0.181 & \textbf{6.92} & 0.063 & 0.276 & 6.95 & 0.031 & 0.502 \\
+       & $U[1.0C',4.0C']$ & 6.60 & 0.063 & 0.225 & \textbf{6.52} & 0.128 & 0.245 & 6.64 & 0.096 & 0.323 & 6.60 & 0.096 & 0.602 \\
+       & $U[0.0C',5.0C']$ & 6.60 & 0.096 & 0.230 & \textbf{6.44} & 0.031 & 0.263 & 6.56 & 0.080 & 0.341 & 6.60 & 0.063 & 0.610 \\
+       & $U[5.0C',10.0C']$ & 6.80 & 0.144 & 0.233 & 6.80 & 0.096 & 0.226 & \textbf{6.76} & 0.031 & 0.337 & \textbf{6.76} & 0.096 & 0.591 \\
+       & $U[10.0C',20.0C']$ & \textbf{7.00} & 0.000 & 0.224 & \textbf{7.00} & 0.000 & 0.221 & \textbf{7.00} & 0.000 & 0.315 & \textbf{7.00} & 0.000 & 0.531 \\
       \hline
       \end{tabular}
-      }
+            }
       \label{tab:pcpn80}\end{table}
 
 
@@ -674,35 +726,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & 8.2 & 0.027 & 0.021 & 8.2 & 0.038 & 0.023 & \textbf{8.2} & 0.055 & 0.225 & 8.3 & 0.044 & 0.613 \\
-       & $U[0.5C',1.0C']$ & 8.1 & 0.016 & 0.020 & 8.1 & 0.033 & 0.021 & 8.1 & 0.050 & 0.226 & \textbf{8.1} & 0.050 & 0.666 \\
-       & $U[1.0C',4.0C']$ & \textbf{8.0} & 0.038 & 0.021 & 8.1 & 0.016 & 0.021 & 8.1 & 0.027 & 0.227 & 8.0 & 0.016 & 0.667 \\
-       & $U[0.0C',5.0C']$ & 8.0 & 0.038 & 0.022 & 8.1 & 0.005 & 0.021 & 8.1 & 0.027 & 0.229 & \textbf{8.0} & 0.033 & 0.672 \\
-       & $U[5.0C',10.0C']$ & \textbf{8.1} & 0.033 & 0.021 & 8.1 & 0.038 & 0.022 & 8.1 & 0.016 & 0.222 & 8.1 & 0.022 & 0.641 \\
-       & $U[10.0C',20.0C']$ & 8.2 & 0.016 & 0.021 & 8.2 & 0.016 & 0.021 & 8.2 & 0.016 & 0.226 & \textbf{8.1} & 0.027 & 0.628 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & 8.71 & 0.115 & 0.023 & 8.66 & 0.044 & 0.023 & \textbf{8.60} & 0.080 & 0.152 & 8.64 & 0.053 & 0.446 \\
+       & $U[0.5C',1.0C']$ & 8.42 & 0.062 & 0.024 & 8.37 & 0.026 & 0.024 & 8.35 & 0.017 & 0.170 & \textbf{8.33} & 0.053 & 0.527 \\
+       & $U[1.0C',4.0C']$ & 8.42 & 0.044 & 0.023 & 8.35 & 0.017 & 0.023 & 8.35 & 0.017 & 0.168 & \textbf{8.33} & 0.035 & 0.516 \\
+       & $U[0.0C',5.0C']$ & \textbf{8.35} & 0.017 & 0.024 & \textbf{8.35} & 0.017 & 0.024 & \textbf{8.35} & 0.044 & 0.164 & 8.42 & 0.044 & 0.512 \\
+       & $U[5.0C',10.0C']$ & 8.51 & 0.062 & 0.023 & \textbf{8.37} & 0.035 & 0.024 & 8.48 & 0.035 & 0.162 & 8.51 & 0.044 & 0.481 \\
+       & $U[10.0C',20.0C']$ & 8.64 & 0.106 & 0.024 & \textbf{8.53} & 0.080 & 0.026 & \textbf{8.53} & 0.080 & 0.158 & 8.57 & 0.106 & 0.466 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{8.1} & 0.038 & 0.165 & 8.2 & 0.055 & 0.150 & 8.2 & 0.033 & 0.347 & 8.2 & 0.027 & 0.776 \\
-       & $U[0.5C',1.0C']$ & \textbf{7.9} & 0.022 & 0.160 & 8.0 & 0.038 & 0.155 & 8.0 & 0.050 & 0.359 & 8.0 & 0.033 & 0.787 \\
-       & $U[1.0C',4.0C']$ & 7.8 & 0.011 & 0.155 & 7.8 & 0.016 & 0.159 & \textbf{7.8} & 0.011 & 0.389 & 7.9 & 0.016 & 0.819 \\
-       & $U[0.0C',5.0C']$ & 7.9 & 0.016 & 0.158 & 7.9 & 0.011 & 0.156 & \textbf{7.8} & 0.000 & 0.380 & \textbf{7.8} & 0.011 & 0.835 \\
-       & $U[5.0C',10.0C']$ & 7.9 & 0.022 & 0.159 & 7.9 & 0.022 & 0.165 & 7.9 & 0.022 & 0.376 & \textbf{7.9} & 0.016 & 0.832 \\
-       & $U[10.0C',20.0C']$ & 8.0 & 0.033 & 0.170 & 8.0 & 0.038 & 0.169 & \textbf{7.9} & 0.027 & 0.390 & 8.0 & 0.027 & 0.814 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 8.62 & 0.071 & 0.164 & \textbf{8.60} & 0.088 & 0.152 & 8.66 & 0.106 & 0.276 & \textbf{8.60} & 0.071 & 0.572 \\
+       & $U[0.5C',1.0C']$ & \textbf{8.26} & 0.080 & 0.143 & 8.35 & 0.044 & 0.128 & 8.28 & 0.062 & 0.289 & 8.35 & 0.053 & 0.612 \\
+       & $U[1.0C',4.0C']$ & 8.22 & 0.053 & 0.141 & 8.24 & 0.017 & 0.136 & \textbf{8.20} & 0.071 & 0.293 & \textbf{8.20} & 0.044 & 0.662 \\
+       & $U[0.0C',5.0C']$ & 8.15 & 0.044 & 0.146 & 8.26 & 0.026 & 0.134 & 8.22 & 0.053 & 0.291 & \textbf{8.11} & 0.071 & 0.716 \\
+       & $U[5.0C',10.0C']$ & 8.31 & 0.017 & 0.144 & \textbf{8.26} & 0.053 & 0.143 & 8.31 & 0.017 & 0.285 & 8.31 & 0.017 & 0.641 \\
+       & $U[10.0C',20.0C']$ & 8.39 & 0.071 & 0.164 & \textbf{8.35} & 0.017 & 0.161 & 8.37 & 0.026 & 0.288 & 8.37 & 0.044 & 0.649 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & \textbf{8.1} & 0.050 & 0.332 & 8.2 & 0.044 & 0.319 & 8.2 & 0.077 & 0.525 & 8.2 & 0.038 & 0.892 \\
-       & $U[0.5C',1.0C']$ & 8.0 & 0.055 & 0.309 & 8.1 & 0.038 & 0.292 & \textbf{8.0} & 0.027 & 0.505 & 8.0 & 0.033 & 0.930 \\
-       & $U[1.0C',4.0C']$ & \textbf{7.8} & 0.000 & 0.298 & 7.8 & 0.005 & 0.315 & 7.8 & 0.011 & 0.518 & 7.8 & 0.005 & 0.968 \\
-       & $U[0.0C',5.0C']$ & 7.8 & 0.005 & 0.293 & 7.8 & 0.005 & 0.305 & \textbf{7.8} & 0.011 & 0.517 & \textbf{7.8} & 0.000 & 0.982 \\
-       & $U[5.0C',10.0C']$ & \textbf{7.8} & 0.005 & 0.320 & \textbf{7.8} & 0.005 & 0.332 & 7.8 & 0.000 & 0.530 & 7.9 & 0.016 & 0.994 \\
-       & $U[10.0C',20.0C']$ & 7.9 & 0.011 & 0.322 & \textbf{7.9} & 0.027 & 0.348 & 8.0 & 0.022 & 0.528 & 7.9 & 0.005 & 0.987 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 8.68 & 0.115 & 0.286 & 8.60 & 0.088 & 0.289 & 8.57 & 0.097 & 0.423 & \textbf{8.55} & 0.035 & 0.711 \\
+       & $U[0.5C',1.0C']$ & \textbf{8.26} & 0.044 & 0.288 & 8.31 & 0.017 & 0.245 & 8.33 & 0.000 & 0.408 & 8.28 & 0.026 & 0.750 \\
+       & $U[1.0C',4.0C']$ & \textbf{8.06} & 0.062 & 0.294 & 8.08 & 0.044 & 0.278 & 8.15 & 0.062 & 0.436 & \textbf{8.06} & 0.062 & 0.854 \\
+       & $U[0.0C',5.0C']$ & 8.13 & 0.062 & 0.276 & 8.15 & 0.062 & 0.294 & \textbf{8.04} & 0.044 & 0.455 & 8.11 & 0.035 & 0.831 \\
+       & $U[5.0C',10.0C']$ & 8.31 & 0.017 & 0.268 & \textbf{8.24} & 0.062 & 0.270 & 8.31 & 0.017 & 0.412 & 8.31 & 0.017 & 0.769 \\
+       & $U[10.0C',20.0C']$ & 8.35 & 0.017 & 0.307 & 8.33 & 0.000 & 0.287 & \textbf{8.28} & 0.035 & 0.433 & 8.33 & 0.000 & 0.797 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{8.1} & 0.044 & 0.834 & 8.2 & 0.050 & 0.767 & 8.2 & 0.072 & 0.932 & 8.2 & 0.050 & 1.324 \\
-       & $U[0.5C',1.0C']$ & 8.0 & 0.044 & 0.723 & 8.0 & 0.027 & 0.715 & \textbf{7.9} & 0.016 & 0.913 & 8.0 & 0.044 & 1.321 \\
-       & $U[1.0C',4.0C']$ & \textbf{7.8} & 0.000 & 0.710 & \textbf{7.8} & 0.000 & 0.710 & \textbf{7.8} & 0.000 & 0.915 & 7.8 & 0.000 & 1.366 \\
-       & $U[0.0C',5.0C']$ & \textbf{7.8} & 0.011 & 0.716 & \textbf{7.8} & 0.011 & 0.721 & \textbf{7.8} & 0.000 & 0.929 & 7.8 & 0.005 & 1.378 \\
-       & $U[5.0C',10.0C']$ & 7.8 & 0.000 & 0.764 & \textbf{7.8} & 0.005 & 0.784 & 7.8 & 0.011 & 0.963 & 7.8 & 0.011 & 1.432 \\
-       & $U[10.0C',20.0C']$ & 7.9 & 0.022 & 0.814 & 7.9 & 0.011 & 0.844 & 7.9 & 0.016 & 1.028 & \textbf{7.8} & 0.011 & 1.481 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 8.73 & 0.062 & 0.678 & 8.64 & 0.142 & 0.666 & 8.62 & 0.071 & 0.816 & \textbf{8.60} & 0.026 & 0.993 \\
+       & $U[0.5C',1.0C']$ & 8.28 & 0.062 & 0.602 & \textbf{8.26} & 0.044 & 0.625 & 8.31 & 0.017 & 0.751 & 8.37 & 0.035 & 1.102 \\
+       & $U[1.0C',4.0C']$ & 8.06 & 0.035 & 0.718 & 8.00 & 0.053 & 0.764 & \textbf{7.97} & 0.017 & 0.924 & 8.00 & 0.053 & 1.257 \\
+       & $U[0.0C',5.0C']$ & 8.00 & 0.053 & 0.677 & \textbf{7.95} & 0.044 & 0.721 & 8.06 & 0.080 & 0.859 & 8.02 & 0.053 & 1.301 \\
+       & $U[5.0C',10.0C']$ & \textbf{8.24} & 0.062 & 0.720 & 8.26 & 0.026 & 0.643 & \textbf{8.24} & 0.053 & 0.815 & \textbf{8.24} & 0.044 & 1.168 \\
+       & $U[10.0C',20.0C']$ & 8.33 & 0.000 & 0.668 & 8.33 & 0.000 & 0.684 & \textbf{8.28} & 0.026 & 0.816 & 8.31 & 0.017 & 1.185 \\
       \hline
       \end{tabular}
       }
@@ -715,35 +767,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{7.6} & 0.100 & 0.018 & 7.8 & 0.000 & 0.017 & \textbf{7.6} & 0.100 & 0.240 & 7.8 & 0.100 & 0.735 \\
-       & $U[0.5C',1.0C']$ & 7.8 & 0.000 & 0.017 & 7.8 & 0.000 & 0.016 & 7.7 & 0.050 & 0.234 & \textbf{7.6} & 0.100 & 0.801 \\
-       & $U[1.0C',4.0C']$ & \textbf{7.7} & 0.050 & 0.017 & 7.8 & 0.000 & 0.016 & 7.8 & 0.000 & 0.226 & \textbf{7.7} & 0.050 & 0.767 \\
-       & $U[0.0C',5.0C']$ & 7.8 & 0.000 & 0.016 & 7.8 & 0.000 & 0.016 & 7.8 & 0.000 & 0.218 & \textbf{7.7} & 0.050 & 0.774 \\
-       & $U[5.0C',10.0C']$ & 7.9 & 0.050 & 0.016 & 7.8 & 0.000 & 0.017 & \textbf{7.7} & 0.050 & 0.223 & 7.8 & 0.000 & 0.716 \\
-       & $U[10.0C',20.0C']$ & 8.0 & 0.000 & 0.016 & 8.0 & 0.000 & 0.016 & \textbf{7.9} & 0.050 & 0.219 & 8.0 & 0.000 & 0.711 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{7.92} & 0.048 & 0.022 & 7.95 & 0.031 & 0.021 & 7.95 & 0.031 & 0.195 & \textbf{7.92} & 0.048 & 0.696 \\
+       & $U[0.5C',1.0C']$ & \textbf{7.92} & 0.048 & 0.021 & 7.95 & 0.031 & 0.021 & 8.00 & 0.000 & 0.192 & 7.95 & 0.031 & 0.706 \\
+       & $U[1.0C',4.0C']$ & 8.00 & 0.000 & 0.021 & \textbf{7.95} & 0.031 & 0.021 & \textbf{7.95} & 0.031 & 0.198 & 8.00 & 0.000 & 0.689 \\
+       & $U[0.0C',5.0C']$ & 8.00 & 0.000 & 0.021 & 8.00 & 0.000 & 0.021 & 7.95 & 0.031 & 0.194 & \textbf{7.92} & 0.063 & 0.702 \\
+       & $U[5.0C',10.0C']$ & 8.00 & 0.000 & 0.021 & \textbf{7.92} & 0.048 & 0.022 & 8.00 & 0.000 & 0.193 & \textbf{7.92} & 0.048 & 0.704 \\
+       & $U[10.0C',20.0C']$ & 8.08 & 0.063 & 0.023 & \textbf{8.04} & 0.031 & 0.023 & \textbf{8.04} & 0.031 & 0.197 & \textbf{8.04} & 0.032 & 0.675 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 7.8 & 0.100 & 0.104 & \textbf{7.6} & 0.100 & 0.111 & \textbf{7.6} & 0.100 & 0.325 & 7.7 & 0.050 & 0.834 \\
-       & $U[0.5C',1.0C']$ & \textbf{7.6} & 0.000 & 0.102 & \textbf{7.6} & 0.100 & 0.103 & 7.7 & 0.050 & 0.321 & 7.7 & 0.050 & 0.859 \\
-       & $U[1.0C',4.0C']$ & 7.2 & 0.000 & 0.120 & \textbf{7.1} & 0.050 & 0.122 & \textbf{7.1} & 0.050 & 0.375 & 7.2 & 0.100 & 1.019 \\
-       & $U[0.0C',5.0C']$ & 7.1 & 0.050 & 0.124 & \textbf{7.0} & 0.000 & 0.118 & 7.1 & 0.050 & 0.373 & 7.1 & 0.050 & 1.022 \\
-       & $U[5.0C',10.0C']$ & 7.4 & 0.100 & 0.138 & \textbf{7.3} & 0.050 & 0.136 & 7.4 & 0.200 & 0.357 & 7.4 & 0.200 & 0.929 \\
-       & $U[10.0C',20.0C']$ & \textbf{7.8} & 0.000 & 0.110 & \textbf{7.8} & 0.000 & 0.114 & \textbf{7.8} & 0.000 & 0.321 & \textbf{7.8} & 0.000 & 0.840 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 7.92 & 0.048 & 0.101 & 7.88 & 0.048 & 0.098 & \textbf{7.84} & 0.031 & 0.275 & \textbf{7.84} & 0.080 & 0.801 \\
+       & $U[0.5C',1.0C']$ & 7.88 & 0.048 & 0.099 & 7.95 & 0.031 & 0.092 & 7.92 & 0.048 & 0.271 & \textbf{7.84} & 0.031 & 0.792 \\
+       & $U[1.0C',4.0C']$ & 7.60 & 0.144 & 0.114 & 7.72 & 0.048 & 0.104 & 7.76 & 0.031 & 0.284 & \textbf{7.51} & 0.160 & 0.883 \\
+       & $U[0.0C',5.0C']$ & 7.72 & 0.048 & 0.108 & \textbf{7.60} & 0.128 & 0.111 & 7.72 & 0.063 & 0.290 & 7.76 & 0.031 & 0.829 \\
+       & $U[5.0C',10.0C']$ & 7.84 & 0.031 & 0.107 & 7.84 & 0.031 & 0.109 & \textbf{7.76} & 0.031 & 0.295 & 7.84 & 0.031 & 0.806 \\
+       & $U[10.0C',20.0C']$ & 8.00 & 0.000 & 0.108 & \textbf{7.95} & 0.031 & 0.112 & \textbf{7.95} & 0.031 & 0.282 & \textbf{7.95} & 0.031 & 0.781 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 7.6 & 0.100 & 0.210 & 7.8 & 0.000 & 0.196 & \textbf{7.3} & 0.050 & 0.466 & 7.6 & 0.100 & 0.963 \\
-       & $U[0.5C',1.0C']$ & 7.5 & 0.050 & 0.229 & 7.6 & 0.100 & 0.201 & 7.5 & 0.150 & 0.430 & \textbf{7.3} & 0.150 & 1.045 \\
-       & $U[1.0C',4.0C']$ & \textbf{7.0} & 0.000 & 0.233 & \textbf{7.0} & 0.000 & 0.232 & \textbf{7.0} & 0.000 & 0.483 & \textbf{7.0} & 0.000 & 1.139 \\
-       & $U[0.0C',5.0C']$ & \textbf{7.0} & 0.000 & 0.232 & \textbf{7.0} & 0.000 & 0.227 & 7.2 & 0.100 & 0.460 & \textbf{7.0} & 0.000 & 1.110 \\
-       & $U[5.0C',10.0C']$ & 7.3 & 0.050 & 0.259 & \textbf{7.1} & 0.050 & 0.261 & 7.3 & 0.050 & 0.471 & 7.3 & 0.050 & 1.061 \\
-       & $U[10.0C',20.0C']$ & 7.8 & 0.000 & 0.212 & 7.8 & 0.000 & 0.216 & \textbf{7.5} & 0.150 & 0.471 & \textbf{7.5} & 0.150 & 1.003 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & \textbf{7.84} & 0.031 & 0.189 & 7.88 & 0.079 & 0.171 & \textbf{7.84} & 0.031 & 0.363 & \textbf{7.84} & 0.079 & 0.884 \\
+       & $U[0.5C',1.0C']$ & \textbf{7.80} & 0.112 & 0.185 & 7.92 & 0.048 & 0.175 & 7.84 & 0.031 & 0.362 & 7.84 & 0.080 & 0.888 \\
+       & $U[1.0C',4.0C']$ & \textbf{7.52} & 0.144 & 0.214 & 7.64 & 0.096 & 0.205 & 7.60 & 0.128 & 0.395 & 7.56 & 0.160 & 0.983 \\
+       & $U[0.0C',5.0C']$ & 7.68 & 0.048 & 0.201 & \textbf{7.56} & 0.160 & 0.211 & 7.60 & 0.112 & 0.397 & 7.68 & 0.080 & 0.928 \\
+       & $U[5.0C',10.0C']$ & \textbf{7.72} & 0.063 & 0.204 & 7.80 & 0.000 & 0.198 & 7.80 & 0.000 & 0.374 & 7.76 & 0.031 & 0.925 \\
+       & $U[10.0C',20.0C']$ & \textbf{7.92} & 0.048 & 0.212 & 7.95 & 0.031 & 0.205 & 7.95 & 0.031 & 0.375 & 7.95 & 0.031 & 0.884 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 7.8 & 0.100 & 0.478 & 7.7 & 0.050 & 0.502 & \textbf{7.5} & 0.150 & 0.729 & 7.6 & 0.100 & 1.272 \\
-       & $U[0.5C',1.0C']$ & \textbf{7.2} & 0.100 & 0.658 & 7.4 & 0.100 & 0.582 & 7.6 & 0.100 & 0.695 & 7.6 & 0.100 & 1.239 \\
-       & $U[1.0C',4.0C']$ & \textbf{7.0} & 0.000 & 0.544 & \textbf{7.0} & 0.000 & 0.523 & \textbf{7.0} & 0.000 & 0.764 & \textbf{7.0} & 0.000 & 1.427 \\
-       & $U[0.0C',5.0C']$ & \textbf{7.0} & 0.000 & 0.521 & \textbf{7.0} & 0.000 & 0.538 & \textbf{7.0} & 0.000 & 0.758 & \textbf{7.0} & 0.000 & 1.422 \\
-       & $U[5.0C',10.0C']$ & \textbf{7.0} & 0.000 & 0.622 & 7.1 & 0.050 & 0.582 & \textbf{7.0} & 0.000 & 0.827 & 7.1 & 0.050 & 1.455 \\
-       & $U[10.0C',20.0C']$ & 7.7 & 0.050 & 0.539 & \textbf{7.5} & 0.050 & 0.579 & 7.7 & 0.050 & 0.735 & 7.6 & 0.100 & 1.303 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 7.84 & 0.031 & 0.440 & \textbf{7.80} & 0.112 & 0.446 & 7.84 & 0.031 & 0.592 & 7.88 & 0.048 & 1.096 \\
+       & $U[0.5C',1.0C']$ & 7.92 & 0.048 & 0.391 & \textbf{7.80} & 0.063 & 0.430 & 7.92 & 0.048 & 0.575 & 7.88 & 0.048 & 1.100 \\
+       & $U[1.0C',4.0C']$ & 7.40 & 0.112 & 0.511 & \textbf{7.35} & 0.096 & 0.520 & 7.40 & 0.176 & 0.739 & \textbf{7.35} & 0.128 & 1.326 \\
+       & $U[0.0C',5.0C']$ & 7.35 & 0.128 & 0.536 & 7.40 & 0.192 & 0.541 & 7.43 & 0.144 & 0.723 & \textbf{7.27} & 0.144 & 1.399 \\
+       & $U[5.0C',10.0C']$ & 7.76 & 0.031 & 0.468 & 7.76 & 0.031 & 0.478 & 7.76 & 0.031 & 0.656 & \textbf{7.72} & 0.063 & 1.201 \\
+       & $U[10.0C',20.0C']$ & 7.95 & 0.031 & 0.482 & \textbf{7.88} & 0.048 & 0.507 & 7.92 & 0.048 & 0.678 & 8.00 & 0.000 & 1.139 \\
       \hline
       \end{tabular}
       }
@@ -756,35 +808,35 @@ When comparing the different recoloring algorithms in terms of the chromatic num
       \begin{tabular}{|l|l||l|l|l||l|l|l||l|l|l||l|l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{3}{|l||}{Random}&\multicolumn{3}{|l||}{OneStepCD}&\multicolumn{3}{|l||}{ILP1}&\multicolumn{3}{|l|}{ILP2}\\
       \cline{1-14}
-      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$ & $\overline{obj}$ & $sd$ & $\overline{time}(s)$\\
+      ItMax & TabuTenure & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$ & $\overline{obj}$ & $sd$ & $\overline{time}$\\
       \hline
-      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & \textbf{8.7} & 0.050 & 0.032 & 9.0 & 0.000 & 0.029 & 8.9 & 0.050 & 0.349 & 8.9 & 0.050 & 1.201 \\
-       & $U[0.5C',1.0C']$ & \textbf{8.8} & 0.100 & 0.030 & 9.0 & 0.000 & 0.028 & 8.9 & 0.050 & 0.337 & 8.9 & 0.050 & 1.213 \\
-       & $U[1.0C',4.0C']$ & \textbf{8.7} & 0.050 & 0.032 & 8.9 & 0.050 & 0.029 & 9.0 & 0.000 & 0.341 & 8.9 & 0.050 & 1.173 \\
-       & $U[0.0C',5.0C']$ & 9.0 & 0.000 & 0.028 & \textbf{8.7} & 0.050 & 0.031 & 8.8 & 0.100 & 0.348 & 8.8 & 0.000 & 1.211 \\
-       & $U[5.0C',10.0C']$ & 9.0 & 0.000 & 0.029 & \textbf{8.9} & 0.050 & 0.029 & 9.0 & 0.000 & 0.337 & 9.0 & 0.000 & 1.139 \\
-       & $U[10.0C',20.0C']$ & \textbf{9.0} & 0.000 & 0.031 & \textbf{9.0} & 0.000 & 0.030 & \textbf{9.0} & 0.000 & 0.349 & \textbf{9.0} & 0.000 & 1.144 \\
+      \multirow{6}{*}{1} & $U[0.0C',0.5C']$ & 9.04 & 0.032 & 0.044 & 9.08 & 0.048 & 0.044 & 9.04 & 0.031 & 0.267 & \textbf{9.00} & 0.000 & 0.978 \\
+       & $U[0.5C',1.0C']$ & 9.04 & 0.031 & 0.044 & 9.04 & 0.031 & 0.044 & \textbf{9.00} & 0.127 & 0.270 & \textbf{9.00} & 0.000 & 0.971 \\
+       & $U[1.0C',4.0C']$ & \textbf{9.00} & 0.000 & 0.044 & \textbf{9.00} & 0.000 & 0.044 & \textbf{9.00} & 0.000 & 0.270 & \textbf{9.00} & 0.000 & 0.986 \\
+       & $U[0.0C',5.0C']$ & \textbf{8.95} & 0.031 & 0.044 & 9.00 & 0.000 & 0.044 & 9.00 & 0.000 & 0.268 & 9.00 & 0.000 & 0.992 \\
+       & $U[5.0C',10.0C']$ & \textbf{9.12} & 0.080 & 0.045 & 9.24 & 0.096 & 0.043 & 9.28 & 0.080 & 0.249 & \textbf{9.12} & 0.079 & 0.966 \\
+       & $U[10.0C',20.0C']$ & 9.52 & 0.048 & 0.043 & \textbf{9.36} & 0.096 & 0.047 & \textbf{9.36} & 0.095 & 0.233 & \textbf{9.36} & 0.144 & 0.868 \\
       \hline\hline
-      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & 8.9 & 0.050 & 0.202 & \textbf{8.6} & 0.000 & 0.242 & 8.8 & 0.000 & 0.513 & 8.8 & 0.100 & 1.412 \\
-       & $U[0.5C',1.0C']$ & \textbf{8.7} & 0.050 & 0.237 & 8.9 & 0.050 & 0.192 & \textbf{8.7} & 0.050 & 0.532 & \textbf{8.7} & 0.050 & 1.390 \\
-       & $U[1.0C',4.0C']$ & \textbf{8.5} & 0.050 & 0.216 & 8.6 & 0.000 & 0.205 & 8.6 & 0.000 & 0.528 & 8.6 & 0.000 & 1.473 \\
-       & $U[0.0C',5.0C']$ & 8.6 & 0.000 & 0.211 & 8.6 & 0.000 & 0.208 & 8.6 & 0.000 & 0.525 & \textbf{8.5} & 0.050 & 1.498 \\
-       & $U[5.0C',10.0C']$ & \textbf{8.6} & 0.000 & 0.218 & \textbf{8.6} & 0.000 & 0.213 & \textbf{8.6} & 0.000 & 0.554 & 8.7 & 0.050 & 1.433 \\
-       & $U[10.0C',20.0C']$ & 8.9 & 0.050 & 0.221 & \textbf{8.8} & 0.100 & 0.231 & 8.9 & 0.050 & 0.535 & \textbf{8.8} & 0.000 & 1.388 \\
+      \multirow{6}{*}{10} & $U[0.0C',0.5C']$ & \textbf{8.92} & 0.048 & 0.196 & 8.95 & 0.031 & 0.184 & \textbf{8.92} & 0.048 & 0.404 & \textbf{8.92} & 0.063 & 1.159 \\
+       & $U[0.5C',1.0C']$ & \textbf{8.87} & 0.079 & 0.203 & 8.88 & 0.079 & 0.195 & \textbf{8.87} & 0.080 & 0.423 & 8.92 & 0.048 & 1.146 \\
+       & $U[1.0C',4.0C']$ & \textbf{8.68} & 0.048 & 0.208 & 8.84 & 0.031 & 0.197 & 8.87 & 0.080 & 0.419 & 8.87 & 0.080 & 1.180 \\
+       & $U[0.0C',5.0C']$ & \textbf{8.80} & 0.096 & 0.197 & 8.84 & 0.096 & 0.195 & \textbf{8.80} & 0.063 & 0.424 & 8.95 & 0.031 & 1.143 \\
+       & $U[5.0C',10.0C']$ & 9.00 & 0.000 & 0.195 & 9.00 & 0.000 & 0.193 & \textbf{8.92} & 0.048 & 0.427 & 9.00 & 0.000 & 1.128 \\
+       & $U[10.0C',20.0C']$ & 9.04 & 0.031 & 0.213 & \textbf{9.00} & 0.000 & 0.210 & \textbf{9.00} & 0.000 & 0.431 & \textbf{9.00} & 0.000 & 1.167 \\
       \hline\hline
-      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 8.7 & 0.050 & 0.436 & 8.8 & 0.100 & 0.388 & 8.8 & 0.000 & 0.718 & \textbf{8.6} & 0.000 & 1.677 \\
-       & $U[0.5C',1.0C']$ & 8.8 & 0.100 & 0.376 & 8.7 & 0.050 & 0.413 & \textbf{8.6} & 0.000 & 0.760 & 8.9 & 0.050 & 1.494 \\
-       & $U[1.0C',4.0C']$ & 8.6 & 0.000 & 0.408 & 8.6 & 0.000 & 0.390 & \textbf{8.5} & 0.050 & 0.744 & \textbf{8.5} & 0.050 & 1.694 \\
-       & $U[0.0C',5.0C']$ & 8.6 & 0.000 & 0.411 & 8.6 & 0.000 & 0.394 & \textbf{8.5} & 0.050 & 0.740 & \textbf{8.5} & 0.050 & 1.679 \\
-       & $U[5.0C',10.0C']$ & \textbf{8.6} & 0.000 & 0.438 & \textbf{8.6} & 0.000 & 0.434 & \textbf{8.6} & 0.000 & 0.750 & \textbf{8.6} & 0.000 & 1.667 \\
-       & $U[10.0C',20.0C']$ & 8.9 & 0.050 & 0.421 & 8.8 & 0.000 & 0.434 & \textbf{8.6} & 0.000 & 0.787 & 8.8 & 0.000 & 1.666 \\
+      \multirow{6}{*}{20} & $U[0.0C',0.5C']$ & 9.04 & 0.031 & 0.326 & \textbf{9.00} & 0.063 & 0.320 & \textbf{9.00} & 0.000 & 0.534 & 9.04 & 0.031 & 1.228 \\
+       & $U[0.5C',1.0C']$ & 8.95 & 0.031 & 0.342 & \textbf{8.87} & 0.048 & 0.345 & 8.92 & 0.063 & 0.548 & 8.88 & 0.080 & 1.329 \\
+       & $U[1.0C',4.0C']$ & 8.68 & 0.063 & 0.382 & 8.68 & 0.048 & 0.385 & \textbf{8.64} & 0.032 & 0.626 & 8.68 & 0.048 & 1.429 \\
+       & $U[0.0C',5.0C']$ & 8.68 & 0.063 & 0.397 & 8.80 & 0.096 & 0.355 & \textbf{8.64} & 0.032 & 0.624 & 8.76 & 0.096 & 1.386 \\
+       & $U[5.0C',10.0C']$ & 8.95 & 0.031 & 0.359 & 8.95 & 0.031 & 0.347 & 8.95 & 0.031 & 0.574 & \textbf{8.88} & 0.080 & 1.339 \\
+       & $U[10.0C',20.0C']$ & \textbf{9.00} & 0.000 & 0.385 & \textbf{9.00} & 0.000 & 0.382 & \textbf{9.00} & 0.000 & 0.618 & \textbf{9.00} & 0.000 & 1.330 \\
       \hline\hline
-      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & 8.8 & 0.100 & 0.944 & \textbf{8.6} & 0.000 & 0.977 & \textbf{8.6} & 0.000 & 1.342 & 8.7 & 0.050 & 2.152 \\
-       & $U[0.5C',1.0C']$ & 8.7 & 0.050 & 1.009 & 8.7 & 0.050 & 0.947 & 8.7 & 0.050 & 1.374 & \textbf{8.6} & 0.000 & 2.193 \\
-       & $U[1.0C',4.0C']$ & 8.6 & 0.000 & 0.949 & 8.6 & 0.000 & 0.943 & \textbf{8.5} & 0.050 & 1.312 & 8.6 & 0.000 & 2.212 \\
-       & $U[0.0C',5.0C']$ & \textbf{8.4} & 0.100 & 1.113 & 8.6 & 0.000 & 0.965 & 8.5 & 0.050 & 1.354 & 8.5 & 0.050 & 2.249 \\
-       & $U[5.0C',10.0C']$ & 8.6 & 0.000 & 0.998 & \textbf{8.5} & 0.050 & 1.047 & 8.6 & 0.000 & 1.300 & 8.6 & 0.000 & 2.232 \\
-       & $U[10.0C',20.0C']$ & \textbf{8.6} & 0.000 & 1.060 & \textbf{8.6} & 0.000 & 1.117 & 8.7 & 0.050 & 1.363 & \textbf{8.6} & 0.000 & 2.318 \\
+      \multirow{6}{*}{50} & $U[0.0C',0.5C']$ & \textbf{8.95} & 0.031 & 0.788 & 9.00 & 0.000 & 0.785 & 9.04 & 0.031 & 0.962 & \textbf{8.95} & 0.031 & 1.684 \\
+       & $U[0.5C',1.0C']$ & 8.95 & 0.031 & 0.748 & 8.92 & 0.063 & 0.796 & \textbf{8.80} & 0.096 & 1.057 & 8.88 & 0.112 & 1.752 \\
+       & $U[1.0C',4.0C']$ & \textbf{8.60} & 0.000 & 0.898 & \textbf{8.60} & 0.000 & 0.901 & 8.64 & 0.031 & 1.119 & \textbf{8.60} & 0.000 & 1.978 \\
+       & $U[0.0C',5.0C']$ & 8.64 & 0.031 & 0.869 & \textbf{8.60} & 0.000 & 0.891 & 8.64 & 0.031 & 1.111 & \textbf{8.60} & 0.000 & 1.966 \\
+       & $U[5.0C',10.0C']$ & 8.87 & 0.080 & 0.871 & \textbf{8.84} & 0.096 & 0.896 & \textbf{8.84} & 0.031 & 1.119 & 8.92 & 0.063 & 1.812 \\
+       & $U[10.0C',20.0C']$ & \textbf{9.00} & 0.000 & 0.891 & \textbf{9.00} & 0.000 & 0.876 & \textbf{9.00} & 0.000 & 1.113 & \textbf{9.00} & 0.000 & 1.823 \\
       \hline
       \end{tabular}
       }

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  30 DEC 2013 16:45
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  13 JAN 2014 16:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -85,11 +85,8 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no P in font nullfont!
 Missing character: There is no C in font nullfont!
 Missing character: There is no P in font nullfont!
-Missing character: There is no w in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no l in font nullfont!
-Missing character: There is no l in font nullfont!
-Missing character: There is no b in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no r in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no e in font nullfont!
@@ -188,7 +185,7 @@ Missing character: There is no n in font nullfont!
 <write> ...ce `sec:construction' on page \thepage 
                                                   \space undefined\on@line .
 l.1 ...s explained. Section \ref{sec:construction}
-                                                   then analyses the two dif...
+                                                   analyses the two differen...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -199,10 +196,6 @@ and I'll forget about whatever was undefined.
 LaTeX Warning: Reference `sec:construction' on page  undefined on input line 1.
 
 
-Missing character: There is no t in font nullfont!
-Missing character: There is no h in font nullfont!
-Missing character: There is no e in font nullfont!
-Missing character: There is no n in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no a in font nullfont!
@@ -530,13 +523,8 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no m in font nullfont!
 Missing character: There is no s in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no o in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no s in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no h in font nullfont!
-Missing character: There is no e in font nullfont!
 Missing character: There is no ` in font nullfont!
 Missing character: There is no ` in font nullfont!
 Missing character: There is no r in font nullfont!
@@ -561,10 +549,19 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no m in font nullfont!
 Missing character: There is no s in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no n in font nullfont!
 ! Undefined control sequence.
 <write> ...ence `sec:recoloring' on page \thepage 
                                                   \space undefined\on@line .
-l.1 ...ecoloring'' algorithms \ref{sec:recoloring}
+l.1 ...algorithms in section  \ref{sec:recoloring}
                                                   . As for the second phase,...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -788,8 +785,8 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no g in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no n in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no f in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no m in font nullfont!
 Missing character: There is no o in font nullfont!
@@ -827,8 +824,8 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no e in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no n in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no f in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no d in font nullfont!
@@ -1476,13 +1473,8 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no o in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no s in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no h in font nullfont!
-Missing character: There is no e in font nullfont!
 Missing character: There is no ` in font nullfont!
 Missing character: There is no ` in font nullfont!
 Missing character: There is no c in font nullfont!
@@ -1502,33 +1494,22 @@ Missing character: There is no d in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no ' in font nullfont!
 Missing character: There is no ' in font nullfont!
-! Undefined control sequence.
-\@footnotetext ...tins {\reset@font \footnotesize 
-                                                  \interlinepenalty \interfo...
-l.5 ...is shown in detail in \ref{sec:recoloring}}
-                                                  , its encasing cluster to ...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Undefined control sequence.
-\@footnotetext ...}\color@begingroup \@makefntext 
-                                                  {\rule \z@ \footnotesep \i...
-l.5 ...is shown in detail in \ref{sec:recoloring}}
-                                                  , its encasing cluster to ...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
+Missing character: There is no ( in font nullfont!
+Missing character: There is no S in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no n in font nullfont!
 ! Undefined control sequence.
 <write> ...ence `sec:recoloring' on page \thepage 
                                                   \space undefined\on@line .
-l.5 ...is shown in detail in \ref{sec:recoloring}}
-                                                  , its encasing cluster to ...
+l.5 ...ng node'' (See section \ref{sec:recoloring}
+                                                  ), its encasing cluster as...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -1538,71 +1519,7 @@ and I'll forget about whatever was undefined.
 
 LaTeX Warning: Reference `sec:recoloring' on page  undefined on input line 5.
 
-
-Overfull \hbox (19.44447pt too wide) in paragraph at lines 5--5
-[][]\OT1/cmr/m/n/10 How
- []
-
-
-Overfull \hbox (13.88892pt too wide) in paragraph at lines 5--5
-\OT1/cmr/m/n/10 the
- []
-
-
-Overfull \hbox (20.83339pt too wide) in paragraph at lines 5--5
-\OT1/cmr/m/n/10 node
- []
-
-
-Overfull \hbox (6.72223pt too wide) in paragraph at lines 5--5
-\OT1/cmr/m/n/10 is
- []
-
-
-Overfull \hbox (18.05557pt too wide) in paragraph at lines 5--5
-\OT1/cmr/m/n/10 cho-
- []
-
-
-Overfull \hbox (13.94446pt too wide) in paragraph at lines 5--5
-\OT1/cmr/m/n/10 sen
- []
-
-
-Overfull \hbox (6.72223pt too wide) in paragraph at lines 5--5
-\OT1/cmr/m/n/10 is
- []
-
-
-Overfull \hbox (27.00005pt too wide) in paragraph at lines 5--5
-\OT1/cmr/m/n/10 shown
- []
-
-
-Overfull \hbox (8.33336pt too wide) in paragraph at lines 5--5
-\OT1/cmr/m/n/10 in
- []
-
-
-Overfull \hbox (13.33334pt too wide) in paragraph at lines 5--5
-\OT1/cmr/m/n/10 de-
- []
-
-
-Overfull \hbox (14.44449pt too wide) in paragraph at lines 5--5
-\OT1/cmr/m/n/10 tail
- []
-
-
-Overfull \hbox (8.33336pt too wide) in paragraph at lines 5--5
-\OT1/cmr/m/n/10 in
- []
-
-
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 5--5
-[]| 
- []
-
+Missing character: There is no ) in font nullfont!
 Missing character: There is no , in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no t in font nullfont!
@@ -1622,13 +1539,8 @@ Missing character: There is no s in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no r in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no o in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no s in font nullfont!
-Missing character: There is no t in font nullfont!
-Missing character: There is no h in font nullfont!
-Missing character: There is no e in font nullfont!
 Missing character: There is no ` in font nullfont!
 Missing character: There is no ` in font nullfont!
 Missing character: There is no c in font nullfont!
@@ -2479,8 +2391,8 @@ Missing character: There is no a in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no c in font nullfont!
 Missing character: There is no e in font nullfont!
+Missing character: There is no t in font nullfont!
 Missing character: There is no o in font nullfont!
-Missing character: There is no f in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no l in font nullfont!
 Missing character: There is no i in font nullfont!
@@ -2489,9 +2401,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no t in font nullfont!
-Missing character: There is no i in font nullfont!
-Missing character: There is no n in font nullfont!
-Missing character: There is no g in font nullfont!
+Missing character: There is no e in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no h in font nullfont!
 Missing character: There is no e in font nullfont!
@@ -2645,20 +2555,7 @@ Missing character: There is no g in font nullfont!
 Missing character: There is no u in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no e in font nullfont!
-! Undefined control sequence.
-<write> ...erence `fig:mainproc' on page \thepage 
-                                                  \space undefined\on@line .
-l.7 ...ution is shown in figure \ref{fig:mainproc}
-                                                  a). The color dark grey is...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-LaTeX Warning: Reference `fig:mainproc' on page  undefined on input line 7.
-
+Missing character: There is no ( in font nullfont!
 Missing character: There is no a in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no . in font nullfont!
@@ -2846,20 +2743,7 @@ Missing character: There is no w in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no i in font nullfont!
 Missing character: There is no n in font nullfont!
-! Undefined control sequence.
-<write> ...erence `fig:mainproc' on page \thepage 
-                                                  \space undefined\on@line .
-l.7 ...resulting graph shown in \ref{fig:mainproc}
-                                                  c) is infeasible. Then, st...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-LaTeX Warning: Reference `fig:mainproc' on page  undefined on input line 7.
-
+Missing character: There is no ( in font nullfont!
 Missing character: There is no c in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no i in font nullfont!
@@ -3013,20 +2897,7 @@ Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 Missing character: There is no I in font nullfont!
 Missing character: There is no n in font nullfont!
-! Undefined control sequence.
-<write> ...erence `fig:mainproc' on page \thepage 
-                                                  \space undefined\on@line .
-l.7 ...the fewest conflicts. In \ref{fig:mainproc}
-                                                  d), a node-color pair is f...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-
-LaTeX Warning: Reference `fig:mainproc' on page  undefined on input line 7.
-
+Missing character: There is no ( in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no , in font nullfont!
@@ -3291,7 +3162,7 @@ Overfull \hbox (8.05556pt too wide) in paragraph at lines 3--13
  []
 
 
-Overfull \hbox (4.48613pt too wide) in paragraph at lines 3--13
+Overfull \hbox (10.86105pt too wide) in paragraph at lines 3--13
 []
  []
 
@@ -3317,21 +3188,6 @@ Overfull \hbox (5.00002pt too wide) in paragraph at lines 3--13
 
 
 Overfull \hbox (5.43053pt too wide) in paragraph at lines 3--13
-[]
- []
-
-
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 3--13
-[]
- []
-
-
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 3--13
-[]
- []
-
-
-Overfull \hbox (10.86105pt too wide) in paragraph at lines 3--13
 []
  []
 
@@ -4875,10 +4731,10 @@ l.47 ...fpoint{3.100000\du}{0\du}}{\pgfpoint{0\du}
 Here is how much of TeX's memory you used:
  21 strings out of 494987
  313 string characters out of 3178575
- 48253 words of memory out of 3000000
+ 47253 words of memory out of 3000000
  3320 multiletter control sequences out of 15000+200000
  4294 words of font info for 16 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 19i,5n,21p,1361b,112s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 19i,2n,21p,1306b,89s stack positions out of 5000i,500n,10000p,200000b,50000s
 
 !  ==> Fatal error occurred, no output PDF file produced!

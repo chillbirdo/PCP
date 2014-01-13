@@ -2,7 +2,7 @@ This chapter introduces theoretical fundamentals like definitions, terms and met
 \section{Optimization Problems and Complexity}
 Since this thesis deals with an optimization problem and the analysis of a solution method, it needs to consider some complexity theory, which is an important field of computer science. Some definitions and explanations of optimization problems and complexity are given in this section.
 For a more detailed insight into these topics, the reader is referred to \cite{lawler-01,papadimitriou-94,garey-79}.\\
-In general an optimization problem is the problem of finding the best solution among all feasible solutions. Depending on weather the variables are continuous or discrete, the optimization problem is said to be a continuous optimization problem or a combinatorial optimization problem (COP). Since the PCP belongs to the latter category, this thesis will not cover further explanations on continuous optimization problems. For information on that topic, the reader is referred to \cite{nocedal-00, pardalos-02}. Most of the following the definitions have been introduced in \cite{blum-05, neumann-10}.
+In general an optimization problem is the problem of finding the best solution among all feasible solutions. Depending on whether the variables are continuous or discrete, the optimization problem is said to be a continuous optimization problem or a combinatorial optimization problem (COP). Since the PCP belongs to the latter category, this thesis will not cover further explanations on continuous optimization problems. For information on that topic, the reader is referred to \cite{nocedal-00, pardalos-02}. Most of the following the definitions have been introduced in \cite{blum-05, neumann-10}.
 \begin{definition}[Combinatorial Optimization Problem]
 A Combinatorial Optimization Problem $P = (S, f)$ can be defined by: 
 \begin{itemize}
@@ -29,7 +29,7 @@ The definition above states, that the solutions for problems in $\mathcal{NP}$ d
 \begin{definition}[$\mathcal{NP}$-optimization Problem]
 A COP is a $\mathcal{NP}$-optimization problem (NPOP) if the corresponding decision problem is in $\mathcal{NP}$.
 \end{definition}
-As an example the decision variant of the standard Vertex Coloring Problem (VCP) is considered, which asks weather a graph $G$ is colorable within $k$ colors or not. An algorithm has to verify for each vertex $v$ colored with color $c_v$, if all its neighbors are colored with a color different to $c_v$ and further count the number of distinct colors to check weather the number of colors is lower or equal to $k$. This can be done in time  $\mathcal O(\left\vert{V^2}\right\vert)$, where $V$ is the set of vertices.\\
+As an example the decision variant of the standard Vertex Coloring Problem (VCP) is considered, which asks whether a graph $G$ is colorable within $k$ colors or not. An algorithm has to verify for each vertex $v$ colored with color $c_v$, if all its neighbors are colored with a color different to $c_v$ and further count the number of distinct colors to check whether the number of colors is lower or equal to $k$. This can be done in time  $\mathcal O(\left\vert{V^2}\right\vert)$, where $V$ is the set of vertices.\\
 The decision variant of VCP and many other decision problems are at least as difficult as any problem in $\mathcal{NP}$. These problems are said to be $\mathcal{NP}$-hard. Giving a polynomial-time reduction from an $\mathcal{NP}$-hard problem to a particular problem shows that this problem is $\mathcal{NP}$-hard, too. Such a reduction links the considered problem to the known $\mathcal{NP}$-hard problem in such a way that if and only if the considered problem can be solved in polynomial time also the $\mathcal{NP}$-hard problem to which it has been reduced can.\cite{neumann-10} To gain a more detailed insight into that topic, the reader is referenced to \cite{wegener-05}. 
 
 \begin{definition}[$\mathcal{NP}$-hard problems]
@@ -65,7 +65,7 @@ A polynomial-time approximation scheme (PTAS) is a family of algorithms $\{A_{\e
 
 \section{Graph Theory Definitions}
 
-Graphs are mathematical structures used to model relations and processes of interconnected objects. They are one of the most important objects for the study of discrete mathemathics and can be used to model a wide range of problems that appear in physics, biology, linguistics, information technology and other disciplines. Most of the following definitions are take from \cite{fritz-11}.
+Graphs are mathematical structures used to model relations and processes of interconnected objects. They are one of the most important objects for the study of discrete mathemathics and can be used to model a wide range of problems that appear in physics, biology, linguistics, information technology and other disciplines. Most of the following definitions are take from \cite{fritz-11}, \cite{gaume-10}.
 
 \begin{definition}[Graph]
 A graph is a tuple $G = (V, E)$, where $V$ denotes the set of nodes and $E \subseteq V \times V$ denotes the set of edges. An edge from node $i$ to $j$ is denoted by $\{i, j\}$. We call a graph simple, if it does not contain multiple edges, i.e. more than one edge between the same nodes, or loops, i.e. edges $\{i, i\}$.
@@ -168,7 +168,7 @@ A graph is called acyclic if it does not contain a cycle.
 \end{definition}
 
 \begin{definition}[Bipartite Graph]
-todo
+A graph is bipartite if the vertex set $V$ can be split into two sets $A$ and $B$ such that there is no edge between vertices of the same set (in other words for every edge $\{u, v\}$ either $u \in A$ and $v \in B$ or $u \in B$ and $v \in A$).
 \end{definition}
 
 \begin{theorem}

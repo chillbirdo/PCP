@@ -12,11 +12,11 @@
 \BOOKMARK [1][-]{section.3.3}{Wavelength Routing and Assignment Problem}{chapter.3}% 12
 \BOOKMARK [1][-]{section.3.4}{Problem Complexity}{chapter.3}% 13
 \BOOKMARK [0][-]{chapter.4}{Previous Works}{}% 14
-\BOOKMARK [1][-]{section.4.1}{Exact Approaches}{chapter.4}% 15
-\BOOKMARK [1][-]{section.4.2}{Heuristical Approaches}{chapter.4}% 16
+\BOOKMARK [1][-]{section.4.1}{Heuristical Approaches}{chapter.4}% 15
+\BOOKMARK [1][-]{section.4.2}{Exact Approaches}{chapter.4}% 16
 \BOOKMARK [0][-]{chapter.5}{Problem Solving Approach}{}% 17
 \BOOKMARK [1][-]{section.5.1}{Main Procedure}{chapter.5}% 18
-\BOOKMARK [1][-]{section.5.2}{Constructional Heuristics}{chapter.5}% 19
+\BOOKMARK [1][-]{section.5.2}{Construction Heuristics}{chapter.5}% 19
 \BOOKMARK [1][-]{section.5.3}{Recoloring}{chapter.5}% 20
 \BOOKMARK [1][-]{section.5.4}{Tabu Search}{chapter.5}% 21
 \BOOKMARK [0][-]{chapter.6}{Computational Results}{}% 22
