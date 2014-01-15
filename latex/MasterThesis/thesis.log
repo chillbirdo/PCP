@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  13 JAN 2014 17:53
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  16 JAN 2014 00:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1222,45 +1222,68 @@ Package: rotating 2009/03/28 v2.16a rotated objects in LaTeX
 \rot@float@box=\box67
 \rot@mess@toks=\toks41
 )
-\c@definition=\count191
-\c@lemma=\count192
-\c@corollary=\count193
-\c@theorem=\count194
-\c@proposition=\count195
- (./thesis.aux
-(./titlepage.aux))
+(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+))
+(/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
+Package: natbib 2010/09/13 8.31b (PWD, AO)
+
+
+Package natbib Warning: The `cite' package should not be used
+(natbib)                with natbib. Use option `sort' instead.
+
+\bibhang=\skip209
+\bibsep=\skip210
+LaTeX Info: Redefining \cite on input line 694.
+LaTeX Info: Redefining \citenum on input line 708.
+\c@NAT@ctr=\count191
+)
+\c@definition=\count192
+\c@lemma=\count193
+\c@corollary=\count194
+\c@theorem=\count195
+\c@proposition=\count196
+ (./thesis.aux (./titlepage.aux)
+
+LaTeX Warning: Label `eq4' multiply defined.
+
+)
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 64.
-LaTeX Font Info:    ... okay on input line 64.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 64.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 70.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count196
+\scratchcounter=\count197
 \scratchdimen=\dimen224
 \scratchbox=\box68
-\nofMPsegments=\count197
-\nofMParguments=\count198
+\nofMPsegments=\count198
+\nofMParguments=\count199
 \everyMPshowfont=\toks42
-\MPscratchCnt=\count199
+\MPscratchCnt=\count200
 \MPscratchDim=\dimen225
-\MPnumerator=\count200
-\makeMPintoPDFobject=\count201
+\MPnumerator=\count201
+\makeMPintoPDFobject=\count202
 \everyMPtoPDFconversion=\toks43
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -1311,27 +1334,27 @@ ABD: EveryShipout initializing macros
 * (1in=72.27pt, 1cm=28.453pt)
 
 \AtBeginShipoutBox=\box69
-Package hyperref Info: Link coloring OFF on input line 64.
+Package hyperref Info: Link coloring OFF on input line 70.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count202
+\c@section@level=\count203
 LaTeX Info: Redefining \Ref on input line 498.
 )
 Redoing nameref's sectioning
 Redoing nameref's label
-LaTeX Info: Redefining \nameref on input line 64.
-LaTeX Info: Redefining \ref on input line 64.
-LaTeX Info: Redefining \pageref on input line 64.
-LaTeX Info: Redefining \nameref on input line 64.
+LaTeX Info: Redefining \nameref on input line 70.
+LaTeX Info: Redefining \ref on input line 70.
+LaTeX Info: Redefining \pageref on input line 70.
+LaTeX Info: Redefining \nameref on input line 70.
 (./thesis.out) (./thesis.out)
 \@outlinefile=\write5
 \openout5 = `thesis.out'.
 
-LaTeX Info: Redefining \Ref on input line 64.
+LaTeX Info: Redefining \Ref on input line 70.
 
 
 bibgerm.sty: (n)german.sty 2.5b detected
@@ -1369,8 +1392,8 @@ bibgerm.sty: (n)german.sty 2.5b detected
 * \@reversemarginfalse
 * (1in=72.27pt, 1cm=28.453pt)
 
-\tmpbaselineskip=\skip209
-\tmpparindent=\skip210
+\tmpbaselineskip=\skip211
+\tmpparindent=\skip212
 LaTeX Font Info:    Try loading font information for T1+phv on input line 42.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
@@ -1510,45 +1533,51 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--6
 
 
 ] [2] (./chapters/preliminaries.tex
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 9.
 
+Package natbib Warning: Citation `dipl' on page 3 undefined on input line 1.
+
+
+Package natbib Warning: Citation `lawler-01' on page 3 undefined on input line 
+5.
+
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 10.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 9.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 10.
  [3
 
 ] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 51--52
+Underfull \hbox (badness 10000) in paragraph at lines 52--53
 
  []
 
 
-Overfull \hbox (18.18634pt too wide) in paragraph at lines 62--63
+Overfull \hbox (18.18634pt too wide) in paragraph at lines 63--64
 []\T1/ptm/m/it/10.95 A polynomial-time ap-prox-i-ma-tion scheme
  []
 
 [5] [6] [7]
-Overfull \hbox (0.3587pt too wide) in paragraph at lines 214--215
+Overfull \hbox (0.3587pt too wide) in paragraph at lines 215--216
 []\T1/ptm/m/it/10.95 A truth as-sign-ment is a sat-is-fy-ing as-sign-ment if it
  makes
  []
 
 [8]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 241.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 242.
 
 Underfull \vbox (badness 1735) has occurred while \output is active []
 
  [9]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 247.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 248.
 
 [10]
-\du=\skip211
+\du=\skip213
 
-Underfull \hbox (badness 10000) in paragraph at lines 446--447
+Underfull \hbox (badness 10000) in paragraph at lines 447--448
 
  []
 
@@ -1576,7 +1605,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 287--289
 
  []
 
-<figures/pcp.png, id=452, 1252.68pt x 638.385pt>
+<figures/pcp.png, id=448, 1252.68pt x 638.385pt>
 File: figures/pcp.png Graphic file (type png)
  <use figures/pcp.png>
 Package pdftex.def Info: figures/pcp.png used on input line 292.
@@ -1586,7 +1615,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 302--303
 
  []
 
-[14 <./figures/pcp.png>] <figures/rwa.png, id=462, 1317.92375pt x 1096.095pt>
+[14 <./figures/pcp.png>] <figures/rwa.png, id=457, 1317.92375pt x 1096.095pt>
 File: figures/rwa.png Graphic file (type png)
 
 <use figures/rwa.png>
@@ -1620,23 +1649,20 @@ LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [26] [27]
-Overfull \hbox (26.4012pt too wide) detected at line 2302
-[] []
+Underfull \hbox (badness 10000) in paragraph at lines 2292--2294
+
  []
 
 [28
 
 ]
-Underfull \vbox (badness 1024) has occurred while \output is active []
-
- [29]
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 2889.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 2894.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-) [30] [31] [32
+[29]) [30] [31] [32
 
 ] (./chapters/results.tex
 Overfull \hbox (1.00612pt too wide) in paragraph at lines 4--6
@@ -1839,65 +1865,55 @@ Underfull \hbox (badness 10000) in paragraph at lines 1629--1630
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
 ) [59
 
 
-] [60] (./chapters/outlook.tex [61
-
-]
-
-LaTeX Warning: Reference `sec:variations' on page 62 undefined on input line 11
-.
-
-) [62] (./chapters/summary.tex)
+] [60] (./chapters/summary.tex)
 Underfull \hbox (badness 10000) in paragraph at lines 2--177
 
  []
 
-(./thesis.bbl [63
+[61
 
-] [64
+] [62
 
-]
-bibitemlist
-[65] [66] [67])
+] (./chapters/outlook.tex [63]) (./thesis.bbl [64] [65
+
+] [66] [67])
 
 Class memoir Warning: The material used in the headers is too large
 (77.80435pt) for the given head height (13.6pt), it is recommended to
 either increase the head height or redesign the header
-(in both cases you will find help in the memoir manual). on input line 194.
+(in both cases you will find help in the memoir manual). on input line 200.
+
+
+Package natbib Warning: There were undefined citations.
 
 [68]
 \tf@toc=\write6
 \openout6 = `thesis.toc'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 194.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 194.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 200.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 200.
  (./thesis.aux (./titlepage.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 194.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 194.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 200.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 200.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 87A5FFC122C41E3EBD2D57170EF04EFF;1891.
+(rerunfilecheck)             Checksum: 934B349F3A614D8ADE8A654CA59613BA;1891.
 
 
-LaTeX Warning: There were undefined references.
+LaTeX Warning: There were multiply-defined labels.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 194.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 200.
  ) 
 Here is how much of TeX's memory you used:
- 22166 strings out of 494987
- 371303 string characters out of 3178575
- 993679 words of memory out of 3000000
- 24489 multiletter control sequences out of 15000+200000
+ 22564 strings out of 494987
+ 376972 string characters out of 3178575
+ 998584 words of memory out of 3000000
+ 24882 multiletter control sequences out of 15000+200000
  85339 words of font info for 107 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 69i,24n,57p,1579b,1472s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 69i,24n,57p,1578b,1472s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -1917,10 +1933,10 @@ s/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
 times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (80 pages, 947703 bytes).
+Output written on thesis.pdf (80 pages, 948121 bytes).
 PDF statistics:
- 1165 PDF objects out of 1200 (max. 8388607)
- 1042 compressed objects within 11 object streams
- 416 named destinations out of 1000 (max. 500000)
+ 1160 PDF objects out of 1200 (max. 8388607)
+ 1037 compressed objects within 11 object streams
+ 413 named destinations out of 1000 (max. 500000)
  273 words of extra memory for PDF output out of 10000 (max. 10000000)
 

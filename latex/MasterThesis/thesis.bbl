@@ -1,40 +1,37 @@
 \begin{thebibliography}{10}
 
-\bibitem{trick-96}
-A.Mehrotra and M.A.Trick.
-\newblock A column generation approach for graph coloring.
-\newblock {\em INFORMS Journal on Computing}, 8:344--354, 1996.
-
 \bibitem{andersen-07}
 R.~Andersen.
 \newblock Finding large and small dense subgraphs.
-\newblock {\em CoRR}, 0707032, 2007.
+\newblock Cornell University Library, http://arxiv.org/abs/cs/0702032, February
+  2007.
 
-\bibitem{applegate-01}
-D.~Applegate, R.~Bixby, V.~Chvátal, and W.~Cook.
-\newblock Solution of a 15112-city traveling salesman problem.
-\newblock {\em http://www.math.uwaterloo.ca/tsp/d15sol/index.html}, 2001.
+\bibitem{asahiro-02}
+Y.~Asahiro, R.~Hassin, and K.~Iwama.
+\newblock Complexity of finding dense subgraphs.
+\newblock {\em Discrete Applied Mathematics}, 121:15–26, 2002.
 
-\bibitem{Meindl-12}
-M.~Templ B.~Meindl.
-\newblock Analysis of commercial and free and open source solvers for linear
-  optimization problems.
-\newblock 2012.
+\bibitem{asahiroa-00}
+Y.~Asahiroa, K.~Iwamab, H.~Tamakic, and T.~Tokuyamad.
+\newblock Greedily finding a dense subgraph.
+\newblock {\em Journal of Algorithms}, 34:203--221, 2000.
 
 \bibitem{belgacem-13}
-Lucile Belgacem, Irène Charon, and Olivier Hudry.
+L.~Belgacem, I.~Charon, and O.~Hudry.
 \newblock A post-optimization method for the routing and wavelength assignment
   problem applied to scheduled lightpath demands.
-\newblock {\em European Journal of Operational Research}, 2013.
+\newblock {\em European Journal of Operational Research}, 232(2):298--306,
+  2014.
 
 \bibitem{blum-05}
 C.~Blum and A.~Roli.
-\newblock {\em Metaheuristics in combinatorial optimization: Overview and
-  conceptual comparison}.
-\newblock ACM Computing Surveys, 2003.
+\newblock Metaheuristics in combinatorial optimization: Overview and conceptual
+  comparison.
+\newblock {\em ACM Computing Surveys}, 35, 2003.
+\newblock 268--308.
 
 \bibitem{brelaz-79}
-Daniel Br{\'e}laz.
+D.~Br{\'e}laz.
 \newblock New methods to color the vertices of a graph.
 \newblock {\em Communication of ACM}, 22(4):251--256, 1979.
 
@@ -49,55 +46,74 @@ M.~Campelo, V.~Campos, R.~Correa, and C.~Rodrigues.
 M.~Charikar.
 \newblock Greedy approximation algorithms for finding dense components in a
   graph.
-\newblock {\em APPROX}, pages 84--95, 2000.
+\newblock {\em Lecture Notes in Computer Science}, 1913:84--95, 2000.
+\newblock Third International Workshop, APPROX 2000 Saarbrücken, Germany,
+  September 5–8, 2000 Proceedings.
 
 \bibitem{chiong-09}
-Raymond Chiong.
-\newblock Nature-inspired algorithms for optimisation.
-\newblock {\em Studies in Computational Intelligence}, 193, 2009.
+R.~Chiong.
+\newblock {\em Nature-Inspired Algorithms for Optimisation}.
+\newblock Number 193 in Studies in Computational Intelligence. Springer, 2009.
 
-\bibitem{volko-13}
-C.Volko.
-\newblock Selective graph coloring problem.
-\newblock 2012.
+\bibitem{campelo-04}
+Y.~Corrêa and M.~Campelo.
+\newblock Cliques, holes and the vertex coloring polytope.
+\newblock {\em Information Processing Letters}, 89(4):159--164, February 2004.
 
-\bibitem{neumann-10}
-Bioinspired~Computation F.~Neumann, C.~Witt.
-\newblock Bioinspired computation in combinatorial optimization.
-\newblock {\em Combinatorial Optimization, Natural Computing Series}, 2010.
+\bibitem{erlebach-01}
+T.~Erlebach and K.~Jansen.
+\newblock The complexity of path coloring and call scheduling.
+\newblock {\em Theoretical Computer Science}, 255:33--50, March 2001.
+
+\bibitem{feige-97}
+U.~Feige, G.~Kortsarz, and D.~Peleg.
+\newblock The dense k-subgraph problem.
+\newblock {\em Algorithmica}, 29:410--421, 1997.
 
 \bibitem{feremans-03}
 C.~Feremans.
 \newblock Generalized network design problems.
-\newblock {\em European Journal of Operational Research}, 148:1--3, 2003.
+\newblock {\em European Journal of Operational Research}, 148:1--13, July 2003.
+
+\bibitem{fritz-11}
+G.~Fritz.
+\newblock Heuristic methods for the hop constrained survivable network design
+  problem.
+\newblock Master's thesis, Vienna University of Technology, Institute of
+  Computer Graphics and Algorithms, Vienna, Austria, September 2011.
+\newblock Supervised by G. Raidl and S. Pirkwieser.
 
 \bibitem{frota-07}
-Yuri Frota, Nelson Maculan, Thiago~F. Noronha, and Celso~C. Ribeiro.
+Y.~Frota, N.~Maculan, T.~F. Noronha, and C.~C. Ribeiro.
 \newblock A branch-and-cut algorithm for the partition coloring problem.
 \newblock {\em Networks}, 55(3):194--204, 2010.
 
 \bibitem{garey-79}
 M.~R. Garey and D.~S. Johnson.
-\newblock Computers and intractability: A guide to the theory of
-  np-completeness.
-\newblock {\em Series of Books in the Mathematical Sciences}, 1, 1979.
+\newblock {\em Computers and Intractability: A Guide to the Theory of
+  NP-Completeness}.
+\newblock Series of Books in the Mathematical Sciences. W. H. Freeman and
+  Company, first edition, January 1979.
 
 \bibitem{gaume-10}
-Bruno Gaume, Emmanuel Navarro, and Henri Prade.
+B.~Gaume, E.~Navarro, and H.~Prade.
 \newblock A parallel between extended formal concept analysis and bipartite
   graphs analysis.
-\newblock 2010.
+\newblock {\em Lecture Notes in Computer Science}, 6178:270--280, 2010.
+
+\bibitem{gebhard-12}
+P.~Gebhard.
+\newblock The vehicle routing problem with compartments based on solutions of
+  lp-relaxations.
+\newblock Master's thesis, Vienna University of Technology, Institute of
+  Computer Graphics and Algorithms, Vienna, Austria, October 2012.
+\newblock Supervised by G. Raidl and S. Pirkwieser.
 
 \bibitem{gendreau-10}
 M.~Gendreau.
 \newblock {\em Handbook of metaheuristics}.
-\newblock Springer, 2010.
-
-\bibitem{fritz-11}
-S.Pirkwieser G.Fritz, G.Raidl.
-\newblock Heuristic methods for the hop constrained survivable network design
-  problem.
-\newblock 2011.
+\newblock International Series in Operations Research \& Management Science
+  (Book 146). Springer, second edition, 2010.
 
 \bibitem{glover-86}
 F.~Glover.
@@ -112,38 +128,40 @@ F.~Glover, M.~Parker, and J.~Ryan.
   Science}, 26:285--308, 1996.
 
 \bibitem{hoshino-11}
-Edna~A. Hoshino, Yuri~A. Frota, and Cid~C. de~Souza.
+E.~A. Hoshino, Y.~A. Frota, and C.~C. de~Souza.
 \newblock A branch-and-price approach for the partition coloring problem.
 \newblock {\em Operations Research Letters}, 39(2):132--137, 2011.
-
-\bibitem{nocedal-00}
-S.~Wright J.~Nocedal.
-\newblock Numerical optimization.
-\newblock 2000.
 
 \bibitem{karp-72}
 R.~Karp.
 \newblock Reducibility amound combinatorial problems.
-\newblock {\em Complexity of computer computations}, pages 84--105.
+\newblock {\em Complexity of computer computations}, pages 85--103, 1972.
+
+\bibitem{khuller-09}
+S.~Khuller and B.~Saha.
+\newblock On finding dense subgraphs.
+\newblock {\em Lecture Notes in Computer Science}, 5555:597--608, 2009.
 
 \bibitem{krishnaswamy-01}
 R.~M. Krishnaswamy and K.~N. Sivarajan.
 \newblock Algorithms for routing and wavelength assignment based on solutions
   of lp-relaxations.
-\newblock {\em IEEE Communication Letters}, 5(10), 2001.
-
-\bibitem{lawler-01}
-E.~Lawler.
-\newblock Combinatorial optimization: Networks and matroids.
-\newblock 2002.
+\newblock {\em IEEE Communication Letters}, 5(10), October 2001.
 
 \bibitem{lawler-76}
 E.L. Lawler.
-\newblock Combinatorial optimization: Networks and matroids.
-\newblock 1976.
+\newblock {\em Combinatorial Optimization: Networks and matroids}.
+\newblock Dover Publications, 1976.
+
+\bibitem{leitner-06}
+M.~Leitner.
+\newblock Solving two generalized network design problems with exact and
+  heuristic methods.
+\newblock May 2006.
+\newblock Supervised by G. Raidl and B. Hu.
 
 \bibitem{li-00}
-Guangzhi Li and Rahul Simha.
+G.~Li and R.~Simha.
 \newblock The partition coloring problem and its application to wavelength
   routing and assignment.
 \newblock In {\em 1st Workshop on Optical Networks}, 2000.
@@ -154,30 +172,41 @@ V.~Campos M.~Campelo and R.~Correa.
   problem, proceedings of the 2th brazilian symposium on graphs.
 \newblock {\em Electronic Notes in Discrete Mathematics}, 19:337--343, 2005.
 
-\bibitem{markovic-10}
-Goran~Z. Marković and Vladanka~S. Aćimović-Raspopović.
-\newblock Generalized network design problems.
-\newblock {\em Telfor Journal}, 2010.
-
 \bibitem{matula-72}
 D.~Matula, G.~Marble, and J.~Isaacson.
-\newblock Graph coloring algorithms.
-\newblock {\em Graph Theory and Computing}, 10, 1972.
+\newblock {\em Graph Coloring Algorithms}, volume~10.
+\newblock 1972.
 
-\bibitem{leitner-06}
-B.Hu M.Leitner, G.Raidl.
-\newblock Solving two generalized network design problems with exact and
-  heuristic methods.
-\newblock 2006.
+\bibitem{trick-96}
+A.~Mehrotra and M.~A. Trick.
+\newblock A column generation approach for graph coloring.
+\newblock {\em INFORMS Journal on Computing}, 8:344--354, 1996.
+
+\bibitem{Meindl-12}
+B.~Meindl and M.~Templ.
+\newblock Meindl-12.
+\newblock Technical report, Institut f. Statistik u.
+  Wahrscheinlichkeitstheorie, Technical University of Vienna, 1040 Wien,
+  Wiedner Hauptstr. 8-10/107, Vienna, Austra, March 2012.
 
 \bibitem{murthy-02}
-C.~S.~Ram Murthy and M.Gurusamy.
-\newblock Wdm optical networks - concepts, design and algorithms.
-\newblock {\em , volume = {}, number = {}, year = {2002}, note = {}, issn =
-  {},}.
+C.~S.~Ram Murthy and M.~Gurusamy.
+\newblock {\em WDM Optical Networks - Concepts, Design and Algorithms}.
+\newblock Prentice Hall India, 2002.
+
+\bibitem{neumann-10}
+F.~Neumann and C.~Witt.
+\newblock {\em Bioinspired Computation in Combinatorial Optimization}.
+\newblock Combinatorial Optimization, Natural Computing Series. Springer, 2010.
+
+\bibitem{nocedal-00}
+J.~Nocedal and S.~Wright.
+\newblock {\em Numerical Optimization}.
+\newblock Springer Series in Operations Research and Financial Engineering.
+  Springer, 2006.
 
 \bibitem{noronha-06}
-Thiago~F. Noronha and Celso~C. Ribeiro.
+T.~F. Noronha and C.C. Ribeiro.
 \newblock Routing and wavelength assignment by partition colouring.
 \newblock {\em European Journal of Operational Research}, 171(3):797--810,
   2006.
@@ -187,86 +216,55 @@ I.~H. Osman and G.~Laporte.
 \newblock Metaheuristics: A bibliography.
 \newblock {\em Annals of Operations Research}, 63:513--623, 1996.
 
-\bibitem{pardalos-02}
-H.Romeijn P.~Pardalos.
-\newblock Handbook of global optimization.
-\newblock 2, 2002.
-
 \bibitem{papadimitriou-94}
 C.~M. Papadimitriou.
-\newblock Computational complexity.
-\newblock 1, 1994.
+\newblock {\em Computational Complexity}.
+\newblock Addison Wesley Pub Co Inc., November 1993.
 
-\bibitem{gebhard-12}
-S.Pirkwieser P.Gebhard, G.Raidl.
-\newblock The vehicle routing problem with compartments based on solutions of
-  lp-relaxations.
-\newblock 2012.
+\bibitem{pardalos-02}
+P.~Pardalos and H.~Romeijn.
+\newblock {\em Handbook of Global Optimization}.
+\newblock Kluwer Academic Publishers, second edition, 2002.
 
 \bibitem{pop-12}
-Petrica~C.\ Pop.
+P.~C. Pop.
 \newblock {\em Generalized network design problems. Modeling and Optimization}.
-\newblock De Gruyter Series in Discrete Mathematics and Applications, Germany,
-  2012.
+\newblock De Gruyter Series in Discrete Mathematics and Applications. Versita,
+  Germany, 2012.
 
 \bibitem{pop-13}
-Petrica~C.\ Pop, Bin Hu, and G\"unther~R.\ Raidl.
+P.~C.\ Pop, B.~Hu, and G.~R.\ Raidl.
 \newblock A memetic algorithm for the partition graph coloring problem.
 \newblock In {\em Extended Abstracts of the 14th International Conference on
   Computer Aided Systems Theory}, pages 167--169, Gran Canaria, Spain, 2013.
 
-\bibitem{khuller-09}
-B.~Saha S.~Khuller.
-\newblock On finding dense subgraphs.
-\newblock 2009.
-
-\bibitem{erlebach-01}
-K.~Jansen T.~Erlebach.
-\newblock The complexity of path coloring and call scheduling.
-\newblock {\em Theoretical Computer Science}, 255, 2001.
-
-\bibitem{feige-97}
-G.~Kortsarz U.~Feige and D.~Peleg.
-\newblock The dense k-subgraph problem.
-\newblock {\em Algorithmica}, 29:410--421, 1997.
+\bibitem{volko-13}
+C.-D. Volko.
+\newblock Selective graph coloring problem.
+\newblock Master's thesis, Vienna University of Technology, Institute of
+  Computer Graphics and Algorithms, April 2013.
+\newblock Supervised by G. Raidl and B. Hu.
 
 \bibitem{wegener-05}
-Ingo Wegener.
+I.~Wegener.
 \newblock {\em Complexity Theory: Exploring the Limits of Efficient
   Algorithms}.
 \newblock Springer, 2005.
-\newblock Reflects recent developments in its emphasis on randomized and
-  approximation algorithms and communication models.
 
 \bibitem{welsh-67}
-D.~Welsh and M.Powell.
+D.~Welsh and M.~Powell.
 \newblock An upper bound to the chromatic number of a graph and its application
   to time-table problems.
-\newblock {\em Comp.J.}, 10:85,86, 1967.
+\newblock {\em Oxford Journal on Computer Science}, pages 85,86, 1967.
 
 \bibitem{williamson-10}
-David~P. Williamson and David~B. Shmoys.
-\newblock The design of approximation algorithms.
-\newblock {\em Cambridge University Press}, 2010.
+D.~P. Williamson and D.~B. Shmoys.
+\newblock {\em The Design of Approximation Algorithms}.
+\newblock Cambridge University Press, 2010.
 
 \bibitem{wolpert-97}
 D.~H. Wolpert and W.~G. Macready.
 \newblock No free lunch theorems for optimization.
 \newblock {\em IEEE Transactions on Evolutionary Computation}, 1:67--82, 1997.
-
-\bibitem{asahiroa-00}
-H.~Tamakic T.~Tokuyamad Y.~Asahiroa, K.~Iwamab.
-\newblock Greedily finding a dense subgraph.
-\newblock {\em Journal of Algorithms}, 34, 2000.
-
-\bibitem{campelo-04}
-M.~Campelo Y.~Corrêa.
-\newblock Cliques, holes and the vertex coloring polytope.
-\newblock {\em Information Processing Letters}, 89, 2004.
-
-\bibitem{asahiro-02}
-K.Iwama Y.Asahiro, R.Hassin.
-\newblock Complexity of ÿnding dense subgraphs.
-\newblock {\em Discrete Applied Mathematics}, 121:15–26, 2002.
 
 \end{thebibliography}

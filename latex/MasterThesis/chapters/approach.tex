@@ -2264,55 +2264,58 @@ Uncolor all nodes in $V'_{col(c)}$\;
 \subsection{ILP1: minimizing conflicts}
 \label{sec:ilp1}
 
-The following ILP model solves the problem of recoloring exactly in terms of minimizing the number of produced conflicts. Let $Q = {Q_1,\ldots,Q_q}$ be the set of uncolored clusters and let $C=\{1,\ldots,cmax\}$ be the set of allowed colors. The 3-dimensional array of binary variables $x$ denote for each cluster $p \in Q$, if node $v \in Q_p$ is selected and colored with color $c \in C$, i.e. 
+The following ILP model solves the problem of recoloring exactly in terms of minimizing the number of produced conflicts. Let $Q = {Q_1,\ldots,Q_q}$ be the set of uncolored clusters and let $C=1,\ldots,cmax$ be the set of allowed colors. The 3-dimensional array of binary variables $x$ denotes for each cluster $p \in \{1,\ldots , q\}$, if node $v \in Q_p$ is selected and colored with color $c \in C$, i.e. 
 
 \begin{equation}
-  x_{pcv}=\begin{cases}
+  x_{pvc}=\begin{cases}
       1 & \text{if } v \in Q_p \text{ is selected and colored with color } c \in C\\
       0 & \text{otherwise}
     \end{cases}
   \label{eq4}
 \end{equation}
 
-Let $m$ be a 3-dimensional array of constants, storing for each cluster $p \in Q$ the number conflicts that would occur by selecting the pair $(v \in Q_p, c \in C)$. $E$ denotes the set of edges.
+Let $m$ be a 3-dimensional array of constants, storing for each cluster $p \in \{1,\ldots , q\}$ the number conflicts that would occur by selecting the pair $(v \in Q_p, c \in C)$. $E$ denotes the set of edges.
 \begin{equation*}
 \begin{aligned}
 & \text{minimize} && \sum_{p \in Q}\sum_{v \in Q_p}\sum_{c \in C} x_{pvc} \cdot m_{pvc}                    &&&(1)\\
-& \text{subject to} && \sum_{v \in Q_p}\sum_{c \in C} x_{pvc}=1, && \forall p \in Q    &(2)\\
-&&& x_{pvc}+x_{quc} \leq 1, && \forall ((p,v),(q,u)) \in E, \forall c \in C     &(3)\\
-&&& x_{pvc} \in \{0,1\}, && \forall p \in Q, \forall v \in Q_p, \forall c \in C         &(4)
+& \text{subject to} && \sum_{v \in Q_p}\sum_{c \in C} x_{pvc}=1, && \forall p \in \{1,\ldots , q\}    &(2)\\
+&&& x_{pvc}+x_{ruc} \leq 1, && \forall c \in C, \forall (v,u) \in E : v\in V_p, u\in V_r     &(3)\\
+&&& x_{pvc} \in \{0,1\}, && \forall p \in \{1,\ldots , q\}, \forall v \in Q_p, \forall c \in C         &(4)
 \end{aligned}
 \end{equation*}
 In (1), the objective function is declared as the sum of the conflicts of all selected node-color pairs. The set of constraints in (2) demand, that for each cluster there has to be one node-color pair selected. Further, inequations (3) prevent conflicts between clusters in $Q$.\\
-An advantage of this model is that the matrix $m$ does not have to be created each time the ILP is initialized. By updating the information each time a node is colored, it can in fact be made constantly available.
+An advantage of this model is that the matrix $m$ does not have to be created each time the ILP is initialized. In fact, by updating the information each time a node is colored, it can be made constantly available.
 
 
 \subsection{ILP2: minimizing conflicting nodes}
 \label{sec:ilp2}
 After recoloring, the tabu search starts eliminating the set of ``conflicting clusters'', i.e. the clusters involved in conflicts, that have \textit{not} been recolored by the latest recoloring process, i.e. are not in $Q$. Let this set be denoted by $R$. In case of recoloring algorithms that allow inner conflicts, i.e. conflicts between recolored clusters, additionally one cluster per inner conflict is added to $R$. 
-   Testing the effect of minimizing $\left\vert{R}\right\vert$ as a part of the whole algorithm is an important concerns of this work. In this context, figure \ref{fig:ilpcompare} shows a case where \textit{ILP1} would not decide optimally in terms of minimizing the number of conflicting clusters. The circles represent clusters inside of set $Q$ and $R$, respectively. The connections between the clusters denote conflicts. Assuming that there exists a coloring (a) that produces two conflicts with $\left\vert{R}\right\vert=2$ \ref{fig:ilpcompare} and a coloring (b) that produces $3$ conflicts, but $\left\vert{R}\right\vert=1$, \textit{ILP1} would decide on the first. Therefore a second ILP model has been designed, which minimizes the number of conflicting clusters $\left\vert{R}\right\vert$. Let $color[(p,v)]$ be a function returning the color of the node $v$ in partition $p$.
-\begin{equation*}
-\begin{aligned}
-& \underset{z}{\text{minimize}} && \sum_{r \in V\setminus Q}\sum_{i \in V_r} z_{ri}                                              &&&(1)\\
-& \text{subject to} && z_{ri} \geq X_{pvc}, && \forall ((r,i),(p,v))\in E : (r,i) \notin Q, (p,v) \in Q, c=color[(r,i)]                                                            &(2)\\
-&&& \sum_{v \in Q_p}\sum_{c \in C} X_{pvc}=1, && \forall p \in Q   &(3)\\
-&&& X_{pvc}+X_{quc} \leq 1, && \forall ((p,v),(q,u)) \in E, \forall c \in C     &(4)\\
-&&& X_{pvc} \in \{0,1\}, && \forall p \in Q, \forall v \in Q_p, \forall c \in C        &(5)
-\end{aligned}
-\end{equation*}
-The array of binary variables $z$ holds one variable for each node $i \in V \setminus Q$ connected to a node $v \in Q$. 
-
-Variable $z_{ri}$ is set to one, if node $i$ has a connection to node $v$ and both nodes are colored with the same color.
+   Testing the effect of minimizing $\left\vert{R}\right\vert$ as a part of the whole algorithm is an important concern of this work. In this context, figure \ref{fig:ilpcompare} shows a case where \textit{ILP1} would not decide optimally in terms of minimizing the number of conflicting clusters. The circles represent clusters inside of set $Q$ and $R$, respectively. The connections between the clusters denote conflicts. Assuming that there exists a coloring (a) that produces two conflicts with $\left\vert{R}\right\vert=2$ \ref{fig:ilpcompare} and a coloring (b) that produces $3$ conflicts, but $\left\vert{R}\right\vert=1$, \textit{ILP1} would decide on the first. Therefore a second ILP model has been designed, which minimizes the number of conflicting clusters $\left\vert{R}\right\vert$.\\
+   
+Let $W=\{w\in W \mid (w,v)\in E, \forall v\in Q\}$ be the set of all selected and colored nodes not in $Q$ and adjacent to any node in $Q$. In other words, $W$ represents the superset of all sets of conflicting nodes that result from any possible coloring of $Q$, therefore $R \subseteq W$ holds. Let $color(v)\to c\in C$ be a function returning the color of the node $v$ in partition $p$.
+The array of binary variables $z$ stores one variable for each node $w \in W$. Variable $z_w$ is set to one, if node $v \in Q$ is connected to $w$, and both have the same color, i.e.
 
 \begin{equation}
-  z_{pcv}=\begin{cases}
-      1 & \text{if } v \in Q_p \text{ is selected and colored with color } c \in C\\
+  z_{w}=\begin{cases}
+      1 & \text{if } (w,v)\in E \text{ and } color(w)=color(v) \\
       0 & \text{otherwise}
     \end{cases}
   \label{eq4}
 \end{equation}
 
-The objective function (1) minimizes the sum of all variables $z$. Variable $z_{ri}$ is set to one, if and only if the variable $x_{pvc}$ is set to one and the node $i\in Q_r$ has a connection to node $v \in V_p$ (2). Constraints (3) and (4) are the same as in \textit{ILP1}, forcing one selected node-color pair to be selected per cluster and preventing conflicts inside $Q$.  
+Consider the following ILP model:
+
+\begin{equation*}
+\begin{aligned}
+& \text{minimize} && \sum_{w \in W} z_{w}                                              &&&(1)\\
+& \text{subject to} && z_{w} \geq x_{pvc}, && \forall (w,v)\in E : w \in W, v \in Q, c=color(w)                                                            &(2)\\
+&&& \sum_{v \in Q_p}\sum_{c \in C} x_{pvc}=1, && \forall p \in \{1,\ldots , q\}   &(3)\\
+&&& x_{pvc}+x_{ruc} \leq 1, && \forall c \in C, \forall (v,u) \in E : v\in V_p, u\in V_r     &(4)\\
+&&& x_{pvc} \in \{0,1\}, && \forall p \in Q, \forall v \in Q_p, \forall c \in C        &(5)
+\end{aligned}
+\end{equation*}
+
+The objective function (1) minimizes the sum of all variables $z$. Variable $z_{w}$ is set to one, if the variable $x_{pvc}$ is set to one, where $(w,v)\in E$ and $c=color(w)$ (2). Constraints (3) and (4) are the same as in \textit{ILP1}, forcing one selected node-color pair to be selected per cluster and preventing conflicts inside $Q$.  
 
 \ifx\du\undefined
   \newlength{\du}
@@ -2870,7 +2873,7 @@ Set $\bar{s} \gets s$\;
   Set $minConflicts \gets \infty$\;
   \For{$p \in R$}{
     \For{$v \in p$ and \textbf{for} $c = 1,\ldots,cmax$}{
-      Obtain a tentative solution $s'$ by selecting and coloring node v with color c in $\bar{s}$\; 
+      Obtain a tentative solution $s'$ by selecting and coloring node $v$ with color $c$ in $\bar{s}$\; 
       \If{$conflicts(s') = 0$}{
           $\bar{s} \gets s', \bar{v} \gets v, \bar{c} \gets c, \bar{p} \gets p$\;
           break both loops\;
@@ -2894,7 +2897,7 @@ Set $\bar{s} \gets s$\;
 \label{algo:tabusearch}
 \end{algorithm}
 
-Algorithm \ref{algo:tabusearch} outlines the procedure. The loops starting in line 6 and 7 are determining the move producting the minimum amount of conflicts. The condition in line 9 implements the aspiration criterion. The chosen node-color pair is added to the tabulist for $\mathit{tabutenure}$ iterations in line 17. The cluster $p$ enclosing the chosen node is removed from the set of conflicting nodes $R$ in line 18 and all clusters $R_{\bar{v}}$ conflicting with $p$ are added to it in line 19 and 20. If the algorithm terminates because of too much iterations, the algorithm returns an infeasible solution $\bar{s}$.
+Algorithm \ref{algo:tabusearch} outlines the procedure. The loops starting in line 6 and 7 are determining the move producting the minimum amount of conflicts. The condition in line 9 implements the aspiration criterion. The chosen node-color pair is added to the tabulist for $\mathit{tabutenure}$ iterations in line 17. The cluster $p$ enclosing the chosen node is removed from the set of conflicting nodes $R$ in line 18 and all clusters $R_{\bar{v}}$ conflicting with $p$ are added to it in line 19 and 20. If the algorithm terminates because of reaching the iteration limit, the algorithm returns an infeasible solution $\bar{s}$.
 
 
 \subsection{Variant: protected recolored area}

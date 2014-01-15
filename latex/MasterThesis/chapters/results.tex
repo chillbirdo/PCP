@@ -1624,27 +1624,27 @@ Furthermore experiments have been performed, placing the recently recolored set 
 \clearpage
 
 \subsection{Comparison to previous works}
-Since $\mathit{RANDOM}$ performs best in terms of runtime and is not significantly inferior to other methods in terms of quality, its results are compared to those of \cite{frota-07} and \cite{pop-13} in tables \ref{tab:pcpSizeCompared} and \ref{tab:pcpDensCompared}. $\mathit{MA2}$ denotes one of the memetic algorithm variants by \cite{pop-13}, described in chapter \ref{ch:previous}. It can be seen that the strategy presented in this theses performs better in both runtime and solution quality. This leads to the assumption, that for solving the PCP local search based metaheuristics are superior to population based approaches.\\
+The results of $\mathit{Hybrid-PCP}$ are compared to those of \cite{frota-07} and \cite{pop-13} in tables \ref{tab:pcpSizeCompared} and \ref{tab:pcpDensCompared}. $\mathit{MA2}$ denotes one of the memetic algorithm variants by \cite{pop-13}, described in chapter \ref{ch:previous}. It can be seen that the strategy presented in this theses performs better in both runtime and solution quality. These results and those of Noronha et al. \cite{noronha-06} lead to the assumption, that for solving the PCP local search based metaheuristics are superior to population based approaches.\\
 
-In \ref{tab:inCompared} results are compared to results presented in \cite{noronha-06}. The table shows, that for instances of smaller size and for a smaller local search iteration limit the strategy of this theses is superior. The largest instance with $2000$ nodes is solved better by the strategy of Noronha et.al. \\
+In table \ref{tab:inCompared} results are compared to results presented in \cite{noronha-06}. The table shows, that for instances of smaller size and for a smaller local search iteration limit the strategy of this theses is superior. The largest instance with $2000$ nodes is solved better by the strategy of Noronha et.al. \\
 
 \begin{table}[h]
 \caption{Instances of different node size evaluated with $\mathit{RANDOM}$ recoloring and compared to the results presented in \cite{pop-13}.}
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{|l|l||l|l||l|l|l||l|l|l|}
 \hline
-\multicolumn{2}{|l||}{Instance set}&\multicolumn{2}{l||}{B \& C}&\multicolumn{3}{l||}{Random (10 runs/inst)}&\multicolumn{3}{|l|}{MA2}\\
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{2}{l||}{B \& C}&\multicolumn{3}{l||}{HYBRID-PCP)}&\multicolumn{3}{|l|}{MA2}\\
 \cline{1-10}
  nodes & density & LB & UB  & $\overline{obj}$ & $sd$ & $\overline{time(s)}$  & $\overline{obj}$ & $sd$ & $\overline{time(s)}$\\
 \hline
 20 & 0.5  & 3 & 3  & \textbf{3.00} & 0.00 & 0.01   & \textbf{3.00} & 0.00 & 0.14 \\
-40 & 0.5  & 4 & 4  & \textbf{4.00} & 0.00 & 0.02   & \textbf{4.00} & 0.00 & 0.60 \\
-60 & 0.5  & 5 & 5  & \textbf{5.00} & 0.00 & 0.06   & 5.63 & 0.49 & 2.00 \\
-70 & 0.5  & 6 & 6  & \textbf{6.00} & 0.00 & 0.08   & 6.06 & 0.24 & 3.33 \\
-80 & 0.5  & 6 & 6  & \textbf{6.27} & 0.13 & 0.15  & 6.94 & 0.29 & 4.90 \\
-90 & 0.5  & 6 & 7  & 7.88 & 0.17 & 0.36  & \textbf{7.55} & 0.50 & 7.49 \\
-100 & 0.5  & 6 & 7  & \textbf{7.12} & 0.01 & 0.32   & 7.93 & 0.30 & 11.04 \\
-120 & 0.5  & 7 & 8  & \textbf{8.64} & 0.19 & 0.52   & 9.22 & 0.43 & 21.05 \\
+40 & 0.5  & 4 & 4  & \textbf{4.00} & 0.00 & 0.01   & \textbf{4.00} & 0.00 & 0.60 \\
+60 & 0.5  & 5 & 5  & \textbf{5.00} & 0.00 & 0.10  & 5.63 & 0.49 & 2.00 \\
+70 & 0.5  & 6 & 6  & \textbf{6.00} & 0.00 & 0.03   & 6.06 & 0.24 & 3.33 \\
+80 & 0.5  & 6 & 6  & \textbf{6.44} & 0.13 & 0.26  & 6.94 & 0.29 & 4.90 \\
+90 & 0.5  & 6 & 7  & 7.95 & 0.04 & 0.72  & \textbf{7.55} & 0.50 & 7.49 \\
+100 & 0.5  & 6 & 7  & \textbf{7.12} & 0.01 & 1.39   & 7.93 & 0.30 & 11.04 \\
+120 & 0.5  & 7 & 8  & \textbf{8.60} & 0.00 & 0.89   & 9.22 & 0.43 & 21.05 \\
 \hline
 \end{tabular}
 }
@@ -1657,19 +1657,19 @@ In \ref{tab:inCompared} results are compared to results presented in \cite{noron
  \resizebox{\columnwidth}{!}{%
 \begin{tabular}{|l|l||l|l||l|l|l||l|l|l|}
 \hline
-\multicolumn{2}{|l||}{Instance set}&\multicolumn{2}{l||}{B \& C}&\multicolumn{3}{l||}{Random (10 runs/inst)}&\multicolumn{3}{|l|}{MA2}\\
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{2}{l||}{B \& C}&\multicolumn{3}{l||}{HYRBID-PCP)}&\multicolumn{3}{|l|}{MA2}\\
 \cline{1-10}
  nodes & density & LB & UB  & $\overline{obj}$ & $sd$ & $\overline{time(s)}$  & $\overline{obj}$ & $sd$ & $\overline{time(s)}$\\
 \hline
-90 & 0.1  & 2 & 3  & \textbf{3.00} & 0.00 & 0.02   & 3.09 & 0.29 & 1.37 \\
-90 & 0.2  & 3 & 4  & \textbf{3.80} & 0.15 & 0.03   & 4.41 & 0.49 & 3.24 \\
-90 & 0.3  & 4 & 5  & \textbf{5.00} & 0.00 & 0.06   & 5.52 & 0.56 & 4.90 \\
-90 & 0.4  & 5 & 6  & \textbf{6.00} & 0.00 & 0.11   & 6.79 & 0.83 & 6.54 \\
-90 & 0.5  & 6 & 7  & \textbf{7.00} & 0.00 & 0.18  & 7.55 & 0.50 & 7.49 \\
-90 & 0.6  & 8 & 8  & \textbf{8.28} & 0.15 & 0.31  & 10.50 & 0.87 & 11.95 \\
-90 & 0.7  & 10 & 10  & \textbf{10.00} & 0.00 & 0.45   & 12.39 & 1.12 & 14.83 \\
-90 & 0.8  & 12 & 12  & \textbf{12.05} & 0.14 & 0.80   & 15.18 & 0.80 & 20.98 \\
-90 & 0.9  & 16 & 16  & \textbf{15.80} & 0.15 & 1.23   & 17.27 & 0.98 & 45.75 \\
+90 & 0.1  & 2 & 3  & \textbf{3.00} & 0.00 & 0.01   & 3.09 & 0.29 & 1.37 \\
+90 & 0.2  & 3 & 4  & \textbf{4.00} & 0.00 & 0.01   & 4.41 & 0.49 & 3.24 \\
+90 & 0.3  & 4 & 5  & \textbf{5.00} & 0.00 & 0.01   & 5.52 & 0.56 & 4.90 \\
+90 & 0.4  & 5 & 6  & \textbf{6.00} & 0.00 & 0.02   & 6.79 & 0.83 & 6.54 \\
+90 & 0.5  & 6 & 7  & \textbf{7.00} & 0.00 & 0.02  & 7.55 & 0.50 & 7.49 \\
+90 & 0.6  & 8 & 8  & \textbf{8.36} & 0.08 & 0.08  & 10.50 & 0.87 & 11.95 \\
+90 & 0.7  & 10 & 10  & \textbf{10.00} & 0.00 & 0.5   & 12.39 & 1.12 & 14.83 \\
+90 & 0.8  & 12 & 12  & \textbf{12.24} & 0.03 & 2.24   & 15.18 & 0.80 & 20.98 \\
+90 & 0.9  & 16 & 16  & \textbf{15.80} & 0.00 & 4.06   & 17.27 & 0.98 & 45.75 \\
 \hline
 
 \end{tabular}
