@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  16 JAN 2014 00:16
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  16 JAN 2014 01:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1533,51 +1533,45 @@ Underfull \hbox (badness 10000) in paragraph at lines 3--6
 
 
 ] [2] (./chapters/preliminaries.tex
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 9.
 
-Package natbib Warning: Citation `dipl' on page 3 undefined on input line 1.
-
-
-Package natbib Warning: Citation `lawler-01' on page 3 undefined on input line 
-5.
-
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 10.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/it' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 10.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 9.
  [3
 
 ] [4]
-Underfull \hbox (badness 10000) in paragraph at lines 52--53
+Underfull \hbox (badness 10000) in paragraph at lines 51--52
 
  []
 
 
-Overfull \hbox (18.18634pt too wide) in paragraph at lines 63--64
+Overfull \hbox (18.18634pt too wide) in paragraph at lines 62--63
 []\T1/ptm/m/it/10.95 A polynomial-time ap-prox-i-ma-tion scheme
  []
 
 [5] [6] [7]
-Overfull \hbox (0.3587pt too wide) in paragraph at lines 215--216
+Overfull \hbox (0.3587pt too wide) in paragraph at lines 214--215
 []\T1/ptm/m/it/10.95 A truth as-sign-ment is a sat-is-fy-ing as-sign-ment if it
  makes
  []
 
 [8]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 242.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 241.
 
 Underfull \vbox (badness 1735) has occurred while \output is active []
 
  [9]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <8> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 248.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 247.
 
 [10]
 \du=\skip213
 
-Underfull \hbox (badness 10000) in paragraph at lines 447--448
+Underfull \hbox (badness 10000) in paragraph at lines 446--447
 
  []
 
@@ -1605,7 +1599,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 287--289
 
  []
 
-<figures/pcp.png, id=448, 1252.68pt x 638.385pt>
+<figures/pcp.png, id=450, 1252.68pt x 638.385pt>
 File: figures/pcp.png Graphic file (type png)
  <use figures/pcp.png>
 Package pdftex.def Info: figures/pcp.png used on input line 292.
@@ -1615,7 +1609,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 302--303
 
  []
 
-[14 <./figures/pcp.png>] <figures/rwa.png, id=457, 1317.92375pt x 1096.095pt>
+[14 <./figures/pcp.png>] <figures/rwa.png, id=459, 1317.92375pt x 1096.095pt>
 File: figures/rwa.png Graphic file (type png)
 
 <use figures/rwa.png>
@@ -1671,7 +1665,7 @@ h the JDK com-piler ver-sion 1.7.025.
  []
 
 [33]
-Underfull \hbox (badness 10000) in paragraph at lines 17--18
+Underfull \hbox (badness 10000) in paragraph at lines 18--19
 
  []
 
@@ -1682,7 +1676,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 74--75
+Underfull \hbox (badness 10000) in paragraph at lines 75--76
 
  []
 
@@ -1697,7 +1691,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [35] [36]
-Underfull \hbox (badness 10000) in paragraph at lines 145--146
+Underfull \hbox (badness 10000) in paragraph at lines 146--147
 
  []
 
@@ -1720,7 +1714,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 397--433
+Underfull \hbox (badness 10000) in paragraph at lines 398--434
 [][]
  []
 
@@ -1728,7 +1722,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 397--433
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 438--474
+Underfull \hbox (badness 10000) in paragraph at lines 439--475
 [][]
  []
 
@@ -1736,7 +1730,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 438--474
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 479--515
+Underfull \hbox (badness 10000) in paragraph at lines 480--516
 [][]
  []
 
@@ -1770,7 +1764,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [37
 
 ] [38] [39] [40] [41] [42] [43] [44] [45] [46]
-Underfull \hbox (badness 10000) in paragraph at lines 850--882
+Underfull \hbox (badness 10000) in paragraph at lines 851--883
 [][]
  []
 
@@ -1783,17 +1777,17 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [47
 
 ] [48]
-Underfull \hbox (badness 10000) in paragraph at lines 1000--1001
+Underfull \hbox (badness 10000) in paragraph at lines 1001--1002
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1007--1043
+Underfull \hbox (badness 10000) in paragraph at lines 1008--1044
 [][]
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1047--1083
+Underfull \hbox (badness 10000) in paragraph at lines 1048--1084
 [][]
  []
 
@@ -1801,7 +1795,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1047--1083
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1087--1123
+Underfull \hbox (badness 10000) in paragraph at lines 1088--1124
 [][]
  []
 
@@ -1820,7 +1814,7 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [49
 
 ] [50] [51] [52]
-Underfull \hbox (badness 10000) in paragraph at lines 1253--1311
+Underfull \hbox (badness 10000) in paragraph at lines 1254--1312
 [][]
  []
 
@@ -1828,7 +1822,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1253--1311
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1316--1374
+Underfull \hbox (badness 10000) in paragraph at lines 1317--1375
 [][]
  []
 
@@ -1836,7 +1830,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 1316--1374
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1379--1436
+Underfull \hbox (badness 10000) in paragraph at lines 1380--1437
 [][]
  []
 
@@ -1853,12 +1847,12 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [53] [54] [55] [56] [57] [58]
-Underfull \hbox (badness 10000) in paragraph at lines 1627--1628
+Underfull \hbox (badness 10000) in paragraph at lines 1628--1629
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1629--1630
+Underfull \hbox (badness 10000) in paragraph at lines 1630--1631
 
  []
 
@@ -1886,9 +1880,6 @@ Class memoir Warning: The material used in the headers is too large
 either increase the head height or redesign the header
 (in both cases you will find help in the memoir manual). on input line 200.
 
-
-Package natbib Warning: There were undefined citations.
-
 [68]
 \tf@toc=\write6
 \openout6 = `thesis.toc'.
@@ -1907,10 +1898,10 @@ LaTeX Warning: There were multiply-defined labels.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 200.
  ) 
 Here is how much of TeX's memory you used:
- 22564 strings out of 494987
- 376972 string characters out of 3178575
- 998584 words of memory out of 3000000
- 24882 multiletter control sequences out of 15000+200000
+ 22562 strings out of 494987
+ 376960 string characters out of 3178575
+ 998590 words of memory out of 3000000
+ 24880 multiletter control sequences out of 15000+200000
  85339 words of font info for 107 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
  69i,24n,57p,1578b,1472s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1933,10 +1924,10 @@ s/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
 times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (80 pages, 948121 bytes).
+Output written on thesis.pdf (80 pages, 948020 bytes).
 PDF statistics:
- 1160 PDF objects out of 1200 (max. 8388607)
- 1037 compressed objects within 11 object streams
+ 1162 PDF objects out of 1200 (max. 8388607)
+ 1039 compressed objects within 11 object streams
  413 named destinations out of 1000 (max. 500000)
  273 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -2901,4 +2901,5 @@ Algorithm \ref{algo:tabusearch} outlines the procedure. The loops starting in li
 
 
 \subsection{Variant: protected recolored area}
-One implemented variant protects the set of clusters $Q$ that has been recolored recently from being changed for a defined number of iterations, intending to gain benefits from its optimal coloring in the future. That is realized by putting all node-color pairs of all clusters in $Q$ on the tabu list before the tabu search starts.
+There has also been implemented a variant of Tabu Search, specifically of its initialization process. The variation consists in putting all node-color pairs of the most recently recolored set of clusters $Q$ on the tabu list for a specified number of iterations. The idea behind this measure relies on the assumption that a coloring, which has been solved by a complex method minimizing the amount of conflicts, has a high chance to be part of a conflict free solution. Therefore, it should not be overwritten immediately. Tests have been performed to evaluate this approach in section \ref{sec:resultsss}.
+

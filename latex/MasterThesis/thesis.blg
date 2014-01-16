@@ -4,57 +4,44 @@ The top-level auxiliary file: thesis.aux
 A level-1 auxiliary file: titlepage.aux
 The style file: plain.bst
 Database file #1: pcp.bib
-Repeated entry---line 447 of file pcp.bib
- : @book{chiong-09
- :                ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 537 of file pcp.bib
- : @article{brelaz-79
- :                   ,
-I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "dipl"
-Warning--I didn't find a database entry for "lawler-01"
-Warning--empty journal in leitner-06
-Warning--empty publisher in matula-72
 You've used 46 entries,
             2118 wiz_defined-function locations,
-            756 strings with 10249 characters,
-and the built_in function-call counts, 13551 in all, are:
-= -- 1348
+            756 strings with 10258 characters,
+and the built_in function-call counts, 13547 in all, are:
+= -- 1355
 > -- 572
-< -- 6
+< -- 5
 + -- 238
 - -- 180
-* -- 855
-:= -- 2325
-add.period$ -- 150
+* -- 851
+:= -- 2331
+add.period$ -- 151
 call.type$ -- 46
-change.case$ -- 222
+change.case$ -- 223
 chr.to.int$ -- 0
-cite$ -- 48
-duplicate$ -- 544
-empty$ -- 1090
+cite$ -- 46
+duplicate$ -- 542
+empty$ -- 1087
 format.name$ -- 180
-if$ -- 2841
+if$ -- 2843
 int.to.chr$ -- 0
 int.to.str$ -- 46
-missing$ -- 54
+missing$ -- 53
 newline$ -- 239
 num.names$ -- 92
-pop$ -- 227
+pop$ -- 222
 preamble$ -- 1
 purify$ -- 182
 quote$ -- 0
-skip$ -- 369
+skip$ -- 366
 stack$ -- 0
 substring$ -- 758
-swap$ -- 82
-text.length$ -- 6
+swap$ -- 81
+text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 158
-warning$ -- 2
+warning$ -- 0
 while$ -- 127
 width$ -- 48
-write$ -- 515
-(There were 2 error messages)
+write$ -- 519

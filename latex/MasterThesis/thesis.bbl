@@ -157,7 +157,8 @@ E.L. Lawler.
 M.~Leitner.
 \newblock Solving two generalized network design problems with exact and
   heuristic methods.
-\newblock May 2006.
+\newblock Master's thesis, Vienna University of Technology, Institute of
+  Computer Graphics and Algorithms, Vienna, Austria, May 2006.
 \newblock Supervised by G. Raidl and B. Hu.
 
 \bibitem{li-00}
@@ -174,8 +175,8 @@ V.~Campos M.~Campelo and R.~Correa.
 
 \bibitem{matula-72}
 D.~Matula, G.~Marble, and J.~Isaacson.
-\newblock {\em Graph Coloring Algorithms}, volume~10.
-\newblock 1972.
+\newblock {\em Graph Coloring Algorithms}.
+\newblock Graph Theory and Computing. Academic Press, New York, 1972.
 
 \bibitem{trick-96}
 A.~Mehrotra and M.~A. Trick.
