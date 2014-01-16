@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  16 JAN 2014 01:55
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012/Debian) (format=pdflatex 2013.10.1)  16 JAN 2014 15:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1561,14 +1561,10 @@ Overfull \hbox (0.3587pt too wide) in paragraph at lines 214--215
 [8]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 241.
-
-Underfull \vbox (badness 1735) has occurred while \output is active []
-
  [9]
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <8> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 247.
-
-[10]
+ [10]
 \du=\skip213
 
 Underfull \hbox (badness 10000) in paragraph at lines 446--447
@@ -1578,11 +1574,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 446--447
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-Underfull \vbox (badness 2653) has occurred while \output is active []
-
- [11])
-[12] (./chapters/problem_definition.tex
+[11]) [12] (./chapters/problem_definition.tex
 Underfull \hbox (badness 10000) in paragraph at lines 283--286
 
  []
@@ -1599,7 +1591,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 287--289
 
  []
 
-<figures/pcp.png, id=450, 1252.68pt x 638.385pt>
+<figures/pcp.png, id=451, 1252.68pt x 638.385pt>
 File: figures/pcp.png Graphic file (type png)
  <use figures/pcp.png>
 Package pdftex.def Info: figures/pcp.png used on input line 292.
@@ -1609,7 +1601,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 302--303
 
  []
 
-[14 <./figures/pcp.png>] <figures/rwa.png, id=459, 1317.92375pt x 1096.095pt>
+[14 <./figures/pcp.png>] <figures/rwa.png, id=460, 1317.92375pt x 1096.095pt>
 File: figures/rwa.png Graphic file (type png)
 
 <use figures/rwa.png>
@@ -1636,14 +1628,14 @@ Underfull \vbox (badness 1817) has occurred while \output is active []
 
 ] [25]
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10.95> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 2198.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 2196.
 
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [26] [27]
-Underfull \hbox (badness 10000) in paragraph at lines 2292--2294
+Underfull \hbox (badness 10000) in paragraph at lines 2290--2292
 
  []
 
@@ -1651,7 +1643,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 2292--2294
 
 ]
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 2894.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 2892.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -1900,7 +1892,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 200.
 Here is how much of TeX's memory you used:
  22562 strings out of 494987
  376960 string characters out of 3178575
- 998590 words of memory out of 3000000
+ 998608 words of memory out of 3000000
  24880 multiletter control sequences out of 15000+200000
  85339 words of font info for 107 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -1924,7 +1916,7 @@ s/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/
 times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on thesis.pdf (80 pages, 948020 bytes).
+Output written on thesis.pdf (80 pages, 948083 bytes).
 PDF statistics:
  1162 PDF objects out of 1200 (max. 8388607)
  1039 compressed objects within 11 object streams

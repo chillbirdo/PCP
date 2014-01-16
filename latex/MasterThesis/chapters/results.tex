@@ -1001,7 +1001,7 @@ When comparing the different recoloring algorithms in terms of the chromatic num
 As discussed in section \ref{sec:recoloring}, variants for both ILPs have been created by removing the inequation that restricts conflicts inside the recolored set of clusters. In tables \ref{tab:pcpn90p7ILPVariant} to \ref{tab:pcpn120ILPVariant} the standard ILPs marked as $ILP1$ and $ILP2$ are compared to their variants $ILP1*$ and $ILP2*$ by evaluating three instances of different size as well as three instances of different density. It can be seen that removing the aforementioned constraint does not increase the solution quality.\\
 
 
-Furthermore experiments have been performed, placing the recently recolored set of clusters on the tabu list for a specified number of iterations (see \ref{sec:recoloring}). In tables \ref{tab:pcpn90p7RecoloredTT} to \ref{tab:pcpn120RecoloredTT} sets diversing in size and density have been evaluated fixing $ItMax=5$. The parameter $TTRecolored$ sets the number of iterations as $Tabusize=TTRecolored\cdot C'$ for the set of node-color pairs of the recolored set of clusters to remain on the tabu list. Again, no significant impacts on the final results can be observed by applying this kind of variation.
+Furthermore experiments have been performed, placing the recently recolored set of clusters on the tabu list for a specified number of iterations (see \ref{sec:recoloring}). In tables \ref{tab:pcpn90p7RecoloredTT} to \ref{tab:pcpn120RecoloredTT} sets diversing in size and density have been evaluated fixing $ItMax=5$. The parameter $TTRecolored$ sets the number of iterations as $Tabusize=TTRecolored\cdot C'$ for the set of node-color pairs of the recolored set of clusters to remain on the tabu list. Please note that the tables examine the influence of the parameter $TTRecolored$ to the chromatic number, so runs using the same recoloring algorithm and the same values for $TabuTenure$ are compared to each other and highlighted accordingly.\\Again, no significant impacts on the final results can be observed by applying this kind of variation.
 
       \begin{table}[h]
       \caption{ILP variants compared on a set of 5 instances with $90$ nodes and a density of $0.7$ each.}
@@ -1670,7 +1670,7 @@ In table \ref{tab:inCompared} results are compared to results presented in \cite
 90 & 0.6  & 8 & 8  & \textbf{8.36} & 0.08 & 0.08  & 10.50 & 0.87 & 11.95 \\
 90 & 0.7  & 10 & 10  & \textbf{10.00} & 0.00 & 0.5   & 12.39 & 1.12 & 14.83 \\
 90 & 0.8  & 12 & 12  & \textbf{12.24} & 0.03 & 2.24   & 15.18 & 0.80 & 20.98 \\
-90 & 0.9  & 16 & 16  & \textbf{15.80} & 0.00 & 4.06   & 17.27 & 0.98 & 45.75 \\
+90 & 0.9  & 15 & 16  & \textbf{15.80} & 0.00 & 4.06   & 17.27 & 0.98 & 45.75 \\
 \hline
 
 \end{tabular}

@@ -5,9 +5,9 @@
 \contentsline {section}{\numberline {2.1}Optimization Problems and Complexity}{3}{section.2.1}
 \contentsline {section}{\numberline {2.2}Graph Theory Definitions}{6}{section.2.2}
 \contentsline {section}{\numberline {2.3}Metaheuristics}{9}{section.2.3}
-\contentsline {subsection}{Basic Local Search}{10}{section*.5}
+\contentsline {subsection}{Basic Local Search}{9}{section*.5}
 \contentsline {subsection}{Tabu Search}{11}{section*.6}
-\contentsline {section}{\numberline {2.4}Integer Linear Programming}{12}{section.2.4}
+\contentsline {section}{\numberline {2.4}Integer Linear Programming}{11}{section.2.4}
 \contentsline {chapter}{\chapternumberline {3}Problem Definition}{13}{chapter.3}
 \contentsline {section}{\numberline {3.1}Standard Vertex Coloring Problem}{13}{section.3.1}
 \contentsline {section}{\numberline {3.2}Partition Coloring Problem}{13}{section.3.2}
