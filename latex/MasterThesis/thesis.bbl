@@ -3,13 +3,12 @@
 \bibitem{andersen-07}
 R.~Andersen.
 \newblock Finding large and small dense subgraphs.
-\newblock Cornell University Library, http://arxiv.org/abs/cs/0702032, February
-  2007.
+\newblock Cornell University Library, http://arxiv.org/abs/cs/0702032, 2007.
 
 \bibitem{asahiro-02}
 Y.~Asahiro, R.~Hassin, and K.~Iwama.
 \newblock Complexity of finding dense subgraphs.
-\newblock {\em Discrete Applied Mathematics}, 121:15–26, 2002.
+\newblock {\em Discrete Applied Mathematics}, 121:15--26, 2002.
 
 \bibitem{asahiroa-00}
 Y.~Asahiroa, K.~Iwamab, H.~Tamakic, and T.~Tokuyamad.
@@ -27,8 +26,7 @@ L.~Belgacem, I.~Charon, and O.~Hudry.
 C.~Blum and A.~Roli.
 \newblock Metaheuristics in combinatorial optimization: Overview and conceptual
   comparison.
-\newblock {\em ACM Computing Surveys}, 35, 2003.
-\newblock 268--308.
+\newblock {\em ACM Computing Surveys}, 35:268--308, 2003.
 
 \bibitem{brelaz-79}
 D.~Br{\'e}laz.
@@ -40,15 +38,14 @@ M.~Campelo, V.~Campos, R.~Correa, and C.~Rodrigues.
 \newblock On fractional and integral chromatic numbers of a graph via cutting
   and pricing.
 \newblock {\em Proceedings of Fifth ALIO/EURO Conference on Combinatorial
-  Optimization}, page 42–42, 2005.
+  Optimization}, page~42, 2005.
 
 \bibitem{charikar-00}
 M.~Charikar.
 \newblock Greedy approximation algorithms for finding dense components in a
   graph.
 \newblock {\em Lecture Notes in Computer Science}, 1913:84--95, 2000.
-\newblock Third International Workshop, APPROX 2000 Saarbrücken, Germany,
-  September 5–8, 2000 Proceedings.
+\newblock Third International Workshop, APPROX 2000 Saarbrücken, Germany.
 
 \bibitem{chiong-09}
 R.~Chiong.
@@ -58,12 +55,12 @@ R.~Chiong.
 \bibitem{campelo-04}
 Y.~Corrêa and M.~Campelo.
 \newblock Cliques, holes and the vertex coloring polytope.
-\newblock {\em Information Processing Letters}, 89(4):159--164, February 2004.
+\newblock {\em Information Processing Letters}, 89(4):159--164, 2004.
 
 \bibitem{erlebach-01}
 T.~Erlebach and K.~Jansen.
 \newblock The complexity of path coloring and call scheduling.
-\newblock {\em Theoretical Computer Science}, 255:33--50, March 2001.
+\newblock {\em Theoretical Computer Science}, 255:33--50, 2001.
 
 \bibitem{feige-97}
 U.~Feige, G.~Kortsarz, and D.~Peleg.
@@ -73,15 +70,14 @@ U.~Feige, G.~Kortsarz, and D.~Peleg.
 \bibitem{feremans-03}
 C.~Feremans.
 \newblock Generalized network design problems.
-\newblock {\em European Journal of Operational Research}, 148:1--13, July 2003.
+\newblock {\em European Journal of Operational Research}, 148:1--13, 2003.
 
 \bibitem{fritz-11}
 G.~Fritz.
 \newblock Heuristic methods for the hop constrained survivable network design
   problem.
 \newblock Master's thesis, Vienna University of Technology, Institute of
-  Computer Graphics and Algorithms, Vienna, Austria, September 2011.
-\newblock Supervised by G. Raidl and S. Pirkwieser.
+  Computer Graphics and Algorithms, Vienna, Austria, 2011.
 
 \bibitem{frota-07}
 Y.~Frota, N.~Maculan, T.~F. Noronha, and C.~C. Ribeiro.
@@ -93,7 +89,7 @@ M.~R. Garey and D.~S. Johnson.
 \newblock {\em Computers and Intractability: A Guide to the Theory of
   NP-Completeness}.
 \newblock Series of Books in the Mathematical Sciences. W. H. Freeman and
-  Company, first edition, January 1979.
+  Company, first edition, 1979.
 
 \bibitem{gaume-10}
 B.~Gaume, E.~Navarro, and H.~Prade.
@@ -106,8 +102,7 @@ P.~Gebhard.
 \newblock The vehicle routing problem with compartments based on solutions of
   lp-relaxations.
 \newblock Master's thesis, Vienna University of Technology, Institute of
-  Computer Graphics and Algorithms, Vienna, Austria, October 2012.
-\newblock Supervised by G. Raidl and S. Pirkwieser.
+  Computer Graphics and Algorithms, Vienna, Austria, 2012.
 
 \bibitem{gendreau-10}
 M.~Gendreau.
@@ -119,7 +114,7 @@ M.~Gendreau.
 F.~Glover.
 \newblock Future paths for integer programming and links to artificial
   intelligence.
-\newblock {\em Cambridge University Press}, 13:533–549, 1986.
+\newblock {\em Cambridge University Press}, 13:533--549, 1986.
 
 \bibitem{glover-96}
 F.~Glover, M.~Parker, and J.~Ryan.
@@ -146,7 +141,7 @@ S.~Khuller and B.~Saha.
 R.~M. Krishnaswamy and K.~N. Sivarajan.
 \newblock Algorithms for routing and wavelength assignment based on solutions
   of lp-relaxations.
-\newblock {\em IEEE Communication Letters}, 5(10), October 2001.
+\newblock {\em IEEE Communication Letters}, 5(10), 2001.
 
 \bibitem{lawler-76}
 E.L. Lawler.
@@ -158,8 +153,7 @@ M.~Leitner.
 \newblock Solving two generalized network design problems with exact and
   heuristic methods.
 \newblock Master's thesis, Vienna University of Technology, Institute of
-  Computer Graphics and Algorithms, Vienna, Austria, May 2006.
-\newblock Supervised by G. Raidl and B. Hu.
+  Computer Graphics and Algorithms, Vienna, Austria, 2006.
 
 \bibitem{li-00}
 G.~Li and R.~Simha.
@@ -185,10 +179,10 @@ A.~Mehrotra and M.~A. Trick.
 
 \bibitem{Meindl-12}
 B.~Meindl and M.~Templ.
-\newblock Meindl-12.
+\newblock Analysis of commercial and free and open source solvers for linear
+  optimization problems.
 \newblock Technical report, Institut f. Statistik u.
-  Wahrscheinlichkeitstheorie, Technical University of Vienna, 1040 Wien,
-  Wiedner Hauptstr. 8-10/107, Vienna, Austra, March 2012.
+  Wahrscheinlichkeitstheorie, Technical University of Vienna, 2012.
 
 \bibitem{murthy-02}
 C.~S.~Ram Murthy and M.~Gurusamy.
@@ -220,7 +214,7 @@ I.~H. Osman and G.~Laporte.
 \bibitem{papadimitriou-94}
 C.~M. Papadimitriou.
 \newblock {\em Computational Complexity}.
-\newblock Addison Wesley Pub Co Inc., November 1993.
+\newblock Addison Wesley Pub Co Inc., 1993.
 
 \bibitem{pardalos-02}
 P.~Pardalos and H.~Romeijn.
@@ -243,8 +237,7 @@ P.~C.\ Pop, B.~Hu, and G.~R.\ Raidl.
 C.-D. Volko.
 \newblock Selective graph coloring problem.
 \newblock Master's thesis, Vienna University of Technology, Institute of
-  Computer Graphics and Algorithms, April 2013.
-\newblock Supervised by G. Raidl and B. Hu.
+  Computer Graphics and Algorithms, 2013.
 
 \bibitem{wegener-05}
 I.~Wegener.
@@ -256,7 +249,7 @@ I.~Wegener.
 D.~Welsh and M.~Powell.
 \newblock An upper bound to the chromatic number of a graph and its application
   to time-table problems.
-\newblock {\em Oxford Journal on Computer Science}, pages 85,86, 1967.
+\newblock {\em Oxford Journal on Computer Science}, pages 85--86, 1967.
 
 \bibitem{williamson-10}
 D.~P. Williamson and D.~B. Shmoys.

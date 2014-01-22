@@ -1630,11 +1630,11 @@ The results of $\mathit{Hybrid-PCP}$ are compared to those of \cite{frota-07} an
 In table \ref{tab:inCompared} results are compared to results presented in \cite{noronha-06}. The table shows, that for instances of smaller size and for a smaller local search iteration limit the strategy of this theses is superior. The largest instance with $2000$ nodes is solved better by the strategy of Noronha et.al. \\
 
 \begin{table}[h]
-\caption{Instances of different node size evaluated with $\mathit{RANDOM}$ recoloring and compared to the results presented in \cite{pop-13}.}
+\caption{Instances of different node size compared to the results presented in \cite{pop-13}.}
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{|l|l||l|l||l|l|l||l|l|l|}
 \hline
-\multicolumn{2}{|l||}{Instance set}&\multicolumn{2}{l||}{B \& C}&\multicolumn{3}{l||}{HYBRID-PCP)}&\multicolumn{3}{|l|}{MA2}\\
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{2}{l||}{B \& C}&\multicolumn{3}{l||}{HYBRID-PCP}&\multicolumn{3}{|l|}{MA2}\\
 \cline{1-10}
  nodes & density & LB & UB  & $\overline{obj}$ & $sd$ & $\overline{time(s)}$  & $\overline{obj}$ & $sd$ & $\overline{time(s)}$\\
 \hline
@@ -1654,11 +1654,11 @@ In table \ref{tab:inCompared} results are compared to results presented in \cite
 
 
 \begin{table}[h]
-\caption{Instances with 90 nodes and of different density evaluated with $\mathit{RANDOM}$ recoloring and compared to the results presented in \cite{pop-13}.}
+\caption{Instances with 90 nodes and of different density compared to the results presented in \cite{pop-13}.}
  \resizebox{\columnwidth}{!}{%
 \begin{tabular}{|l|l||l|l||l|l|l||l|l|l|}
 \hline
-\multicolumn{2}{|l||}{Instance set}&\multicolumn{2}{l||}{B \& C}&\multicolumn{3}{l||}{HYRBID-PCP)}&\multicolumn{3}{|l|}{MA2}\\
+\multicolumn{2}{|l||}{Instance set}&\multicolumn{2}{l||}{B \& C}&\multicolumn{3}{l||}{HYRBID-PCP}&\multicolumn{3}{|l|}{MA2}\\
 \cline{1-10}
  nodes & density & LB & UB  & $\overline{obj}$ & $sd$ & $\overline{time(s)}$  & $\overline{obj}$ & $sd$ & $\overline{time(s)}$\\
 \hline
@@ -1680,12 +1680,12 @@ In table \ref{tab:inCompared} results are compared to results presented in \cite
 
 
       \begin{table}[h]
-      \caption{The four large instances evaluated with $\mathit{RANDOM}$ recoloring and compared to the results presented in \cite{noronha-06}.}
+      \caption{The four large instances and compared to the results presented in \cite{noronha-06}.}
       \resizebox{\columnwidth}{!}{%
       \begin{tabular}{|l|l||l|l||l|l||l|l||l|l|}\hline
       \multicolumn{2}{|l||}{Parameters}&\multicolumn{2}{|l||}{DSJC500.5-1}&\multicolumn{2}{|l||}{DSJC500.5-2}&\multicolumn{2}{|l||}{DSJC500.5-3}&\multicolumn{2}{|l|}{DSJC500.5-4}\\
       \cline{1-10}
-      ItMax & TabuTenure & Random & Noronha & Random & Noronha & Random & Noronha & Random & Noronha\\
+      ItMax & TabuTenure & Hybrid & Noronha & Hybrid & Noronha & Hybrid & Noronha & Hybrid & Noronha\\
       \hline
       \multirow{6}{*}{1}
        & $U[0.25C',0.75C']$ & \textbf{53.0} & 53.5 	& \textbf{47.6} & 47.8 		& 45.0 & \textbf{44.8} 		& \textbf{43.4} & 43.5\\
