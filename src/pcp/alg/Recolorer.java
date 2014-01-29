@@ -11,10 +11,16 @@ import pcp.model.NodeColorInfo;
 import pcp.model.NodeColorInfoIF;
 import test.pcp.coloring.ColoringTest;
 
+/*
+ * handles recoloring processes
+ */
 public class Recolorer {
 
     private static final Logger logger = Logger.getLogger(Recolorer.class.getName());
 
+    /*
+     * recolors unselected nodes of c randomly
+     */
     public static int randomRecoloringPerformOnUnselected( Coloring c){
         int conflicts = 0;
         while (c.getUnselectedNCIs().size() > 0) {

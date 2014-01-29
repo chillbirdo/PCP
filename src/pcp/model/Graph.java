@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+/*
+ * simple datastructure to store graph information
+ */
 public class Graph {
     private static final Logger logger = Logger.getLogger( Graph.class.getName());
     

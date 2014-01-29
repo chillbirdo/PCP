@@ -5,6 +5,9 @@ import java.util.logging.Logger;
 import pcp.PCP;
 import pcp.model.Node;
 
+/*
+ * mostly redundant to ColorInfo, but holds special information used for DANGER only
+ */
 public class NodeColorInfoDanger implements NodeColorInfoIF, Comparable<NodeColorInfoDanger> {
 
     private static final Logger logger = Logger.getLogger(NodeColorInfoDanger.class.getName());

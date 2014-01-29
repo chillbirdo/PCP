@@ -2,13 +2,14 @@ package pcp.alg;
 
 import java.util.Collection;
 import java.util.logging.Logger;
-import pcp.model.Coloring;
 import pcp.model.ColoringDanger;
 import pcp.model.NodeColorInfoDanger;
 import pcp.model.Graph;
 import pcp.model.NodeColorInfoIF;
-import test.pcp.coloring.ColoringTest;
 
+/*
+ * implements the DANGER algorithm and methods for caluclating an initial solution
+ */
 public class Danger {
 
     private static final Logger logger = Logger.getLogger(Danger.class.getName());

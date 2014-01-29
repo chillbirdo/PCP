@@ -70,7 +70,7 @@ public class PCP {
                     couldReduceColors = true;
                     break;
                 }
-                if (TabuSearch.start2(cc, tabuSizeMinFactor, tabuSizeMaxFactor, maxIterations, recoloredTabuSizeFactor)) {
+                if (TabuSearch.start(cc, tabuSizeMinFactor, tabuSizeMaxFactor, maxIterations, recoloredTabuSizeFactor)) {
                     c = cc;
                     couldReduceColors = true;
                     break;

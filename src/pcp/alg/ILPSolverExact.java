@@ -11,6 +11,9 @@ import pcp.model.Node;
 import pcp.model.NodeColorInfo;
 import pcp.model.NodeColorInfoIF;
 
+/*
+ * implements a very simple formulation to solve the PCP exact
+ */
 public class ILPSolverExact {
 
     private static final Logger logger = Logger.getLogger(ILPSolver2.class.getName());

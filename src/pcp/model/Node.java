@@ -3,6 +3,9 @@ package pcp.model;
 import java.util.logging.Logger;
 import pcp.tools.MergeSort;
 
+/*
+ * simple datastructure to store node information
+ */
 public class Node {
 
     private static final Logger logger = Logger.getLogger(Node.class.getName());

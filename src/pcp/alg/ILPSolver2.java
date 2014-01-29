@@ -10,15 +10,19 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 import pcp.model.Coloring;
+import pcp.model.ColoringIF;
 import pcp.model.Node;
 import pcp.model.NodeColorInfo;
 import pcp.model.NodeColorInfoIF;
 
+/*
+ * implements seconds ILP model, minimizing conflicting nodes
+ */
 public class ILPSolver2 {
 
     private static final Logger logger = Logger.getLogger(ILPSolver2.class.getName());
 
-    public static int performOnUnselected(Coloring cc, boolean coloringRestrition) {
+    public static int performOnUnselected(ColoringIF cc, boolean coloringRestrition) {
 
         int result = 0;
 
@@ -156,7 +160,7 @@ public class ILPSolver2 {
                             if (Math.round(val[j]) == 1) {
                                 int partition = xPartitionToRealPartition(p, unSelectedPartitionMapping);
                                 Node n = cc.getGraph().getNodeOfPartition(partition, v);
-                                NodeColorInfo nci = cc.getNciById(n.getId());
+                                NodeColorInfoIF nci = cc.getNciById(n.getId());
                                 logger.finest("ILP: coloring node " + nci.getNode().getId() + " with color " + j);
                                 cc.selectNci(nci);
                                 cc.colorNci(nci, j);

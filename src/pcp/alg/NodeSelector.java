@@ -1,6 +1,5 @@
 package pcp.alg;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -12,6 +11,9 @@ import pcp.model.Node;
 import pcp.model.NodeColorInfoDanger;
 import pcp.model.NodeColorInfoIF;
 
+/*
+ * handles different issues regarding node selections
+ */
 public class NodeSelector {
 
     private static final Logger logger = Logger.getLogger(NodeSelector.class.getName());
@@ -20,6 +22,7 @@ public class NodeSelector {
 
     /*
      * implementation of own algorithm to select one node for each cluster
+     * this is only used as preceding algorithm to DANGER
      */
     public static void greedyMinDegree(ColoringDanger c, Double pks, Double pku) {
         double ks = NodeSelector.ks;
@@ -60,6 +63,9 @@ public class NodeSelector {
         }
     }
 
+    /*
+     * unselects all nodes in c colored with color color
+     */
     public static void unselectAllNcisOfColor( ColoringIF c, int color) {
         logger.finest("unselecting all nodes of color " + color);
         for (Iterator<NodeColorInfoIF> it = c.getSelectedColoredNCIs().iterator(); it.hasNext();) {
@@ -74,6 +80,9 @@ public class NodeSelector {
         }
     }
 
+    /*
+     * selects nodes randomly until one node for each partition is selected
+     */
     public static void randomSelect(ColoringIF coloring) {
         Graph g = coloring.getGraph();
         for (int i = 0; i < g.getPartitionAmount(); i++) {

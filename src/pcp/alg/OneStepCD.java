@@ -8,12 +8,15 @@ import pcp.model.Node;
 import pcp.model.NodeColorInfo;
 import pcp.model.NodeColorInfoIF;
 
+/*
+ * implements the OneStepCD heuristic proposed by Li and Simha
+ */
 public class OneStepCD {
 
     private static final Logger logger = Logger.getLogger(OneStepCD.class.getName());
 
     /*
-     * this method selects and colors all unselected NCIs of Coloring c
+     * selects and colors all unselected NCIs of Coloring c
      * returns number of conflicts
      */
     public static int performOnUnselected(Coloring c) {

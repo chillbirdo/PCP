@@ -12,10 +12,16 @@ import pcp.model.Node;
 import pcp.model.NodeColorInfo;
 import pcp.model.NodeColorInfoIF;
 
+/*
+ * Implements first ILP model that minimized conflicts
+ */
 public class ILPSolver {
 
     private static final Logger logger = Logger.getLogger(ILPSolver.class.getName());
 
+    /*
+     * colors unselected nodes in cc
+     */
     public static int performOnUnselected(ColoringIF cc, boolean coloringRestriction) {
 
         int result = 0;

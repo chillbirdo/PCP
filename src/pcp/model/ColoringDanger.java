@@ -11,6 +11,12 @@ import pcp.PCP;
 import pcp.model.Graph;
 import pcp.model.Node;
 
+/*
+ * mostly redundant to Coloring, but implements complex mechanisms to update
+ * information relevant to coloring
+ * note: this class has so far been used to create initial colorings only. the case
+ *       when a node is uncolored and unselected is not handled correctly yet.
+ */
 public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
 
     private static final Logger logger = Logger.getLogger(ColoringDanger.class.getName());

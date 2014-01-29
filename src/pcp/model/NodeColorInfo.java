@@ -5,6 +5,9 @@ import java.util.logging.Logger;
 import pcp.PCP;
 import pcp.model.Node;
 
+/*
+ * simple datastructure to hold colorinformation related to a node
+ */
 public class NodeColorInfo implements NodeColorInfoIF, Comparable<NodeColorInfo>{
 
     private static final Logger logger = Logger.getLogger(NodeColorInfo.class.getName());
