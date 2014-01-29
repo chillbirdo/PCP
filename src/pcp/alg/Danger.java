@@ -100,26 +100,36 @@ public class Danger {
         return chosenColor;
     }
     
-    
+    /*
+     * calculates initial solution using OneStepCD to get a first solution and then try
+     * to decrease the chromatic number one by one
+     */
     public static ColoringDanger calcInitialColoringHybrid(Graph g, double ks, double ku) {
         logger.info("Calculating initial solution..");
 
         ColoringDanger c = new ColoringDanger(OneStepCD.calcInitialColoring(g));
-        int chromatic = OneStepCD.calcInitialColoring(g).getChromatic();
-        NodeSelector.greedyMinDegree(c, ks, ku);
+        int chromatic = c.getChromatic();
 
-        int count = 1;
-        while( Danger.applyColoringDanger(c, chromatic)){
+        boolean reduced = false;
+        do{
+            reduced = false;
             chromatic--;
-            count++;
-        }
-
+            ColoringDanger c2 = new ColoringDanger(g);
+            c2.initColorArrayOfEachNci(chromatic);
+            NodeSelector.greedyMinDegree(c2, ks, ku);
+            reduced = Danger.applyColoringDanger(c2, chromatic);
+            if( reduced){
+                c = c2;
+            }
+        }while( reduced);
+        
         return c;
     }
     
     
     /*
-     * calculates initial solution
+     * calculates initial solution, starting with the chromatic number of the highest degree
+     * and using binary search to find lower bound
      */
     public static ColoringDanger calcInitialColoring(Graph g, double ks, double ku) {
         logger.info("Calculating initial solution..");

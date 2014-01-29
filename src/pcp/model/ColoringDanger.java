@@ -76,6 +76,21 @@ public class ColoringDanger implements ColoringIF, Comparable<ColoringIF> {
         }
     }
 
+    /*
+     * copy constructor
+     */
+    public ColoringDanger(Coloring c) {
+        this(c.getGraph());
+        this.initColorArrayOfEachNci(c.getChromatic());
+        for( NodeColorInfoIF nci : c.getSelectedColoredNCIs()){
+            int id = nci.getNode().getId();
+            this.selectNci(this.getNciById(id));
+            this.colorNci(this.getNciById(id), nci.getColor());
+        }
+    }
+    
+    
+    
     public void initColorArrayOfEachNci(int maxColors) {
         chromatic = maxColors;
         for (NodeColorInfoDanger nci : nodeColorInfo) {

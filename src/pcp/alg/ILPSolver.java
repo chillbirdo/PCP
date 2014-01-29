@@ -7,14 +7,16 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 import pcp.model.Coloring;
+import pcp.model.ColoringIF;
 import pcp.model.Node;
 import pcp.model.NodeColorInfo;
+import pcp.model.NodeColorInfoIF;
 
 public class ILPSolver {
 
     private static final Logger logger = Logger.getLogger(ILPSolver.class.getName());
 
-    public static int performOnUnselected(Coloring cc, boolean coloringRestriction) {
+    public static int performOnUnselected(ColoringIF cc, boolean coloringRestriction) {
 
         int result = 0;
 
@@ -45,7 +47,7 @@ public class ILPSolver {
             for (int v = 0; v < nodesInPartition.length; v++) {
                 Node n = nodesInPartition[v];
                 logger.finest("\tnode: " + n.getId());
-                NodeColorInfo nci = cc.getNciById(n.getId());
+                NodeColorInfoIF nci = cc.getNciById(n.getId());
                 mL[p].add(nci.getConflictArray());
             }
         }
@@ -152,7 +154,7 @@ public class ILPSolver {
                             if (Math.round(val[j]) == 1) {
                                 int partition = xPartitionToRealPartition(p, unSelectedPartitionMapping);
                                 Node n = cc.getGraph().getNodeOfPartition(partition, v);
-                                NodeColorInfo nci = cc.getNciById(n.getId());
+                                NodeColorInfoIF nci = cc.getNciById(n.getId());
                                 logger.finest("ILP: coloring node " + nci.getNode().getId() + " with color " + j);
                                 cc.selectNci(nci);
                                 cc.colorNci(nci, j);
